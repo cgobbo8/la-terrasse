@@ -1,0 +1,176 @@
+---
+/**
+ * HOMEPAGE — Narrative lieu-first
+ * 1. Hero = Saint-Ferréol, le lac, l'atmosphère
+ * 2. "3 façons de profiter" = les pôles
+ * 3. "Une journée à La Terrasse" = section créative immersive
+ * 4. Agenda / événements
+ * 5. CTA final
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHero from '@/components/common/SectionHero.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const poles = [
+  {
+    title: 'La Terrasse Restaurant',
+    description: 'Une cuisine simple, locale et gourmande à 30m du lac.',
+    href: getLocalizedPath('/restaurant', lang),
+    color: 'bg-restaurant-light',
+    accent: 'text-restaurant',
+    borderColor: 'border-restaurant/20',
+  },
+  {
+    title: 'La Terrasse Aventure',
+    description: 'Activités terrestres et aquatiques pour profiter de la nature.',
+    href: getLocalizedPath('/aventure', lang),
+    color: 'bg-aventure-light',
+    accent: 'text-aventure',
+    borderColor: 'border-aventure/20',
+  },
+  {
+    title: 'La Terrasse Événement',
+    description: 'Séminaires et événements dans un cadre naturel et inspirant.',
+    href: getLocalizedPath('/evenements', lang),
+    color: 'bg-evenements-light',
+    accent: 'text-bleu-ardoise',
+    borderColor: 'border-bleu-ardoise/20',
+  },
+];
+---
+
+<BaseLayout title="Accueil" description="La Terrasse — Restaurant, Aventure et Événements au lac de Saint-Ferréol">
+  <!-- 1. HERO — Le lieu -->
+  <SectionHero tagline={t('home.hero.tagline')} subtitle={t('home.hero.subtitle')}>
+    <div class="flex flex-wrap gap-4">
+      <a href={getLocalizedPath('/restaurant', lang)} class="bg-white text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+        {t('nav.restaurant')}
+      </a>
+      <a href={getLocalizedPath('/aventure', lang)} class="bg-white/20 text-white border border-white/30 px-6 py-3 rounded-lg font-medium hover:bg-white/30 transition-colors">
+        {t('nav.aventure')}
+      </a>
+      <a href={getLocalizedPath('/evenements', lang)} class="bg-white/20 text-white border border-white/30 px-6 py-3 rounded-lg font-medium hover:bg-white/30 transition-colors">
+        {t('nav.evenements')}
+      </a>
+    </div>
+  </SectionHero>
+
+  <!-- 2. TROIS FAÇONS DE PROFITER — Les pôles -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre text-center mb-12">
+        {t('home.poles.title')}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {poles.map((pole) => (
+          <a
+            href={pole.href}
+            class:list={[
+              'group block rounded-2xl border overflow-hidden transition-all hover:shadow-xl hover:-translate-y-1',
+              pole.color,
+              pole.borderColor,
+            ]}
+          >
+            <!-- Placeholder image -->
+            <div class:list={['aspect-[4/3]', pole.color]} />
+            <div class="p-6">
+              <h3 class:list={['font-heading text-xl font-bold mb-2', pole.accent]}>
+                {pole.title}
+              </h3>
+              <p class="text-gray-600 text-sm">{pole.description}</p>
+              <span class:list={['inline-block mt-4 text-sm font-medium group-hover:underline', pole.accent]}>
+                {t('common.discover')} →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. HISTOIRE — Le lieu comme 4ème personnage -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-brun-terre text-white">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
+        <!-- Texte -->
+        <div class="lg:col-span-3">
+          <h2 class="font-heading text-3xl lg:text-4xl font-bold mb-6">
+            {t('home.history.title')}
+          </h2>
+          <p class="text-xl text-white/90 font-medium mb-4">
+            {t('home.history.intro')}
+          </p>
+          <p class="text-white/70 leading-relaxed mb-6">
+            {t('home.history.body')}
+          </p>
+          <p class="text-white/80 leading-relaxed italic">
+            {t('home.history.closing')}
+          </p>
+        </div>
+        <!-- Image placeholder — future: photo historique du lac / de la digue -->
+        <div class="lg:col-span-2">
+          <div class="aspect-[3/4] rounded-2xl bg-white/10 flex items-center justify-center">
+            <span class="text-white/30 text-sm text-center px-4">Photo historique du lac de Saint-Ferréol</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. UNE JOURNÉE À LA TERRASSE — Pièce créative -->
+  <!-- TODO: Section immersive timeline (Svelte island pour interactivité) -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre text-center mb-12">
+        {t('home.dayTrip.title')}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        {[
+          { time: '10h', label: 'Activité nature', icon: '🌿' },
+          { time: '12h30', label: 'Déjeuner au bord du lac', icon: '🍽' },
+          { time: '14h30', label: 'Baignade ou paddle', icon: '🌊' },
+          { time: '19h', label: 'Dîner en terrasse', icon: '🌅' },
+        ].map((step, i) => (
+          <div class="text-center p-6">
+            <span class="text-3xl">{step.icon}</span>
+            <p class="font-heading font-bold text-brun-terre mt-3">{step.time}</p>
+            <p class="text-gray-600 text-sm mt-1">{step.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. AGENDA — Les rendez-vous -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre text-center mb-12">
+        {t('home.agenda.title')}
+      </h2>
+      <p class="text-center text-gray-400">Événements à venir — bientôt disponible</p>
+    </div>
+  </section>
+
+  <!-- 6. CTA FINAL -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-brun-terre text-white">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-3xl lg:text-4xl font-bold mb-8">
+        {t('home.cta.title')}
+      </h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href={getLocalizedPath('/restaurant', lang)} class="bg-white text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+          {t('nav.restaurant')}
+        </a>
+        <a href={getLocalizedPath('/aventure', lang)} class="border border-white/30 px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
+          {t('nav.aventure')}
+        </a>
+        <a href={getLocalizedPath('/evenements', lang)} class="border border-white/30 px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
+          {t('nav.evenements')}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

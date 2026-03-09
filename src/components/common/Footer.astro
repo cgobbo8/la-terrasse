@@ -1,0 +1,59 @@
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<footer class="bg-brun-terre text-white/80 py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+      <!-- Brand -->
+      <div class="md:col-span-1">
+        <span class="font-heading text-xl font-bold text-white">LA TERRASSE</span>
+        <p class="mt-2 text-sm text-white/60">
+          Base de loisirs de Saint-Ferréol
+        </p>
+      </div>
+
+      <!-- Poles -->
+      <div>
+        <h3 class="font-heading font-bold text-white text-sm uppercase tracking-wider mb-4">
+          {t('home.poles.title')}
+        </h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href={getLocalizedPath('/restaurant', lang)} class="hover:text-white transition-colors">{t('nav.restaurant')}</a></li>
+          <li><a href={getLocalizedPath('/aventure', lang)} class="hover:text-white transition-colors">{t('nav.aventure')}</a></li>
+          <li><a href={getLocalizedPath('/evenements', lang)} class="hover:text-white transition-colors">{t('nav.evenements')}</a></li>
+        </ul>
+      </div>
+
+      <!-- Transversal -->
+      <div>
+        <h3 class="font-heading font-bold text-white text-sm uppercase tracking-wider mb-4">
+          {t('common.discover')}
+        </h3>
+        <ul class="space-y-2 text-sm">
+          <li><a href={getLocalizedPath('/en-famille', lang)} class="hover:text-white transition-colors">{t('nav.enFamille')}</a></li>
+          <li><a href={getLocalizedPath('/en-groupe', lang)} class="hover:text-white transition-colors">{t('nav.enGroupe')}</a></li>
+          <li><a href={getLocalizedPath('/en-entreprise', lang)} class="hover:text-white transition-colors">{t('nav.enEntreprise')}</a></li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h3 class="font-heading font-bold text-white text-sm uppercase tracking-wider mb-4">
+          {t('common.contact')}
+        </h3>
+        <ul class="space-y-2 text-sm">
+          <li>Base de loisirs de Saint-Ferréol</li>
+          <li>31250 Revel</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-12 pt-8 border-t border-white/10 text-sm text-white/40 text-center">
+      &copy; {new Date().getFullYear()} La Terrasse — Base de loisirs de Saint-Ferréol
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,82 @@
+---
+/**
+ * RESTAURANT HUB — Brun terre
+ * Tone: sensoriel, chaleureux, contemplatif
+ * Hero: le moment vécu, pas le menu
+ * Entonnoir: envie d'y être → info → action
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHero from '@/components/common/SectionHero.astro';
+import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="Restaurant" description={t('restaurant.hero.subtitle')} pole="restaurant">
+  <!-- Hero — Vendre le moment, pas le menu -->
+  <SectionHero
+    tagline={t('restaurant.hero.tagline')}
+    subtitle={t('restaurant.hero.subtitle')}
+    pole="restaurant"
+  >
+    <div class="flex flex-wrap gap-4">
+      <a href={getLocalizedPath('/restaurant/carte', lang)} class="bg-white text-restaurant px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+        Voir la carte
+      </a>
+      <a href={getLocalizedPath('/contact', lang)} class="border border-white/30 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
+        {t('common.reserve')}
+      </a>
+    </div>
+  </SectionHero>
+
+  <!-- L'esprit du lieu — Section sensorielle (le "moment d'émotion" de cette page) -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-3xl font-bold text-restaurant mb-6">
+        Un moment à partager
+      </h2>
+      <p class="text-lg text-gray-600 leading-relaxed">
+        À 30 mètres du lac, la terrasse s'ouvre sur l'eau et la nature.
+        Ici, on prend le temps de déjeuner au soleil, de dîner entre amis,
+        de prolonger le repas par une balade au bord de l'eau ou une baignade digestive.
+      </p>
+    </div>
+  </section>
+
+  <!-- Sous-pages -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-restaurant-light">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <a href={getLocalizedPath('/restaurant/carte', lang)} class="block bg-white p-8 rounded-2xl hover:shadow-lg transition-all hover:-translate-y-1">
+          <h3 class="font-heading text-xl font-bold text-restaurant mb-2">La carte</h3>
+          <p class="text-gray-600 text-sm">Cuisine faite maison, produits locaux et de saison.</p>
+        </a>
+        <a href={getLocalizedPath('/restaurant/producteurs', lang)} class="block bg-white p-8 rounded-2xl hover:shadow-lg transition-all hover:-translate-y-1">
+          <h3 class="font-heading text-xl font-bold text-restaurant mb-2">{t('restaurant.producers.title')}</h3>
+          <p class="text-gray-600 text-sm">Des produits issus de producteurs du territoire.</p>
+        </a>
+        <a href={getLocalizedPath('/restaurant/repas-groupe', lang)} class="block bg-white p-8 rounded-2xl hover:shadow-lg transition-all hover:-translate-y-1">
+          <h3 class="font-heading text-xl font-bold text-restaurant mb-2">{t('restaurant.groups.title')}</h3>
+          <p class="text-gray-600 text-sm">{t('restaurant.groups.cta')}</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-sell contextuel narratif (Layer 2) -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-lg text-gray-500 italic">
+        Après le déjeuner, descendez au lac pour un paddle ou une balade à vélo.
+      </p>
+      <a href={getLocalizedPath('/aventure', lang)} class="inline-block mt-4 text-aventure font-medium hover:underline">
+        Découvrir les activités →
+      </a>
+    </div>
+  </section>
+
+  <!-- Cross-linking structurel (Layer 1) -->
+  <CrossLinkBlock currentPole="restaurant" />
+</BaseLayout>

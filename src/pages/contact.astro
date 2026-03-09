@@ -1,0 +1,41 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="Contact" description="Contactez La Terrasse — Base de loisirs de Saint-Ferréol">
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="font-heading text-4xl font-bold text-brun-terre mb-8">{t('common.contact')}</h1>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+        <!-- Infos -->
+        <div>
+          <h2 class="font-heading text-xl font-bold text-brun-terre mb-4">La Terrasse</h2>
+          <p class="text-gray-600 mb-2">Base de loisirs de Saint-Ferréol</p>
+          <p class="text-gray-600 mb-6">31250 Revel</p>
+
+          <div class="space-y-3">
+            <div>
+              <p class="text-sm font-medium text-gray-400">{t('common.phone')}</p>
+              <p class="text-brun-terre font-medium">— à compléter —</p>
+            </div>
+            <div>
+              <p class="text-sm font-medium text-gray-400">{t('common.email')}</p>
+              <p class="text-brun-terre font-medium">— à compléter —</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Form placeholder -->
+        <div class="bg-offwhite rounded-2xl p-8">
+          <h2 class="font-heading text-xl font-bold text-brun-terre mb-4">Écrivez-nous</h2>
+          <p class="text-gray-400 text-sm">Formulaire de contact — bientôt disponible</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

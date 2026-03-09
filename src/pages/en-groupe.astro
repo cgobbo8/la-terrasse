@@ -1,0 +1,49 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHero from '@/components/common/SectionHero.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="En Groupe" description={t('groupe.hero.tagline')}>
+  <SectionHero tagline={t('groupe.hero.tagline')} subtitle="Activités, repas et moments partagés pour associations, clubs et groupes d'amis">
+    <a href={getLocalizedPath('/contact', lang)} class="bg-white text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+      Organiser ma sortie
+    </a>
+  </SectionHero>
+
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl font-bold text-brun-terre text-center mb-12">
+        Une journée de groupe type
+      </h2>
+      <div class="space-y-8">
+        {[
+          { time: '9h30', title: 'Accueil du groupe', desc: 'Installation et briefing des activités de la journée.' },
+          { time: '10h00', title: 'Activité sportive ou ludique', desc: 'Archery tag, course d\'orientation, canoë... au choix selon le groupe.' },
+          { time: '12h30', title: 'Repas de groupe au restaurant', desc: 'Menu convivial avec produits locaux, adapté à la taille du groupe.' },
+          { time: '14h30', title: 'Deuxième activité ou temps libre', desc: 'Pédalo, paddle, mini-golf ou balade autour du lac.' },
+        ].map((step) => (
+          <div class="flex gap-6 items-start">
+            <span class="font-heading font-bold text-aventure text-lg min-w-16">{step.time}</span>
+            <div>
+              <h3 class="font-heading font-bold text-brun-terre">{step.title}</h3>
+              <p class="text-gray-600 text-sm mt-1">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite text-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-2xl font-bold text-brun-terre mb-6">Organisons votre journée</h2>
+      <a href={getLocalizedPath('/contact', lang)} class="bg-brun-terre text-white px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/90 transition-colors">
+        {t('common.contact')}
+      </a>
+    </div>
+  </section>
+</BaseLayout>

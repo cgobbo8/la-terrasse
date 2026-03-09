@@ -1,0 +1,49 @@
+---
+/**
+ * Hero section — used on every page as the emotional entry point.
+ * Adapts color accent based on the pole.
+ */
+interface Props {
+  tagline: string;
+  subtitle?: string;
+  pole?: 'restaurant' | 'aventure' | 'evenements' | null;
+  /** Optional background image path */
+  image?: string;
+}
+
+const { tagline, subtitle, pole = null, image } = Astro.props;
+
+const accentColors: Record<string, string> = {
+  restaurant: 'from-restaurant/80',
+  aventure: 'from-aventure/80',
+  evenements: 'from-bleu-ardoise/80',
+};
+
+const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-brun-terre/80';
+---
+
+<section class="relative overflow-hidden bg-brun-terre">
+  {image && (
+    <img
+      src={image}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+  )}
+  <div class:list={['absolute inset-0 bg-gradient-to-t to-transparent', overlayClass]} />
+
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-36">
+    <h1 class="font-heading text-4xl lg:text-6xl font-bold text-white max-w-3xl">
+      {tagline}
+    </h1>
+    {subtitle && (
+      <p class="mt-6 text-lg lg:text-xl text-white/80 max-w-2xl">
+        {subtitle}
+      </p>
+    )}
+    <div class="mt-8">
+      <slot />
+    </div>
+  </div>
+</section>

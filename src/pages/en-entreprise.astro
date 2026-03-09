@@ -1,0 +1,56 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHero from '@/components/common/SectionHero.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="En Entreprise" description={t('entreprise.hero.tagline')}>
+  <SectionHero tagline={t('entreprise.hero.tagline')} subtitle="Séminaire, repas d'équipe et activités de cohésion au lac de Saint-Ferréol" pole="evenements">
+    <a href={getLocalizedPath('/contact', lang)} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+      Demander un devis
+    </a>
+  </SectionHero>
+
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl font-bold text-bleu-ardoise text-center mb-12">
+        Une journée d'entreprise type
+      </h2>
+      <div class="space-y-8">
+        {[
+          { time: '9h00', title: 'Accueil café', desc: 'Installation dans la salle de séminaire, café et viennoiseries.' },
+          { time: '9h30', title: 'Session de travail', desc: 'Réunion, formation ou atelier dans un cadre calme et inspirant.' },
+          { time: '12h30', title: 'Déjeuner au restaurant', desc: 'Cuisine locale et faite maison, moment de convivialité.' },
+          { time: '14h00', title: 'Activités team building', desc: 'Archery tag, course d\'orientation, paddle... pour souder l\'équipe.' },
+          { time: '16h30', title: 'Debrief et clôture', desc: 'Retour en salle ou en terrasse pour conclure la journée.' },
+        ].map((step) => (
+          <div class="flex gap-6 items-start">
+            <span class="font-heading font-bold text-bleu-ardoise text-lg min-w-16">{step.time}</span>
+            <div>
+              <h3 class="font-heading font-bold text-brun-terre">{step.title}</h3>
+              <p class="text-gray-600 text-sm mt-1">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Packs séminaire -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-2xl font-bold text-bleu-ardoise mb-6">Découvrez nos formules</h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href={getLocalizedPath('/evenements', lang)} class="bg-bleu-ardoise text-white px-6 py-3 rounded-lg font-medium hover:bg-bleu-ardoise/90 transition-colors">
+          Voir les packs séminaire
+        </a>
+        <a href={getLocalizedPath('/contact', lang)} class="border border-bleu-ardoise text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-evenements-light transition-colors">
+          Demander un devis sur mesure
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

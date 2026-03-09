@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+/* Ensure Tailwind v4 scans .svelte files for utility classes */
+@source "../components/**/*.svelte";
+
+/* ========================================
+   LA TERRASSE — Design Tokens
+   ======================================== */
+
+@theme {
+  /* Brand Colors — from DA */
+  --color-brun-terre: #2D2B1B;
+  --color-bleu-ardoise: #3d4969;
+  --color-vert-vegetal: #537b47;
+
+  /* Pole accent colors (lighter variants for backgrounds) */
+  --color-restaurant: #2D2B1B;
+  --color-restaurant-light: #f5f0e8;
+  --color-aventure: #537b47;
+  --color-aventure-light: #eef5ec;
+  --color-evenements: #3d4969;
+  --color-evenements-light: #edf0f5;
+
+  /* Neutrals */
+  --color-white: #ffffff;
+  --color-offwhite: #fafaf8;
+  --color-gray-100: #f3f3f1;
+  --color-gray-200: #e5e5e3;
+  --color-gray-400: #a8a8a4;
+  --color-gray-600: #6b6b67;
+  --color-gray-800: #3a3a38;
+  --color-black: #1a1a18;
+
+  /* Typography */
+  --font-heading: 'Montserrat', sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+
+  /* Spacing scale */
+  --spacing-section: 6rem;
+  --spacing-section-mobile: 3rem;
+}
+
+/* ========================================
+   Base styles
+   ======================================== */
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-black);
+  background-color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+}

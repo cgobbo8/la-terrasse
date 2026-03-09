@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="La Carte" description="Menu du restaurant La Terrasse — cuisine locale et faite maison" pole="restaurant">
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="font-heading text-4xl font-bold text-restaurant mb-4">La Carte</h1>
+      <p class="text-gray-600 mb-12">Cuisine faite maison, produits locaux et de saison.</p>
+      <div class="bg-restaurant-light rounded-2xl p-12 text-center">
+        <p class="text-gray-400">Menu à venir — géré via Keystatic CMS</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-sell contextuel -->
+  <section class="py-8">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-gray-500 italic">Envie de bouger après le repas ?</p>
+      <a href={getLocalizedPath('/aventure', lang)} class="inline-block mt-2 text-aventure font-medium hover:underline">
+        Découvrir les activités →
+      </a>
+    </div>
+  </section>
+
+  <CrossLinkBlock currentPole="restaurant" />
+</BaseLayout>

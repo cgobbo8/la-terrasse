@@ -1,0 +1,164 @@
+---
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { languages, type Lang } from '@/i18n/translations';
+import MegaMenu from './MegaMenu.svelte';
+import MobileMenu from './MobileMenu.svelte';
+
+interface Props {
+  pole?: 'restaurant' | 'aventure' | 'evenements' | null;
+}
+
+const { pole = null } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+// Build navigation data for Svelte components
+const megaMenuPoles = [
+  {
+    id: 'restaurant',
+    label: t('nav.restaurant'),
+    href: getLocalizedPath('/restaurant', lang),
+    color: pole === 'restaurant' ? 'text-restaurant' : 'text-gray-600',
+    accentColor: 'restaurant',
+    subLinks: [
+      { label: 'La carte', href: getLocalizedPath('/restaurant/carte', lang), description: 'Menu et plats de saison', icon: 'menu' },
+      { label: t('restaurant.producers.title'), href: getLocalizedPath('/restaurant/producteurs', lang), description: 'Circuits courts et terroir', icon: 'leaf' },
+      { label: t('restaurant.groups.title'), href: getLocalizedPath('/restaurant/repas-groupe', lang), description: 'Entreprises, assos, anniversaires', icon: 'users' },
+    ],
+    featured: {
+      title: 'Une cuisine au bord du lac',
+      description: 'Produits locaux, plats faits maison, vue sur le lac de Saint-Ferréol.',
+      href: getLocalizedPath('/restaurant', lang),
+      cta: 'Découvrir le restaurant',
+    },
+    crossSell: {
+      text: 'Après le repas, profitez des activités',
+      href: getLocalizedPath('/aventure', lang),
+      targetPole: 'aventure',
+    },
+  },
+  {
+    id: 'aventure',
+    label: t('nav.aventure'),
+    href: getLocalizedPath('/aventure', lang),
+    color: pole === 'aventure' ? 'text-aventure' : 'text-gray-600',
+    accentColor: 'aventure',
+    subLinks: [
+      { label: 'Pédalo', href: getLocalizedPath('/aventure/pedalo', lang), description: '25€/h — 4-5 personnes', icon: 'boat' },
+      { label: 'Paddle', href: getLocalizedPath('/aventure/paddle', lang), description: '12€/h par personne', icon: 'waves' },
+      { label: 'Mini-golf', href: getLocalizedPath('/aventure/mini-golf', lang), description: '8€ par personne', icon: 'flag' },
+      { label: 'Toutes les activités', href: getLocalizedPath('/aventure', lang) + '#activites', description: 'Aquatiques et terrestres', icon: 'compass' },
+    ],
+    featured: {
+      title: 'Activités nature au lac',
+      description: 'Aquatiques ou terrestres, seul ou en groupe, profitez du cadre.',
+      href: getLocalizedPath('/aventure', lang),
+      cta: 'Voir les activités',
+    },
+    crossSell: {
+      text: 'Déjeunez sur place après votre activité',
+      href: getLocalizedPath('/restaurant', lang),
+      targetPole: 'restaurant',
+    },
+  },
+  {
+    id: 'evenements',
+    label: t('nav.evenements'),
+    href: getLocalizedPath('/evenements', lang),
+    color: pole === 'evenements' ? 'text-bleu-ardoise' : 'text-gray-600',
+    accentColor: 'evenements',
+    subLinks: [
+      { label: 'La salle', href: getLocalizedPath('/evenements', lang) + '#salle', description: 'Capacité et équipements', icon: 'building' },
+      { label: 'Séminaire Simple', href: getLocalizedPath('/evenements/seminaire-simple', lang), description: 'Location sèche', icon: 'briefcase' },
+      { label: 'Séminaire Gourmet', href: getLocalizedPath('/evenements/seminaire-gourmet', lang), description: 'Avec restauration', icon: 'utensils' },
+      { label: 'Séminaire Aventure', href: getLocalizedPath('/evenements/seminaire-aventure', lang), description: 'Team building complet', icon: 'trophy' },
+    ],
+    featured: {
+      title: 'Un cadre inspirant pour vos événements',
+      description: 'Séminaires, team building et événements d\'entreprise en pleine nature.',
+      href: getLocalizedPath('/evenements', lang),
+      cta: 'Découvrir les formules',
+    },
+    crossSell: {
+      text: 'Découvrez nos journées entreprise complètes',
+      href: getLocalizedPath('/en-entreprise', lang),
+      targetPole: 'evenements',
+    },
+  },
+];
+
+const transversalItems = [
+  { label: t('nav.enFamille'), href: getLocalizedPath('/en-famille', lang), description: 'Activités + repas en famille' },
+  { label: t('nav.enGroupe'), href: getLocalizedPath('/en-groupe', lang), description: 'Sorties asso, clubs, amis' },
+  { label: t('nav.enEntreprise'), href: getLocalizedPath('/en-entreprise', lang), description: 'Séminaire + team building' },
+];
+
+const mobilePoles = megaMenuPoles.map(p => ({
+  id: p.id,
+  label: p.label,
+  href: p.href,
+  colorClass: p.color,
+  subLinks: p.subLinks.map(s => ({ label: s.label, href: s.href })),
+}));
+
+const mobileTransversal = transversalItems.map(t => ({ label: t.label, href: t.href }));
+
+const contactHref = getLocalizedPath('/contact', lang);
+const contactLabel = t('common.contact');
+
+// Build language switcher paths
+const langPaths: Record<string, string> = {};
+for (const code of Object.keys(languages)) {
+  const cleanPath = Astro.url.pathname.replace(/^\/(en|es)/, '');
+  langPaths[code] = getLocalizedPath(cleanPath || '/', code as Lang);
+}
+
+const accentColors: Record<string, string> = {
+  restaurant: 'text-restaurant',
+  aventure: 'text-aventure',
+  evenements: 'text-bleu-ardoise',
+};
+---
+
+<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+  <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <!-- Logo -->
+      <a href={getLocalizedPath('/', lang)} class="flex items-center gap-2">
+        <span class="font-heading text-xl font-bold tracking-tight text-brun-terre">
+          LA TERRASSE
+        </span>
+        {pole && (
+          <span class={`font-heading text-sm font-medium uppercase tracking-wider ${accentColors[pole] ?? ''}`}>
+            {pole === 'restaurant' ? 'Restaurant' : pole === 'aventure' ? 'Aventure' : 'Événement'}
+          </span>
+        )}
+      </a>
+
+      <!-- Desktop: Mega Menu (Svelte island) -->
+      <MegaMenu
+        client:load
+        poles={megaMenuPoles}
+        transversalItems={transversalItems}
+        contactHref={contactHref}
+        contactLabel={contactLabel}
+        currentPole={pole}
+        languages={languages}
+        currentLang={lang}
+        langPaths={langPaths}
+      />
+
+      <!-- Mobile: Burger only (slide-out panel portals to body) -->
+      <MobileMenu
+        client:load
+        poles={mobilePoles}
+        transversalItems={mobileTransversal}
+        contactHref={contactHref}
+        contactLabel={contactLabel}
+        languages={languages}
+        currentLang={lang}
+        langPaths={langPaths}
+      />
+    </div>
+  </nav>
+</header>

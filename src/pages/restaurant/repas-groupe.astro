@@ -1,0 +1,32 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="Repas de Groupe" description="Organisez un repas de groupe au restaurant La Terrasse" pole="restaurant">
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1 class="font-heading text-4xl font-bold text-restaurant mb-4">{t('restaurant.groups.title')}</h1>
+      <p class="text-gray-600 mb-8">
+        Le restaurant accueille vos repas d'entreprise, repas associatifs, anniversaires et groupes d'amis.
+      </p>
+      <p class="text-gray-500 italic mb-8">
+        Possibilité de combiner repas, activités et événements pour organiser une journée complète à La Terrasse.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href={getLocalizedPath('/en-groupe', lang)} class="bg-restaurant text-white px-6 py-3 rounded-lg font-medium hover:bg-restaurant/90 transition-colors">
+          Journée de groupe complète
+        </a>
+        <a href={getLocalizedPath('/contact', lang)} class="border border-restaurant text-restaurant px-6 py-3 rounded-lg font-medium hover:bg-restaurant-light transition-colors">
+          {t('common.contact')}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CrossLinkBlock currentPole="restaurant" />
+</BaseLayout>

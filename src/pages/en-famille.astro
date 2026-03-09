@@ -1,0 +1,67 @@
+---
+/**
+ * PAGE TRANSVERSALE — En Famille
+ * Journée type: activité matin + repas midi + activité/baignade après-midi
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHero from '@/components/common/SectionHero.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout title="En Famille" description={t('famille.hero.tagline')}>
+  <SectionHero tagline={t('famille.hero.tagline')} subtitle="Activités, baignade et déjeuner au bord du lac de Saint-Ferréol">
+    <div class="flex flex-wrap gap-4">
+      <a href={getLocalizedPath('/aventure', lang)} class="bg-white text-aventure px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+        Voir les activités
+      </a>
+      <a href={getLocalizedPath('/restaurant', lang)} class="border border-white/30 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
+        Le restaurant
+      </a>
+    </div>
+  </SectionHero>
+
+  <!-- Journée type famille -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl font-bold text-brun-terre text-center mb-12">
+        Une journée en famille type
+      </h2>
+      <div class="space-y-8">
+        {[
+          { time: '10h00', title: 'Mini-golf ou course d\'orientation', desc: 'Une activité ludique pour commencer la journée tous ensemble.' },
+          { time: '12h30', title: 'Déjeuner au restaurant', desc: 'Cuisine locale et faite maison, terrasse avec vue sur le lac.' },
+          { time: '14h30', title: 'Pédalo ou paddle sur le lac', desc: 'Cap sur l\'eau pour une activité rafraîchissante.' },
+          { time: '16h30', title: 'Balade autour du lac', desc: 'Profitez du cadre naturel de Saint-Ferréol avant de repartir.' },
+        ].map((step) => (
+          <div class="flex gap-6 items-start">
+            <span class="font-heading font-bold text-aventure text-lg min-w-16">{step.time}</span>
+            <div>
+              <h3 class="font-heading font-bold text-brun-terre">{step.title}</h3>
+              <p class="text-gray-600 text-sm mt-1">{step.desc}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-2xl font-bold text-brun-terre mb-6">
+        Prêts pour une journée en famille ?
+      </h2>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href={getLocalizedPath('/aventure', lang)} class="bg-aventure text-white px-6 py-3 rounded-lg font-medium hover:bg-aventure/90 transition-colors">
+          Voir les activités
+        </a>
+        <a href={getLocalizedPath('/contact', lang)} class="border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors">
+          {t('common.contact')}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,70 @@
+---
+/**
+ * Cross-linking structural block (Layer 1)
+ * Permanent block at bottom of every pole page:
+ * "La Terrasse c'est aussi..."
+ */
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+interface Props {
+  /** Current pole to exclude from suggestions */
+  currentPole: 'restaurant' | 'aventure' | 'evenements';
+}
+
+const { currentPole } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const poles = [
+  {
+    id: 'restaurant' as const,
+    label: t('nav.restaurant'),
+    description: 'Une cuisine simple, locale et gourmande',
+    href: getLocalizedPath('/restaurant', lang),
+    color: 'bg-restaurant-light border-restaurant/20',
+    textColor: 'text-restaurant',
+  },
+  {
+    id: 'aventure' as const,
+    label: t('nav.aventure'),
+    description: 'Activités terrestres et aquatiques en pleine nature',
+    href: getLocalizedPath('/aventure', lang),
+    color: 'bg-aventure-light border-aventure/20',
+    textColor: 'text-aventure',
+  },
+  {
+    id: 'evenements' as const,
+    label: t('nav.evenements'),
+    description: 'Séminaires et événements dans un cadre inspirant',
+    href: getLocalizedPath('/evenements', lang),
+    color: 'bg-evenements-light border-bleu-ardoise/20',
+    textColor: 'text-bleu-ardoise',
+  },
+];
+
+const otherPoles = poles.filter((p) => p.id !== currentPole);
+---
+
+<section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-gray-100">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="font-heading text-2xl font-bold text-brun-terre mb-8 text-center">
+      {t('common.alsoAt')}
+    </h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {otherPoles.map((pole) => (
+        <a
+          href={pole.href}
+          class:list={[
+            'block p-8 rounded-2xl border transition-all hover:shadow-lg hover:-translate-y-1',
+            pole.color,
+          ]}
+        >
+          <h3 class:list={['font-heading text-xl font-bold mb-2', pole.textColor]}>
+            La Terrasse {pole.label}
+          </h3>
+          <p class="text-gray-600 text-sm">{pole.description}</p>
+        </a>
+      ))}
+    </div>
+  </div>
+</section>

@@ -1,0 +1,144 @@
+---
+/**
+ * ÉVÉNEMENTS HUB — Bleu ardoise
+ * Tone: sobre, professionnel, rassurant
+ * Specs-first: salle, capacité, équipements dès le hero
+ * 3 packs nommés par expérience
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHero from '@/components/common/SectionHero.astro';
+import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const packs = [
+  {
+    slug: 'seminaire-simple',
+    title: 'Séminaire Simple',
+    subtitle: 'Location sèche',
+    description: 'La salle et les équipements pour votre réunion ou formation.',
+    includes: ['Salle équipée', 'Vidéoprojecteur', 'Wi-Fi', 'Parking'],
+  },
+  {
+    slug: 'seminaire-gourmet',
+    title: 'Séminaire Gourmet',
+    subtitle: 'Avec restauration',
+    description: 'Votre séminaire accompagné d\'un repas fait maison avec des produits locaux.',
+    includes: ['Salle équipée', 'Petit-déjeuner d\'accueil', 'Déjeuner', 'Pauses café'],
+  },
+  {
+    slug: 'seminaire-aventure',
+    title: 'Séminaire Aventure',
+    subtitle: 'Team building complet',
+    description: 'La journée de cohésion parfaite : séminaire, repas et activités nature.',
+    includes: ['Salle équipée', 'Repas', 'Activités team building', 'Encadrement'],
+  },
+];
+---
+
+<BaseLayout title="Événements" description={t('evenements.hero.subtitle')} pole="evenements">
+  <!-- Hero -->
+  <SectionHero
+    tagline={t('evenements.hero.tagline')}
+    subtitle={t('evenements.hero.subtitle')}
+    pole="evenements"
+  >
+    <a href={getLocalizedPath('/contact', lang)} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+      Demander un devis
+    </a>
+  </SectionHero>
+
+  <!-- LA SALLE — Specs first (idée #6) -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-2xl font-bold text-bleu-ardoise mb-8">
+        {t('evenements.venue.title')}
+      </h2>
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Photo placeholder -->
+        <div class="aspect-[4/3] bg-evenements-light rounded-2xl" />
+        <!-- Specs -->
+        <div>
+          <dl class="space-y-4">
+            <div class="flex justify-between py-3 border-b border-gray-200">
+              <dt class="font-medium text-gray-600">Capacité</dt>
+              <dd class="font-bold text-bleu-ardoise">— personnes</dd>
+            </div>
+            <div class="flex justify-between py-3 border-b border-gray-200">
+              <dt class="font-medium text-gray-600">Surface</dt>
+              <dd class="font-bold text-bleu-ardoise">— m²</dd>
+            </div>
+            <div class="flex justify-between py-3 border-b border-gray-200">
+              <dt class="font-medium text-gray-600">Configuration</dt>
+              <dd class="font-bold text-bleu-ardoise">Modulable</dd>
+            </div>
+            <div class="py-3">
+              <dt class="font-medium text-gray-600 mb-2">Équipements</dt>
+              <dd class="flex flex-wrap gap-2">
+                {['Vidéoprojecteur', 'Wi-Fi', 'Paperboard', 'Sono', 'Parking'].map((eq) => (
+                  <span class="bg-evenements-light text-bleu-ardoise px-3 py-1 rounded-full text-sm">{eq}</span>
+                ))}
+              </dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LES PACKS — Nommés par expérience (idée #13) -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-2xl font-bold text-bleu-ardoise mb-8 text-center">
+        {t('evenements.packs.title')}
+      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        {packs.map((pack) => (
+          <a
+            href={getLocalizedPath(`/evenements/${pack.slug}`, lang)}
+            class="group block bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all"
+          >
+            <div class="p-8">
+              <p class="text-sm text-bleu-ardoise/60 font-medium uppercase tracking-wider">{pack.subtitle}</p>
+              <h3 class="font-heading text-xl font-bold text-bleu-ardoise mt-1 mb-3">{pack.title}</h3>
+              <p class="text-gray-600 text-sm mb-6">{pack.description}</p>
+              <ul class="space-y-2">
+                {pack.includes.map((item) => (
+                  <li class="flex items-center gap-2 text-sm text-gray-600">
+                    <span class="w-1.5 h-1.5 rounded-full bg-bleu-ardoise/40" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <span class="inline-block mt-6 text-sm text-bleu-ardoise font-medium group-hover:underline">
+                En savoir plus →
+              </span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section groupes (adaptée Événements) -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-gray-500 italic mb-4">
+        {t('evenements.groups.cta')}
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href={getLocalizedPath('/en-entreprise', lang)} class="bg-bleu-ardoise text-white px-6 py-3 rounded-lg font-medium hover:bg-bleu-ardoise/90 transition-colors">
+          Journée entreprise complète
+        </a>
+        <a href={getLocalizedPath('/contact', lang)} class="border border-bleu-ardoise text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-evenements-light transition-colors">
+          Demander un devis
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-linking structurel -->
+  <CrossLinkBlock currentPole="evenements" />
+</BaseLayout>
