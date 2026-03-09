@@ -37,19 +37,7 @@
 
   let isOpen = $state(false);
   let expandedPole = $state<string | null>(null);
-
-  // Portal refs: move overlay + panel to document.body to escape
-  // the header's backdrop-blur containing block
   let portalEl = $state<HTMLDivElement | null>(null);
-
-  $effect(() => {
-    if (portalEl && typeof document !== 'undefined') {
-      document.body.appendChild(portalEl);
-      return () => {
-        portalEl?.remove();
-      };
-    }
-  });
 
   const poleColors: Record<string, string> = {
     restaurant: '#2D2B1B',
@@ -57,19 +45,24 @@
     evenements: '#3d4969',
   };
 
+  // Portal: move overlay + panel to document.body
+  // to escape header's backdrop-blur containing block
+  $effect(() => {
+    if (portalEl && typeof document !== 'undefined') {
+      document.body.appendChild(portalEl);
+      return () => { portalEl?.remove(); };
+    }
+  });
+
   function open() {
     isOpen = true;
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = 'hidden';
-    }
+    if (typeof document !== 'undefined') document.body.style.overflow = 'hidden';
   }
 
   function close() {
     isOpen = false;
     expandedPole = null;
-    if (typeof document !== 'undefined') {
-      document.body.style.overflow = '';
-    }
+    if (typeof document !== 'undefined') document.body.style.overflow = '';
   }
 
   function togglePole(id: string) {
@@ -77,67 +70,68 @@
   }
 </script>
 
-<!-- Burger button (stays in the header) -->
-<div class="burger-wrapper">
-  <button
-    onclick={open}
-    class="burger-btn"
-    aria-label="Menu"
-    aria-expanded={isOpen}
-  >
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M4 6h16M4 12h16M4 18h16" />
-    </svg>
-  </button>
-</div>
+<!-- Burger button (stays in header) -->
+<button
+  onclick={open}
+  class="lg:hidden p-2 text-gray-600 hover:text-brun-terre transition-colors"
+  aria-label="Menu"
+  aria-expanded={isOpen}
+>
+  <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+    <path d="M4 6h16M4 12h16M4 18h16" />
+  </svg>
+</button>
 
-<!-- Portal container: gets moved to document.body -->
-<div bind:this={portalEl} style="display:contents">
+<!-- Portal container (moved to body on mount) -->
+<div bind:this={portalEl} class="contents">
   <!-- Overlay -->
   {#if isOpen}
-    <div class="mobile-overlay">
-      <button
-        class="mobile-overlay-btn"
-        onclick={close}
-        aria-label="Fermer le menu"
-      ></button>
-    </div>
+    <button
+      class="fixed inset-0 bg-black/30 z-[9998] lg:hidden"
+      onclick={close}
+      aria-label="Fermer le menu"
+    ></button>
   {/if}
 
   <!-- Slide-out panel -->
-  <div class="mobile-panel" class:mobile-panel-open={isOpen}>
-    <div class="panel-header">
-      <span class="panel-logo">LA TERRASSE</span>
-      <button onclick={close} class="panel-close" aria-label="Fermer">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+  <div
+    class="fixed top-0 right-0 h-full h-dvh w-80 max-w-[85vw] bg-white z-[9999] shadow-2xl overflow-y-auto lg:hidden transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
+    class:translate-x-full={!isOpen}
+    class:translate-x-0={isOpen}
+  >
+    <!-- Header -->
+    <div class="flex items-center justify-between p-4 border-b border-gray-200">
+      <span class="font-heading text-lg font-bold text-brun-terre">LA TERRASSE</span>
+      <button onclick={close} class="p-2 text-gray-400 hover:text-gray-600 transition-colors" aria-label="Fermer">
+        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 18L18 6M6 6l12 12" />
         </svg>
       </button>
     </div>
 
-    <nav class="panel-nav">
+    <!-- Navigation -->
+    <nav class="p-4">
+      <!-- Poles with accordion -->
       {#each poles as pole}
-        <div class="pole-group">
-          <div class="pole-row">
+        <div class="border-b border-gray-100">
+          <div class="flex items-center justify-between">
             <a
               href={pole.href}
               onclick={close}
-              class="pole-link"
+              class="flex-1 py-3 font-semibold text-[0.9375rem]"
               style="color: {poleColors[pole.id] ?? '#3a3a38'}"
             >
               {pole.label}
             </a>
             <button
               onclick={() => togglePole(pole.id)}
-              class="pole-toggle"
+              class="p-2 text-gray-400"
               aria-label="Sous-menu {pole.label}"
             >
               <svg
-                width="16" height="16"
-                viewBox="0 0 20 20"
-                fill="currentColor"
-                class="pole-chevron"
-                class:pole-chevron-open={expandedPole === pole.id}
+                class="w-4 h-4 transition-transform duration-200"
+                class:rotate-180={expandedPole === pole.id}
+                viewBox="0 0 20 20" fill="currentColor"
               >
                 <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
               </svg>
@@ -145,9 +139,9 @@
           </div>
 
           {#if expandedPole === pole.id}
-            <div class="pole-sublinks">
+            <div class="pl-4 pb-3 flex flex-col gap-0.5">
               {#each pole.subLinks as link}
-                <a href={link.href} onclick={close} class="pole-sublink">
+                <a href={link.href} onclick={close} class="block py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors">
                   {link.label}
                 </a>
               {/each}
@@ -156,27 +150,33 @@
         </div>
       {/each}
 
-      <div class="transversal">
-        <p class="transversal-label">Experiences</p>
+      <!-- Transversal -->
+      <div class="mt-5 mb-2">
+        <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-2">Experiences</p>
         {#each transversalItems as item}
-          <a href={item.href} onclick={close} class="transversal-link">
+          <a href={item.href} onclick={close} class="block py-2.5 text-sm text-gray-600 hover:text-brun-terre transition-colors">
             {item.label}
           </a>
         {/each}
       </div>
 
-      <div class="contact-section">
-        <a href={contactHref} onclick={close} class="contact-btn">
+      <!-- Contact CTA -->
+      <div class="mt-6">
+        <a href={contactHref} onclick={close} class="block w-full text-center bg-brun-terre text-white px-4 py-3 rounded-lg font-medium text-[0.9375rem] hover:bg-gray-800 transition-colors">
           {contactLabel}
         </a>
       </div>
 
-      <div class="lang-section">
+      <!-- Language -->
+      <div class="mt-6 flex items-center justify-center gap-3 text-sm">
         {#each Object.entries(languages) as [code, _name]}
           <a
             href={langPaths[code] ?? '/'}
-            class="lang-link"
-            class:lang-active={currentLang === code}
+            class="uppercase transition-colors"
+            class:text-brun-terre={currentLang === code}
+            class:font-bold={currentLang === code}
+            class:text-gray-400={currentLang !== code}
+            class:hover:text-brun-terre={currentLang !== code}
           >
             {code}
           </a>
@@ -185,175 +185,3 @@
     </nav>
   </div>
 </div>
-
-<style>
-  .burger-wrapper { display: block; }
-  @media (min-width: 1024px) {
-    .burger-wrapper { display: none; }
-    .mobile-panel { display: none !important; }
-    .mobile-overlay { display: none !important; }
-  }
-
-  .burger-btn {
-    padding: 0.5rem;
-    color: #6b6b67;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.15s;
-  }
-  .burger-btn:hover { color: #2D2B1B; }
-
-  .mobile-overlay {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.3);
-    z-index: 9998;
-  }
-  .mobile-overlay-btn {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-
-  .mobile-panel {
-    position: fixed;
-    top: 0;
-    right: 0;
-    height: 100%;
-    height: 100dvh;
-    width: 20rem;
-    max-width: 85vw;
-    background: white;
-    z-index: 9999;
-    box-shadow: -4px 0 24px rgba(0,0,0,0.15);
-    transform: translateX(100%);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    overflow-y: auto;
-    -webkit-overflow-scrolling: touch;
-  }
-  .mobile-panel-open { transform: translateX(0); }
-
-  .panel-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 1rem;
-    border-bottom: 1px solid #e5e5e3;
-  }
-  .panel-logo {
-    font-family: 'Montserrat', sans-serif;
-    font-size: 1.125rem;
-    font-weight: 700;
-    color: #2D2B1B;
-  }
-  .panel-close {
-    padding: 0.5rem;
-    color: #a8a8a4;
-    background: none;
-    border: none;
-    cursor: pointer;
-    transition: color 0.15s;
-  }
-  .panel-close:hover { color: #6b6b67; }
-
-  .panel-nav { padding: 1rem; }
-
-  .pole-group { border-bottom: 1px solid #f3f3f1; }
-  .pole-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .pole-link {
-    flex: 1;
-    padding: 0.75rem 0;
-    font-weight: 600;
-    font-size: 0.9375rem;
-    text-decoration: none;
-    transition: opacity 0.15s;
-  }
-  .pole-link:hover { opacity: 0.8; }
-
-  .pole-toggle {
-    padding: 0.5rem;
-    color: #a8a8a4;
-    background: none;
-    border: none;
-    cursor: pointer;
-  }
-  .pole-chevron { transition: transform 0.2s ease; }
-  .pole-chevron-open { transform: rotate(180deg); }
-
-  .pole-sublinks {
-    padding: 0 0 0.75rem 1rem;
-    display: flex;
-    flex-direction: column;
-    gap: 0.125rem;
-  }
-  .pole-sublink {
-    display: block;
-    padding: 0.5rem 0;
-    font-size: 0.875rem;
-    color: #6b6b67;
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-  .pole-sublink:hover { color: #3a3a38; }
-
-  .transversal { margin-top: 1.25rem; margin-bottom: 0.5rem; }
-  .transversal-label {
-    font-size: 0.6875rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    color: #a8a8a4;
-    margin-bottom: 0.5rem;
-  }
-  .transversal-link {
-    display: block;
-    padding: 0.625rem 0;
-    font-size: 0.875rem;
-    color: #6b6b67;
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-  .transversal-link:hover { color: #2D2B1B; }
-
-  .contact-section { margin-top: 1.5rem; }
-  .contact-btn {
-    display: block;
-    width: 100%;
-    text-align: center;
-    background-color: #2D2B1B;
-    color: white;
-    padding: 0.75rem 1rem;
-    border-radius: 0.5rem;
-    font-weight: 500;
-    font-size: 0.9375rem;
-    text-decoration: none;
-    transition: background-color 0.15s;
-  }
-  .contact-btn:hover { background-color: #3a3a38; }
-
-  .lang-section {
-    margin-top: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.75rem;
-    font-size: 0.875rem;
-  }
-  .lang-link {
-    text-transform: uppercase;
-    color: #a8a8a4;
-    text-decoration: none;
-    transition: color 0.15s;
-  }
-  .lang-link:hover { color: #2D2B1B; }
-  .lang-active { color: #2D2B1B; font-weight: 700; }
-</style>

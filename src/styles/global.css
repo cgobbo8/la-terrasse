@@ -7,6 +7,11 @@
    LA TERRASSE — Design Tokens
    ======================================== */
 
+@keyframes megaFadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 @theme {
   /* Brand Colors — from DA */
   --color-brun-terre: #2D2B1B;
