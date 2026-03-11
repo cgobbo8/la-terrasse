@@ -1,0 +1,149 @@
+philosophy: >-
+  Cuisine faite maison, produits locaux et de saison. Nous travaillons avec les
+  producteurs du terroir pour vous proposer des plats simples et gourmands.
+menuUrl: /restaurant/carte
+openingHours: |-
+  Lundi – Vendredi : 12h – 14h / 19h – 21h
+  Samedi – Dimanche : 12h – 14h30 / 19h – 21h30
+reservationPhone: '05 61 83 XX XX'
+philosophy_en: >-
+  Homemade cuisine with local, seasonal products. We work with local producers
+  to offer you simple and delicious dishes.
+philosophy_es: >-
+  Cocina casera con productos locales y de temporada. Trabajamos con
+  productores locales para ofrecerle platos sencillos y deliciosos.
+menuSections:
+  - title: Entrées
+    title_en: Starters
+    title_es: Entrantes
+    dishes:
+      - name: Salade de chèvre chaud
+        description: Miel de Saint-Ferréol, noix du Tarn, mesclun
+        price: '12.50'
+        tags:
+          - végétarien
+        name_en: Warm goat cheese salad
+        name_es: Ensalada de queso de cabra caliente
+        description_en: 'Saint-Ferréol honey, Tarn walnuts, mixed greens'
+        description_es: 'Miel de Saint-Ferréol, nueces del Tarn, mezcla de lechugas'
+      - name: Velouté de saison
+        description: Légumes du potager, crème fraîche, croûtons maison
+        price: '9.00'
+        tags:
+          - végétarien
+        name_en: Seasonal soup
+        name_es: Crema de temporada
+        description_en: 'Garden vegetables, fresh cream, homemade croutons'
+        description_es: 'Verduras del huerto, nata fresca, picatostes caseros'
+      - name: Planche de charcuterie
+        description: Sélection de charcuteries artisanales du Tarn
+        price: '14.00'
+        tags: []
+        name_en: Charcuterie board
+        name_es: Tabla de embutidos
+        description_en: Artisan charcuterie selection from the Tarn region
+        description_es: Selección de embutidos artesanales del Tarn
+  - title: Plats
+    title_en: Main courses
+    title_es: Platos principales
+    dishes:
+      - name: Pavé de truite du lac
+        description: Beurre noisette, légumes de saison, riz pilaf
+        price: '22.00'
+        tags: []
+        name_en: Lake trout fillet
+        name_es: Filete de trucha del lago
+        description_en: 'Brown butter, seasonal vegetables, pilaf rice'
+        description_es: 'Mantequilla avellana, verduras de temporada, arroz pilaf'
+      - name: Magret de canard
+        description: 'Sauce au miel, pommes sarladaises'
+        price: '24.00'
+        tags: []
+        name_en: Duck breast
+        name_es: Magret de pato
+        description_en: 'Honey sauce, Sarladaises potatoes'
+        description_es: 'Salsa de miel, patatas sarladaises'
+      - name: Burger terroir
+        description: 'Bœuf de l''Aveyron, tome fraîche, oignons confits'
+        price: '18.00'
+        tags: []
+        name_en: Local burger
+        name_es: Hamburguesa local
+        description_en: 'Aveyron beef, fresh cheese, candied onions'
+        description_es: 'Ternera de Aveyron, queso fresco, cebollas confitadas'
+      - name: Risotto aux champignons
+        description: Champignons des bois, parmesan, roquette
+        price: '17.00'
+        tags:
+          - végétarien
+        name_en: Mushroom risotto
+        name_es: Risotto de setas
+        description_en: 'Wild mushrooms, parmesan, rocket'
+        description_es: 'Setas del bosque, parmesano, rúcula'
+  - title: Desserts
+    title_en: Desserts
+    title_es: Postres
+    dishes:
+      - name: Tarte aux fruits de saison
+        description: Pâte sablée maison, crème légère
+        price: '9.50'
+        tags:
+          - végétarien
+        name_en: Seasonal fruit tart
+        name_es: Tarta de frutas de temporada
+        description_en: 'Homemade shortbread crust, light cream'
+        description_es: 'Masa sablé casera, crema ligera'
+      - name: Moelleux au chocolat
+        description: 'Cœur coulant, glace vanille'
+        price: '10.00'
+        tags:
+          - végétarien
+        name_en: Chocolate lava cake
+        name_es: Coulant de chocolate
+        description_en: 'Molten center, vanilla ice cream'
+        description_es: 'Corazón fundido, helado de vainilla'
+      - name: Assiette de fromages
+        description: Sélection affinée du terroir
+        price: '11.00'
+        tags:
+          - végétarien
+        name_en: Cheese plate
+        name_es: Tabla de quesos
+        description_en: Aged local cheese selection
+        description_es: Selección de quesos madurados locales
+  - title: Boissons
+    title_en: Drinks
+    title_es: Bebidas
+    dishes:
+      - name: Verre de Gaillac rouge
+        description: Domaine de Labarthe
+        price: '6.00'
+        tags: []
+        name_en: Glass of red Gaillac
+        name_es: Copa de Gaillac tinto
+        description_en: Domaine de Labarthe
+        description_es: Domaine de Labarthe
+      - name: Verre de Gaillac blanc
+        description: Domaine de Labarthe
+        price: '6.00'
+        tags: []
+        name_en: Glass of white Gaillac
+        name_es: Copa de Gaillac blanco
+        description_en: Domaine de Labarthe
+        description_es: Domaine de Labarthe
+      - name: Bière artisanale locale
+        description: Brasserie de la Montagne Noire
+        price: '5.50'
+        tags: []
+        name_en: Local craft beer
+        name_es: Cerveza artesanal local
+        description_en: Montagne Noire Brewery
+        description_es: Cervecería de la Montagne Noire
+      - name: Limonade maison
+        description: 'Citron, menthe fraîche'
+        price: '4.50'
+        tags: []
+        name_en: Homemade lemonade
+        name_es: Limonada casera
+        description_en: 'Lemon, fresh mint'
+        description_es: 'Limón, menta fresca'

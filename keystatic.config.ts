@@ -8,6 +8,34 @@ export default config({
 
   collections: {
     // ========================================
+    // Producers (Restaurant pole)
+    // Stored as: src/content/producers/jean-pierre-dubois.yaml
+    // ========================================
+    producers: collection({
+      label: 'Producteurs locaux',
+      slugField: 'name',
+      path: 'src/content/producers/*',
+      format: { data: 'yaml' },
+      schema: {
+        name: fields.slug({ name: { label: 'Nom du producteur', validation: { isRequired: true } } }),
+        product: fields.text({ label: 'Produit / spécialité', validation: { isRequired: true } }),
+        story: fields.text({ label: 'Histoire (2–3 phrases)', multiline: true, validation: { isRequired: true } }),
+        photo: fields.image({
+          label: 'Portrait',
+          directory: 'public/images/producers',
+          publicPath: '/images/producers/',
+        }),
+        // i18n
+        product_en: fields.text({ label: 'Product (EN)' }),
+        product_es: fields.text({ label: 'Producto (ES)' }),
+        story_en: fields.text({ label: 'Story (EN)', multiline: true }),
+        story_es: fields.text({ label: 'Historia (ES)', multiline: true }),
+        order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
+        visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+      },
+    }),
+
+    // ========================================
     // Activities (Aventure pole)
     // Stored as: src/content/activities/pedalo.mdx
     // ========================================
@@ -133,6 +161,30 @@ export default config({
         reservationPhone: fields.text({ label: 'Téléphone réservation' }),
         philosophy_en: fields.text({ label: 'Philosophy (EN)', multiline: true }),
         philosophy_es: fields.text({ label: 'Filosofía (ES)', multiline: true }),
+        menuSections: fields.array(
+          fields.object({
+            title: fields.text({ label: 'Titre de section (ex: Entrées)' }),
+            title_en: fields.text({ label: 'Section title (EN)' }),
+            title_es: fields.text({ label: 'Título de sección (ES)' }),
+            dishes: fields.array(
+              fields.object({
+                name: fields.text({ label: 'Nom du plat' }),
+                description: fields.text({ label: 'Description' }),
+                price: fields.text({ label: 'Prix (ex: 12.50)' }),
+                tags: fields.array(
+                  fields.text({ label: 'Tag' }),
+                  { label: 'Tags alimentaires', itemLabel: (props) => props.value || 'Tag' },
+                ),
+                name_en: fields.text({ label: 'Name (EN)' }),
+                name_es: fields.text({ label: 'Nombre (ES)' }),
+                description_en: fields.text({ label: 'Description (EN)' }),
+                description_es: fields.text({ label: 'Descripción (ES)' }),
+              }),
+              { label: 'Plats de la section', itemLabel: (props) => props.fields.name.value || 'Plat' },
+            ),
+          }),
+          { label: 'Sections du menu', itemLabel: (props) => props.fields.title.value || 'Section' },
+        ),
       },
     }),
 

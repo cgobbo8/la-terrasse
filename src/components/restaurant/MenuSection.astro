@@ -1,0 +1,66 @@
+---
+/**
+ * MenuSection — renders a course section (Entrées, Plats, etc.)
+ * Pure Astro, zero JS. Brun terre pole accent.
+ */
+interface Dish {
+  name: string;
+  description?: string;
+  price: string;
+  tags?: string[];
+}
+
+interface Props {
+  title: string;
+  dishes: Dish[];
+  accent: string;
+}
+
+const { title, dishes, accent } = Astro.props;
+
+function formatPrice(raw: string): string {
+  const num = parseFloat(raw);
+  if (isNaN(num)) return raw;
+  return num.toFixed(2).replace('.', ',') + ' \u20AC';
+}
+---
+
+<div class="mb-12 lg:mb-16">
+  <h3
+    class="font-heading text-xl lg:text-2xl font-bold mb-6 pb-3 border-b-2"
+    style={`color: ${accent}; border-color: ${accent}`}
+  >
+    {title}
+  </h3>
+
+  <ul class="space-y-4">
+    {dishes.map((dish) => (
+      <li class="flex flex-wrap items-baseline gap-x-4 py-2 border-b border-gray-100 last:border-b-0">
+        <div class="flex-1 min-w-0">
+          <span class="font-bold text-base lg:text-lg text-gray-900">{dish.name}</span>
+          {dish.tags && dish.tags.length > 0 && (
+            <span class="inline-flex gap-1 ml-2">
+              {dish.tags.map((tag) => (
+                <span
+                  class="inline-block text-[11px] font-medium px-1.5 py-0.5 rounded-full"
+                  style={`background-color: ${accent}15; color: ${accent}`}
+                >
+                  {tag}
+                </span>
+              ))}
+            </span>
+          )}
+          {dish.description && (
+            <p class="text-sm lg:text-base text-gray-500 mt-0.5">{dish.description}</p>
+          )}
+        </div>
+        <span
+          class="font-bold text-base lg:text-lg flex-none"
+          style={`color: ${accent}; font-variant-numeric: tabular-nums`}
+        >
+          {formatPrice(dish.price)}
+        </span>
+      </li>
+    ))}
+  </ul>
+</div>

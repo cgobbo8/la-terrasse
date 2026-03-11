@@ -1,6 +1,6 @@
 # Story 4.2: Menu Page (La Carte)
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -22,42 +22,42 @@ so that I can decide what to eat and understand the price range before visiting.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/components/restaurant/MenuSection.astro` (AC: #1, #2, #4, #5)
-  - [ ] Define props: `title: string`, `dishes: Array<{ name: string, description?: string, price: number, tags?: string[] }>`
-  - [ ] Render section heading as H3 with brun terre accent underline or decorative element
-  - [ ] For each dish, render a flex row:
-    - [ ] Left: dish name (`font-bold`) + description below (`text-gray-600`, `text-sm`)
-    - [ ] Right: price formatted as "{X},00 €" with `font-variant-numeric: tabular-nums`
-  - [ ] Add subtle separator between dishes (1px border-bottom or spacing)
-  - [ ] Optional: render dietary tags (végétarien, sans gluten) as small pills if present
-  - [ ] Mobile: stack name/description above, price below-right — or keep inline with smaller text
-- [ ] Task 2: Create/update `src/pages/restaurant/carte.astro` (AC: #3, #7, #8, #9)
-  - [ ] Import `getLangFromUrl`, `useTranslations`, `getLocalizedField` from `@/i18n/utils`
-  - [ ] Import `poleConfigs` from `@/lib/pole-config`
-  - [ ] Query Keystatic restaurant singleton for menu data
-  - [ ] Build hero: food/table photo with brun terre overlay, "La Carte" H1
-  - [ ] Breadcrumb above title: "RESTAURANT" small-caps linked to `/restaurant/`
-  - [ ] Render one `MenuSection` per course category
-  - [ ] Pass SEO props: title="La Carte — Restaurant | La Terrasse Saint-Ferréol"
-- [ ] Task 3: Responsive layout (AC: #4)
-  - [ ] Menu sections: max-width 768px, centered — mimics a printed menu feel
-  - [ ] No table element — use flexbox for dish rows
-  - [ ] On mobile (<640px): dish name and price on same line (name flex-1, price flex-none), description below
-  - [ ] Ensure no overflow or horizontal scroll at any viewport width
-  - [ ] Test with long dish names and descriptions
-- [ ] Task 4: Price formatting (AC: #5)
-  - [ ] Format prices with French locale: comma as decimal separator (e.g., "14,50 €")
-  - [ ] Apply `font-variant-numeric: tabular-nums` so prices align vertically
-  - [ ] Price text in brun terre accent color for visual anchoring
-  - [ ] Helper function or inline formatting: `(price).toFixed(2).replace('.', ',') + ' €'`
-- [ ] Task 5: CTA section (AC: #6)
-  - [ ] Reuse same CTA pattern from Story 4.1: brun terre background, white text, phone link
-  - [ ] Heading: "Envie de goûter ?" or "Réservez votre table"
-  - [ ] CTA href from `poleConfigs.restaurant.ctaHref`
-- [ ] Task 6: i18n support (AC: #2, #3)
-  - [ ] Use `getLocalizedField()` for dish names and descriptions
-  - [ ] Section titles via `useTranslations()` or `getLocalizedField()` on the singleton
-  - [ ] Breadcrumb and CTA text translated
+- [x] Task 1: Create `src/components/restaurant/MenuSection.astro` (AC: #1, #2, #4, #5)
+  - [x] Define props: `title: string`, `dishes: Array<{ name: string, description?: string, price: number, tags?: string[] }>`
+  - [x] Render section heading as H3 with brun terre accent underline or decorative element
+  - [x] For each dish, render a flex row:
+    - [x] Left: dish name (`font-bold`) + description below (`text-gray-600`, `text-sm`)
+    - [x] Right: price formatted as "{X},00 €" with `font-variant-numeric: tabular-nums`
+  - [x] Add subtle separator between dishes (1px border-bottom or spacing)
+  - [x] Optional: render dietary tags (végétarien, sans gluten) as small pills if present
+  - [x] Mobile: stack name/description above, price below-right — or keep inline with smaller text
+- [x] Task 2: Create/update `src/pages/restaurant/carte.astro` (AC: #3, #7, #8, #9)
+  - [x] Import `getLangFromUrl`, `useTranslations`, `getLocalizedField` from `@/i18n/utils`
+  - [x] Import `poleConfigs` from `@/lib/pole-config`
+  - [x] Query Keystatic restaurant singleton for menu data
+  - [x] Build hero: food/table photo with brun terre overlay, "La Carte" H1
+  - [x] Breadcrumb above title: "RESTAURANT" small-caps linked to `/restaurant/`
+  - [x] Render one `MenuSection` per course category
+  - [x] Pass SEO props: title="La Carte — Restaurant | La Terrasse Saint-Ferréol"
+- [x] Task 3: Responsive layout (AC: #4)
+  - [x] Menu sections: max-width 768px, centered — mimics a printed menu feel
+  - [x] No table element — use flexbox for dish rows
+  - [x] On mobile (<640px): dish name and price on same line (name flex-1, price flex-none), description below
+  - [x] Ensure no overflow or horizontal scroll at any viewport width
+  - [x] Test with long dish names and descriptions
+- [x] Task 4: Price formatting (AC: #5)
+  - [x] Format prices with French locale: comma as decimal separator (e.g., "14,50 €")
+  - [x] Apply `font-variant-numeric: tabular-nums` so prices align vertically
+  - [x] Price text in brun terre accent color for visual anchoring
+  - [x] Helper function or inline formatting: `(price).toFixed(2).replace('.', ',') + ' €'`
+- [x] Task 5: CTA section (AC: #6)
+  - [x] Reuse same CTA pattern from Story 4.1: brun terre background, white text, phone link
+  - [x] Heading: "Envie de goûter ?" or "Réservez votre table"
+  - [x] CTA href from `poleConfigs.restaurant.ctaHref`
+- [x] Task 6: i18n support (AC: #2, #3)
+  - [x] Use `getLocalizedField()` for dish names and descriptions
+  - [x] Section titles via `useTranslations()` or `getLocalizedField()` on the singleton
+  - [x] Breadcrumb and CTA text translated
 
 ## Dev Notes
 
@@ -125,8 +125,29 @@ restaurant:
 
 ### Agent Model Used
 
+claude-opus-4-6
+
 ### Debug Log References
+
+- Fixed Keystatic `fields.object()` API: fields must be passed directly as first argument, not wrapped in `{ fields: ... }` object
 
 ### Completion Notes List
 
+- Created `MenuSection.astro` component with flex layout, brun terre accent, tabular-nums pricing, dietary tag pills, and responsive design
+- Rewrote `carte.astro` with SectionHero, breadcrumb navigation, Keystatic-powered menu sections, CTA section, and cross-sell link
+- Extended Keystatic restaurant singleton schema with `menuSections` array (nested objects with i18n fields for section titles and dish details)
+- Created `src/content/restaurant/info.yaml` with sample menu data (14 dishes across 4 sections, full FR/EN/ES translations)
+- Added 8 new translation keys for menu page (hero, breadcrumb, CTA, cross-sell) in all 3 languages
+- Build passes successfully with all 3 locale variants rendered
+
 ### File List
+
+- `keystatic.config.ts` — MODIFIED: added `menuSections` array field to restaurant singleton
+- `src/content/restaurant/info.yaml` — NEW: restaurant singleton content with menu data
+- `src/components/restaurant/MenuSection.astro` — NEW: reusable menu section component
+- `src/pages/restaurant/carte.astro` — MODIFIED: full rewrite with Keystatic data, hero, breadcrumb, CTA
+- `src/i18n/translations.ts` — MODIFIED: added `restaurant.menu.*` keys (FR/EN/ES)
+
+## Change Log
+
+- 2026-03-11: Implemented menu page with Keystatic-powered data, MenuSection component, i18n, SEO, breadcrumb, and CTA
