@@ -102,7 +102,7 @@
         <article
           class="timeline-card min-w-[80vw] md:min-w-[50vw] lg:min-w-[33vw] max-w-md flex-shrink-0 bg-white rounded-2xl shadow-sm overflow-hidden"
         >
-          <div class="aspect-[4/3] overflow-hidden">
+          <div class="aspect-[16/9] overflow-hidden">
             <img
               src={block.image}
               alt={block.title}
@@ -148,7 +148,7 @@
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {#each timeBlocks as block}
           <article class="bg-white rounded-2xl shadow-sm overflow-hidden">
-            <div class="aspect-[4/3] overflow-hidden">
+            <div class="aspect-[16/9] overflow-hidden">
               <img
                 src={block.image}
                 alt={block.title}

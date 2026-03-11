@@ -12,6 +12,19 @@ import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils'
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+// Placeholder images — cycled across activity cards
+const aquaticImages = [
+  '/images/placeholders/pietro-de-grandi.webp',
+  '/images/placeholders/cristian-negraia.webp',
+  '/images/placeholders/daniel-jacob.webp',
+];
+const terrestreImages = [
+  '/images/placeholders/dirk-von-loen-wagner.webp',
+  '/images/placeholders/nils-lindner.webp',
+  '/images/placeholders/claudia-chiavazza.webp',
+  '/images/placeholders/daniel-jacob.webp',
+];
+
 // Static activity data for V1 — will be replaced by Keystatic reader
 const activities = {
   aquatique: [
@@ -50,12 +63,14 @@ const activities = {
         {t('aventure.aquatique')}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {activities.aquatique.map((activity) => (
+        {activities.aquatique.map((activity, i) => (
           <a
             href={getLocalizedPath(`/aventure/${activity.slug}`, lang)}
             class="group block bg-aventure-light rounded-2xl overflow-hidden border border-aventure/10 hover:shadow-lg hover:-translate-y-1 transition-all"
           >
-            <div class="aspect-[16/10] bg-aventure/10" />
+            <div class="aspect-[16/10] overflow-hidden">
+              <img src={aquaticImages[i % aquaticImages.length]} alt={activity.title} class="w-full h-full object-cover" loading="lazy" />
+            </div>
             <div class="p-6">
               <h3 class="font-heading text-lg font-bold text-aventure">{activity.title}</h3>
               <p class="mt-2 text-sm text-gray-600">
@@ -79,12 +94,14 @@ const activities = {
         {t('aventure.terrestre')}
       </h2>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {activities.terrestre.map((activity) => (
+        {activities.terrestre.map((activity, i) => (
           <a
             href={getLocalizedPath(`/aventure/${activity.slug}`, lang)}
             class="group block bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all"
           >
-            <div class="aspect-[16/10] bg-aventure/5" />
+            <div class="aspect-[16/10] overflow-hidden">
+              <img src={terrestreImages[i % terrestreImages.length]} alt={activity.title} class="w-full h-full object-cover" loading="lazy" />
+            </div>
             <div class="p-6">
               <h3 class="font-heading text-lg font-bold text-aventure">{activity.title}</h3>
               <p class="mt-2 text-sm text-gray-600">

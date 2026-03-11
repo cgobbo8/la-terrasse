@@ -12,10 +12,19 @@ import VideoHero from '@/components/homepage/VideoHero.astro';
 import LogoMaskReveal from '@/components/homepage/LogoMaskReveal.svelte';
 import PoleDiscovery from '@/components/homepage/PoleDiscovery.astro';
 import JourneeTypeTimeline from '@/components/homepage/JourneeTypeTimeline.svelte';
+import BentoMeteo from '@/components/homepage/BentoMeteo.astro';
+import AgendaSection from '@/components/homepage/AgendaSection.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+// Load Keystatic CMS data
+const reader = createReader(process.cwd(), keystaticConfig);
+const settings = await reader.singletons.settings.read() ?? {};
+const allEvents = await reader.collections.events.all();
 
 const timeBlocks = [
   {
@@ -113,11 +122,14 @@ const timeBlocks = [
             {t('home.history.closing')}
           </p>
         </div>
-        <!-- Image placeholder — future: photo historique du lac / de la digue -->
+        <!-- Image historique du lac -->
         <div class="lg:col-span-2">
-          <div class="aspect-[3/4] rounded-2xl bg-white/10 flex items-center justify-center">
-            <span class="text-white/30 text-sm text-center px-4">Photo historique du lac de Saint-Ferréol</span>
-          </div>
+          <img
+            src="/images/placeholders/claudia-chiavazza.webp"
+            alt="Le lac de Saint-Ferréol"
+            class="aspect-[3/4] w-full rounded-2xl object-cover"
+            loading="lazy"
+          />
         </div>
       </div>
     </div>
@@ -132,17 +144,13 @@ const timeBlocks = [
     ctaLabel={t('home.dayTrip.cta')}
   />
 
-  <!-- 5. AGENDA — Les rendez-vous -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre text-center mb-12">
-        {t('home.agenda.title')}
-      </h2>
-      <p class="text-center text-gray-400">Événements à venir — bientôt disponible</p>
-    </div>
-  </section>
+  <!-- 5. INFOS PRATIQUES — Bento grid -->
+  <BentoMeteo settings={settings} lang={lang} />
 
-  <!-- 6. CTA FINAL -->
+  <!-- 6. AGENDA — Les rendez-vous -->
+  <AgendaSection events={allEvents} lang={lang} />
+
+  <!-- 7. CTA FINAL -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-brun-terre text-white">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="font-heading text-3xl lg:text-4xl font-bold mb-8">

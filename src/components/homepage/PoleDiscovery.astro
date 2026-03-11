@@ -10,10 +10,10 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const poles: { key: Pole; href: string }[] = [
-  { key: 'restaurant', href: '/restaurant' },
-  { key: 'aventure', href: '/aventure' },
-  { key: 'evenements', href: '/evenements' },
+const poles: { key: Pole; href: string; image: string }[] = [
+  { key: 'restaurant', href: '/restaurant', image: '/images/placeholders/dirk-von-loen-wagner.webp' },
+  { key: 'aventure', href: '/aventure', image: '/images/placeholders/daniel-jacob.webp' },
+  { key: 'evenements', href: '/evenements', image: '/images/placeholders/cristian-negraia.webp' },
 ];
 ---
 
@@ -23,7 +23,7 @@ const poles: { key: Pole; href: string }[] = [
       {t('home.poles.title')}
     </h2>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {poles.map(({ key, href }) => {
+      {poles.map(({ key, href, image }) => {
         const config = poleConfigs[key];
         const description = t(`home.poles.description.${key}` as any);
         const ctaLabel = t(`home.poles.cta.${key}` as any);
@@ -31,10 +31,13 @@ const poles: { key: Pole; href: string }[] = [
 
         return (
           <div class="rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
-            <div class="aspect-[3/2] overflow-hidden" style={`background-color: ${config.light}`}>
-              <div class="w-full h-full flex items-center justify-center">
-                <span class="text-sm opacity-40" style={`color: ${config.accent}`}>Photo {config.name}</span>
-              </div>
+            <div class="aspect-[3/2] overflow-hidden">
+              <img
+                src={image}
+                alt={`La Terrasse ${config.name}`}
+                class="w-full h-full object-cover"
+                loading="lazy"
+              />
             </div>
             <div class="p-6">
               <h3 class="font-heading text-xl font-bold mb-2" style={`color: ${config.accent}`}>
