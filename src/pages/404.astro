@@ -1,0 +1,33 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
+<BaseLayout
+  title={t('error.404.pageTitle')}
+  description={t('error.404.description')}
+  noindex={true}
+>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 text-center">
+    <p class="text-8xl md:text-9xl font-bold text-gray-200 select-none">404</p>
+    <h1 class="mt-4 text-2xl md:text-3xl font-bold text-gray-800">
+      {t('error.404.title')}
+    </h1>
+    <p class="mt-4 text-gray-600 max-w-md mx-auto">
+      {t('error.404.description')}
+    </p>
+    <a
+      href={getLocalizedPath('/', lang)}
+      class="mt-8 inline-flex items-center gap-2 bg-brun-terre text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors min-h-11"
+    >
+      <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M19 12H5" />
+        <path d="M12 19l-7-7 7-7" />
+      </svg>
+      {t('error.404.cta')}
+    </a>
+  </div>
+</BaseLayout>

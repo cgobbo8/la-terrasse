@@ -10,6 +10,7 @@ interface Props {
   ogImage?: string;
   jsonLd?: string;
   pagePath?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -19,6 +20,7 @@ const {
   ogImage = '/og-image.jpg',
   jsonLd,
   pagePath,
+  noindex = false,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -31,6 +33,7 @@ const pathForHreflang = pagePath ?? (Astro.url.pathname.replace(/^\/(en|es)/, ''
 
 <title>{fullTitle}</title>
 <meta name="description" content={description} />
+{noindex && <meta name="robots" content="noindex, nofollow" />}
 <link rel="canonical" href={canonical} />
 
 <!-- Open Graph -->

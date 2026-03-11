@@ -1,6 +1,6 @@
 # Story 1.6: 404 Error Page
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,45 +19,45 @@ so that I can find my way back to the site content without confusion.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/pages/404.astro` (AC: #1, #2, #5)
-  - [ ] Import `BaseLayout` from `@/layouts/BaseLayout.astro`
-  - [ ] Import `getLangFromUrl`, `useTranslations`, `getLocalizedPath` from `@/i18n/utils`
-  - [ ] Wrap content in `<BaseLayout title="Page introuvable" description="La page que vous recherchez n'existe pas.">`
-  - [ ] Do NOT pass a `pole` prop — use brand-mother neutral styling
-  - [ ] BaseLayout renders Header and Footer automatically
+- [x] Task 1: Create `src/pages/404.astro` (AC: #1, #2, #5)
+  - [x] Import `BaseLayout` from `@/layouts/BaseLayout.astro`
+  - [x] Import `getLangFromUrl`, `useTranslations`, `getLocalizedPath` from `@/i18n/utils`
+  - [x] Wrap content in `<BaseLayout title="Page introuvable" description="La page que vous recherchez n'existe pas.">`
+  - [x] Do NOT pass a `pole` prop — use brand-mother neutral styling
+  - [x] BaseLayout renders Header and Footer automatically
 
-- [ ] Task 2: Build the 404 content section (AC: #3, #4)
-  - [ ] Create a centered content block with generous vertical padding (`py-24 md:py-32`)
-  - [ ] Large "404" display text: `text-8xl md:text-9xl font-bold` in a muted color (`text-gray-200`)
-  - [ ] Heading: `<h1>` with "Cette page n'existe pas" in `text-2xl md:text-3xl font-bold text-gray-800`
-  - [ ] Body text: "Pas d'inquietude, vous pouvez retrouver votre chemin depuis la page d'accueil ou utiliser le menu de navigation." in `text-gray-600`
-  - [ ] CTA link to homepage: `<a href={getLocalizedPath('/', lang)}>` styled as primary button with brun-terre background
-  - [ ] Button text: "Retour a l'accueil"
-  - [ ] Button styling: `inline-flex items-center gap-2 bg-brun-terre text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors min-h-11`
-  - [ ] Optional: add a small decorative element (compass or map icon from the existing iconPaths set) for visual interest
+- [x] Task 2: Build the 404 content section (AC: #3, #4)
+  - [x] Create a centered content block with generous vertical padding (`py-24 md:py-32`)
+  - [x] Large "404" display text: `text-8xl md:text-9xl font-bold` in a muted color (`text-gray-200`)
+  - [x] Heading: `<h1>` with "Cette page n'existe pas" in `text-2xl md:text-3xl font-bold text-gray-800`
+  - [x] Body text: "Pas d'inquietude, vous pouvez retrouver votre chemin depuis la page d'accueil ou utiliser le menu de navigation." in `text-gray-600`
+  - [x] CTA link to homepage: `<a href={getLocalizedPath('/', lang)}>` styled as primary button with brun-terre background
+  - [x] Button text: "Retour a l'accueil"
+  - [x] Button styling: `inline-flex items-center gap-2 bg-brun-terre text-white px-6 py-3 rounded-lg font-medium hover:bg-gray-800 transition-colors min-h-11`
+  - [x] Optional: add a small decorative element (compass or map icon from the existing iconPaths set) for visual interest
 
-- [ ] Task 3: Add SEO metadata for 404 page (AC: #6)
-  - [ ] Set title to "Page introuvable" (BaseLayout appends " — La Terrasse")
-  - [ ] Add `<meta name="robots" content="noindex, nofollow">` to prevent indexing
-  - [ ] This requires either:
+- [x] Task 3: Add SEO metadata for 404 page (AC: #6)
+  - [x] Set title to "Page introuvable" (BaseLayout appends " — La Terrasse")
+  - [x] Add `<meta name="robots" content="noindex, nofollow">` to prevent indexing
+  - [x] This requires either:
     - Option A: Add a `noindex` prop to BaseLayout that conditionally renders the robots meta tag
     - Option B: Use Astro's `<slot name="head">` pattern if supported, or add the meta tag via SEOHead.astro (from Story 1.1)
-  - [ ] If SEOHead.astro is not yet created (Story 1.1), add the `<meta name="robots">` tag directly in a `<Fragment slot="head">` or accept that it will be added when SEOHead is implemented
+  - [x] If SEOHead.astro is not yet created (Story 1.1), add the `<meta name="robots">` tag directly in a `<Fragment slot="head">` or accept that it will be added when SEOHead is implemented
 
-- [ ] Task 4: Add i18n support for 404 content (AC: #3, #4)
-  - [ ] Add translation keys to `src/i18n/translations.ts`:
+- [x] Task 4: Add i18n support for 404 content (AC: #3, #4)
+  - [x] Add translation keys to `src/i18n/translations.ts`:
     - `error.404.title`: "Cette page n'existe pas" / "This page does not exist" / "Esta pagina no existe"
     - `error.404.description`: "Pas d'inquietude..." / "Don't worry..." / "No se preocupe..."
     - `error.404.cta`: "Retour a l'accueil" / "Back to homepage" / "Volver al inicio"
     - `error.404.pageTitle`: "Page introuvable" / "Page not found" / "Pagina no encontrada"
-  - [ ] Use `const t = useTranslations(lang)` and `t('error.404.title')` etc. in the template
-  - [ ] Note: Astro serves the same 404.astro for all locales. Use `getLangFromUrl(Astro.url)` — for 404s this may default to FR since the URL doesn't match a locale prefix. Accept this limitation for V1.
+  - [x] Use `const t = useTranslations(lang)` and `t('error.404.title')` etc. in the template
+  - [x] Note: Astro serves the same 404.astro for all locales. Use `getLangFromUrl(Astro.url)` — for 404s this may default to FR since the URL doesn't match a locale prefix. Accept this limitation for V1.
 
-- [ ] Task 5: Verify layout integration (AC: #5)
-  - [ ] Confirm BaseLayout renders Header (with full navigation — MegaMenu + MobileMenu)
-  - [ ] Confirm BaseLayout renders Footer (with all links and contact info)
-  - [ ] Confirm the page does not pass `pole` prop, so header shows neutral brun-terre styling and CTA shows "Nous contacter"
-  - [ ] Test that navigating to a non-existent URL (e.g., `/this-does-not-exist`) renders the 404 page
+- [x] Task 5: Verify layout integration (AC: #5)
+  - [x] Confirm BaseLayout renders Header (with full navigation — MegaMenu + MobileMenu)
+  - [x] Confirm BaseLayout renders Footer (with all links and contact info)
+  - [x] Confirm the page does not pass `pole` prop, so header shows neutral brun-terre styling and CTA shows "Nous contacter"
+  - [x] Test that navigating to a non-existent URL (e.g., `/this-does-not-exist`) renders the 404 page
 
 ## Dev Notes
 
@@ -95,9 +95,27 @@ so that I can find my way back to the site content without confusion.
 ## Dev Agent Record
 
 ### Agent Model Used
+claude-opus-4-6
 
 ### Debug Log References
+- Build passed with 0 errors — 404.html generated in dist/client/
+- noindex meta tag confirmed present in built 404.html
+- Used Option A: added `noindex` prop to both BaseLayout and SEOHead (reusable for future pages)
+- Added arrow-left SVG icon as decorative element on the CTA button
 
 ### Completion Notes List
+- Created `src/pages/404.astro` — minimal, zero-JS page with BaseLayout (no pole prop)
+- 404 content: large "404" display text, h1 title, reassuring description, brun-terre CTA with arrow icon
+- Added `noindex` boolean prop to SEOHead.astro and BaseLayout.astro — renders `<meta name="robots" content="noindex, nofollow">` when true
+- Added i18n keys `error.404.pageTitle`, `error.404.title`, `error.404.description`, `error.404.cta` in all 3 languages (fr/en/es)
+- Layout integration verified: Header + Footer render normally, no pole = brand-mother neutral styling
 
 ### File List
+- `src/pages/404.astro` — NEW: 404 error page
+- `src/components/common/SEOHead.astro` — MODIFIED: added `noindex` prop
+- `src/layouts/BaseLayout.astro` — MODIFIED: added `noindex` prop passthrough
+- `src/i18n/translations.ts` — MODIFIED: added `error.404.*` keys (fr/en/es)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` — MODIFIED: story status updated
+
+## Change Log
+- 2026-03-11: Implemented all 5 tasks — 404 page, noindex SEO support, i18n keys, layout integration verified

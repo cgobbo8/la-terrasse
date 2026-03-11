@@ -14,6 +14,7 @@ interface Props {
   ogImage?: string;
   jsonLd?: string;
   pagePath?: string;
+  noindex?: boolean;
 }
 
 const {
@@ -23,6 +24,7 @@ const {
   ogImage,
   jsonLd,
   pagePath,
+  noindex = false,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url);
@@ -44,6 +46,7 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
       ogImage={ogImage}
       jsonLd={jsonLd}
       pagePath={pagePath}
+      noindex={noindex}
     />
     {import.meta.env.PLAUSIBLE_DOMAIN && (
       <script defer data-domain={import.meta.env.PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>
