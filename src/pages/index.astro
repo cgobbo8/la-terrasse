@@ -11,10 +11,54 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import VideoHero from '@/components/homepage/VideoHero.astro';
 import LogoMaskReveal from '@/components/homepage/LogoMaskReveal.svelte';
 import PoleDiscovery from '@/components/homepage/PoleDiscovery.astro';
+import JourneeTypeTimeline from '@/components/homepage/JourneeTypeTimeline.svelte';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const timeBlocks = [
+  {
+    time: '9h30',
+    title: t('home.dayTrip.block1.title'),
+    description: t('home.dayTrip.block1.description'),
+    image: '/images/journee/kayak.webp',
+    href: getLocalizedPath('/aventure', lang),
+    poleAccent: '#537b47',
+  },
+  {
+    time: '12h30',
+    title: t('home.dayTrip.block2.title'),
+    description: t('home.dayTrip.block2.description'),
+    image: '/images/journee/dejeuner.webp',
+    href: getLocalizedPath('/restaurant', lang),
+    poleAccent: '#2D2B1B',
+  },
+  {
+    time: '14h30',
+    title: t('home.dayTrip.block3.title'),
+    description: t('home.dayTrip.block3.description'),
+    image: '/images/journee/paddle.webp',
+    href: getLocalizedPath('/aventure', lang),
+    poleAccent: '#537b47',
+  },
+  {
+    time: '17h00',
+    title: t('home.dayTrip.block4.title'),
+    description: t('home.dayTrip.block4.description'),
+    image: '/images/journee/detente.webp',
+    href: '#',
+    poleAccent: '#2D2B1B',
+  },
+  {
+    time: '19h30',
+    title: t('home.dayTrip.block5.title'),
+    description: t('home.dayTrip.block5.description'),
+    image: '/images/journee/apero.webp',
+    href: getLocalizedPath('/restaurant', lang),
+    poleAccent: '#2D2B1B',
+  },
+];
 ---
 
 <BaseLayout title="Accueil" description="La Terrasse — Restaurant, Aventure et Événements au lac de Saint-Ferréol">
@@ -79,29 +123,14 @@ const t = useTranslations(lang);
     </div>
   </section>
 
-  <!-- 4. UNE JOURNÉE À LA TERRASSE — Pièce créative -->
-  <!-- TODO: Section immersive timeline (Svelte island pour interactivité) -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre text-center mb-12">
-        {t('home.dayTrip.title')}
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-        {[
-          { time: '10h', label: 'Activité nature', icon: '🌿' },
-          { time: '12h30', label: 'Déjeuner au bord du lac', icon: '🍽' },
-          { time: '14h30', label: 'Baignade ou paddle', icon: '🌊' },
-          { time: '19h', label: 'Dîner en terrasse', icon: '🌅' },
-        ].map((step, i) => (
-          <div class="text-center p-6">
-            <span class="text-3xl">{step.icon}</span>
-            <p class="font-heading font-bold text-brun-terre mt-3">{step.time}</p>
-            <p class="text-gray-600 text-sm mt-1">{step.label}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  </section>
+  <!-- 4. UNE JOURNÉE À LA TERRASSE — Pièce créative (Svelte island) -->
+  <JourneeTypeTimeline
+    client:visible
+    timeBlocks={timeBlocks}
+    lang={lang}
+    sectionTitle={t('home.dayTrip.title')}
+    ctaLabel={t('home.dayTrip.cta')}
+  />
 
   <!-- 5. AGENDA — Les rendez-vous -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">

@@ -1,6 +1,6 @@
 # Story 2.4: "Journee Type" Immersive Timeline
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,24 +19,24 @@ so that I can visualize a full day at the site and feel inspired to plan my visi
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/components/homepage/JourneeTypeTimeline.svelte` (AC: #1, #2, #5)
-  - [ ] Accept props: `timeBlocks` array (serializable data, not functions) and `lang` string
-  - [ ] Each timeBlock object: `{ time: string, title: string, description: string, image: string, href: string, poleAccent: string }`
-  - [ ] On mount, check viewport width and `prefers-reduced-motion` to decide rendering mode
-  - [ ] Import GSAP and ScrollTrigger: `import { gsap } from 'gsap'` and `import { ScrollTrigger } from 'gsap/ScrollTrigger'`
-  - [ ] Register plugin: `gsap.registerPlugin(ScrollTrigger)`
-- [ ] Task 2: Define time blocks data in `src/pages/index.astro` (AC: #2, #6)
-  - [ ] Block 1: `{ time: '9h30', title: 'Activité nature', description: 'Départ en kayak sur le lac...', image: '/images/journee/kayak.webp', href: '/aventure', poleAccent: '#537b47' }`
-  - [ ] Block 2: `{ time: '12h30', title: 'Déjeuner au bord du lac', description: 'Cuisine locale et gourmande en terrasse...', image: '/images/journee/dejeuner.webp', href: '/restaurant', poleAccent: '#2D2B1B' }`
-  - [ ] Block 3: `{ time: '14h30', title: 'Baignade et paddle', description: 'Profitez du lac et de ses activités aquatiques...', image: '/images/journee/paddle.webp', href: '/aventure', poleAccent: '#537b47' }`
-  - [ ] Block 4: `{ time: '17h00', title: 'Détente et farniente', description: 'Pause à l\'ombre des arbres, vue sur le lac...', image: '/images/journee/detente.webp', href: '#', poleAccent: '#2D2B1B' }`
-  - [ ] Block 5: `{ time: '19h30', title: 'Apéro en terrasse', description: 'Cocktails et planches à partager au coucher du soleil...', image: '/images/journee/apero.webp', href: '/restaurant', poleAccent: '#2D2B1B' }`
-  - [ ] Localize titles and descriptions via i18n translations (or hardcode FR for V1 with TODO)
-  - [ ] Use `getLocalizedPath()` for all href values
-- [ ] Task 3: Implement GSAP horizontal scroll animation (AC: #1)
-  - [ ] Create a container that holds all time blocks side-by-side: `display: flex; flex-wrap: nowrap;`
-  - [ ] Each time block card width: `min-w-[80vw] md:min-w-[50vw] lg:min-w-[33vw]`
-  - [ ] Use ScrollTrigger to pin the section and translate the inner container horizontally:
+- [x] Task 1: Create `src/components/homepage/JourneeTypeTimeline.svelte` (AC: #1, #2, #5)
+  - [x] Accept props: `timeBlocks` array (serializable data, not functions) and `lang` string
+  - [x] Each timeBlock object: `{ time: string, title: string, description: string, image: string, href: string, poleAccent: string }`
+  - [x] On mount, check viewport width and `prefers-reduced-motion` to decide rendering mode
+  - [x] Import GSAP and ScrollTrigger: `import { gsap } from 'gsap'` and `import { ScrollTrigger } from 'gsap/ScrollTrigger'`
+  - [x] Register plugin: `gsap.registerPlugin(ScrollTrigger)`
+- [x] Task 2: Define time blocks data in `src/pages/index.astro` (AC: #2, #6)
+  - [x] Block 1: `{ time: '9h30', title: 'Activité nature', description: 'Départ en kayak sur le lac...', image: '/images/journee/kayak.webp', href: '/aventure', poleAccent: '#537b47' }`
+  - [x] Block 2: `{ time: '12h30', title: 'Déjeuner au bord du lac', description: 'Cuisine locale et gourmande en terrasse...', image: '/images/journee/dejeuner.webp', href: '/restaurant', poleAccent: '#2D2B1B' }`
+  - [x] Block 3: `{ time: '14h30', title: 'Baignade et paddle', description: 'Profitez du lac et de ses activités aquatiques...', image: '/images/journee/paddle.webp', href: '/aventure', poleAccent: '#537b47' }`
+  - [x] Block 4: `{ time: '17h00', title: 'Détente et farniente', description: 'Pause à l\'ombre des arbres, vue sur le lac...', image: '/images/journee/detente.webp', href: '#', poleAccent: '#2D2B1B' }`
+  - [x] Block 5: `{ time: '19h30', title: 'Apéro en terrasse', description: 'Cocktails et planches à partager au coucher du soleil...', image: '/images/journee/apero.webp', href: '/restaurant', poleAccent: '#2D2B1B' }`
+  - [x] Localize titles and descriptions via i18n translations (or hardcode FR for V1 with TODO)
+  - [x] Use `getLocalizedPath()` for all href values
+- [x] Task 3: Implement GSAP horizontal scroll animation (AC: #1)
+  - [x] Create a container that holds all time blocks side-by-side: `display: flex; flex-wrap: nowrap;`
+  - [x] Each time block card width: `min-w-[80vw] md:min-w-[50vw] lg:min-w-[33vw]`
+  - [x] Use ScrollTrigger to pin the section and translate the inner container horizontally:
     ```js
     gsap.to(container, {
       x: () => -(container.scrollWidth - window.innerWidth),
@@ -49,44 +49,44 @@ so that I can visualize a full day at the site and feel inspired to plan my visi
       },
     });
     ```
-  - [ ] Ensure the pinned section height accounts for the horizontal scroll distance
-  - [ ] Add subtle entrance animations for each card as it enters the viewport (opacity + translateY)
-- [ ] Task 4: Implement time block card markup (AC: #2)
-  - [ ] Card layout: image on top (aspect 4:3, `object-cover`), content below
-  - [ ] Time label: bold, styled with pole accent color via inline `style`
-  - [ ] Title: H3, font-heading, font-bold
-  - [ ] Description: text-sm, text-gray-600, 2-3 lines max
-  - [ ] CTA link: "En savoir plus →" with pole accent color, links to relevant pole page
-  - [ ] Card container: `bg-white rounded-2xl shadow-sm overflow-hidden p-0`
-  - [ ] Vertical connector line or dot between cards to reinforce the timeline metaphor
-- [ ] Task 5: Implement `prefers-reduced-motion` fallback (AC: #3)
-  - [ ] Check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` on mount
-  - [ ] If reduced motion: do NOT initialize ScrollTrigger. Render all blocks in a vertical grid layout
-  - [ ] Vertical layout: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8`
-  - [ ] All content visible at once, no animation, no pinning
-- [ ] Task 6: Implement mobile fallback (AC: #4)
-  - [ ] Check viewport width on mount: if `window.innerWidth < 768`, skip ScrollTrigger
-  - [ ] Mobile layout: vertical stack, each block as a full-width card
-  - [ ] Optionally add a CSS scroll-snap horizontal carousel as an intermediate option:
+  - [x] Ensure the pinned section height accounts for the horizontal scroll distance
+  - [x] Add subtle entrance animations for each card as it enters the viewport (opacity + translateY)
+- [x] Task 4: Implement time block card markup (AC: #2)
+  - [x] Card layout: image on top (aspect 4:3, `object-cover`), content below
+  - [x] Time label: bold, styled with pole accent color via inline `style`
+  - [x] Title: H3, font-heading, font-bold
+  - [x] Description: text-sm, text-gray-600, 2-3 lines max
+  - [x] CTA link: "En savoir plus →" with pole accent color, links to relevant pole page
+  - [x] Card container: `bg-white rounded-2xl shadow-sm overflow-hidden p-0`
+  - [x] Vertical connector line or dot between cards to reinforce the timeline metaphor
+- [x] Task 5: Implement `prefers-reduced-motion` fallback (AC: #3)
+  - [x] Check `window.matchMedia('(prefers-reduced-motion: reduce)').matches` on mount
+  - [x] If reduced motion: do NOT initialize ScrollTrigger. Render all blocks in a vertical grid layout
+  - [x] Vertical layout: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8`
+  - [x] All content visible at once, no animation, no pinning
+- [x] Task 6: Implement mobile fallback (AC: #4)
+  - [x] Check viewport width on mount: if `window.innerWidth < 768`, skip ScrollTrigger
+  - [x] Mobile layout: vertical stack, each block as a full-width card
+  - [x] Optionally add a CSS scroll-snap horizontal carousel as an intermediate option:
     ```css
     .timeline-mobile { overflow-x: auto; scroll-snap-type: x mandatory; }
     .timeline-card { scroll-snap-align: start; }
     ```
-  - [ ] Listen for window resize and handle breakpoint changes (or use a simpler approach: check once on mount)
-- [ ] Task 7: Integrate into `src/pages/index.astro` (AC: #5)
-  - [ ] Import `JourneeTypeTimeline` from `@/components/homepage/JourneeTypeTimeline.svelte`
-  - [ ] Replace the current placeholder "Une journée à La Terrasse" section (lines ~124-145 of current index.astro)
-  - [ ] Pass `timeBlocks` as a serializable data prop and `lang` as a string
-  - [ ] Use `client:visible` directive for deferred loading
-  - [ ] Wrap in a section with `bg-offwhite` background
-- [ ] Task 8: Create placeholder images
-  - [ ] Create `public/images/journee/` directory
-  - [ ] Add 5 placeholder images: `kayak.webp`, `dejeuner.webp`, `paddle.webp`, `detente.webp`, `apero.webp`
-  - [ ] Minimum 800x600px, 4:3 aspect ratio, WebP format
-- [ ] Task 9: Cleanup GSAP on destroy (AC: #1)
-  - [ ] In Svelte's `onDestroy`, kill the ScrollTrigger instance and any GSAP tweens
-  - [ ] `ScrollTrigger.getAll().forEach(st => st.kill())` or store the specific instance and kill it
-  - [ ] This prevents memory leaks if the component is unmounted (e.g., client-side navigation)
+  - [x] Listen for window resize and handle breakpoint changes (or use a simpler approach: check once on mount)
+- [x] Task 7: Integrate into `src/pages/index.astro` (AC: #5)
+  - [x] Import `JourneeTypeTimeline` from `@/components/homepage/JourneeTypeTimeline.svelte`
+  - [x] Replace the current placeholder "Une journée à La Terrasse" section (lines ~124-145 of current index.astro)
+  - [x] Pass `timeBlocks` as a serializable data prop and `lang` as a string
+  - [x] Use `client:visible` directive for deferred loading
+  - [x] Wrap in a section with `bg-offwhite` background
+- [x] Task 8: Create placeholder images
+  - [x] Create `public/images/journee/` directory
+  - [x] Add 5 placeholder images: `kayak.webp`, `dejeuner.webp`, `paddle.webp`, `detente.webp`, `apero.webp`
+  - [x] Minimum 800x600px, 4:3 aspect ratio, WebP format
+- [x] Task 9: Cleanup GSAP on destroy (AC: #1)
+  - [x] In Svelte's `onDestroy`, kill the ScrollTrigger instance and any GSAP tweens
+  - [x] `ScrollTrigger.getAll().forEach(st => st.kill())` or store the specific instance and kill it
+  - [x] This prevents memory leaks if the component is unmounted (e.g., client-side navigation)
 
 ## Dev Notes
 
@@ -170,8 +170,37 @@ scrollTween.kill();
 
 ### Agent Model Used
 
+Claude Opus 4.6
+
 ### Debug Log References
+
+No issues encountered. Build passed on first attempt.
 
 ### Completion Notes List
 
+- Created JourneeTypeTimeline.svelte component with full GSAP ScrollTrigger horizontal scroll animation on desktop
+- Implemented progressive enhancement: static vertical grid fallback for mobile (<768px) and prefers-reduced-motion
+- GSAP and ScrollTrigger are dynamically imported (not in initial bundle) to keep page load fast
+- All 5 time blocks are fully i18n-ized (FR/EN/ES) with localized paths via getLocalizedPath()
+- Card entrance animations (opacity + translateY) triggered by containerAnimation for smooth reveal during horizontal scroll
+- GSAP cleanup handled in onMount return function (Svelte 5 pattern) — kills ScrollTrigger and all tweens on unmount
+- Placeholder images generated as solid-color WebP files (800x600, 4:3 aspect) — to be replaced with real photography
+- Section uses role="region" with aria-label for accessibility; cards use semantic <article> elements
+- Timeline dot (colored circle) on each card reinforces timeline metaphor per Task 4 spec
+
 ### File List
+
+- `src/components/homepage/JourneeTypeTimeline.svelte` — NEW: main timeline component
+- `src/pages/index.astro` — MODIFIED: replaced placeholder section with Svelte island, added timeBlocks data
+- `src/i18n/translations.ts` — MODIFIED: added dayTrip block translations (FR/EN/ES) + CTA label
+- `public/images/journee/kayak.webp` — NEW: placeholder image
+- `public/images/journee/dejeuner.webp` — NEW: placeholder image
+- `public/images/journee/paddle.webp` — NEW: placeholder image
+- `public/images/journee/detente.webp` — NEW: placeholder image
+- `public/images/journee/apero.webp` — NEW: placeholder image
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` — MODIFIED: story status updated to review
+- `_bmad-output/implementation-artifacts/2-4-journee-type-immersive-timeline.md` — MODIFIED: tasks checked, status → review
+
+### Change Log
+
+- 2026-03-11: Implemented "Journée Type" immersive timeline with GSAP horizontal scroll, i18n support (FR/EN/ES), mobile/reduced-motion fallbacks, and placeholder images
