@@ -1,0 +1,90 @@
+---
+import type { Lang } from '@/i18n/translations';
+import { useTranslations, getLocalizedField } from '@/i18n/utils';
+
+interface EventEntry {
+  slug: string;
+  entry: Record<string, unknown> & {
+    title: string;
+    date: string | null;
+    description: string;
+    visible: boolean;
+  };
+}
+
+interface Props {
+  events: EventEntry[];
+  lang: Lang;
+}
+
+const { events, lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Filter visible + future events, sort chronologically, limit to 4
+const now = new Date();
+const upcomingEvents = events
+  .filter((e) => {
+    if (!e.entry.visible) return false;
+    if (!e.entry.date) return false;
+    return new Date(e.entry.date) >= now;
+  })
+  .sort((a, b) => new Date(a.entry.date!).getTime() - new Date(b.entry.date!).getTime())
+  .slice(0, 4);
+
+const hasEvents = upcomingEvents.length > 0;
+
+function formatDay(dateStr: string) {
+  return new Intl.DateTimeFormat('fr', { day: 'numeric' }).format(new Date(dateStr));
+}
+
+function formatMonth(dateStr: string, locale: string) {
+  return new Intl.DateTimeFormat(locale, { month: 'short' }).format(new Date(dateStr));
+}
+
+// Pre-compute event display data in the frontmatter to avoid `as` casts in template
+const displayEvents = upcomingEvents.map((event) => ({
+  slug: event.slug,
+  date: event.entry.date!,
+  title: getLocalizedField(event.entry, 'title', lang) || event.slug,
+  description: getLocalizedField(event.entry, 'description', lang),
+}));
+---
+
+<section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre text-center mb-12">
+      {t('home.agenda.title')}
+    </h2>
+
+    {hasEvents ? (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-6 max-w-4xl mx-auto">
+        {displayEvents.map((event) => (
+          <article class="flex gap-4 items-start p-5 rounded-2xl bg-white shadow-sm border border-gray-100">
+            <div class="flex-shrink-0 text-center bg-offwhite rounded-xl p-3 w-16">
+              <span class="block text-2xl font-bold text-brun-terre leading-none">
+                {formatDay(event.date)}
+              </span>
+              <span class="block text-xs text-gray-600 uppercase mt-1">
+                {formatMonth(event.date, lang)}
+              </span>
+            </div>
+            <div class="min-w-0">
+              <h3 class="font-heading font-bold text-lg text-gray-900 leading-snug">
+                {event.title}
+              </h3>
+              {event.description && (
+                <p class="text-sm text-gray-600 mt-1.5 leading-relaxed line-clamp-2">
+                  {event.description}
+                </p>
+              )}
+            </div>
+          </article>
+        ))}
+      </div>
+    ) : (
+      <p class="text-center text-gray-400 text-lg">
+        {t('home.agenda.empty')}
+      </p>
+    )}
+  </div>
+</section>
