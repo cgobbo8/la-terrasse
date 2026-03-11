@@ -1,0 +1,54 @@
+---
+import { getLocalizedPath, getLangFromUrl } from '@/i18n/utils';
+import { languages } from '@/i18n/translations';
+import type { Lang } from '@/i18n/translations';
+
+interface Props {
+  title: string;
+  description: string;
+  canonicalUrl?: string;
+  ogImage?: string;
+  jsonLd?: string;
+  pagePath?: string;
+}
+
+const {
+  title,
+  description,
+  canonicalUrl,
+  ogImage = '/og-image.jpg',
+  jsonLd,
+  pagePath,
+} = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const siteUrl = import.meta.env.SITE_URL ?? 'https://laterrasse-saintferreol.fr';
+const fullTitle = `${title} — La Terrasse`;
+const canonical = canonicalUrl ?? `${siteUrl}${Astro.url.pathname}`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+const pathForHreflang = pagePath ?? (Astro.url.pathname.replace(/^\/(en|es)/, '') || '/');
+---
+
+<title>{fullTitle}</title>
+<meta name="description" content={description} />
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph -->
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={description} />
+<meta property="og:image" content={ogImageUrl} />
+<meta property="og:url" content={canonical} />
+<meta property="og:type" content="website" />
+
+<!-- Hreflang -->
+{Object.keys(languages).map((l) => (
+  <link
+    rel="alternate"
+    hreflang={l}
+    href={`${siteUrl}${getLocalizedPath(pathForHreflang, l as Lang)}`}
+  />
+))}
+<link rel="alternate" hreflang="x-default" href={`${siteUrl}${pathForHreflang}`} />
+
+<!-- JSON-LD -->
+{jsonLd && <script type="application/ld+json" set:html={jsonLd} />}

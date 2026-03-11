@@ -13,6 +13,7 @@
     "@astrojs/mdx": "^4.3.13",
     "@astrojs/node": "^9.5.4",
     "@astrojs/react": "^4.4.2",
+    "@astrojs/sitemap": "^3.7.1",
     "@astrojs/svelte": "^7.2.5",
     "@keystatic/astro": "^5.0.6",
     "@keystatic/core": "^0.5.48",
@@ -27,6 +28,9 @@
     "typescript": "^5.9.3"
   },
   "pnpm": {
-    "onlyBuiltDependencies": ["esbuild", "sharp"]
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }

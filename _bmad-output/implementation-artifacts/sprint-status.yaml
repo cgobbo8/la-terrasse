@@ -1,0 +1,101 @@
+# generated: 2026-03-11
+# project: base-de-loisir-saint-ferreol
+# project_key: NOKEY
+# tracking_system: file-system
+# story_location: {project-root}/_bmad-output/implementation-artifacts
+
+# STATUS DEFINITIONS:
+# ==================
+# Epic Status:
+#   - backlog: Epic not yet started
+#   - in-progress: Epic actively being worked on
+#   - done: All stories in epic completed
+#
+# Story Status:
+#   - backlog: Story only exists in epic file
+#   - ready-for-dev: Story file created, ready for development
+#   - in-progress: Developer actively working on implementation
+#   - review: Implementation complete, ready for review
+#   - done: Story completed
+#
+# Retrospective Status:
+#   - optional: Can be completed but not required
+#   - done: Retrospective has been completed
+#
+# WORKFLOW NOTES:
+# ===============
+# - Mark epic as 'in-progress' when starting work on its first story
+# - SM typically creates next story ONLY after previous one is 'done' to incorporate learnings
+# - Dev moves story to 'review', then Dev runs code-review (fresh context, ideally different LLM)
+
+generated: 2026-03-11
+project: base-de-loisir-saint-ferreol
+project_key: NOKEY
+tracking_system: file-system
+story_location: _bmad-output/implementation-artifacts
+
+development_status:
+  # Epic 1: Site Foundation & Navigation
+  epic-1: in-progress
+  1-1-base-layout-pole-theming-seo-infrastructure: review
+  1-2-desktop-mega-menu-navigation: ready-for-dev
+  1-3-mobile-navigation-panel: ready-for-dev
+  1-4-sticky-context-aware-cta-phone-number: ready-for-dev
+  1-5-footer-site-wide-elements: ready-for-dev
+  1-6-404-error-page: ready-for-dev
+  epic-1-retrospective: optional
+
+  # Epic 2: Homepage Experience
+  epic-2: backlog
+  2-1-video-hero-section: ready-for-dev
+  2-2-logo-mask-reveal-animation: ready-for-dev
+  2-3-pole-discovery-section: ready-for-dev
+  2-4-journee-type-immersive-timeline: ready-for-dev
+  2-5-seasonal-info-event-agenda: ready-for-dev
+  epic-2-retrospective: optional
+
+  # Epic 3: Aventure Pole — Activity Discovery
+  epic-3: backlog
+  3-1-aventure-hub-with-activity-grid: ready-for-dev
+  3-2-activity-detail-pages: ready-for-dev
+  3-3-lateral-navigation-alternative-suggestions: ready-for-dev
+  epic-3-retrospective: optional
+
+  # Epic 4: Restaurant Pole — Dining Experience
+  epic-4: backlog
+  4-1-restaurant-hub-atmosphere: ready-for-dev
+  4-2-menu-page-la-carte: ready-for-dev
+  4-3-local-producers-page: ready-for-dev
+  4-4-group-dining-page: ready-for-dev
+  epic-4-retrospective: optional
+
+  # Epic 5: Événements Pole — Seminars & Events
+  epic-5: backlog
+  5-1-evenements-hub-venue-specs: ready-for-dev
+  5-2-seminar-package-comparison: ready-for-dev
+  5-3-quote-request-flow: ready-for-dev
+  epic-5-retrospective: optional
+
+  # Epic 6: Cross-Pole Discovery & Transversal Pages
+  epic-6: backlog
+  6-1-structural-cross-link-block: ready-for-dev
+  6-2-contextual-narrative-cross-links: ready-for-dev
+  6-3-transversal-pages: ready-for-dev
+  epic-6-retrospective: optional
+
+  # Epic 7: Contact & Practical Information
+  epic-7: backlog
+  7-1-contact-page-map-practical-info: ready-for-dev
+  epic-7-retrospective: optional
+
+  # Epic 8: Internationalization
+  epic-8: backlog
+  8-1-language-switcher-ui-translations: ready-for-dev
+  8-2-multilingual-content-seo: ready-for-dev
+  epic-8-retrospective: optional
+
+  # Epic 9: Content Management & Deployment
+  epic-9: backlog
+  9-1-keystatic-content-schema-collections: ready-for-dev
+  9-2-deployment-pipeline-auto-rebuild: ready-for-dev
+  epic-9-retrospective: optional
