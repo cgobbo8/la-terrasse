@@ -1,6 +1,6 @@
 # Story 2.2: Logo Mask Reveal Animation
 
-Status: review
+Status: done
 
 ## Story
 
