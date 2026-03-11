@@ -1,0 +1,101 @@
+---
+/**
+ * AlternativeSuggestions — "Vous pourriez aussi aimer" section.
+ * Selects 2–3 activities prioritizing age diversity.
+ * Pure Astro, zero JS.
+ */
+import ActivityCard from '@/components/aventure/ActivityCard.astro';
+import { useTranslations } from '@/i18n/utils';
+import type { Lang } from '@/i18n/translations';
+
+interface Activity {
+  title: string;
+  slug: string;
+  price: string;
+  priceDetails: string;
+  age_min: number | null;
+  duration: string;
+  image: string | null;
+  description: string;
+  category: string;
+  title_en?: string;
+  title_es?: string;
+  description_en?: string;
+  description_es?: string;
+}
+
+interface Props {
+  currentSlug: string;
+  activities: Activity[];
+  lang: Lang;
+}
+
+const { currentSlug, activities, lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Filter out current activity
+const others = activities.filter((a) => a.slug !== currentSlug);
+const current = activities.find((a) => a.slug === currentSlug);
+const currentAgeMin = current?.age_min ?? 0;
+
+// Selection algorithm: prioritize age diversity
+const sorted = [...others].sort(
+  (a, b) =>
+    Math.abs((b.age_min ?? 0) - currentAgeMin) -
+    Math.abs((a.age_min ?? 0) - currentAgeMin),
+);
+
+const selected: Activity[] = [];
+if (sorted.length > 0) {
+  // Slot 1: most different age_min
+  selected.push(sorted[0]);
+  const remaining = sorted.slice(1);
+
+  if (remaining.length > 0) {
+    // Slot 2: different duration range if possible
+    const differentDuration = remaining.find(
+      (a) => a.duration !== sorted[0].duration,
+    );
+    selected.push(differentDuration || remaining[0]);
+
+    const usedSlugs = new Set(selected.map((s) => s.slug));
+    const rest = remaining.filter((a) => !usedSlugs.has(a.slug));
+
+    if (rest.length > 0) {
+      // Slot 3: deterministic pick from remaining (based on currentSlug hash)
+      const hashIndex = currentSlug.length % rest.length;
+      selected.push(rest[hashIndex]);
+    }
+  }
+}
+
+// Placeholder images — cycled by slug hash
+const placeholderImages = [
+  '/images/placeholders/pietro-de-grandi.webp',
+  '/images/placeholders/cristian-negraia.webp',
+  '/images/placeholders/daniel-jacob.webp',
+  '/images/placeholders/dirk-von-loen-wagner.webp',
+  '/images/placeholders/nils-lindner.webp',
+  '/images/placeholders/claudia-chiavazza.webp',
+];
+---
+
+{selected.length > 0 && (
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h3 class="font-heading text-2xl font-bold text-aventure mb-8">
+        {t('aventure.alsoLike')}
+      </h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {selected.map((activity) => (
+          <ActivityCard
+            activity={activity}
+            lang={lang}
+            placeholderImage={placeholderImages[activity.slug.length % placeholderImages.length]}
+            variant={activity.category === 'aquatique' ? 'aquatique' : 'terrestre'}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+)}

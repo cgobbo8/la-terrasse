@@ -1,0 +1,71 @@
+---
+/**
+ * ActivityPrevNext — Lateral prev/next navigation between activities.
+ * Wraps around at boundaries. Pure Astro, zero JS.
+ */
+import { getLocalizedPath, getLocalizedField } from '@/i18n/utils';
+import type { Lang } from '@/i18n/translations';
+
+interface Activity {
+  title: string;
+  slug: string;
+  title_en?: string;
+  title_es?: string;
+}
+
+interface Props {
+  currentSlug: string;
+  activities: Activity[];
+  lang: Lang;
+}
+
+const { currentSlug, activities, lang } = Astro.props;
+
+const currentIndex = activities.findIndex((a) => a.slug === currentSlug);
+const prevIndex = currentIndex <= 0 ? activities.length - 1 : currentIndex - 1;
+const nextIndex = currentIndex >= activities.length - 1 ? 0 : currentIndex + 1;
+
+const prev = activities[prevIndex];
+const next = activities[nextIndex];
+
+const prevTitle = getLocalizedField(prev, 'title', lang);
+const nextTitle = getLocalizedField(next, 'title', lang);
+const prevHref = getLocalizedPath(`/aventure/${prev.slug}`, lang);
+const nextHref = getLocalizedPath(`/aventure/${next.slug}`, lang);
+---
+
+{activities.length > 1 && (
+  <nav class="max-w-[768px] mx-auto px-4 sm:px-6 lg:px-8" aria-label="Navigation entre activités">
+    <div class="grid grid-cols-2 gap-4">
+      <a
+        href={prevHref}
+        class="prev-next-link group flex items-center gap-3 p-4 rounded-xl border border-gray-200 hover:border-aventure/30 hover:bg-aventure/5 transition-all"
+      >
+        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 group-hover:bg-aventure/10 flex items-center justify-center transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-aventure transition-colors" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+        </span>
+        <span class="min-w-0">
+          <span class="block text-xs uppercase tracking-wider text-gray-400">Précédent</span>
+          <span class="block text-sm font-medium text-gray-700 group-hover:text-aventure transition-colors truncate">{prevTitle}</span>
+        </span>
+      </a>
+
+      <a
+        href={nextHref}
+        class="prev-next-link group flex items-center justify-end gap-3 p-4 rounded-xl border border-gray-200 hover:border-aventure/30 hover:bg-aventure/5 transition-all text-right"
+      >
+        <span class="min-w-0">
+          <span class="block text-xs uppercase tracking-wider text-gray-400">Suivant</span>
+          <span class="block text-sm font-medium text-gray-700 group-hover:text-aventure transition-colors truncate">{nextTitle}</span>
+        </span>
+        <span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 group-hover:bg-aventure/10 flex items-center justify-center transition-colors">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-gray-400 group-hover:text-aventure transition-colors" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+        </span>
+      </a>
+    </div>
+  </nav>
+)}

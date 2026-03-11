@@ -1,6 +1,6 @@
 # Story 3.3: Lateral Navigation & Alternative Suggestions
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -21,35 +21,35 @@ so that I can discover options that might better fit my group's ages or interest
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/components/aventure/AlternativeSuggestions.astro` (AC: #1, #2, #3, #4, #6, #7)
-  - [ ] Define props: `currentSlug: string`, `activities: Activity[]`, `lang: Lang`
-  - [ ] Filter out the current activity by slug
-  - [ ] Implement selection logic: pick 2–3 activities prioritizing age diversity
-    - [ ] Sort remaining activities by `age_min` difference from current (descending)
-    - [ ] Pick the one with the most different `age_min` first
-    - [ ] Fill remaining slots randomly or by variety (different duration ranges)
-  - [ ] Render section with H3 "Vous pourriez aussi aimer"
-  - [ ] Render selected activities using `ActivityCard` component in a responsive grid
-  - [ ] Grid: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6`
-- [ ] Task 2: Create `src/components/aventure/ActivityPrevNext.astro` (AC: #5, #8)
-  - [ ] Define props: `currentSlug: string`, `activities: Activity[]`, `lang: Lang`
-  - [ ] Determine activity order (same order as CMS collection / hub grid)
-  - [ ] Find current activity index in the ordered list
-  - [ ] Compute prev (index - 1, wrap to last if at start) and next (index + 1, wrap to first if at end)
-  - [ ] Render two navigation links: "← {Prev Activity Name}" and "{Next Activity Name} →"
-  - [ ] Style: flexbox with space-between, prev left-aligned, next right-aligned
-  - [ ] Links use `getLocalizedPath('/aventure/' + slug, lang)`
-  - [ ] Hover: underline + accent color transition
-- [ ] Task 3: Integrate into `src/pages/aventure/[slug].astro` (AC: #1, #5)
-  - [ ] Pass full activities array from `getStaticPaths()` to the page props
-  - [ ] After main content and before footer: render `ActivityPrevNext`
-  - [ ] After prev/next: render `AlternativeSuggestions`
-  - [ ] Add a subtle horizontal divider (`<hr>`) between main content and lateral nav section
-  - [ ] Ensure section spacing matches design tokens (96px desktop / 48px mobile)
-- [ ] Task 4: i18n for section headings (AC: #8)
-  - [ ] Add translation keys: `aventure.alternatives.title` → "Vous pourriez aussi aimer" / "You might also like" / "También te puede gustar"
-  - [ ] Add translation keys for prev/next labels if needed
-  - [ ] Use `useTranslations(lang)` for section heading
+- [x] Task 1: Create `src/components/aventure/AlternativeSuggestions.astro` (AC: #1, #2, #3, #4, #6, #7)
+  - [x] Define props: `currentSlug: string`, `activities: Activity[]`, `lang: Lang`
+  - [x] Filter out the current activity by slug
+  - [x] Implement selection logic: pick 2–3 activities prioritizing age diversity
+    - [x] Sort remaining activities by `age_min` difference from current (descending)
+    - [x] Pick the one with the most different `age_min` first
+    - [x] Fill remaining slots randomly or by variety (different duration ranges)
+  - [x] Render section with H3 "Vous pourriez aussi aimer"
+  - [x] Render selected activities using `ActivityCard` component in a responsive grid
+  - [x] Grid: `grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6`
+- [x] Task 2: Create `src/components/aventure/ActivityPrevNext.astro` (AC: #5, #8)
+  - [x] Define props: `currentSlug: string`, `activities: Activity[]`, `lang: Lang`
+  - [x] Determine activity order (same order as CMS collection / hub grid)
+  - [x] Find current activity index in the ordered list
+  - [x] Compute prev (index - 1, wrap to last if at start) and next (index + 1, wrap to first if at end)
+  - [x] Render two navigation links: "← {Prev Activity Name}" and "{Next Activity Name} →"
+  - [x] Style: flexbox with space-between, prev left-aligned, next right-aligned
+  - [x] Links use `getLocalizedPath('/aventure/' + slug, lang)`
+  - [x] Hover: underline + accent color transition
+- [x] Task 3: Integrate into `src/pages/aventure/[slug].astro` (AC: #1, #5)
+  - [x] Pass full activities array from `getStaticPaths()` to the page props
+  - [x] After main content and before footer: render `ActivityPrevNext`
+  - [x] After prev/next: render `AlternativeSuggestions`
+  - [x] Add a subtle horizontal divider (`<hr>`) between main content and lateral nav section
+  - [x] Ensure section spacing matches design tokens (96px desktop / 48px mobile)
+- [x] Task 4: i18n for section headings (AC: #8)
+  - [x] Add translation keys: `aventure.alternatives.title` → "Vous pourriez aussi aimer" / "You might also like" / "También te puede gustar"
+  - [x] Add translation keys for prev/next labels if needed
+  - [x] Use `useTranslations(lang)` for section heading
 
 ## Dev Notes
 
@@ -106,9 +106,22 @@ Activities follow the same order as returned by the Keystatic collection query (
 ## Dev Agent Record
 
 ### Agent Model Used
+claude-opus-4-6
 
 ### Debug Log References
+No issues encountered during implementation.
 
 ### Completion Notes List
+- Task 1: Created AlternativeSuggestions.astro with age-diversity selection algorithm (sorts by age_min difference, fills slots with duration variety, deterministic 3rd slot via slug hash). Reuses ActivityCard component with proper variant/placeholder handling.
+- Task 2: Created ActivityPrevNext.astro with wrap-around prev/next navigation. Activities ordered by CMS `order` field (same as hub grid). Uses getLocalizedPath for i18n links.
+- Task 3: Modified [slug].astro getStaticPaths to pass allActivities (visible, sorted by order). Added hr divider, ActivityPrevNext, and AlternativeSuggestions between main content and cross-sell section. Spacing uses design tokens (--spacing-section).
+- Task 4: i18n keys already existed (`aventure.alsoLike` in FR/EN/ES). No new keys needed — prev/next displays localized activity names directly via getLocalizedField.
+
+### Change Log
+- 2026-03-11: Story 3.3 implemented — lateral navigation and alternative suggestions on activity detail pages
 
 ### File List
+- src/components/aventure/AlternativeSuggestions.astro (NEW)
+- src/components/aventure/ActivityPrevNext.astro (NEW)
+- src/pages/aventure/[slug].astro (MODIFIED)
+- _bmad-output/implementation-artifacts/sprint-status.yaml (MODIFIED)
