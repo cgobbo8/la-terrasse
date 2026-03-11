@@ -1,6 +1,6 @@
 # Story 3.2: Activity Detail Pages
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -22,46 +22,46 @@ so that I can decide if this activity suits my group and know everything needed 
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/pages/aventure/[slug].astro` (AC: #1, #2, #8, #9)
-  - [ ] Implement `getStaticPaths()` querying all entries from Keystatic `activities` collection
-  - [ ] Return `params: { slug }` and `props: { activity }` for each entry
-  - [ ] Import `getLangFromUrl`, `useTranslations`, `getLocalizedField` from `@/i18n/utils`
-  - [ ] Import `poleConfigs` from `@/lib/pole-config`
-  - [ ] Pass to BaseLayout: pole="aventure", unique title/description per activity, JSON-LD
-- [ ] Task 2: Hero section (AC: #2, #5)
-  - [ ] Full-width hero with activity's primary image (first from `images` array)
-  - [ ] Dark gradient overlay (from bottom) for text readability
-  - [ ] Breadcrumb above title: small caps "AVENTURE" in off-white, linked to `/aventure/`
-  - [ ] Activity name as H1 in white, overlaid on hero image
-  - [ ] Hero height: 50vh desktop, 40vh mobile
-  - [ ] Apply vert végétal accent line or border detail below hero
-- [ ] Task 3: Practical info grid (AC: #4)
-  - [ ] Create info section below hero with 4 data points in a horizontal row (desktop) or 2x2 grid (mobile)
-  - [ ] Price: formatted as "{X} €" with currency symbol, prominent size
-  - [ ] Age: "Dès {age_min} ans" with person/child icon
-  - [ ] Duration: formatted "~{X}h" or "~{X}min" with clock icon
-  - [ ] Group size: "{min}–{max} personnes" with group icon
-  - [ ] Each data point: icon + label + value, centered in a bordered card
-- [ ] Task 4: MDX body rendering (AC: #3, #9)
-  - [ ] Render the activity's MDX body content using Astro's content rendering
-  - [ ] Apply prose typography styles: max-width 768px, centered, comfortable line-height
-  - [ ] Ensure MDX components (headings, lists, images, links) are styled consistently
-  - [ ] Use `getLocalizedField()` for translated content when available
-- [ ] Task 5: Practical details section (AC: #4)
-  - [ ] "Bon à savoir" section with practical tips: what to bring, location within site, accessibility notes
-  - [ ] Content sourced from CMS if available, or static defaults
-  - [ ] Styled as a light-background callout box with vert végétal left border
-- [ ] Task 6: Sticky CTA (AC: #6)
-  - [ ] Desktop: sticky CTA in right sidebar or floating button that stays visible during scroll
-  - [ ] Mobile: sticky bottom bar with "Réserver mon aventure" button, full-width
-  - [ ] CTA links to the booking action defined in `poleConfigs.aventure.ctaHref`
-  - [ ] Button styled with vert végétal background, white text, rounded
-  - [ ] Ensure CTA does not overlap content — add bottom padding on mobile to account for sticky bar
-- [ ] Task 7: SEO & JSON-LD (AC: #7, #8)
-  - [ ] Generate SportsActivityLocation JSON-LD per activity using `generateSportsActivityLD(activity)`
-  - [ ] Pass activity-specific fields: name, description, price, image URL
-  - [ ] SEO title: "{Activity Name} — Aventure | La Terrasse Saint-Ferréol"
-  - [ ] Meta description: first 155 chars of activity description
+- [x] Task 1: Create `src/pages/aventure/[slug].astro` (AC: #1, #2, #8, #9)
+  - [x] Implement `getStaticPaths()` querying all entries from Keystatic `activities` collection
+  - [x] Return `params: { slug }` and `props: { activity }` for each entry
+  - [x] Import `getLangFromUrl`, `useTranslations`, `getLocalizedField` from `@/i18n/utils`
+  - [x] Import `poleConfigs` from `@/lib/pole-config`
+  - [x] Pass to BaseLayout: pole="aventure", unique title/description per activity, JSON-LD
+- [x] Task 2: Hero section (AC: #2, #5)
+  - [x] Full-width hero with activity's primary image (first from `images` array)
+  - [x] Dark gradient overlay (from bottom) for text readability
+  - [x] Breadcrumb above title: small caps "AVENTURE" in off-white, linked to `/aventure/`
+  - [x] Activity name as H1 in white, overlaid on hero image
+  - [x] Hero height: 50vh desktop, 40vh mobile
+  - [x] Apply vert végétal accent line or border detail below hero
+- [x] Task 3: Practical info grid (AC: #4)
+  - [x] Create info section below hero with 4 data points in a horizontal row (desktop) or 2x2 grid (mobile)
+  - [x] Price: formatted as "{X} €" with currency symbol, prominent size
+  - [x] Age: "Dès {age_min} ans" with person/child icon
+  - [x] Duration: formatted "~{X}h" or "~{X}min" with clock icon
+  - [x] Group size: "{min}–{max} personnes" with group icon
+  - [x] Each data point: icon + label + value, centered in a bordered card
+- [x] Task 4: MDX body rendering (AC: #3, #9)
+  - [x] Render the activity's MDX body content using Astro's content rendering
+  - [x] Apply prose typography styles: max-width 768px, centered, comfortable line-height
+  - [x] Ensure MDX components (headings, lists, images, links) are styled consistently
+  - [x] Use `getLocalizedField()` for translated content when available
+- [x] Task 5: Practical details section (AC: #4)
+  - [x] "Bon à savoir" section with practical tips: what to bring, location within site, accessibility notes
+  - [x] Content sourced from CMS if available, or static defaults
+  - [x] Styled as a light-background callout box with vert végétal left border
+- [x] Task 6: Sticky CTA (AC: #6)
+  - [x] Desktop: sticky CTA in right sidebar or floating button that stays visible during scroll
+  - [x] Mobile: sticky bottom bar with "Réserver mon aventure" button, full-width
+  - [x] CTA links to the booking action defined in `poleConfigs.aventure.ctaHref`
+  - [x] Button styled with vert végétal background, white text, rounded
+  - [x] Ensure CTA does not overlap content — add bottom padding on mobile to account for sticky bar
+- [x] Task 7: SEO & JSON-LD (AC: #7, #8)
+  - [x] Generate SportsActivityLocation JSON-LD per activity using `generateSportsActivityLD(activity)`
+  - [x] Pass activity-specific fields: name, description, price, image URL
+  - [x] SEO title: "{Activity Name} — Aventure | La Terrasse Saint-Ferréol"
+  - [x] Meta description: first 155 chars of activity description
 
 ## Dev Notes
 
@@ -125,8 +125,31 @@ body_en, body_es
 
 ### Agent Model Used
 
+Claude Opus 4.6
+
 ### Debug Log References
+
+- Initial MDX content rendered as raw markdown — fixed by switching from Keystatic reader to `import.meta.glob` for compiled MDX components
+- Story content model reference differs from actual Keystatic schema (price/duration are strings, minPersons/maxPersons instead of group_size, single image field instead of array) — followed actual codebase
 
 ### Completion Notes List
 
+- Created `src/pages/aventure/[slug].astro` with `getStaticPaths()` generating 10 activity pages × 3 locales = 30 pages
+- Hero section: full-width image with dark gradient overlay, breadcrumb "Aventure > {name}", H1 in white, responsive height (40vh mobile / 50vh desktop), vert végétal accent line
+- Practical info grid: 4 bordered cards (price, age, duration, group size) with SVG icons in vert végétal, 2x2 mobile / 4-col desktop
+- MDX body rendering via `import.meta.glob` for compiled MDX components, with scoped prose typography styles
+- "Bon à savoir" section rendered from MDX content (CMS-sourced, part of activity MDX body)
+- Desktop sticky CTA sidebar with description, price, and "Réserver mon aventure" button
+- Mobile fixed bottom CTA bar with padding spacer to prevent content overlap
+- SportsActivityLocation JSON-LD per activity with unique name, description, URL, image
+- SEO: unique title "{Activity Name} — Aventure | La Terrasse Saint-Ferréol" and meta description (first 155 chars)
+- All content sourced from Keystatic, no hardcoded activity data
+- Placeholder images cycle through existing lake photography when activity has no image set
+
+### Change Log
+
+- 2026-03-11: Story 3.2 implementation complete — all 7 tasks done
+
 ### File List
+
+- src/pages/aventure/[slug].astro (NEW)
