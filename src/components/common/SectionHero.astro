@@ -9,9 +9,11 @@ interface Props {
   pole?: 'restaurant' | 'aventure' | 'evenements' | null;
   /** Optional background image path */
   image?: string;
+  /** Extra CSS classes on the outer section (e.g. min-height) */
+  class?: string;
 }
 
-const { tagline, subtitle, pole = null, image } = Astro.props;
+const { tagline, subtitle, pole = null, image, class: className } = Astro.props;
 
 const accentColors: Record<string, string> = {
   restaurant: 'from-restaurant/80',
@@ -22,7 +24,7 @@ const accentColors: Record<string, string> = {
 const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-brun-terre/80';
 ---
 
-<section class="relative overflow-hidden bg-brun-terre">
+<section class:list={['relative overflow-hidden bg-brun-terre', className]}>
   {image && (
     <img
       src={image}

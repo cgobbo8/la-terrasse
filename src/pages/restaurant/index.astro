@@ -3,80 +3,152 @@
  * RESTAURANT HUB — Brun terre
  * Tone: sensoriel, chaleureux, contemplatif
  * Hero: le moment vécu, pas le menu
- * Entonnoir: envie d'y être → info → action
+ * Entonnoir émotionnel: atmosphère → offre → détails → CTA
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { poleConfigs, PHONE_NUMBER } from '@/lib/pole-config';
+import { generateRestaurantLD } from '@/lib/seo';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const restaurant = poleConfigs.restaurant;
+const jsonLd = generateRestaurantLD();
+
+const seoTitle = 'Restaurant au lac de Saint-Ferréol — La Terrasse';
+const seoDescription = 'Restaurant avec terrasse et vue sur le lac de Saint-Ferréol. Cuisine locale et de saison, producteurs du terroir, repas de groupe. Réservez votre table.';
+
+const subPages = [
+  {
+    title: 'La Carte',
+    href: '/restaurant/carte',
+    description: 'Découvrez nos plats et nos vins',
+  },
+  {
+    title: 'Nos Producteurs',
+    href: '/restaurant/producteurs',
+    description: 'Les artisans derrière nos assiettes',
+  },
+  {
+    title: 'Repas de Groupe',
+    href: '/restaurant/repas-groupe',
+    description: 'Privatisez notre terrasse dès 10 personnes',
+  },
+];
 ---
 
-<BaseLayout title="Restaurant" description={t('restaurant.hero.subtitle')} pole="restaurant">
-  <!-- Hero — Vendre le moment, pas le menu -->
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  pole="restaurant"
+  jsonLd={jsonLd}
+>
+  <!-- Hero — Atmosphère, le moment vécu -->
   <SectionHero
     tagline={t('restaurant.hero.tagline')}
     subtitle={t('restaurant.hero.subtitle')}
     pole="restaurant"
+    image="/images/placeholders/emma-harper.webp"
+    class="min-h-[50vh] lg:min-h-[70vh] flex items-end"
   >
     <div class="flex flex-wrap gap-4">
-      <a href={getLocalizedPath('/restaurant/carte', lang)} class="bg-white text-restaurant px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+      <a
+        href={getLocalizedPath('/restaurant/carte', lang)}
+        class="bg-white px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors"
+        style={`color: ${restaurant.accent}`}
+      >
         Voir la carte
       </a>
-      <a href={getLocalizedPath('/contact', lang)} class="border border-white/30 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
+      <a
+        href={getLocalizedPath('/contact', lang)}
+        class="border border-white/30 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors"
+      >
         {t('common.reserve')}
       </a>
     </div>
   </SectionHero>
 
-  <!-- L'esprit du lieu — Section sensorielle (le "moment d'émotion" de cette page) -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-3xl font-bold text-restaurant mb-6">
+  <!-- Atmosphère — Section sensorielle -->
+  <section class="py-12 lg:py-24" style={`background-color: ${restaurant.light}`}>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-3xl font-bold mb-6" style={`color: ${restaurant.accent}`}>
         Un moment à partager
       </h2>
-      <p class="text-lg text-gray-600 leading-relaxed">
-        À 30 mètres du lac, la terrasse s'ouvre sur l'eau et la nature.
-        Ici, on prend le temps de déjeuner au soleil, de dîner entre amis,
-        de prolonger le repas par une balade au bord de l'eau ou une baignade digestive.
+      <p class="text-lg lg:text-xl text-gray-600 leading-relaxed">
+        À quelques pas du lac, la terrasse s'ouvre sur l'eau et la nature.
+        Ici, on prend le temps de déjeuner au soleil, de savourer des produits
+        du terroir, de dîner entre amis au coucher du soleil. Chaque repas est
+        une invitation à prolonger le moment — par une balade au bord de l'eau
+        ou simplement en contemplant le reflet des arbres sur le lac.
       </p>
     </div>
   </section>
 
-  <!-- Sous-pages -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-restaurant-light">
+  <!-- Sous-pages — Navigation vers les détails -->
+  <section class="py-12 lg:py-24">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <a href={getLocalizedPath('/restaurant/carte', lang)} class="block bg-white p-8 rounded-2xl hover:shadow-lg transition-all hover:-translate-y-1">
-          <h3 class="font-heading text-xl font-bold text-restaurant mb-2">La carte</h3>
-          <p class="text-gray-600 text-sm">Cuisine faite maison, produits locaux et de saison.</p>
-        </a>
-        <a href={getLocalizedPath('/restaurant/producteurs', lang)} class="block bg-white p-8 rounded-2xl hover:shadow-lg transition-all hover:-translate-y-1">
-          <h3 class="font-heading text-xl font-bold text-restaurant mb-2">{t('restaurant.producers.title')}</h3>
-          <p class="text-gray-600 text-sm">Des produits issus de producteurs du territoire.</p>
-        </a>
-        <a href={getLocalizedPath('/restaurant/repas-groupe', lang)} class="block bg-white p-8 rounded-2xl hover:shadow-lg transition-all hover:-translate-y-1">
-          <h3 class="font-heading text-xl font-bold text-restaurant mb-2">{t('restaurant.groups.title')}</h3>
-          <p class="text-gray-600 text-sm">{t('restaurant.groups.cta')}</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {subPages.map((page) => (
+          <a
+            href={getLocalizedPath(page.href, lang)}
+            class="block bg-white p-8 rounded-2xl border transition-all duration-200 hover:shadow-lg hover:-translate-y-1"
+            style={`border-color: ${restaurant.accent}20`}
+          >
+            <h3 class="font-heading text-xl font-bold mb-2" style={`color: ${restaurant.accent}`}>
+              {page.title}
+            </h3>
+            <p class="text-gray-600 text-sm">{page.description}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA — Réserver votre table -->
+  <section class="py-12 lg:py-24" style={`background-color: ${restaurant.accent}`}>
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-3xl font-bold text-white mb-6">
+        Réservez votre table
+      </h2>
+      <p class="text-white/80 text-lg mb-8">
+        Appelez-nous pour réserver ou venez directement profiter de la terrasse.
+      </p>
+      <a
+        href={`tel:${PHONE_NUMBER}`}
+        class="inline-flex items-center gap-3 text-white text-2xl lg:text-3xl font-bold mb-8 hover:text-white/90 transition-colors"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+        </svg>
+        {PHONE_NUMBER.replace('+33', '0 ').replace(/(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5')}
+      </a>
+      <div class="block">
+        <a
+          href={restaurant.ctaHref}
+          class="inline-block px-8 py-4 rounded-lg font-medium text-lg transition-colors hover:bg-gray-100"
+          style={`background-color: white; color: ${restaurant.accent}`}
+        >
+          {restaurant.ctaLabel}
         </a>
       </div>
     </div>
   </section>
 
-  <!-- Cross-sell contextuel narratif (Layer 2) -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+  <!-- Cross-sell contextuel narratif -->
+  <section class="py-12 lg:py-24">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <p class="text-lg text-gray-500 italic">
         Après le déjeuner, descendez au lac pour un paddle ou une balade à vélo.
       </p>
-      <a href={getLocalizedPath('/aventure', lang)} class="inline-block mt-4 text-aventure font-medium hover:underline">
+      <a href={getLocalizedPath('/aventure', lang)} class="inline-block mt-4 font-medium hover:underline" style={`color: ${poleConfigs.aventure.accent}`}>
         Découvrir les activités →
       </a>
     </div>
   </section>
 
-  <!-- Cross-linking structurel (Layer 1) -->
+  <!-- Cross-linking structurel -->
   <CrossLinkBlock currentPole="restaurant" />
 </BaseLayout>
