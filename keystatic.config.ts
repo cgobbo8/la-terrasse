@@ -161,6 +161,35 @@ export default config({
         reservationPhone: fields.text({ label: 'Téléphone réservation' }),
         philosophy_en: fields.text({ label: 'Philosophy (EN)', multiline: true }),
         philosophy_es: fields.text({ label: 'Filosofía (ES)', multiline: true }),
+        // Group dining
+        groupDiningIntro: fields.text({ label: 'Intro repas de groupe', multiline: true }),
+        groupDiningIntro_en: fields.text({ label: 'Group dining intro (EN)', multiline: true }),
+        groupDiningIntro_es: fields.text({ label: 'Intro comidas de grupo (ES)', multiline: true }),
+        groupFormulas: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Nom de la formule', validation: { isRequired: true } }),
+            name_en: fields.text({ label: 'Formula name (EN)' }),
+            name_es: fields.text({ label: 'Nombre de la fórmula (ES)' }),
+            pricePerPerson: fields.integer({ label: 'Prix par personne (€)', validation: { isRequired: true } }),
+            minGroupSize: fields.integer({ label: 'Taille minimum du groupe', validation: { isRequired: true } }),
+            recommended: fields.checkbox({ label: 'Formule recommandée', defaultValue: false }),
+            inclusions: fields.array(
+              fields.text({ label: 'Élément inclus' }),
+              { label: 'Inclusions', itemLabel: (props) => props.value || 'Élément' },
+            ),
+            inclusions_en: fields.array(
+              fields.text({ label: 'Inclusion (EN)' }),
+              { label: 'Inclusions (EN)', itemLabel: (props) => props.value || 'Item' },
+            ),
+            inclusions_es: fields.array(
+              fields.text({ label: 'Inclusión (ES)' }),
+              { label: 'Inclusiones (ES)', itemLabel: (props) => props.value || 'Elemento' },
+            ),
+          }),
+          { label: 'Formules de groupe', itemLabel: (props) => props.fields.name.value || 'Formule' },
+        ),
+        groupBookingNotice: fields.text({ label: 'Délai de réservation groupe' }),
+        groupMaxCapacity: fields.integer({ label: 'Capacité max groupe', defaultValue: 60 }),
         menuSections: fields.array(
           fields.object({
             title: fields.text({ label: 'Titre de section (ex: Entrées)' }),

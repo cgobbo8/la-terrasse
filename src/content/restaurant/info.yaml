@@ -12,6 +12,108 @@ philosophy_en: >-
 philosophy_es: >-
   Cocina casera con productos locales y de temporada. Trabajamos con
   productores locales para ofrecerle platos sencillos y deliciosos.
+groupDiningIntro: >-
+  Privatisez notre terrasse face au lac pour vos repas de groupe : anniversaires,
+  repas d'équipe, retrouvailles en famille ou entre amis. Nous nous occupons de
+  tout — du menu à la mise en place — pour que vous profitiez pleinement du moment.
+groupDiningIntro_en: >-
+  Book our lakeside terrace for your group meals: birthdays, team dinners, family
+  reunions or gatherings with friends. We take care of everything — from the menu
+  to the setup — so you can fully enjoy the moment.
+groupDiningIntro_es: >-
+  Reserve nuestra terraza frente al lago para sus comidas de grupo: cumpleaños,
+  cenas de empresa, reuniones familiares o encuentros entre amigos. Nos encargamos
+  de todo — del menú a la decoración — para que disfruten plenamente del momento.
+groupFormulas:
+  - name: Menu Découverte
+    name_en: Discovery Menu
+    name_es: Menú Descubrimiento
+    pricePerPerson: 25
+    minGroupSize: 15
+    recommended: false
+    inclusions:
+      - Apéritif de bienvenue
+      - Entrée au choix
+      - Plat au choix
+      - Dessert
+      - Café
+    inclusions_en:
+      - Welcome drink
+      - Starter of your choice
+      - Main course of your choice
+      - Dessert
+      - Coffee
+    inclusions_es:
+      - Aperitivo de bienvenida
+      - Entrante a elegir
+      - Plato principal a elegir
+      - Postre
+      - Café
+  - name: Menu Terroir
+    name_en: Terroir Menu
+    name_es: Menú Terroir
+    pricePerPerson: 35
+    minGroupSize: 10
+    recommended: true
+    inclusions:
+      - Apéritif de bienvenue
+      - Entrée au choix
+      - Plat au choix
+      - Fromage du terroir
+      - Dessert
+      - 1/2 bouteille de vin par personne
+      - Café
+    inclusions_en:
+      - Welcome drink
+      - Starter of your choice
+      - Main course of your choice
+      - Local cheese
+      - Dessert
+      - 1/2 bottle of wine per person
+      - Coffee
+    inclusions_es:
+      - Aperitivo de bienvenida
+      - Entrante a elegir
+      - Plato principal a elegir
+      - Queso local
+      - Postre
+      - 1/2 botella de vino por persona
+      - Café
+  - name: Menu Prestige
+    name_en: Prestige Menu
+    name_es: Menú Prestige
+    pricePerPerson: 50
+    minGroupSize: 10
+    recommended: false
+    inclusions:
+      - Cocktail de bienvenue
+      - Mise en bouche
+      - Entrée
+      - Poisson ou viande
+      - Fromage affiné
+      - Dessert du chef
+      - Vin sélectionné
+      - Café & mignardises
+    inclusions_en:
+      - Welcome cocktail
+      - Amuse-bouche
+      - Starter
+      - Fish or meat
+      - Aged cheese
+      - Chef's dessert
+      - Selected wine
+      - Coffee & petit fours
+    inclusions_es:
+      - Cóctel de bienvenida
+      - Aperitivo del chef
+      - Entrante
+      - Pescado o carne
+      - Queso curado
+      - Postre del chef
+      - Vino seleccionado
+      - Café y pastas
+groupBookingNotice: Réservez au minimum 7 jours à l'avance
+groupMaxCapacity: 60
 menuSections:
   - title: Entrées
     title_en: Starters

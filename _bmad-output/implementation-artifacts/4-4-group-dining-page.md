@@ -1,6 +1,6 @@
 # Story 4.4: Group Dining Page
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -22,52 +22,52 @@ so that I can quickly understand what's available for my group of 10+ people and
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create/update `src/pages/restaurant/repas-groupe.astro` (AC: #5, #6, #8, #9)
-  - [ ] Import `getLangFromUrl`, `useTranslations`, `getLocalizedField` from `@/i18n/utils`
-  - [ ] Import `poleConfigs` from `@/lib/pole-config`
-  - [ ] Query Keystatic for group dining formula data (from restaurant singleton)
-  - [ ] Build hero: group dining photo with brun terre overlay, "Repas de Groupe" H1
-  - [ ] Breadcrumb above title: "RESTAURANT" small-caps linked to `/restaurant/`
-  - [ ] Structure page following emotional funnel: hero → intro → formulas → practical → CTA
-  - [ ] Pass SEO props: title="Repas de Groupe — Restaurant | La Terrasse Saint-Ferréol"
-- [ ] Task 2: Intro section (AC: #5)
-  - [ ] Centered text block (max-width 768px) below hero
-  - [ ] Content: warm invitation for group celebrations — birthdays, team events, family reunions
-  - [ ] Mention: privatized terrace, lakeside setting, customizable menus
-  - [ ] Tone: welcoming, practical, reassuring — "Nous nous occupons de tout"
-- [ ] Task 3: Create `src/components/restaurant/GroupFormulaCard.astro` (AC: #1, #2, #7)
-  - [ ] Define props: `name: string`, `pricePerPerson: number`, `minGroupSize: number`, `inclusions: string[]`, `lang: Lang`
-  - [ ] Render formula name as H3 in Montserrat Bold
-  - [ ] Render price prominently: large text "{X} € / personne" with brun terre accent
-  - [ ] Render minimum: "À partir de {min} personnes" with group icon
-  - [ ] Render inclusions as a bulleted list (apéritif, entrée, plat, dessert, café, vin, etc.)
-  - [ ] Card styling: bordered, brun terre accent top border (4px), rounded-lg, padding comfortable
-  - [ ] Optional: highlight one formula as "recommended" with a subtle badge
-- [ ] Task 4: Formula grid (AC: #1, #2)
-  - [ ] Display formula cards in a responsive row: 3-col desktop (if 3 formulas), 2-col tablet, 1-col mobile
-  - [ ] Grid: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`
-  - [ ] Center grid with max-width 1280px
-  - [ ] Section padding: 96px desktop / 48px mobile
-- [ ] Task 5: Practical info section (AC: #1, #5)
-  - [ ] Section below formulas with practical details for group organizers:
-    - [ ] How far in advance to book (e.g., "Réservez au minimum 7 jours à l'avance")
-    - [ ] Customization options: dietary needs, special requests
-    - [ ] Terrace capacity and setup
-    - [ ] Payment modalities (deposit, group billing)
-  - [ ] Styled as an info grid or list with clear icons
-  - [ ] Content from Keystatic or static placeholder
-- [ ] Task 6: Contact CTA section (AC: #3, #4)
-  - [ ] Full-width section with brun terre background (#2D2B1B), white text
-  - [ ] Heading: "Organisez votre repas de groupe"
-  - [ ] Phone number: **very large** (24→32px), `<a href="tel:+33XXXXXXXXX">` with phone icon
-  - [ ] Phone must be the primary, most visible element — group organizers prefer phone
-  - [ ] Email: secondary, `<a href="mailto:contact@laterrasse-saintferreol.fr">` with email icon
-  - [ ] Brief reassurance: "Notre équipe vous accompagne dans l'organisation de votre événement"
-  - [ ] Both links: hover state with underline or color shift
-- [ ] Task 7: i18n support (AC: #1, #7)
-  - [ ] Use `getLocalizedField()` for formula names, inclusions, and practical info
-  - [ ] Section headings and CTA text via `useTranslations()`
-  - [ ] Breadcrumb text translated
+- [x] Task 1: Create/update `src/pages/restaurant/repas-groupe.astro` (AC: #5, #6, #8, #9)
+  - [x] Import `getLangFromUrl`, `useTranslations`, `getLocalizedField` from `@/i18n/utils`
+  - [x] Import `poleConfigs` from `@/lib/pole-config`
+  - [x] Query Keystatic for group dining formula data (from restaurant singleton)
+  - [x] Build hero: group dining photo with brun terre overlay, "Repas de Groupe" H1
+  - [x] Breadcrumb above title: "RESTAURANT" small-caps linked to `/restaurant/`
+  - [x] Structure page following emotional funnel: hero → intro → formulas → practical → CTA
+  - [x] Pass SEO props: title="Repas de Groupe — Restaurant | La Terrasse Saint-Ferréol"
+- [x] Task 2: Intro section (AC: #5)
+  - [x] Centered text block (max-width 768px) below hero
+  - [x] Content: warm invitation for group celebrations — birthdays, team events, family reunions
+  - [x] Mention: privatized terrace, lakeside setting, customizable menus
+  - [x] Tone: welcoming, practical, reassuring — "Nous nous occupons de tout"
+- [x] Task 3: Create `src/components/restaurant/GroupFormulaCard.astro` (AC: #1, #2, #7)
+  - [x] Define props: `name: string`, `pricePerPerson: number`, `minGroupSize: number`, `inclusions: string[]`, `lang: Lang`
+  - [x] Render formula name as H3 in Montserrat Bold
+  - [x] Render price prominently: large text "{X} € / personne" with brun terre accent
+  - [x] Render minimum: "À partir de {min} personnes" with group icon
+  - [x] Render inclusions as a bulleted list (apéritif, entrée, plat, dessert, café, vin, etc.)
+  - [x] Card styling: bordered, brun terre accent top border (4px), rounded-lg, padding comfortable
+  - [x] Optional: highlight one formula as "recommended" with a subtle badge
+- [x] Task 4: Formula grid (AC: #1, #2)
+  - [x] Display formula cards in a responsive row: 3-col desktop (if 3 formulas), 2-col tablet, 1-col mobile
+  - [x] Grid: `grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6`
+  - [x] Center grid with max-width 1280px
+  - [x] Section padding: 96px desktop / 48px mobile
+- [x] Task 5: Practical info section (AC: #1, #5)
+  - [x] Section below formulas with practical details for group organizers:
+    - [x] How far in advance to book (e.g., "Réservez au minimum 7 jours à l'avance")
+    - [x] Customization options: dietary needs, special requests
+    - [x] Terrace capacity and setup
+    - [x] Payment modalities (deposit, group billing)
+  - [x] Styled as an info grid or list with clear icons
+  - [x] Content from Keystatic or static placeholder
+- [x] Task 6: Contact CTA section (AC: #3, #4)
+  - [x] Full-width section with brun terre background (#2D2B1B), white text
+  - [x] Heading: "Organisez votre repas de groupe"
+  - [x] Phone number: **very large** (24→32px), `<a href="tel:+33XXXXXXXXX">` with phone icon
+  - [x] Phone must be the primary, most visible element — group organizers prefer phone
+  - [x] Email: secondary, `<a href="mailto:contact@laterrasse-saintferreol.fr">` with email icon
+  - [x] Brief reassurance: "Notre équipe vous accompagne dans l'organisation de votre événement"
+  - [x] Both links: hover state with underline or color shift
+- [x] Task 7: i18n support (AC: #1, #7)
+  - [x] Use `getLocalizedField()` for formula names, inclusions, and practical info
+  - [x] Section headings and CTA text via `useTranslations()`
+  - [x] Breadcrumb text translated
 
 ## Dev Notes
 
@@ -169,8 +169,29 @@ The page must answer Karine's questions within 30 seconds of landing.
 
 ### Agent Model Used
 
+Claude Opus 4.6
+
 ### Debug Log References
+
+- Initial build failed due to TypeScript `as Record<string, unknown>` cast in Astro template expressions — moved logic to frontmatter
 
 ### Completion Notes List
 
+- Rewrote `repas-groupe.astro` from a basic stub into a full emotional funnel page: hero → intro → formula cards → practical info → phone-first CTA → cross-sell
+- Created `GroupFormulaCard.astro` component with brun terre accent, recommended badge, inclusions checklist, group size indicator
+- Extended Keystatic restaurant singleton with `groupFormulas`, `groupDiningIntro`, `groupBookingNotice`, `groupMaxCapacity` fields (all with i18n variants)
+- Added 3 group formulas to content YAML: Découverte (25€), Terroir (35€, recommended), Prestige (50€)
+- Added 18 new i18n translation keys across FR/EN/ES for the group dining page
+- Phone-first CTA design targeting persona "Karine" — phone at 32px, email secondary
+- Practical info grid with 4 cards: booking notice, dietary needs, capacity, deposit
+- Placeholder images used (same as other pages)
+
 ### File List
+
+- `src/pages/restaurant/repas-groupe.astro` — MODIFIED (full rewrite)
+- `src/components/restaurant/GroupFormulaCard.astro` — NEW
+- `keystatic.config.ts` — MODIFIED (added group dining fields to restaurant singleton)
+- `src/content/restaurant/info.yaml` — MODIFIED (added group dining data)
+- `src/i18n/translations.ts` — MODIFIED (added group dining translations FR/EN/ES)
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` — MODIFIED (status update)
+- `_bmad-output/implementation-artifacts/4-4-group-dining-page.md` — MODIFIED (story tracking)
