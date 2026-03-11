@@ -224,14 +224,45 @@ export default config({
     venue: singleton({
       label: 'Salle & Équipements',
       path: 'src/content/venue/info',
+      format: { data: 'yaml' },
       schema: {
-        capacity: fields.text({ label: 'Capacité' }),
-        surface: fields.text({ label: 'Surface' }),
+        capacitySeated: fields.integer({ label: 'Capacité assise', validation: { isRequired: true } }),
+        capacityStanding: fields.integer({ label: 'Capacité debout', validation: { isRequired: true } }),
+        surfaceM2: fields.integer({ label: 'Surface (m²)', validation: { isRequired: true } }),
         equipment: fields.array(
           fields.text({ label: 'Équipement' }),
           { label: 'Équipements disponibles', itemLabel: (props) => props.value || 'Équipement' },
         ),
-        configurations: fields.text({ label: 'Configurations possibles', multiline: true }),
+        layoutOptions: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Nom de la configuration', validation: { isRequired: true } }),
+            capacity: fields.integer({ label: 'Capacité pour cette configuration', validation: { isRequired: true } }),
+          }),
+          { label: 'Configurations possibles', itemLabel: (props) => props.fields.name.value || 'Configuration' },
+        ),
+        // i18n
+        equipment_en: fields.array(
+          fields.text({ label: 'Equipment (EN)' }),
+          { label: 'Equipment (EN)', itemLabel: (props) => props.value || 'Equipment' },
+        ),
+        equipment_es: fields.array(
+          fields.text({ label: 'Equipamiento (ES)' }),
+          { label: 'Equipamiento (ES)', itemLabel: (props) => props.value || 'Equipamiento' },
+        ),
+        layoutOptions_en: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Configuration name (EN)' }),
+            capacity: fields.integer({ label: 'Capacity' }),
+          }),
+          { label: 'Layout options (EN)', itemLabel: (props) => props.fields.name.value || 'Layout' },
+        ),
+        layoutOptions_es: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Nombre de configuración (ES)' }),
+            capacity: fields.integer({ label: 'Capacidad' }),
+          }),
+          { label: 'Opciones de disposición (ES)', itemLabel: (props) => props.fields.name.value || 'Disposición' },
+        ),
       },
     }),
 

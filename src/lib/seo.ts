@@ -57,6 +57,36 @@ export function generateRestaurantLD(): string {
   });
 }
 
+export function generateEventVenueLD(venue: {
+  capacitySeated: number;
+  capacityStanding: number;
+  amenities: readonly string[];
+}): string {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'EventVenue',
+    name: 'La Terrasse — Salle de séminaire',
+    url: `${BUSINESS_INFO.url}/evenements`,
+    telephone: BUSINESS_INFO.telephone,
+    email: BUSINESS_INFO.email,
+    image: BUSINESS_INFO.image,
+    maximumAttendeeCapacity: venue.capacityStanding,
+    amenityFeature: venue.amenities.map((a) => ({
+      '@type': 'LocationFeatureSpecification',
+      name: a,
+      value: true,
+    })),
+    address: {
+      '@type': 'PostalAddress',
+      ...BUSINESS_INFO.address,
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      ...BUSINESS_INFO.geo,
+    },
+  });
+}
+
 export function generateSportsActivityLD(activity: {
   name: string;
   description: string;

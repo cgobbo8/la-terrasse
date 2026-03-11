@@ -1,6 +1,6 @@
 # Story 5.1: Événements Hub & Venue Specs
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,33 +19,33 @@ so that I can assess whether the space fits my seminar needs within seconds.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/components/evenements/VenueSpecs.astro` (AC: #1, #2)
-  - [ ] Accept props: capacity (seated/standing), surface, equipment list, layout options — all typed from Keystatic venue schema
-  - [ ] Render scannable grid: each spec item as a card/row with icon + label + value
-  - [ ] Equipment rendered as pill badges (existing pattern from current evenements/index.astro)
-  - [ ] Layout options (théâtre, U-shape, table ronde, îlots) as distinct items with capacity per config
-  - [ ] Use bleu ardoise (#3d4969) accent color via inline `style` attributes
-  - [ ] Responsive: 2-column grid on desktop, single column stacked on mobile
-  - [ ] No Svelte island needed — pure Astro component
+- [x] Task 1: Create `src/components/evenements/VenueSpecs.astro` (AC: #1, #2)
+  - [x] Accept props: capacity (seated/standing), surface, equipment list, layout options — all typed from Keystatic venue schema
+  - [x] Render scannable grid: each spec item as a card/row with icon + label + value
+  - [x] Equipment rendered as pill badges (existing pattern from current evenements/index.astro)
+  - [x] Layout options (théâtre, U-shape, table ronde, îlots) as distinct items with capacity per config
+  - [x] Use bleu ardoise (#3d4969) accent color via inline `style` attributes
+  - [x] Responsive: 2-column grid on desktop, single column stacked on mobile
+  - [x] No Svelte island needed — pure Astro component
 
-- [ ] Task 2: Update `src/pages/evenements/index.astro` — hero + specs integration (AC: #1, #4, #6)
-  - [ ] Replace current hardcoded venue specs section with VenueSpecs.astro component
-  - [ ] Query Keystatic `venue` singleton in frontmatter: `const venue = await getEntry('venue', 'venue');`
-  - [ ] Pass venue data as props to VenueSpecs
-  - [ ] Keep specs section immediately after hero (specs-first layout pattern)
-  - [ ] Maintain existing packages section below specs
-  - [ ] Maintain existing CrossLinkBlock at page bottom
+- [x] Task 2: Update `src/pages/evenements/index.astro` — hero + specs integration (AC: #1, #4, #6)
+  - [x] Replace current hardcoded venue specs section with VenueSpecs.astro component
+  - [x] Query Keystatic `venue` singleton in frontmatter: `const venue = await getEntry('venue', 'venue');`
+  - [x] Pass venue data as props to VenueSpecs
+  - [x] Keep specs section immediately after hero (specs-first layout pattern)
+  - [x] Maintain existing packages section below specs
+  - [x] Maintain existing CrossLinkBlock at page bottom
 
-- [ ] Task 3: Update SEO metadata for événements hub (AC: #3, #5)
-  - [ ] Set meta title: "Séminaire nature près de Toulouse — La Terrasse Saint-Ferréol"
-  - [ ] Set meta description targeting "salle de séminaire", "lac de Saint-Ferréol", "nature"
-  - [ ] Generate LocalBusiness JSON-LD with event venue properties via seo.ts
-  - [ ] Include amenity features (Wi-Fi, projector, etc.) in structured data
+- [x] Task 3: Update SEO metadata for événements hub (AC: #3, #5)
+  - [x] Set meta title: "Séminaire nature près de Toulouse — La Terrasse Saint-Ferréol"
+  - [x] Set meta description targeting "salle de séminaire", "lac de Saint-Ferréol", "nature"
+  - [x] Generate LocalBusiness JSON-LD with event venue properties via seo.ts
+  - [x] Include amenity features (Wi-Fi, projector, etc.) in structured data
 
-- [ ] Task 4: Verify Keystatic venue singleton schema (AC: #4)
-  - [ ] Confirm venue singleton has fields: capacity_seated, capacity_standing, surface_m2, equipment (list), layout_options (list with name + capacity)
-  - [ ] If fields are missing, add them to `keystatic.config.tsx` venue singleton definition
-  - [ ] Verify venue singleton has sample data or seed with placeholder values
+- [x] Task 4: Verify Keystatic venue singleton schema (AC: #4)
+  - [x] Confirm venue singleton has fields: capacity_seated, capacity_standing, surface_m2, equipment (list), layout_options (list with name + capacity)
+  - [x] If fields are missing, add them to `keystatic.config.tsx` venue singleton definition
+  - [x] Verify venue singleton has sample data or seed with placeholder values
 
 ## Dev Notes
 
@@ -100,9 +100,28 @@ The component should follow a "spec sheet" pattern — clean, scannable, no fluf
 ## Dev Agent Record
 
 ### Agent Model Used
+Claude Opus 4.6
 
 ### Debug Log References
+- Keystatic venue singleton schema updated from simple text fields to structured typed fields (capacitySeated, capacityStanding, surfaceM2, layoutOptions with name+capacity)
+- Added `format: { data: 'yaml' }` to venue singleton to match project pattern
+- Fixed readonly array type compatibility between Keystatic reader output and component props
+- Build error on `astro build` is pre-existing (Tailwind v4 + SSR module resolution), not introduced by this story
+- Used `createReader` pattern (same as repas-groupe.astro) instead of `getEntry` from `astro:content` since no content config exists
 
 ### Completion Notes List
+- Task 4: Updated keystatic.config.ts venue singleton with structured fields (capacitySeated, capacityStanding, surfaceM2, equipment array, layoutOptions array with name+capacity), added i18n fields for EN/ES. Created seed data in src/content/venue/info.yaml.
+- Task 1: Created VenueSpecs.astro with scannable spec sheet layout — key figures row (3 cards: seated, standing, surface), equipment pills with checkmark icons, layout configuration grid. All bleu ardoise (#3d4969) via inline styles.
+- Task 2: Rewrote evenements/index.astro to load venue data from Keystatic reader, pass to VenueSpecs component, specs-first layout immediately after hero, maintained packs section and CrossLinkBlock. Replaced hardcoded venue specs with dynamic Keystatic data. Applied bleu ardoise inline styles throughout (replacing Tailwind color classes).
+- Task 3: Added generateEventVenueLD() function to seo.ts (EventVenue schema type with maximumAttendeeCapacity and amenityFeature). Set meta title targeting "séminaire nature Toulouse" and description with "salle de séminaire au lac de Saint-Ferréol".
 
 ### File List
+- src/components/evenements/VenueSpecs.astro (NEW)
+- src/pages/evenements/index.astro (MODIFIED)
+- src/lib/seo.ts (MODIFIED)
+- keystatic.config.ts (MODIFIED)
+- src/content/venue/info.yaml (NEW)
+- _bmad-output/implementation-artifacts/sprint-status.yaml (MODIFIED)
+
+## Change Log
+- 2026-03-11: Story 5.1 implemented — VenueSpecs component, Keystatic venue schema upgrade, EventVenue JSON-LD, SEO metadata targeting "séminaire nature Toulouse"

@@ -1,0 +1,48 @@
+capacitySeated: 80
+capacityStanding: 120
+surfaceM2: 150
+equipment:
+  - Vidéoprojecteur
+  - Wi-Fi haut débit
+  - Paperboard / Flipchart
+  - Sono
+  - Parking gratuit
+layoutOptions:
+  - name: Théâtre
+    capacity: 80
+  - name: U-shape
+    capacity: 30
+  - name: Table ronde
+    capacity: 40
+  - name: Îlots
+    capacity: 48
+equipment_en:
+  - Projector
+  - High-speed Wi-Fi
+  - Flipchart
+  - Sound system
+  - Free parking
+equipment_es:
+  - Proyector
+  - Wi-Fi de alta velocidad
+  - Pizarra / Rotafolios
+  - Sistema de sonido
+  - Aparcamiento gratuito
+layoutOptions_en:
+  - name: Theatre
+    capacity: 80
+  - name: U-shape
+    capacity: 30
+  - name: Round table
+    capacity: 40
+  - name: Islands
+    capacity: 48
+layoutOptions_es:
+  - name: Teatro
+    capacity: 80
+  - name: U-shape
+    capacity: 30
+  - name: Mesa redonda
+    capacity: 40
+  - name: Islas
+    capacity: 48
