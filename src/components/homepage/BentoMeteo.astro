@@ -36,7 +36,7 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
 
     <div class="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
       {/* Hours cell — spans 2 rows on md+ */}
-      <div class="bg-white rounded-2xl p-6 shadow-sm md:row-span-2 flex flex-col">
+      <div class="bg-white rounded-2xl p-6 shadow-sm flex flex-col">
         <div class="flex items-center gap-3 mb-4">
           <div class="w-10 h-10 rounded-xl bg-brun-terre/10 flex items-center justify-center">
             <svg class="w-5 h-5 text-brun-terre" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
@@ -105,14 +105,14 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
         )}
       </div>
 
-      {/* CTA cell — spans full width on mobile, single cell on desktop */}
-      <div class="col-span-2 md:col-span-1 rounded-2xl p-6 shadow-sm bg-brun-terre text-white flex flex-col items-center justify-center text-center">
-        <h3 class="font-heading font-bold text-lg mb-3">
+      {/* CTA cell — full-width banner row */}
+      <div class="col-span-2 md:col-span-3 rounded-2xl px-8 py-5 shadow-sm bg-brun-terre text-white flex flex-row items-center justify-between gap-4">
+        <h3 class="font-heading font-bold text-lg">
           {t('home.bento.cta')}
         </h3>
         <a
           href={getLocalizedPath('/contact', lang)}
-          class="inline-flex items-center gap-2 bg-white text-brun-terre px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-white/90 transition-colors"
+          class="inline-flex items-center gap-2 bg-white text-brun-terre px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-white/90 transition-colors shrink-0"
         >
           {t('common.contact')}
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
