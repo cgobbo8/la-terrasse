@@ -2,126 +2,111 @@
 /**
  * AVENTURE HUB — Vert végétal
  * Tone: dynamique, fun, familial
- * Fiches navigables avec suggestions d'alternatives
+ * Displays all activities from Keystatic collection
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SectionHero from '@/components/common/SectionHero.astro';
+import ActivityCard from '@/components/aventure/ActivityCard.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
+import { poleConfigs } from '@/lib/pole-config';
+import { generateSportsActivityLD } from '@/lib/seo';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 
+const pole = poleConfigs.aventure;
+
+// Load activities from Keystatic
+const reader = createReader(process.cwd(), keystaticConfig);
+const allActivities = await reader.collections.activities.all();
+
+// Filter visible, sort by order
+const activities = allActivities
+  .filter((a) => a.entry.visible)
+  .sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0));
+
 // Placeholder images — cycled across activity cards
-const aquaticImages = [
+const placeholderImages = [
   '/images/placeholders/pietro-de-grandi.webp',
   '/images/placeholders/cristian-negraia.webp',
   '/images/placeholders/daniel-jacob.webp',
-];
-const terrestreImages = [
   '/images/placeholders/dirk-von-loen-wagner.webp',
   '/images/placeholders/nils-lindner.webp',
   '/images/placeholders/claudia-chiavazza.webp',
-  '/images/placeholders/daniel-jacob.webp',
+  '/images/placeholders/emma-harper.webp',
 ];
 
-// Static activity data for V1 — will be replaced by Keystatic reader
-const activities = {
-  aquatique: [
-    { slug: 'pedalo', title: 'Pédalo', price: '25€/h', detail: '4-5 personnes' },
-    { slug: 'paddle', title: 'Paddle', price: '12€/h', detail: 'par personne' },
-    { slug: 'canoe', title: 'Canoë', price: '12€/h', detail: 'par personne' },
-  ],
-  terrestre: [
-    { slug: 'mini-golf', title: 'Mini-golf', price: '8€', detail: 'par personne' },
-    { slug: 'velo-electrique', title: 'Vélo électrique', price: '35€', detail: 'demi-journée' },
-    { slug: 'velo-classique', title: 'Vélo classique', price: '15€', detail: 'demi-journée' },
-    { slug: 'archery-tag', title: 'Archery Tag', price: '20€', detail: 'par pers. (min 8)' },
-    { slug: 'course-orientation', title: 'Course d\'orientation', price: '8€', detail: 'par personne' },
-    { slug: 'jeu-de-poste', title: 'Jeu de poste', price: '8€', detail: 'par personne' },
-    { slug: 'trampoline', title: 'Trampoline', price: '5€', detail: '5 minutes' },
-  ],
-};
+// Generate JSON-LD for SportsActivityLocation
+const siteUrl = 'https://laterrasse-saintferreol.fr';
+const jsonLd = generateSportsActivityLD({
+  name: 'Aventure — Activités plein air | La Terrasse Saint-Ferréol',
+  description: t('aventure.hero.subtitle'),
+  url: `${siteUrl}/aventure`,
+});
+
+const seoTitle = 'Aventure — Activités plein air | La Terrasse Saint-Ferréol';
+const seoDescription = 'Découvrez toutes les activités plein air au lac de Saint-Ferréol : pédalo, paddle, canoë, mini-golf, vélo, archery tag et plus. Activités lac Saint-Ferréol pour toute la famille.';
 ---
 
-<BaseLayout title="Aventure" description={t('aventure.hero.subtitle')} pole="aventure">
-  <!-- Hero -->
-  <SectionHero
-    tagline={t('aventure.hero.tagline')}
-    subtitle={t('aventure.hero.subtitle')}
-    pole="aventure"
-  >
-    <a href="#activites" class="bg-white text-aventure px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
-      Voir les activités
-    </a>
-  </SectionHero>
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  pole="aventure"
+  jsonLd={jsonLd}
+>
+  <!-- Hero — 70vh desktop / 50vh mobile -->
+  <section class="relative overflow-hidden" style={`background-color: ${pole.accent}`}>
+    <img
+      src="/images/placeholders/pietro-de-grandi.webp"
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
 
-  <!-- Activités aquatiques -->
-  <section id="activites" class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-2xl font-bold text-aventure mb-8">
-        {t('aventure.aquatique')}
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {activities.aquatique.map((activity, i) => (
-          <a
-            href={getLocalizedPath(`/aventure/${activity.slug}`, lang)}
-            class="group block bg-aventure-light rounded-2xl overflow-hidden border border-aventure/10 hover:shadow-lg hover:-translate-y-1 transition-all"
-          >
-            <div class="aspect-[16/10] overflow-hidden">
-              <img src={aquaticImages[i % aquaticImages.length]} alt={activity.title} class="w-full h-full object-cover" loading="lazy" />
-            </div>
-            <div class="p-6">
-              <h3 class="font-heading text-lg font-bold text-aventure">{activity.title}</h3>
-              <p class="mt-2 text-sm text-gray-600">
-                <span class="font-semibold">{activity.price}</span>
-                <span class="text-gray-400"> — {activity.detail}</span>
-              </p>
-              <span class="inline-block mt-3 text-sm text-aventure font-medium group-hover:underline">
-                {t('common.discover')} →
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
+    <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col justify-end h-[50vh] lg:h-[70vh] pb-12 lg:pb-16">
+      <h1 class="font-heading text-4xl lg:text-6xl font-bold text-white">
+        Aventure
+      </h1>
+      <p class="mt-4 text-lg lg:text-xl text-white/80 max-w-2xl">
+        {t('aventure.hero.tagline')}
+      </p>
     </div>
   </section>
 
-  <!-- Activités terrestres -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-2xl font-bold text-aventure mb-8">
-        {t('aventure.terrestre')}
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {activities.terrestre.map((activity, i) => (
-          <a
-            href={getLocalizedPath(`/aventure/${activity.slug}`, lang)}
-            class="group block bg-white rounded-2xl overflow-hidden border border-gray-200 hover:shadow-lg hover:-translate-y-1 transition-all"
-          >
-            <div class="aspect-[16/10] overflow-hidden">
-              <img src={terrestreImages[i % terrestreImages.length]} alt={activity.title} class="w-full h-full object-cover" loading="lazy" />
-            </div>
-            <div class="p-6">
-              <h3 class="font-heading text-lg font-bold text-aventure">{activity.title}</h3>
-              <p class="mt-2 text-sm text-gray-600">
-                <span class="font-semibold">{activity.price}</span>
-                <span class="text-gray-400"> — {activity.detail}</span>
-              </p>
-              <span class="inline-block mt-3 text-sm text-aventure font-medium group-hover:underline">
-                {t('common.discover')} →
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- Section groupes (adaptée Aventure) -->
+  <!-- Activity Grid -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {activities.map((activity, i) => (
+          <ActivityCard
+            activity={{
+              title: activity.entry.title,
+              slug: activity.slug,
+              price: activity.entry.price ?? '',
+              age_min: activity.entry.age_min ?? 0,
+              duration: activity.entry.duration ?? '',
+              image: activity.entry.image ?? null,
+              description: activity.entry.description ?? '',
+              title_en: activity.entry.title_en ?? '',
+              title_es: activity.entry.title_es ?? '',
+              description_en: activity.entry.description_en ?? '',
+              description_es: activity.entry.description_es ?? '',
+            }}
+            lang={lang}
+            placeholderImage={placeholderImages[i % placeholderImages.length]}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Section groupes -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)" style={`background-color: ${pole.light}`}>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-2xl font-bold text-aventure mb-4">
+      <h2 class="font-heading text-2xl font-bold mb-4" style={`color: ${pole.accent}`}>
         {t('aventure.groups.title')}
       </h2>
       <p class="text-gray-600 mb-6">
@@ -131,10 +116,18 @@ const activities = {
         {t('aventure.groups.cta')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href={getLocalizedPath('/en-groupe', lang)} class="bg-aventure text-white px-6 py-3 rounded-lg font-medium hover:bg-aventure/90 transition-colors">
+        <a
+          href={getLocalizedPath('/en-groupe', lang)}
+          class="text-white px-6 py-3 rounded-lg font-medium transition-colors"
+          style={`background-color: ${pole.accent}`}
+        >
           Sortie de groupe
         </a>
-        <a href={getLocalizedPath('/contact', lang)} class="border border-aventure text-aventure px-6 py-3 rounded-lg font-medium hover:bg-aventure-light transition-colors">
+        <a
+          href={getLocalizedPath('/contact', lang)}
+          class="px-6 py-3 rounded-lg font-medium transition-colors"
+          style={`border: 1px solid ${pole.accent}; color: ${pole.accent}`}
+        >
           {t('common.contact')}
         </a>
       </div>

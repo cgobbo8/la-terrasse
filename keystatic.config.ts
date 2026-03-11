@@ -32,6 +32,7 @@ export default config({
         duration: fields.text({ label: 'Durée (ex: 1h, 2h, demi-journée)' }),
         minPersons: fields.integer({ label: 'Nombre minimum de personnes', defaultValue: 1 }),
         maxPersons: fields.integer({ label: 'Nombre maximum de personnes' }),
+        age_min: fields.integer({ label: 'Âge minimum (ans)', defaultValue: 0 }),
         image: fields.image({
           label: 'Photo principale',
           directory: 'public/images/activities',

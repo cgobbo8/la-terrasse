@@ -1,0 +1,81 @@
+---
+/**
+ * ActivityCard — Reusable card for activity grid (Aventure pole).
+ * Zero JS shipped — pure Astro with CSS-only hover.
+ */
+import { getLocalizedField, getLocalizedPath } from '@/i18n/utils';
+import type { Lang } from '@/i18n/translations';
+import { poleConfigs } from '@/lib/pole-config';
+
+interface Activity {
+  title: string;
+  slug: string;
+  price: string;
+  age_min: number | null;
+  duration: string;
+  image: string | null;
+  description: string;
+  title_en?: string;
+  title_es?: string;
+  description_en?: string;
+  description_es?: string;
+}
+
+interface Props {
+  activity: Activity;
+  lang: Lang;
+  placeholderImage: string;
+}
+
+const { activity, lang, placeholderImage } = Astro.props;
+const accent = poleConfigs.aventure.accent;
+
+const localizedTitle = getLocalizedField(activity, 'title', lang);
+const imageSrc = activity.image || placeholderImage;
+const href = getLocalizedPath(`/aventure/${activity.slug}`, lang);
+---
+
+<a
+  href={href}
+  class="group block rounded-lg overflow-hidden bg-white border border-gray-200 transition-[transform,box-shadow] duration-200 ease-out hover:scale-[1.02] hover:shadow-md min-h-[44px]"
+>
+  <div class="aspect-[3/2] overflow-hidden">
+    <img
+      src={imageSrc}
+      alt={localizedTitle}
+      width="600"
+      height="400"
+      loading="lazy"
+      class="w-full h-full object-cover"
+    />
+  </div>
+
+  <div class="p-5">
+    <h4 class="font-heading text-lg font-bold leading-tight" style={`color: ${accent}`}>
+      {localizedTitle}
+    </h4>
+
+    <p class="mt-2 text-xl font-semibold" style={`color: ${accent}`}>
+      {activity.price}
+    </p>
+
+    <div class="mt-3 flex flex-wrap gap-2">
+      {activity.age_min != null && activity.age_min > 0 && (
+        <span class="inline-flex items-center gap-1 text-sm px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
+          </svg>
+          Dès {activity.age_min} ans
+        </span>
+      )}
+      {activity.duration && (
+        <span class="inline-flex items-center gap-1 text-sm px-2.5 py-1 rounded-full bg-gray-100 text-gray-700">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
+          </svg>
+          ~{activity.duration}
+        </span>
+      )}
+    </div>
+  </div>
+</a>
