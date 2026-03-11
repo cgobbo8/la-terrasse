@@ -8,7 +8,7 @@
  * 5. CTA final
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
-import SectionHero from '@/components/common/SectionHero.astro';
+import VideoHero from '@/components/homepage/VideoHero.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -43,8 +43,8 @@ const poles = [
 ---
 
 <BaseLayout title="Accueil" description="La Terrasse — Restaurant, Aventure et Événements au lac de Saint-Ferréol">
-  <!-- 1. HERO — Le lieu -->
-  <SectionHero tagline={t('home.hero.tagline')} subtitle={t('home.hero.subtitle')}>
+  <!-- 1. HERO — Le lieu (vidéo plein écran) -->
+  <VideoHero tagline={t('home.hero.tagline')} subtitle={t('home.hero.subtitle')}>
     <div class="flex flex-wrap gap-4">
       <a href={getLocalizedPath('/restaurant', lang)} class="bg-white text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
         {t('nav.restaurant')}
@@ -56,7 +56,7 @@ const poles = [
         {t('nav.evenements')}
       </a>
     </div>
-  </SectionHero>
+  </VideoHero>
 
   <!-- 2. TROIS FAÇONS DE PROFITER — Les pôles -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">

@@ -1,0 +1,59 @@
+---
+/**
+ * VideoHero — Full-viewport video hero for the homepage.
+ * Pure Astro component, zero client JS.
+ *
+ * Plays a muted, looping video of Lac de Saint-Ferréol with a dark gradient overlay.
+ * Falls back to a static image when prefers-reduced-motion is active.
+ */
+interface Props {
+  tagline: string;
+  subtitle?: string;
+}
+
+const { tagline, subtitle } = Astro.props;
+---
+
+<section
+  class="video-hero relative min-h-[50vh] lg:min-h-[70vh] overflow-hidden bg-brun-terre"
+  aria-label="Vue aérienne du lac de Saint-Ferréol"
+>
+  <!-- Video — hidden when prefers-reduced-motion: reduce -->
+  <video
+    class="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
+    autoplay
+    muted
+    loop
+    playsinline
+    poster="/images/hero-lac-fallback.webp"
+  >
+    <source src="/videos/hero-lac.mp4" type="video/mp4" />
+  </video>
+
+  <!-- Static fallback image — shown only when prefers-reduced-motion: reduce -->
+  <img
+    src="/images/hero-lac-fallback.webp"
+    alt=""
+    class="absolute inset-0 w-full h-full object-cover hidden motion-reduce:block"
+    loading="eager"
+    role="presentation"
+  />
+
+  <!-- Dark gradient overlay for text readability -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+
+  <!-- Text content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-36 flex flex-col justify-end min-h-[50vh] lg:min-h-[70vh]">
+    <h1 class="font-heading text-4xl lg:text-6xl font-bold text-white max-w-3xl">
+      {tagline}
+    </h1>
+    {subtitle && (
+      <p class="mt-6 text-lg lg:text-xl text-white/80 max-w-2xl">
+        {subtitle}
+      </p>
+    )}
+    <div class="mt-8">
+      <slot />
+    </div>
+  </div>
+</section>
