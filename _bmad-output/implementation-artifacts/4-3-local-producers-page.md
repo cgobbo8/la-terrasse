@@ -1,6 +1,6 @@
 # Story 4.3: Local Producers Page
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -21,42 +21,42 @@ so that I understand the restaurant's commitment to terroir and feel a connectio
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/components/restaurant/ProducerCard.astro` (AC: #1, #2)
-  - [ ] Define props: `name: string`, `photo: string`, `product: string`, `story: string`, `lang: Lang`
-  - [ ] Render portrait photo with circular crop (`rounded-full`, `object-cover`, 160x160px desktop / 120x120px mobile)
-  - [ ] Use `astro:assets` `<Image>` for optimization, `loading="lazy"`, alt="{name}, {product}"
-  - [ ] Render producer name as H3 in Montserrat Bold
-  - [ ] Render product/specialty below name in brun terre accent color, 14px uppercase tracking-wide
-  - [ ] Render story as body text, 16px, generous line-height (1.7)
-  - [ ] Card layout: photo on left, text on right (desktop) / photo centered above text (mobile)
-  - [ ] Subtle warm background (#f5f0e8) or white with brun terre left border for warmth
-- [ ] Task 2: Create/update `src/pages/restaurant/producteurs.astro` (AC: #4, #5, #7, #8)
-  - [ ] Import `getLangFromUrl`, `useTranslations`, `getLocalizedField` from `@/i18n/utils`
-  - [ ] Import `poleConfigs` from `@/lib/pole-config`
-  - [ ] Query Keystatic for producer data (from restaurant singleton or dedicated producers collection)
-  - [ ] Build hero: terroir/farm photo with brun terre overlay, "Nos Producteurs" H1
-  - [ ] Breadcrumb above title: "RESTAURANT" small-caps linked to `/restaurant/`
-  - [ ] Introductory paragraph: warm copy about the restaurant's sourcing philosophy
-  - [ ] Render producer grid below intro
-  - [ ] Pass SEO props: title="Nos Producteurs — Restaurant | La Terrasse Saint-Ferréol"
-- [ ] Task 3: Intro section (AC: #6)
-  - [ ] Centered text block (max-width 768px) below hero
-  - [ ] Content: explain the restaurant's terroir commitment — local sourcing, short supply chains, seasonal menus
-  - [ ] Tone: warm, authentic, proud — "Nous travaillons main dans la main avec les artisans de notre terroir"
-  - [ ] Content from Keystatic if available, else static placeholder ready for CMS update
-- [ ] Task 4: Producer grid (AC: #3)
-  - [ ] Grid: `grid grid-cols-1 md:grid-cols-2 gap-8` (larger gap for breathing room)
-  - [ ] Each card occupies generous vertical space to let the story breathe
-  - [ ] Center the grid content with max-width 1080px (slightly narrower than 1280px for intimacy)
-  - [ ] Section padding: 96px desktop / 48px mobile
-- [ ] Task 5: i18n support (AC: #1, #4)
-  - [ ] Use `getLocalizedField()` for producer names, products, and stories
-  - [ ] Intro text translated via CMS or `useTranslations()`
-  - [ ] Breadcrumb text translated
-- [ ] Task 6: CTA section (AC: #6)
-  - [ ] Closing section: tie back to the restaurant — "Venez goûter le terroir" or similar
-  - [ ] CTA "Réserver ma table" linking to `poleConfigs.restaurant.ctaHref`
-  - [ ] Subtle, not as prominent as the hub CTA — this page is about storytelling
+- [x] Task 1: Create `src/components/restaurant/ProducerCard.astro` (AC: #1, #2)
+  - [x] Define props: `name: string`, `photo: string`, `product: string`, `story: string`, `lang: Lang`
+  - [x] Render portrait photo with circular crop (`rounded-full`, `object-cover`, 160x160px desktop / 120x120px mobile)
+  - [x] Use `astro:assets` `<Image>` for optimization, `loading="lazy"`, alt="{name}, {product}"
+  - [x] Render producer name as H3 in Montserrat Bold
+  - [x] Render product/specialty below name in brun terre accent color, 14px uppercase tracking-wide
+  - [x] Render story as body text, 16px, generous line-height (1.7)
+  - [x] Card layout: photo on left, text on right (desktop) / photo centered above text (mobile)
+  - [x] Subtle warm background (#f5f0e8) or white with brun terre left border for warmth
+- [x] Task 2: Create/update `src/pages/restaurant/producteurs.astro` (AC: #4, #5, #7, #8)
+  - [x] Import `getLangFromUrl`, `useTranslations`, `getLocalizedField` from `@/i18n/utils`
+  - [x] Import `poleConfigs` from `@/lib/pole-config`
+  - [x] Query Keystatic for producer data (from restaurant singleton or dedicated producers collection)
+  - [x] Build hero: terroir/farm photo with brun terre overlay, "Nos Producteurs" H1
+  - [x] Breadcrumb above title: "RESTAURANT" small-caps linked to `/restaurant/`
+  - [x] Introductory paragraph: warm copy about the restaurant's sourcing philosophy
+  - [x] Render producer grid below intro
+  - [x] Pass SEO props: title="Nos Producteurs — Restaurant | La Terrasse Saint-Ferréol"
+- [x] Task 3: Intro section (AC: #6)
+  - [x] Centered text block (max-width 768px) below hero
+  - [x] Content: explain the restaurant's terroir commitment — local sourcing, short supply chains, seasonal menus
+  - [x] Tone: warm, authentic, proud — "Nous travaillons main dans la main avec les artisans de notre terroir"
+  - [x] Content from Keystatic if available, else static placeholder ready for CMS update
+- [x] Task 4: Producer grid (AC: #3)
+  - [x] Grid: `grid grid-cols-1 md:grid-cols-2 gap-8` (larger gap for breathing room)
+  - [x] Each card occupies generous vertical space to let the story breathe
+  - [x] Center the grid content with max-width 1080px (slightly narrower than 1280px for intimacy)
+  - [x] Section padding: 96px desktop / 48px mobile
+- [x] Task 5: i18n support (AC: #1, #4)
+  - [x] Use `getLocalizedField()` for producer names, products, and stories
+  - [x] Intro text translated via CMS or `useTranslations()`
+  - [x] Breadcrumb text translated
+- [x] Task 6: CTA section (AC: #6)
+  - [x] Closing section: tie back to the restaurant — "Venez goûter le terroir" or similar
+  - [x] CTA "Réserver ma table" linking to `poleConfigs.restaurant.ctaHref`
+  - [x] Subtle, not as prominent as the hub CTA — this page is about storytelling
 
 ## Dev Notes
 
@@ -128,8 +128,33 @@ The page is NOT a directory — it's a narrative that says "we care about where 
 
 ### Agent Model Used
 
+claude-opus-4-6
+
 ### Debug Log References
+
+No issues encountered during implementation.
 
 ### Completion Notes List
 
+- Created ProducerCard.astro component with circular portrait photo, horizontal desktop / vertical mobile layout, brun terre left border
+- Rewrote producteurs.astro page with SectionHero, breadcrumb, intro section, Keystatic-powered producer grid, and subtle CTA
+- Added `producers` Keystatic collection with i18n fields (product_en/es, story_en/es), order, visibility
+- Created 4 placeholder producer entries: Jean-Pierre Dubois (miel), Marie Blanc (fromages), Pierre Labarthe (vins), Sophie Martin (maraîchage)
+- Added i18n translations for producers page (heroSubtitle, breadcrumb, intro, ctaTitle, ctaSubtitle) in FR/EN/ES
+- Used placeholder images from existing `/images/placeholders/` directory
+- Build passes with 0 errors across all 3 locales (fr, en, es)
+
 ### File List
+
+- `src/components/restaurant/ProducerCard.astro` — NEW: Producer card component
+- `src/pages/restaurant/producteurs.astro` — MODIFIED: Full page rewrite with hero, breadcrumb, grid, CTA
+- `keystatic.config.ts` — MODIFIED: Added `producers` collection
+- `src/i18n/translations.ts` — MODIFIED: Added producer page translations (FR/EN/ES)
+- `src/content/producers/jean-pierre-dubois/index.yaml` — NEW: Placeholder producer data
+- `src/content/producers/marie-blanc/index.yaml` — NEW: Placeholder producer data
+- `src/content/producers/pierre-labarthe/index.yaml` — NEW: Placeholder producer data
+- `src/content/producers/sophie-martin/index.yaml` — NEW: Placeholder producer data
+
+## Change Log
+
+- 2026-03-11: Implemented story 4-3 — local producers page with Keystatic collection, ProducerCard component, full page with hero/breadcrumb/intro/grid/CTA, i18n support (FR/EN/ES), 4 placeholder producers
