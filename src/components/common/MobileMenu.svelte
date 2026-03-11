@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { slide } from 'svelte/transition';
+
   interface SubLink {
     label: string;
     href: string;
@@ -38,6 +40,9 @@
   let isOpen = $state(false);
   let expandedPole = $state<string | null>(null);
   let portalEl = $state<HTMLDivElement | null>(null);
+  let panelEl = $state<HTMLDivElement | null>(null);
+  let hamburgerBtn = $state<HTMLButtonElement | null>(null);
+  let closeBtn = $state<HTMLButtonElement | null>(null);
 
   const poleColors: Record<string, string> = {
     restaurant: '#2D2B1B',
@@ -54,15 +59,71 @@
     }
   });
 
+  // Body scroll lock (iOS-safe: position fixed + restore scrollY) with cleanup on unmount
+  $effect(() => {
+    if (isOpen && typeof document !== 'undefined') {
+      const scrollY = window.scrollY;
+      document.body.style.position = 'fixed';
+      document.body.style.width = '100%';
+      document.body.style.top = `-${scrollY}px`;
+      document.body.style.overflow = 'hidden';
+
+      return () => {
+        document.body.style.position = '';
+        document.body.style.width = '';
+        document.body.style.top = '';
+        document.body.style.overflow = '';
+        window.scrollTo(0, scrollY);
+      };
+    }
+  });
+
+  // Focus trap: keep Tab within panel, Escape closes
+  $effect(() => {
+    if (isOpen && panelEl) {
+      closeBtn?.focus();
+
+      function handleKeydown(e: KeyboardEvent) {
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          close();
+          return;
+        }
+
+        if (e.key === 'Tab' && panelEl) {
+          const focusable = Array.from(
+            panelEl.querySelectorAll<HTMLElement>(
+              'a[href], button:not([disabled]), input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+            )
+          );
+          if (focusable.length === 0) return;
+
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+
+          if (e.shiftKey && document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          } else if (!e.shiftKey && document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
+
+      document.addEventListener('keydown', handleKeydown);
+      return () => document.removeEventListener('keydown', handleKeydown);
+    }
+  });
+
   function open() {
     isOpen = true;
-    if (typeof document !== 'undefined') document.body.style.overflow = 'hidden';
   }
 
   function close() {
     isOpen = false;
     expandedPole = null;
-    if (typeof document !== 'undefined') document.body.style.overflow = '';
+    hamburgerBtn?.focus();
   }
 
   function togglePole(id: string) {
@@ -72,8 +133,9 @@
 
 <!-- Burger button (stays in header) -->
 <button
+  bind:this={hamburgerBtn}
   onclick={open}
-  class="lg:hidden p-2 text-gray-600 hover:text-brun-terre transition-colors"
+  class="lg:hidden min-w-11 min-h-11 flex items-center justify-center text-gray-600 hover:text-brun-terre transition-colors"
   aria-label="Menu"
   aria-expanded={isOpen}
 >
@@ -95,6 +157,7 @@
 
   <!-- Slide-out panel -->
   <div
+    bind:this={panelEl}
     class="fixed top-0 right-0 h-full h-dvh w-80 max-w-[85vw] bg-white z-[9999] shadow-2xl overflow-y-auto lg:hidden transition-transform duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
     class:translate-x-full={!isOpen}
     class:translate-x-0={isOpen}
@@ -102,7 +165,12 @@
     <!-- Header -->
     <div class="flex items-center justify-between p-4 border-b border-gray-200">
       <span class="font-heading text-lg font-bold text-brun-terre">LA TERRASSE</span>
-      <button onclick={close} class="p-2 text-gray-400 hover:text-gray-600 transition-colors" aria-label="Fermer">
+      <button
+        bind:this={closeBtn}
+        onclick={close}
+        class="min-w-11 min-h-11 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
+        aria-label="Fermer"
+      >
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 18L18 6M6 6l12 12" />
         </svg>
@@ -125,8 +193,10 @@
             </a>
             <button
               onclick={() => togglePole(pole.id)}
-              class="p-2 text-gray-400"
+              class="min-w-11 min-h-11 flex items-center justify-center text-gray-400"
               aria-label="Sous-menu {pole.label}"
+              aria-expanded={expandedPole === pole.id}
+              aria-controls="submenu-{pole.id}"
             >
               <svg
                 class="w-4 h-4 transition-transform duration-200"
@@ -139,9 +209,13 @@
           </div>
 
           {#if expandedPole === pole.id}
-            <div class="pl-4 pb-3 flex flex-col gap-0.5">
+            <div
+              id="submenu-{pole.id}"
+              class="pl-4 pb-3 flex flex-col gap-0.5"
+              transition:slide={{ duration: 200 }}
+            >
               {#each pole.subLinks as link}
-                <a href={link.href} onclick={close} class="block py-2 text-sm text-gray-500 hover:text-gray-700 transition-colors">
+                <a href={link.href} onclick={close} class="block py-3 text-sm text-gray-500 hover:text-gray-700 transition-colors">
                   {link.label}
                 </a>
               {/each}
@@ -154,7 +228,7 @@
       <div class="mt-5 mb-2">
         <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-2">Experiences</p>
         {#each transversalItems as item}
-          <a href={item.href} onclick={close} class="block py-2.5 text-sm text-gray-600 hover:text-brun-terre transition-colors">
+          <a href={item.href} onclick={close} class="block py-3 text-sm text-gray-600 hover:text-brun-terre transition-colors">
             {item.label}
           </a>
         {/each}
