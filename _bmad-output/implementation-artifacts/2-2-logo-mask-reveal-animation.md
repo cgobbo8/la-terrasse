@@ -1,6 +1,6 @@
 # Story 2.2: Logo Mask Reveal Animation
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,42 +19,42 @@ so that my first impression of La Terrasse feels immersive and memorable.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Install GSAP (AC: #1, #6)
-  - [ ] Run `pnpm add gsap`
-  - [ ] Verify GSAP is available in the project's node_modules
-  - [ ] GSAP will be tree-shaken to only include what this component imports
-- [ ] Task 2: Create `src/components/homepage/LogoMaskReveal.svelte` (AC: #1, #3, #4)
-  - [ ] On mount (`onMount`), check sessionStorage for `'la-terrasse-intro-seen'` key
-  - [ ] If key exists → set `visible = false` immediately, dispatch `'reveal-complete'` custom event or set a prop callback
-  - [ ] If key does not exist → run the GSAP animation sequence:
-    1. Start: fullscreen div with `background: #2D2B1B`, `z-index: 50`, `position: fixed`, covering viewport
+- [x] Task 1: Install GSAP (AC: #1, #6)
+  - [x] Run `pnpm add gsap`
+  - [x] Verify GSAP is available in the project's node_modules
+  - [x] GSAP will be tree-shaken to only include what this component imports
+- [x] Task 2: Create `src/components/homepage/LogoMaskReveal.svelte` (AC: #1, #3, #4)
+  - [x] On mount (`onMount`), check sessionStorage for `'la-terrasse-intro-seen'` key
+  - [x] If key exists → set `visible = false` immediately, dispatch `'reveal-complete'` custom event or set a prop callback
+  - [x] If key does not exist → run the GSAP animation sequence:
+    1. Start: fullscreen div with `background: #2D2B1B`, `z-index: 9999`, `position: fixed`, covering viewport
     2. Logo SVG centered, white, at natural size
-    3. Animate: scale the logo mask from 1 to ~20 over 2.5s with `ease: "power2.inOut"`
-    4. Use CSS `clip-path` with the logo SVG shape as the mask, or use a `mask-image` approach
+    3. Animate: CSS mask-image with mask-composite XOR, scaling mask from 0px to 5000px over ~2.6s
+    4. Use CSS `mask-image` with two layers + `mask-composite: exclude` / `-webkit-mask-composite: xor`
     5. As the mask scales up, the video hero behind becomes visible through the logo shape
-    6. End: remove the overlay div from the DOM
-  - [ ] After animation completes, set `sessionStorage.setItem('la-terrasse-intro-seen', 'true')`
-  - [ ] Total animation duration: under 3 seconds
-- [ ] Task 3: Implement `prefers-reduced-motion` check (AC: #3)
-  - [ ] On mount, check `window.matchMedia('(prefers-reduced-motion: reduce)').matches`
-  - [ ] If true: show static logo on brun-terre background for 1s, then `opacity: 0` fade over 0.5s, then remove overlay
-  - [ ] Do not import or initialize GSAP ScrollTrigger or other heavy plugins for this simple fade
-- [ ] Task 4: Copy logo SVG into component (AC: #1)
-  - [ ] Source the logo from `ressources/assets/la-terasse-logo.svg`
-  - [ ] Inline the SVG path data directly into the Svelte component for use as a clip-path or mask
-  - [ ] Alternatively, reference the SVG file via a `mask-image: url(...)` CSS property
-  - [ ] Ensure the SVG viewBox is correctly centered for the scaling animation
-- [ ] Task 5: Integrate into homepage `index.astro` (AC: #6)
-  - [ ] Import `LogoMaskReveal` in `src/pages/index.astro`
-  - [ ] Place it before the VideoHero component (or as a sibling overlay)
-  - [ ] Use `client:load` directive — this is critical, it must execute immediately on page load
-  - [ ] The overlay must sit above the VideoHero in z-index stacking: `z-50` for overlay, hero at default z-index
-  - [ ] After reveal completes, the overlay element should be removed from DOM or set to `display: none` / `pointer-events: none`
-- [ ] Task 6: Prevent flash of unstyled content (AC: #4)
-  - [ ] Add an inline `<style>` or critical CSS in BaseLayout that sets the overlay to visible by default (for first-time visitors)
-  - [ ] This prevents a flash of the video hero before the Svelte island hydrates
-  - [ ] Alternative: use a CSS-only initial state (brun-terre fullscreen div) that the Svelte component enhances
-  - [ ] Consider adding a `<noscript>` fallback that hides the overlay for users without JS
+    6. End: remove the overlay div from the DOM via `visible = false`
+  - [x] After animation completes, set `sessionStorage.setItem('la-terrasse-intro-seen', 'true')`
+  - [x] Total animation duration: ~2.6 seconds (under 3 seconds)
+- [x] Task 3: Implement `prefers-reduced-motion` check (AC: #3)
+  - [x] On mount, check `window.matchMedia('(prefers-reduced-motion: reduce)').matches`
+  - [x] If true: show static logo on brun-terre background for 1s, then `opacity: 0` fade over 0.5s, then remove overlay
+  - [x] Do not import or initialize GSAP ScrollTrigger or other heavy plugins for this simple fade
+- [x] Task 4: Copy logo SVG into component (AC: #1)
+  - [x] Source the logo from `ressources/assets/la-terasse-logo.svg`
+  - [x] Inline the SVG path data directly into the Svelte component for use as a mask-image data URI
+  - [x] Used data URI with encodeURIComponent (double quotes in SVG to avoid CSS url() conflicts)
+  - [x] Ensure the SVG viewBox is correctly centered for the scaling animation
+- [x] Task 5: Integrate into homepage `index.astro` (AC: #6)
+  - [x] Import `LogoMaskReveal` in `src/pages/index.astro`
+  - [x] Place it before the VideoHero component (or as a sibling overlay)
+  - [x] Use `client:load` directive — this is critical, it must execute immediately on page load
+  - [x] The overlay must sit above the VideoHero in z-index stacking: `z-9999` for overlay, hero at default z-index
+  - [x] After reveal completes, the overlay element should be removed from DOM via Svelte `{#if visible}` block
+- [x] Task 6: Prevent flash of unstyled content (AC: #4)
+  - [x] SSR renders the overlay div visible by default (Svelte island with client:load)
+  - [x] Inline `<script is:inline>` before the island checks sessionStorage and adds `intro-seen` class to `<html>` for return visitors
+  - [x] CSS rule `:global(.intro-seen) .logo-reveal-overlay { display: none !important }` hides overlay before paint
+  - [x] `<noscript>` fallback hides the overlay for users without JS
 
 ## Dev Notes
 
@@ -124,8 +124,28 @@ The logo file is at `ressources/assets/la-terasse-logo.svg`. The logo features "
 
 ### Agent Model Used
 
+Claude Opus 4.6
+
 ### Debug Log References
+
+- Fixed SVG data URI encoding: single quotes in SVG attributes were not encoded by `encodeURIComponent`, breaking CSS `url('...')`. Switched to double quotes in SVG template so they get encoded as `%22`.
+- GSAP is loaded dynamically via `import('gsap')` and ends up in a separate chunk (`index.CMq3EfTn.js`, 70.40 kB / 27.79 kB gzip), only loaded on the homepage.
 
 ### Completion Notes List
 
+- Implemented CSS mask-image approach with two layers + mask-composite exclude/xor (Approach A from Dev Notes)
+- Animation phases: 0.5s rest → 0.6s logo fade + mask open → 1.5s mask expansion → 0.3s overlay fade (total ~2.6s)
+- FOUC prevention: inline script adds `.intro-seen` class before overlay HTML parses; noscript fallback hides overlay
+- No portal needed — overlay is `position: fixed` with `z-index: 9999`, Header's `backdrop-blur-sm` doesn't affect siblings
+- No test framework is configured in this project; validation done via build success and HTML output verification
+
 ### File List
+
+- `src/components/homepage/LogoMaskReveal.svelte` — NEW (Svelte island for logo mask reveal animation)
+- `src/pages/index.astro` — MODIFIED (added LogoMaskReveal import, inline script for FOUC prevention, noscript fallback)
+- `package.json` — MODIFIED (added gsap 3.14.2 dependency)
+- `pnpm-lock.yaml` — MODIFIED (lockfile updated for gsap)
+
+## Change Log
+
+- 2026-03-11: Implemented logo mask reveal animation — GSAP-powered CSS mask-image animation on first visit, sessionStorage-based skip for return visits, prefers-reduced-motion fallback, FOUC prevention via inline script + noscript

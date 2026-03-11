@@ -9,6 +9,7 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import VideoHero from '@/components/homepage/VideoHero.astro';
+import LogoMaskReveal from '@/components/homepage/LogoMaskReveal.svelte';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
@@ -43,6 +44,20 @@ const poles = [
 ---
 
 <BaseLayout title="Accueil" description="La Terrasse — Restaurant, Aventure et Événements au lac de Saint-Ferréol">
+  <!-- 0. INTRO — Logo mask reveal (first visit only) -->
+  <script is:inline>
+    // Prevent flash: hide overlay immediately for return visitors (before Svelte hydrates)
+    if (sessionStorage.getItem('la-terrasse-intro-seen')) {
+      document.documentElement.classList.add('intro-seen');
+    }
+  </script>
+  <noscript>
+    <style>
+      .logo-reveal-overlay { display: none !important; }
+    </style>
+  </noscript>
+  <LogoMaskReveal client:load />
+
   <!-- 1. HERO — Le lieu (vidéo plein écran) -->
   <VideoHero tagline={t('home.hero.tagline')} subtitle={t('home.hero.subtitle')}>
     <div class="flex flex-wrap gap-4">
