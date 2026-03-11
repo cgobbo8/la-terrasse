@@ -1,4 +1,6 @@
 <script lang="ts">
+  import { tick } from 'svelte';
+
   interface SubLink {
     label: string;
     href: string;
@@ -52,6 +54,7 @@
 
   let activeMenu = $state<string | null>(null);
   let closeTimeout = $state<ReturnType<typeof setTimeout> | null>(null);
+  let triggerElements: Record<string, HTMLElement | null> = {};
 
   function openMenu(id: string) {
     if (closeTimeout) { clearTimeout(closeTimeout); closeTimeout = null; }
@@ -64,6 +67,52 @@
 
   function cancelClose() {
     if (closeTimeout) { clearTimeout(closeTimeout); closeTimeout = null; }
+  }
+
+  async function handleTriggerKeydown(e: KeyboardEvent, menuId: string) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      if (activeMenu === menuId) {
+        activeMenu = null;
+      } else {
+        openMenu(menuId);
+        await tick();
+        const panel = document.querySelector(`[data-menu="${menuId}"]`);
+        const firstItem = panel?.querySelector('[role="menuitem"]') as HTMLElement | null;
+        firstItem?.focus();
+      }
+    } else if (e.key === 'Escape') {
+      if (activeMenu === menuId) {
+        activeMenu = null;
+      }
+    }
+  }
+
+  function handleMenuItemKeydown(e: KeyboardEvent, menuId: string) {
+    const panel = document.querySelector(`[data-menu="${menuId}"]`);
+    if (!panel) return;
+    const items = Array.from(panel.querySelectorAll('[role="menuitem"]')) as HTMLElement[];
+    const currentIndex = items.indexOf(e.target as HTMLElement);
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      items[(currentIndex + 1) % items.length]?.focus();
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      items[(currentIndex - 1 + items.length) % items.length]?.focus();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      activeMenu = null;
+      triggerElements[menuId]?.focus();
+    }
+  }
+
+  function handleFocusOut(e: FocusEvent) {
+    const container = e.currentTarget as HTMLElement;
+    const related = e.relatedTarget as Node | null;
+    if (!related || !container.contains(related)) {
+      activeMenu = null;
+    }
   }
 
   const bgLight: Record<string, string> = {
@@ -100,11 +149,16 @@
       class="relative"
       onmouseenter={() => openMenu(pole.id)}
       onmouseleave={startClose}
+      onfocusout={handleFocusOut}
     >
       <a
+        bind:this={triggerElements[pole.id]}
         href={pole.href}
-        class="inline-flex items-center gap-1 px-3 py-5 text-sm font-medium transition-colors hover:text-brun-terre"
-        style={currentPole === pole.id ? `color: ${accent[pole.accentColor]}` : 'color: #6b6b67'}
+        class="inline-flex items-center gap-1 px-3 py-5 text-sm font-medium transition-colors hover:text-brun-terre focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+        style="{currentPole === pole.id ? `color: ${accent[pole.accentColor]}` : 'color: #6b6b67'}; outline-color: {accent[pole.accentColor]}"
+        aria-haspopup="true"
+        aria-expanded={activeMenu === pole.id}
+        onkeydown={(e) => handleTriggerKeydown(e, pole.id)}
       >
         {pole.label}
         <svg
@@ -123,12 +177,22 @@
           onmouseenter={cancelClose}
           onmouseleave={startClose}
         >
-          <div class="bg-white rounded-2xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 p-6 grid grid-cols-[1fr_16rem] grid-rows-[1fr_auto] gap-6 min-w-[32rem] animate-[megaFadeIn_0.15s_ease-out]">
+          <div
+            class="bg-white rounded-2xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 p-6 grid grid-cols-[1fr_16rem] grid-rows-[1fr_auto] gap-6 min-w-[32rem] animate-[megaFadeIn_0.15s_ease-out]"
+            role="menu"
+            data-menu={pole.id}
+          >
             <!-- Left: Sub links -->
             <div>
               <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">Explorer</p>
               {#each pole.subLinks as link}
-                <a href={link.href} class="flex items-center gap-3 px-2 py-2.5 rounded-lg hover:bg-offwhite transition-colors group">
+                <a
+                  href={link.href}
+                  role="menuitem"
+                  class="flex items-center gap-3 px-2 py-2.5 rounded-lg hover:bg-offwhite transition-colors group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+                  style="outline-color: {accent[pole.accentColor]}"
+                  onkeydown={(e) => handleMenuItemKeydown(e, pole.id)}
+                >
                   <span
                     class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
                     style="background-color: {bgLight[pole.accentColor]}; color: {accent[pole.accentColor]}"
@@ -152,8 +216,10 @@
               <div>
                 <a
                   href={pole.featured.href}
-                  class="flex flex-col rounded-xl overflow-hidden h-full transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg"
-                  style="background-color: {bgLight[pole.accentColor]}"
+                  role="menuitem"
+                  class="flex flex-col rounded-xl overflow-hidden h-full transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+                  style="background-color: {bgLight[pole.accentColor]}; outline-color: {accent[pole.accentColor]}"
+                  onkeydown={(e) => handleMenuItemKeydown(e, pole.id)}
                 >
                   <div
                     class="aspect-[16/10] flex items-center justify-center"
@@ -185,8 +251,10 @@
               <div class="col-span-full border-t border-gray-100 pt-4">
                 <a
                   href={pole.crossSell.href}
-                  class="inline-flex items-center gap-2 text-xs font-medium italic hover:underline transition-opacity hover:opacity-80"
-                  style="color: {accent[pole.crossSell.targetPole]}"
+                  role="menuitem"
+                  class="inline-flex items-center gap-2 text-xs font-medium italic hover:underline transition-opacity hover:opacity-80 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+                  style="color: {accent[pole.crossSell.targetPole]}; outline-color: {accent[pole.crossSell.targetPole]}"
+                  onkeydown={(e) => handleMenuItemKeydown(e, pole.id)}
                 >
                   <svg class="w-3.5 h-3.5 shrink-0" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M12.207 2.232a.75.75 0 00.025 1.06l4.146 3.958H6.375a5.375 5.375 0 000 10.75H9.25a.75.75 0 000-1.5H6.375a3.875 3.875 0 010-7.75h10.003l-4.146 3.957a.75.75 0 001.036 1.085l5.5-5.25a.75.75 0 000-1.085l-5.5-5.25a.75.75 0 00-1.06.025z" clip-rule="evenodd" />
@@ -201,14 +269,22 @@
     </div>
   {/each}
 
-  <!-- Transversal "Expériences" -->
+  <!-- Transversal "Experiences" -->
   <!-- svelte-ignore a11y_no_static_element_interactions -->
   <div
     class="relative"
     onmouseenter={() => openMenu('transversal')}
     onmouseleave={startClose}
+    onfocusout={handleFocusOut}
   >
-    <button class="inline-flex items-center gap-1 px-3 py-5 text-sm font-medium text-gray-400 hover:text-brun-terre transition-colors">
+    <button
+      bind:this={triggerElements['transversal']}
+      class="inline-flex items-center gap-1 px-3 py-5 text-sm font-medium text-gray-400 hover:text-brun-terre transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+      style="outline-color: #2D2B1B"
+      aria-haspopup="true"
+      aria-expanded={activeMenu === 'transversal'}
+      onkeydown={(e) => handleTriggerKeydown(e, 'transversal')}
+    >
       Expériences
       <svg
         class="w-3.5 h-3.5 transition-transform duration-200"
@@ -226,10 +302,20 @@
         onmouseenter={cancelClose}
         onmouseleave={startClose}
       >
-        <div class="bg-white rounded-2xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 p-6 min-w-72 animate-[megaFadeIn_0.15s_ease-out]">
+        <div
+          class="bg-white rounded-2xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 p-6 min-w-72 animate-[megaFadeIn_0.15s_ease-out]"
+          role="menu"
+          data-menu="transversal"
+        >
           <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">Composez votre journée</p>
           {#each transversalItems as item}
-            <a href={item.href} class="flex items-center gap-3 px-2 py-2.5 rounded-lg hover:bg-offwhite transition-colors group">
+            <a
+              href={item.href}
+              role="menuitem"
+              class="flex items-center gap-3 px-2 py-2.5 rounded-lg hover:bg-offwhite transition-colors group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+              style="outline-color: #2D2B1B"
+              onkeydown={(e) => handleMenuItemKeydown(e, 'transversal')}
+            >
               <span class="flex flex-col min-w-0 flex-1">
                 <span class="text-sm font-semibold text-gray-800 leading-tight">{item.label}</span>
                 <span class="text-xs text-gray-400 mt-0.5 leading-tight">{item.description}</span>
@@ -245,7 +331,11 @@
   </div>
 
   <!-- Contact -->
-  <a href={contactHref} class="ml-2 bg-brun-terre text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors">
+  <a
+    href={contactHref}
+    class="ml-2 bg-brun-terre text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+    style="outline-color: #2D2B1B"
+  >
     {contactLabel}
   </a>
 
@@ -254,11 +344,12 @@
     {#each Object.entries(languages) as [code, _name]}
       <a
         href={langPaths[code] ?? '/'}
-        class="uppercase transition-colors"
+        class="uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
         class:text-brun-terre={currentLang === code}
         class:font-bold={currentLang === code}
         class:text-gray-400={currentLang !== code}
         class:hover:text-brun-terre={currentLang !== code}
+        style="outline-color: #2D2B1B"
       >
         {code}
       </a>
