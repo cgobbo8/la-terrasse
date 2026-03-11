@@ -8,26 +8,42 @@ export interface PoleConfig {
   ctaHref: string;
 }
 
+/** Replace with actual phone number when provided by the client */
+export const PHONE_NUMBER = '+33000000000';
+export const EMAIL_ADDRESS = 'contact@laterrasse-saintferreol.fr';
+
 export const poleConfigs: Record<Pole, PoleConfig> = {
   restaurant: {
     name: 'Restaurant',
     accent: '#2D2B1B',
     light: '#f5f0e8',
     ctaLabel: 'Réserver ma table',
-    ctaHref: 'tel:+33000000000',
+    ctaHref: `tel:${PHONE_NUMBER}`,
   },
   aventure: {
     name: 'Aventure',
     accent: '#537b47',
     light: '#eef5ec',
     ctaLabel: 'Réserver mon aventure',
-    ctaHref: 'tel:+33000000000',
+    ctaHref: `tel:${PHONE_NUMBER}`,
   },
   evenements: {
     name: 'Événements',
     accent: '#3d4969',
     light: '#edf0f5',
     ctaLabel: 'Demander un devis',
-    ctaHref: 'mailto:contact@laterrasse-saintferreol.fr',
+    ctaHref: `mailto:${EMAIL_ADDRESS}?subject=Demande%20de%20devis`,
   },
 };
+
+export const defaultCta = {
+  label: 'Nous contacter',
+  href: `tel:${PHONE_NUMBER}`,
+  accent: '#2D2B1B',
+} as const;
+
+export function getCtaForPole(pole: Pole | null): { label: string; href: string; accent: string } {
+  if (!pole) return { ...defaultCta };
+  const config = poleConfigs[pole];
+  return { label: config.ctaLabel, href: config.ctaHref, accent: config.accent };
+}

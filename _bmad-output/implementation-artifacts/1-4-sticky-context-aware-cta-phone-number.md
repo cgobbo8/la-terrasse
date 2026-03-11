@@ -1,6 +1,6 @@
 # Story 1.4: Sticky Context-Aware CTA & Phone Number
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -23,59 +23,59 @@ so that I can always reach the business with one tap regardless of where I am on
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/lib/pole-config.ts` with CTA resolution (AC: #2, #6)
-  - [ ] Export `Pole` type: `'restaurant' | 'aventure' | 'evenements'`
-  - [ ] Export `PoleConfig` interface: `{ accent: string; light: string; name: string; ctaLabel: string; ctaHref: string }`
-  - [ ] Export `poleConfigs` record with all 3 pole configurations:
+- [x] Task 1: Create `src/lib/pole-config.ts` with CTA resolution (AC: #2, #6)
+  - [x] Export `Pole` type: `'restaurant' | 'aventure' | 'evenements'`
+  - [x] Export `PoleConfig` interface: `{ accent: string; light: string; name: string; ctaLabel: string; ctaHref: string }`
+  - [x] Export `poleConfigs` record with all 3 pole configurations:
     - `restaurant`: accent `#2D2B1B`, light `#f5f0e8`, ctaLabel `Reserver ma table`, ctaHref `tel:+33XXXXXXXXX`
     - `aventure`: accent `#537b47`, light `#eef5ec`, ctaLabel `Reserver mon aventure`, ctaHref `tel:+33XXXXXXXXX`
     - `evenements`: accent `#3d4969`, light `#edf0f5`, ctaLabel `Demander un devis`, ctaHref `mailto:contact@laterrasse-saintferreol.fr?subject=Demande%20de%20devis`
-  - [ ] Export `defaultCta` object: `{ label: 'Nous contacter', href: 'tel:+33XXXXXXXXX', accent: '#2D2B1B' }`
-  - [ ] Export helper `getCtaForPole(pole: Pole | null)` returning `{ label, href, accent }`
-  - [ ] Export `PHONE_NUMBER` and `EMAIL_ADDRESS` constants for reuse across components
-  - [ ] NOTE: Replace `+33XXXXXXXXX` with the actual phone number when provided by the client
+  - [x] Export `defaultCta` object: `{ label: 'Nous contacter', href: 'tel:+33XXXXXXXXX', accent: '#2D2B1B' }`
+  - [x] Export helper `getCtaForPole(pole: Pole | null)` returning `{ label, href, accent }`
+  - [x] Export `PHONE_NUMBER` and `EMAIL_ADDRESS` constants for reuse across components
+  - [x] NOTE: Replace `+33XXXXXXXXX` with the actual phone number when provided by the client
 
-- [ ] Task 2: Create `src/components/common/CTAButton.astro` (AC: #1, #3, #5)
-  - [ ] Accept props: `label: string`, `href: string`, `accentColor: string`, `variant?: 'primary' | 'secondary' | 'ghost'`
-  - [ ] Primary variant: solid background with accent color, white text
-  - [ ] Secondary variant: outlined border with accent color, accent text
-  - [ ] Ghost variant: no background, accent text, underline on hover
-  - [ ] Apply accent color via inline `style` attribute: `style="background-color: {accentColor}"` for primary
-  - [ ] Ensure minimum `min-h-11 px-4` for 44px touch target
-  - [ ] Add `font-medium text-sm rounded-lg` base classes
-  - [ ] Render as `<a>` tag (all CTAs are links — tel: or mailto:)
+- [x] Task 2: Create `src/components/common/CTAButton.astro` (AC: #1, #3, #5)
+  - [x] Accept props: `label: string`, `href: string`, `accentColor: string`, `variant?: 'primary' | 'secondary' | 'ghost'`
+  - [x] Primary variant: solid background with accent color, white text
+  - [x] Secondary variant: outlined border with accent color, accent text
+  - [x] Ghost variant: no background, accent text, underline on hover
+  - [x] Apply accent color via inline `style` attribute: `style="background-color: {accentColor}"` for primary
+  - [x] Ensure minimum `min-h-11 px-4` for 44px touch target
+  - [x] Add `font-medium text-sm rounded-lg` base classes
+  - [x] Render as `<a>` tag (all CTAs are links — tel: or mailto:)
 
-- [ ] Task 3: Create `src/components/common/ContactLinks.astro` (AC: #4)
-  - [ ] Accept props: `phone: string`, `email?: string`, `variant?: 'header' | 'footer'`
-  - [ ] Header variant: compact phone display with phone icon, single line
-  - [ ] Footer variant: stacked phone + email with labels
-  - [ ] Phone renders as `<a href="tel:{phone}">` with minimum 44px touch target
-  - [ ] Email renders as `<a href="mailto:{email}">` if provided
-  - [ ] Import `PHONE_NUMBER` and `EMAIL_ADDRESS` from `pole-config.ts` as defaults
+- [x] Task 3: Create `src/components/common/ContactLinks.astro` (AC: #4)
+  - [x] Accept props: `phone: string`, `email?: string`, `variant?: 'header' | 'footer'`
+  - [x] Header variant: compact phone display with phone icon, single line
+  - [x] Footer variant: stacked phone + email with labels
+  - [x] Phone renders as `<a href="tel:{phone}">` with minimum 44px touch target
+  - [x] Email renders as `<a href="mailto:{email}">` if provided
+  - [x] Import `PHONE_NUMBER` and `EMAIL_ADDRESS` from `pole-config.ts` as defaults
 
-- [ ] Task 4: Integrate CTA and phone in Header.astro (AC: #1, #4)
-  - [ ] Import `getCtaForPole`, `PHONE_NUMBER` from `@/lib/pole-config.ts`
-  - [ ] Import `CTAButton` and `ContactLinks` components
-  - [ ] Resolve CTA config in frontmatter: `const cta = getCtaForPole(pole)`
-  - [ ] Replace existing hardcoded contact `<a>` in desktop nav with `<CTAButton label={cta.label} href={cta.href} accentColor={cta.accent} />`
-  - [ ] Add `<ContactLinks phone={PHONE_NUMBER} variant="header" />` next to the CTA on desktop (visible on `lg:` breakpoint)
-  - [ ] Pass `cta` data to MegaMenu.svelte as `ctaLabel={cta.label}` and `ctaHref={cta.href}` and `ctaColor={cta.accent}` (replacing current static `contactLabel`/`contactHref`)
-  - [ ] Pass `cta` data to MobileMenu.svelte for the mobile CTA button
+- [x] Task 4: Integrate CTA and phone in Header.astro (AC: #1, #4)
+  - [x] Import `getCtaForPole`, `PHONE_NUMBER` from `@/lib/pole-config.ts`
+  - [x] Import `CTAButton` and `ContactLinks` components
+  - [x] Resolve CTA config in frontmatter: `const cta = getCtaForPole(pole)`
+  - [x] Replace existing hardcoded contact `<a>` in desktop nav with `<CTAButton label={cta.label} href={cta.href} accentColor={cta.accent} />`
+  - [x] Add `<ContactLinks phone={PHONE_NUMBER} variant="header" />` next to the CTA on desktop (visible on `lg:` breakpoint)
+  - [x] Pass `cta` data to MegaMenu.svelte as `ctaLabel={cta.label}` and `ctaHref={cta.href}` and `ctaColor={cta.accent}` (replacing current static `contactLabel`/`contactHref`)
+  - [x] Pass `cta` data to MobileMenu.svelte for the mobile CTA button
 
-- [ ] Task 5: Update MegaMenu.svelte CTA button styling (AC: #3)
-  - [ ] Accept new props `ctaColor: string` for accent color
-  - [ ] Apply accent color to the CTA button via inline `style="background-color: {ctaColor}"` instead of static `bg-brun-terre`
-  - [ ] Ensure hover state slightly darkens the color (use CSS `filter: brightness(0.9)` on hover)
+- [x] Task 5: Update MegaMenu.svelte CTA button styling (AC: #3)
+  - [x] Accept new props `ctaColor: string` for accent color
+  - [x] Apply accent color to the CTA button via inline `style="background-color: {ctaColor}"` instead of static `bg-brun-terre`
+  - [x] Ensure hover state slightly darkens the color (use CSS `filter: brightness(0.9)` on hover)
 
-- [ ] Task 6: Update MobileMenu.svelte CTA button styling (AC: #3)
-  - [ ] Accept new prop `ctaColor: string`
-  - [ ] Apply accent color to the CTA button via inline `style="background-color: {ctaColor}"` instead of static `bg-brun-terre`
-  - [ ] Add phone number link above or below the CTA in the mobile panel
+- [x] Task 6: Update MobileMenu.svelte CTA button styling (AC: #3)
+  - [x] Accept new prop `ctaColor: string`
+  - [x] Apply accent color to the CTA button via inline `style="background-color: {ctaColor}"` instead of static `bg-brun-terre`
+  - [x] Add phone number link above or below the CTA in the mobile panel
 
-- [ ] Task 7: Update Footer.astro with contact links (AC: #4)
-  - [ ] Import `PHONE_NUMBER`, `EMAIL_ADDRESS` from `@/lib/pole-config.ts`
-  - [ ] Import `ContactLinks` component
-  - [ ] Replace placeholder address content in footer contact column with actual phone, email, and address using `ContactLinks` variant="footer"
+- [x] Task 7: Update Footer.astro with contact links (AC: #4)
+  - [x] Import `PHONE_NUMBER`, `EMAIL_ADDRESS` from `@/lib/pole-config.ts`
+  - [x] Import `ContactLinks` component
+  - [x] Replace placeholder address content in footer contact column with actual phone, email, and address using `ContactLinks` variant="footer"
 
 ## Dev Notes
 
@@ -117,8 +117,34 @@ so that I can always reach the business with one tap regardless of where I am on
 
 ### Agent Model Used
 
+claude-opus-4-6
+
 ### Debug Log References
+
+None — clean implementation, 0 errors on astro check and astro build.
 
 ### Completion Notes List
 
+- Extended existing `pole-config.ts` with `PHONE_NUMBER`, `EMAIL_ADDRESS` constants, `defaultCta` object, and `getCtaForPole()` helper. Fixed evenements mailto to include `?subject=Demande%20de%20devis`.
+- Created `CTAButton.astro` with 3 variants (primary/secondary/ghost), inline style for accent color, min-h-11 touch target, rendered as `<a>` tag.
+- Created `ContactLinks.astro` with header (compact phone + icon) and footer (stacked phone + email) variants, phone formatting function, min-h-11 touch targets.
+- Updated `Header.astro` to import pole-config helpers, resolve CTA per pole in frontmatter, pass dynamic CTA props to MegaMenu and MobileMenu, add desktop ContactLinks.
+- Updated `MegaMenu.svelte` — replaced static `contactHref`/`contactLabel` props with `ctaLabel`/`ctaHref`/`ctaColor`, applied inline background-color and `hover:brightness-90`.
+- Updated `MobileMenu.svelte` — replaced static contact props with dynamic CTA props, added phone number link with icon above CTA button, applied inline background-color.
+- Updated `Footer.astro` — imported ContactLinks and pole-config constants, replaced plain address with phone + email contact links.
+
+### Change Log
+
+- 2026-03-11: Implemented story 1-4 — context-aware CTA, phone number visibility, pole-config helpers
+
 ### File List
+
+- src/lib/pole-config.ts (modified)
+- src/components/common/CTAButton.astro (new)
+- src/components/common/ContactLinks.astro (new)
+- src/components/common/Header.astro (modified)
+- src/components/common/MegaMenu.svelte (modified)
+- src/components/common/MobileMenu.svelte (modified)
+- src/components/common/Footer.astro (modified)
+- _bmad-output/implementation-artifacts/sprint-status.yaml (modified)
+- _bmad-output/implementation-artifacts/1-4-sticky-context-aware-cta-phone-number.md (modified)

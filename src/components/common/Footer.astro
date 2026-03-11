@@ -1,5 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { PHONE_NUMBER, EMAIL_ADDRESS } from '@/lib/pole-config';
+import ContactLinks from './ContactLinks.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -45,10 +47,11 @@ const t = useTranslations(lang);
         <h3 class="font-heading font-bold text-white text-sm uppercase tracking-wider mb-4">
           {t('common.contact')}
         </h3>
-        <ul class="space-y-2 text-sm">
-          <li>Base de loisirs de Saint-Ferréol</li>
-          <li>31250 Revel</li>
-        </ul>
+        <div class="text-sm space-y-1 mb-3">
+          <p>Base de loisirs de Saint-Ferréol</p>
+          <p>31250 Revel</p>
+        </div>
+        <ContactLinks phone={PHONE_NUMBER} email={EMAIL_ADDRESS} variant="footer" />
       </div>
     </div>
 

@@ -1,8 +1,11 @@
 ---
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { languages, type Lang } from '@/i18n/translations';
+import { getCtaForPole, PHONE_NUMBER } from '@/lib/pole-config';
 import MegaMenu from './MegaMenu.svelte';
 import MobileMenu from './MobileMenu.svelte';
+import CTAButton from './CTAButton.astro';
+import ContactLinks from './ContactLinks.astro';
 
 interface Props {
   pole?: 'restaurant' | 'aventure' | 'evenements' | null;
@@ -11,6 +14,7 @@ interface Props {
 const { pole = null } = Astro.props;
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+const cta = getCtaForPole(pole);
 
 // Build navigation data for Svelte components
 const megaMenuPoles = [
@@ -105,6 +109,7 @@ const mobileTransversal = transversalItems.map(t => ({ label: t.label, href: t.h
 
 const contactHref = getLocalizedPath('/contact', lang);
 const contactLabel = t('common.contact');
+const phoneNumber = PHONE_NUMBER;
 
 // Build language switcher paths
 const langPaths: Record<string, string> = {};
@@ -135,13 +140,18 @@ const accentColors: Record<string, string> = {
         )}
       </a>
 
-      <!-- Desktop: Mega Menu (Svelte island) -->
+      <!-- Desktop: CTA + Phone + Mega Menu -->
+      <div class="hidden lg:flex items-center gap-3">
+        <ContactLinks phone={phoneNumber} variant="header" />
+      </div>
+
       <MegaMenu
         client:load
         poles={megaMenuPoles}
         transversalItems={transversalItems}
-        contactHref={contactHref}
-        contactLabel={contactLabel}
+        ctaLabel={cta.label}
+        ctaHref={cta.href}
+        ctaColor={cta.accent}
         currentPole={pole}
         languages={languages}
         currentLang={lang}
@@ -153,8 +163,10 @@ const accentColors: Record<string, string> = {
         client:load
         poles={mobilePoles}
         transversalItems={mobileTransversal}
-        contactHref={contactHref}
-        contactLabel={contactLabel}
+        ctaLabel={cta.label}
+        ctaHref={cta.href}
+        ctaColor={cta.accent}
+        phoneNumber={phoneNumber}
         languages={languages}
         currentLang={lang}
         langPaths={langPaths}

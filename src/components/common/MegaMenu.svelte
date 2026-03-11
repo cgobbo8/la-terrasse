@@ -35,8 +35,9 @@
   let {
     poles,
     transversalItems,
-    contactHref,
-    contactLabel,
+    ctaLabel,
+    ctaHref,
+    ctaColor,
     currentPole = null,
     languages,
     currentLang,
@@ -44,8 +45,9 @@
   }: {
     poles: PoleNav[];
     transversalItems: TransversalItem[];
-    contactHref: string;
-    contactLabel: string;
+    ctaLabel: string;
+    ctaHref: string;
+    ctaColor: string;
     currentPole: string | null;
     languages: Record<string, string>;
     currentLang: string;
@@ -330,13 +332,13 @@
     {/if}
   </div>
 
-  <!-- Contact -->
+  <!-- CTA -->
   <a
-    href={contactHref}
-    class="ml-2 bg-brun-terre text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-gray-800 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
-    style="outline-color: #2D2B1B"
+    href={ctaHref}
+    class="ml-2 text-white min-h-11 px-4 py-2 rounded-lg text-sm font-medium transition-[filter] duration-150 hover:brightness-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded inline-flex items-center"
+    style="background-color: {ctaColor}; outline-color: {ctaColor}"
   >
-    {contactLabel}
+    {ctaLabel}
   </a>
 
   <!-- Language switcher -->
