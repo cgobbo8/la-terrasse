@@ -6,6 +6,7 @@ import MegaMenu from './MegaMenu.svelte';
 import MobileMenu from './MobileMenu.svelte';
 import CTAButton from './CTAButton.astro';
 import ContactLinks from './ContactLinks.astro';
+import LogoTerrasse from './LogoTerrasse.astro';
 
 interface Props {
   pole?: 'restaurant' | 'aventure' | 'evenements' | null;
@@ -130,9 +131,7 @@ const accentColors: Record<string, string> = {
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <a href={getLocalizedPath('/', lang)} class="flex items-center gap-2">
-        <span class="font-heading text-xl font-bold tracking-tight text-brun-terre">
-          LA TERRASSE
-        </span>
+        <LogoTerrasse color="#2D2B1B" height="1.5rem" />
         {pole && (
           <span class={`font-heading text-sm font-medium uppercase tracking-wider ${accentColors[pole] ?? ''}`}>
             {pole === 'restaurant' ? 'Restaurant' : pole === 'aventure' ? 'Aventure' : 'Événement'}

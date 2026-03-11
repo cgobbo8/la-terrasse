@@ -75,6 +75,16 @@ export const translations = {
     'common.address': 'Adresse',
     'common.openingHours': 'Horaires d\'ouverture',
     'common.backToHome': 'Retour à l\'accueil',
+
+    // Footer
+    'footer.legalNotice': 'Mentions légales',
+    'footer.privacy': 'Politique de confidentialité',
+
+    // 404
+    'error.404.pageTitle': 'Page introuvable',
+    'error.404.title': 'Cette page n\'existe pas',
+    'error.404.description': 'Pas d\'inquiétude, vous pouvez retrouver votre chemin depuis la page d\'accueil ou utiliser le menu de navigation.',
+    'error.404.cta': 'Retour à l\'accueil',
   },
 
   en: {
@@ -137,6 +147,16 @@ export const translations = {
     'common.address': 'Address',
     'common.openingHours': 'Opening hours',
     'common.backToHome': 'Back to home',
+
+    // Footer
+    'footer.legalNotice': 'Legal notice',
+    'footer.privacy': 'Privacy policy',
+
+    // 404
+    'error.404.pageTitle': 'Page not found',
+    'error.404.title': 'This page does not exist',
+    'error.404.description': 'Don\'t worry, you can find your way back from the homepage or use the navigation menu.',
+    'error.404.cta': 'Back to homepage',
   },
 
   es: {
@@ -199,5 +219,15 @@ export const translations = {
     'common.address': 'Dirección',
     'common.openingHours': 'Horarios de apertura',
     'common.backToHome': 'Volver al inicio',
+
+    // Footer
+    'footer.legalNotice': 'Aviso legal',
+    'footer.privacy': 'Política de privacidad',
+
+    // 404
+    'error.404.pageTitle': 'Página no encontrada',
+    'error.404.title': 'Esta página no existe',
+    'error.404.description': 'No se preocupe, puede encontrar su camino desde la página de inicio o usar el menú de navegación.',
+    'error.404.cta': 'Volver al inicio',
   },
 } as const;

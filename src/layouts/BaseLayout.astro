@@ -45,6 +45,9 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
       jsonLd={jsonLd}
       pagePath={pagePath}
     />
+    {import.meta.env.PLAUSIBLE_DOMAIN && (
+      <script defer data-domain={import.meta.env.PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>
+    )}
   </head>
   <body class="min-h-screen flex flex-col" style={bgStyle}>
     <Header pole={pole} />

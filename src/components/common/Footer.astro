@@ -2,6 +2,7 @@
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { PHONE_NUMBER, EMAIL_ADDRESS } from '@/lib/pole-config';
 import ContactLinks from './ContactLinks.astro';
+import LogoTerrasse from './LogoTerrasse.astro';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -12,7 +13,7 @@ const t = useTranslations(lang);
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
       <!-- Brand -->
       <div class="md:col-span-1">
-        <span class="font-heading text-xl font-bold text-white">LA TERRASSE</span>
+        <LogoTerrasse color="#ffffff" height="2rem" />
         <p class="mt-2 text-sm text-white/60">
           Base de loisirs de Saint-Ferréol
         </p>
@@ -55,8 +56,17 @@ const t = useTranslations(lang);
       </div>
     </div>
 
-    <div class="mt-12 pt-8 border-t border-white/10 text-sm text-white/40 text-center">
-      &copy; {new Date().getFullYear()} La Terrasse — Base de loisirs de Saint-Ferréol
+    <!-- Bottom bar: copyright + legal links -->
+    <div class="mt-12 pt-8 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-white/40">
+      <p>&copy; {new Date().getFullYear()} La Terrasse — Base de loisirs de Saint-Ferréol</p>
+      <nav class="flex items-center gap-4" aria-label="Legal">
+        <a href={getLocalizedPath('/mentions-legales', lang)} class="hover:text-white/60 transition-colors">
+          {t('footer.legalNotice')}
+        </a>
+        <a href={getLocalizedPath('/confidentialite', lang)} class="hover:text-white/60 transition-colors">
+          {t('footer.privacy')}
+        </a>
+      </nav>
     </div>
   </div>
 </footer>
