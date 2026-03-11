@@ -1,6 +1,7 @@
 ---
 import type { Lang } from '@/i18n/translations';
 import { useTranslations, getLocalizedField, getLocalizedPath } from '@/i18n/utils';
+import WeatherTimeCard from './WeatherTimeCard.svelte';
 
 interface Props {
   settings: Record<string, unknown>;
@@ -61,6 +62,9 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
           {seasonalMessage}
         </p>
       </div>
+
+      {/* Weather + Time cell — live data from Open-Meteo API */}
+      <WeatherTimeCard client:visible {lang} />
 
       {/* Promotion cell — only shown if promotionText is non-empty */}
       {promotionText && (
