@@ -1,9 +1,12 @@
 import { translations, defaultLang, type Lang } from './translations';
 
 /**
- * Get the current language from a URL or Astro context
+ * Get the current language.
+ * Prefers Astro.currentLocale (works with i18n rewrites),
+ * falls back to URL parsing.
  */
-export function getLangFromUrl(url: URL): Lang {
+export function getLangFromUrl(url: URL, currentLocale?: string): Lang {
+  if (currentLocale && currentLocale in translations) return currentLocale as Lang;
   const [, lang] = url.pathname.split('/');
   if (lang in translations) return lang as Lang;
   return defaultLang;
