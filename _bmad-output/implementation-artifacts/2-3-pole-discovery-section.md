@@ -1,6 +1,6 @@
 # Story 2.3: Pole Discovery Section
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -20,43 +20,43 @@ so that I understand what La Terrasse offers and can navigate to what interests 
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/lib/pole-config.ts` if it does not yet exist (AC: #2)
-  - [ ] Export `Pole` type: `'restaurant' | 'aventure' | 'evenements'`
-  - [ ] Export `PoleConfig` interface: `{ accent: string; light: string; name: string; ctaLabel: string; ctaHref: string; description: string }`
-  - [ ] Export `poleConfigs` record with all 3 pole configurations
-  - [ ] Colors: restaurant=#2D2B1B/#f5f0e8, aventure=#537b47/#eef5ec, evenements=#3d4969/#edf0f5
-  - [ ] Note: if Story 1.1 has already created this file, skip this task and import from it
-- [ ] Task 2: Create `src/components/homepage/PoleDiscovery.astro` (AC: #1, #2, #3, #6, #7)
-  - [ ] Accept props: `lang: Lang` for i18n
-  - [ ] Import `poleConfigs` from `@/lib/pole-config`
-  - [ ] Import i18n utilities: `useTranslations`, `getLocalizedPath`
-  - [ ] Wrap in `<section>` with `bg-offwhite` background and consistent section spacing (`py-(--spacing-section-mobile) lg:py-(--spacing-section)`)
-  - [ ] Add section heading H2: "Trois façons de profiter" / localized equivalent
-  - [ ] Render 3 cards in a responsive grid: `grid grid-cols-1 md:grid-cols-3 gap-8`
-  - [ ] Max content width: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`
-- [ ] Task 3: Implement individual pole card markup (AC: #2, #3)
-  - [ ] Card container: `rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all`
-  - [ ] Image area: `<div class="aspect-[3/2] overflow-hidden">` with `<img>` using `object-cover w-full h-full`
-  - [ ] Images sourced from `src/assets/images/` via astro:assets `<Image>` component, or from `public/images/` as `<img>` tags
-  - [ ] Use placeholder images until real photography is available
-  - [ ] Card body: `p-6` padding
-  - [ ] H3 heading with pole name, styled with inline `style="color: {accent}"` for the pole color
-  - [ ] Description `<p>` in `text-gray-600 text-sm leading-relaxed`
-  - [ ] Ghost-style CTA: text link with inline `style="color: {accent}; border-color: {accent}"`, border-bottom or underline on hover
-- [ ] Task 4: Implement CTA links with i18n (AC: #4, #5)
-  - [ ] Each CTA uses `getLocalizedPath()` to generate the correct URL for the current language
-  - [ ] CTA text uses i18n translations: add keys `home.poles.cta.restaurant`, `home.poles.cta.aventure`, `home.poles.cta.evenements` to translation files
-  - [ ] If translation keys do not exist yet, use inline French text with a `TODO` comment for i18n
-  - [ ] CTA element is an `<a>` tag (not a button) since it navigates to another page
-- [ ] Task 5: Replace existing pole section in `src/pages/index.astro` (AC: #1)
-  - [ ] Remove the current inline pole cards section (lines ~61-92 of current index.astro)
-  - [ ] Import and render `<PoleDiscovery lang={lang} />`
-  - [ ] Ensure placement is after VideoHero and before the history section
-- [ ] Task 6: Add placeholder images (AC: #3)
-  - [ ] Create `public/images/poles/` directory
-  - [ ] Add placeholder images: `restaurant.webp`, `aventure.webp`, `evenements.webp`
-  - [ ] Images should be 3:2 aspect ratio, minimum 800x533px for quality at desktop sizes
-  - [ ] Until real photos are available, use colored placeholder divs with pole light background colors
+- [x] Task 1: Create `src/lib/pole-config.ts` if it does not yet exist (AC: #2)
+  - [x] Export `Pole` type: `'restaurant' | 'aventure' | 'evenements'`
+  - [x] Export `PoleConfig` interface: `{ accent: string; light: string; name: string; ctaLabel: string; ctaHref: string; description: string }`
+  - [x] Export `poleConfigs` record with all 3 pole configurations
+  - [x] Colors: restaurant=#2D2B1B/#f5f0e8, aventure=#537b47/#eef5ec, evenements=#3d4969/#edf0f5
+  - [x] Note: if Story 1.1 has already created this file, skip this task and import from it
+- [x] Task 2: Create `src/components/homepage/PoleDiscovery.astro` (AC: #1, #2, #3, #6, #7)
+  - [x] Accept props: `lang: Lang` for i18n
+  - [x] Import `poleConfigs` from `@/lib/pole-config`
+  - [x] Import i18n utilities: `useTranslations`, `getLocalizedPath`
+  - [x] Wrap in `<section>` with `bg-offwhite` background and consistent section spacing (`py-(--spacing-section-mobile) lg:py-(--spacing-section)`)
+  - [x] Add section heading H2: "Trois façons de profiter" / localized equivalent
+  - [x] Render 3 cards in a responsive grid: `grid grid-cols-1 md:grid-cols-3 gap-8`
+  - [x] Max content width: `max-w-7xl mx-auto px-4 sm:px-6 lg:px-8`
+- [x] Task 3: Implement individual pole card markup (AC: #2, #3)
+  - [x] Card container: `rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all`
+  - [x] Image area: `<div class="aspect-[3/2] overflow-hidden">` with `<img>` using `object-cover w-full h-full`
+  - [x] Images sourced from `src/assets/images/` via astro:assets `<Image>` component, or from `public/images/` as `<img>` tags
+  - [x] Use placeholder images until real photography is available
+  - [x] Card body: `p-6` padding
+  - [x] H3 heading with pole name, styled with inline `style="color: {accent}"` for the pole color
+  - [x] Description `<p>` in `text-gray-600 text-sm leading-relaxed`
+  - [x] Ghost-style CTA: text link with inline `style="color: {accent}; border-color: {accent}"`, border-bottom or underline on hover
+- [x] Task 4: Implement CTA links with i18n (AC: #4, #5)
+  - [x] Each CTA uses `getLocalizedPath()` to generate the correct URL for the current language
+  - [x] CTA text uses i18n translations: add keys `home.poles.cta.restaurant`, `home.poles.cta.aventure`, `home.poles.cta.evenements` to translation files
+  - [x] If translation keys do not exist yet, use inline French text with a `TODO` comment for i18n
+  - [x] CTA element is an `<a>` tag (not a button) since it navigates to another page
+- [x] Task 5: Replace existing pole section in `src/pages/index.astro` (AC: #1)
+  - [x] Remove the current inline pole cards section (lines ~61-92 of current index.astro)
+  - [x] Import and render `<PoleDiscovery lang={lang} />`
+  - [x] Ensure placement is after VideoHero and before the history section
+- [x] Task 6: Add placeholder images (AC: #3)
+  - [x] Create `public/images/poles/` directory
+  - [x] Add placeholder images: `restaurant.webp`, `aventure.webp`, `evenements.webp`
+  - [x] Images should be 3:2 aspect ratio, minimum 800x533px for quality at desktop sizes
+  - [x] Until real photos are available, use colored placeholder divs with pole light background colors
 
 ## Dev Notes
 
@@ -121,9 +121,25 @@ so that I understand what La Terrasse offers and can navigate to what interests 
 ## Dev Agent Record
 
 ### Agent Model Used
+Claude Opus 4.6
 
 ### Debug Log References
+- Initial `astro check` found import error: `Lang` type not exported from `@/i18n/utils` — fixed by importing from `@/i18n/translations` instead
+- Build passes with 0 errors
 
 ### Completion Notes List
+- Task 1 skipped: `pole-config.ts` already created by Story 1.1 with correct `Pole` type, `PoleConfig` interface, and `poleConfigs` record with matching colors
+- Task 2-3: Created `PoleDiscovery.astro` as pure Astro component (zero JS shipped). Uses `poleConfigs` for colors via inline `style` attributes per CLAUDE.md guidelines. Responsive grid with 3:2 aspect ratio placeholder areas using pole light background colors
+- Task 4: Added i18n translation keys for pole descriptions and CTA labels in all 3 languages (FR/EN/ES). CTA links use `getLocalizedPath()` for proper i18n URL routing. CTA elements are `<a>` tags
+- Task 5: Replaced inline pole section in `index.astro` with `<PoleDiscovery lang={lang} />` component. Removed hardcoded `poles` array from frontmatter. Component placed after VideoHero and before history section
+- Task 6: Using colored placeholder divs with pole `light` background colors instead of image files (as specified in Dev Notes for V1)
+
+### Change Log
+- 2026-03-11: Implemented pole discovery section — extracted inline pole cards from index.astro into dedicated PoleDiscovery.astro component with i18n support and proper pole color theming via inline styles
 
 ### File List
+- `src/components/homepage/PoleDiscovery.astro` — NEW: pole discovery section component
+- `src/pages/index.astro` — MODIFIED: replaced inline pole section with PoleDiscovery component import
+- `src/i18n/translations.ts` — MODIFIED: added pole description and CTA translation keys (FR/EN/ES)
+- `_bmad-output/implementation-artifacts/2-3-pole-discovery-section.md` — MODIFIED: story status and completion tracking
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` — MODIFIED: story status updated
