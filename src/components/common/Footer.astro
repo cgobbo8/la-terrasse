@@ -2,7 +2,7 @@
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { PHONE_NUMBER, EMAIL_ADDRESS } from '@/lib/pole-config';
 import ContactLinks from './ContactLinks.astro';
-import LogoTerrasse from './LogoTerrasse.astro';
+import LogoTerrasseFull from './LogoTerrasseFull.astro';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
@@ -13,7 +13,7 @@ const t = useTranslations(lang);
     <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
       <!-- Brand -->
       <div class="md:col-span-1">
-        <LogoTerrasse color="#ffffff" height="2rem" />
+        <LogoTerrasseFull color="#ffffff" height="1.25rem" />
         <p class="mt-2 text-sm text-white/60">
           Base de loisirs de Saint-Ferréol
         </p>
@@ -27,7 +27,7 @@ const t = useTranslations(lang);
         <ul class="space-y-2 text-sm">
           <li><a href={getLocalizedPath('/restaurant', lang)} class="hover:text-white transition-colors">{t('nav.restaurant')}</a></li>
           <li><a href={getLocalizedPath('/aventure', lang)} class="hover:text-white transition-colors">{t('nav.aventure')}</a></li>
-          <li><a href={getLocalizedPath('/evenements', lang)} class="hover:text-white transition-colors">{t('nav.evenements')}</a></li>
+          <li><a href={getLocalizedPath('/la-salle', lang)} class="hover:text-white transition-colors">{t('nav.salle')}</a></li>
         </ul>
       </div>
 

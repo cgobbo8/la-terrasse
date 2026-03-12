@@ -3,9 +3,10 @@ interface Props {
   color?: string;
   width?: string;
   height?: string;
+  class?: string;
 }
 
-const { color = '#2D2B1B', width = 'auto', height = '2rem' } = Astro.props;
+const { color = '#2D2B1B', width = 'auto', height = '2rem', class: className } = Astro.props;
 ---
 
 <svg
@@ -15,6 +16,7 @@ const { color = '#2D2B1B', width = 'auto', height = '2rem' } = Astro.props;
   fill="none"
   xmlns="http://www.w3.org/2000/svg"
   aria-hidden="true"
+  class={className}
   style={`color: ${color}`}
 >
   <!-- L -->

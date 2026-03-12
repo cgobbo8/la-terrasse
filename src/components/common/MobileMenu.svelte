@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { Menu, X, ChevronDown, Phone } from 'lucide-svelte';
+  import { Menu, X, ChevronDown } from 'lucide-svelte';
 
   interface SubLink {
     label: string;
@@ -26,7 +26,6 @@
     ctaLabel,
     ctaHref,
     ctaColor,
-    phoneNumber,
     languages,
     currentLang,
     langPaths,
@@ -40,7 +39,6 @@
     ctaLabel: string;
     ctaHref: string;
     ctaColor: string;
-    phoneNumber: string;
     languages: Record<string, string>;
     currentLang: string;
     langPaths: Record<string, string>;
@@ -49,15 +47,6 @@
     labelCloseMenu?: string;
     labelSubmenu?: string;
   } = $props();
-
-  function formatPhone(raw: string): string {
-    const digits = raw.replace(/\D/g, '');
-    if (digits.startsWith('33') && digits.length === 11) {
-      const national = '0' + digits.slice(2);
-      return national.replace(/(\d{2})(?=\d)/g, '$1 ');
-    }
-    return raw;
-  }
 
   let isOpen = $state(false);
   let expandedPole = $state<string | null>(null);
@@ -69,7 +58,7 @@
   const poleColors: Record<string, string> = {
     restaurant: '#2D2B1B',
     aventure: '#537b47',
-    evenements: '#3d4969',
+    salle: '#3d4969',
   };
 
   // Portal: move overlay + panel to document.body
@@ -247,18 +236,6 @@
             {item.label}
           </a>
         {/each}
-      </div>
-
-      <!-- Phone link -->
-      <div class="mt-6">
-        <a
-          href={`tel:${phoneNumber}`}
-          onclick={close}
-          class="flex items-center justify-center gap-2 min-h-11 text-sm text-gray-600 hover:text-brun-terre transition-colors"
-        >
-          <Phone class="w-4 h-4 shrink-0" />
-          <span>{formatPhone(phoneNumber)}</span>
-        </a>
       </div>
 
       <!-- CTA -->

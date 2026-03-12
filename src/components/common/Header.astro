@@ -1,15 +1,14 @@
 ---
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { languages, type Lang } from '@/i18n/translations';
-import { getCtaForPole, PHONE_NUMBER } from '@/lib/pole-config';
+import { getCtaForPole } from '@/lib/pole-config';
 import MegaMenu from './MegaMenu.svelte';
 import MobileMenu from './MobileMenu.svelte';
-import CTAButton from './CTAButton.astro';
-import ContactLinks from './ContactLinks.astro';
 import LogoTerrasse from './LogoTerrasse.astro';
+import LogoTerrasseFull from './LogoTerrasseFull.astro';
 
 interface Props {
-  pole?: 'restaurant' | 'aventure' | 'evenements' | null;
+  pole?: 'restaurant' | 'aventure' | 'salle' | null;
 }
 
 const { pole = null } = Astro.props;
@@ -21,8 +20,8 @@ const ctaLabelLocalized = pole === 'aventure'
   ? t('aventure.cta.label')
   : pole === 'restaurant'
     ? t('restaurant.cta.label')
-    : pole === 'evenements'
-      ? t('common.requestQuote')
+    : pole === 'salle'
+      ? t('common.contact')
       : t('common.contact');
 
 // Build navigation data for Svelte components
@@ -75,27 +74,33 @@ const megaMenuPoles = [
     },
   },
   {
-    id: 'evenements',
-    label: t('nav.evenements'),
-    href: getLocalizedPath('/evenements', lang),
-    color: pole === 'evenements' ? 'text-bleu-ardoise' : 'text-gray-600',
-    accentColor: 'evenements',
+    id: 'salle',
+    label: t('nav.salle'),
+    href: getLocalizedPath('/la-salle', lang),
+    color: pole === 'salle' ? 'text-bleu-ardoise' : 'text-gray-600',
+    accentColor: 'salle',
     subLinks: [
-      { label: t('nav.evenements.salle'), href: getLocalizedPath('/evenements', lang) + '#salle', description: t('nav.evenements.salle.desc'), icon: 'building' },
-      { label: t('nav.evenements.simple'), href: getLocalizedPath('/evenements/seminaire-simple', lang), description: t('nav.evenements.simple.desc'), icon: 'briefcase' },
-      { label: t('nav.evenements.gourmet'), href: getLocalizedPath('/evenements/seminaire-gourmet', lang), description: t('nav.evenements.gourmet.desc'), icon: 'utensils' },
-      { label: t('nav.evenements.aventure'), href: getLocalizedPath('/evenements/seminaire-aventure', lang), description: t('nav.evenements.aventure.desc'), icon: 'trophy' },
+      // Événementiel column
+      { label: t('nav.salle.concerts'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.concerts.desc'), icon: 'music', category: t('nav.salle.category.evenementiel') },
+      { label: t('nav.salle.foires'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.foires.desc'), icon: 'store', category: t('nav.salle.category.evenementiel') },
+      { label: t('nav.salle.soirees'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.soirees.desc'), icon: 'sparkles', category: t('nav.salle.category.evenementiel') },
+      { label: t('nav.salle.marches'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.marches.desc'), icon: 'shopping-bag', category: t('nav.salle.category.evenementiel') },
+      // Séminaires & Pro column
+      { label: t('nav.salle.seminaires'), href: getLocalizedPath('/la-salle/seminaires', lang), description: t('nav.salle.seminaires.desc'), icon: 'briefcase', category: t('nav.salle.category.pro') },
+      { label: t('nav.salle.congres'), href: getLocalizedPath('/la-salle/seminaires', lang), description: t('nav.salle.congres.desc'), icon: 'presentation', category: t('nav.salle.category.pro') },
+      { label: t('nav.salle.formations'), href: getLocalizedPath('/la-salle/seminaires', lang), description: t('nav.salle.formations.desc'), icon: 'graduation-cap', category: t('nav.salle.category.pro') },
+      { label: t('nav.salle.teambuilding'), href: getLocalizedPath('/la-salle/seminaires', lang), description: t('nav.salle.teambuilding.desc'), icon: 'users', category: t('nav.salle.category.pro') },
     ],
     featured: {
-      title: t('nav.evenements.featured.title'),
-      description: t('nav.evenements.featured.desc'),
-      href: getLocalizedPath('/evenements', lang),
-      cta: t('nav.evenements.featured.cta'),
+      title: t('nav.salle.featured.title'),
+      description: t('nav.salle.featured.desc'),
+      href: getLocalizedPath('/la-salle', lang) + '#agenda',
+      cta: t('nav.salle.featured.cta'),
     },
     crossSell: {
-      text: t('nav.evenements.crossSell'),
+      text: t('nav.salle.crossSell'),
       href: getLocalizedPath('/en-entreprise', lang),
-      targetPole: 'evenements',
+      targetPole: 'salle',
     },
   },
 ];
@@ -117,8 +122,6 @@ const mobilePoles = megaMenuPoles.map(p => ({
 const mobileTransversal = transversalItems.map(t => ({ label: t.label, href: t.href }));
 
 const contactHref = getLocalizedPath('/contact', lang);
-const contactLabel = t('common.contact');
-const phoneNumber = PHONE_NUMBER;
 
 // Build language switcher paths
 const langPaths: Record<string, string> = {};
@@ -130,7 +133,7 @@ for (const code of Object.keys(languages)) {
 const accentColors: Record<string, string> = {
   restaurant: 'text-restaurant',
   aventure: 'text-aventure',
-  evenements: 'text-bleu-ardoise',
+  salle: 'text-bleu-ardoise',
 };
 ---
 
@@ -139,25 +142,23 @@ const accentColors: Record<string, string> = {
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
       <a href={getLocalizedPath('/', lang)} class="flex items-center gap-2">
-        <LogoTerrasse color="#2D2B1B" height="1.5rem" />
+        <!-- Mobile: single-letter logo -->
+        <LogoTerrasse color="#2D2B1B" height="1.5rem" class="lg:hidden" />
+        <!-- Desktop: full logo + pole label -->
+        <LogoTerrasseFull color="#2D2B1B" height="1rem" class="hidden lg:block" />
         {pole && (
-          <span class={`font-heading text-sm font-medium uppercase tracking-wider ${accentColors[pole] ?? ''}`}>
-            {pole === 'restaurant' ? t('nav.restaurant') : pole === 'aventure' ? t('nav.aventure') : t('nav.pole.evenement')}
+          <span class={`hidden lg:inline font-heading text-sm font-medium uppercase tracking-wider ${accentColors[pole] ?? ''}`}>
+            {pole === 'restaurant' ? t('nav.restaurant') : pole === 'aventure' ? t('nav.aventure') : t('nav.pole.salle')}
           </span>
         )}
       </a>
 
-      <!-- Desktop: CTA + Phone + Mega Menu -->
-      <div class="hidden lg:flex items-center gap-3">
-        <ContactLinks phone={phoneNumber} variant="header" />
-      </div>
-
       <MegaMenu
-        client:load
+        client:only="svelte"
         poles={megaMenuPoles}
         transversalItems={transversalItems}
         ctaLabel={ctaLabelLocalized}
-        ctaHref={cta.href}
+        ctaHref={contactHref}
         ctaColor={cta.accent}
         currentPole={pole}
         languages={languages}
@@ -170,13 +171,12 @@ const accentColors: Record<string, string> = {
 
       <!-- Mobile: Burger only (slide-out panel portals to body) -->
       <MobileMenu
-        client:load
+        client:only="svelte"
         poles={mobilePoles}
         transversalItems={mobileTransversal}
         ctaLabel={ctaLabelLocalized}
-        ctaHref={cta.href}
+        ctaHref={contactHref}
         ctaColor={cta.accent}
-        phoneNumber={phoneNumber}
         languages={languages}
         currentLang={lang}
         langPaths={langPaths}
