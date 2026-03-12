@@ -8,6 +8,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import GroupFormulaCard from '@/components/restaurant/GroupFormulaCard.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import { poleConfigs, PHONE_NUMBER, EMAIL_ADDRESS } from '@/lib/pole-config';
 import { createReader } from '@keystatic/core/reader';
@@ -211,21 +212,12 @@ const localizedFormulas = groupFormulas.map((formula) => {
     </div>
   </section>
 
-  <!-- Cross-sell contextuel -->
-  <section class="py-12 lg:py-24">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-lg text-gray-500 italic">
-        {t('restaurant.groups.crossSell')}
-      </p>
-      <a
-        href={getLocalizedPath('/aventure', lang)}
-        class="inline-block mt-4 font-medium hover:underline"
-        style={`color: ${poleConfigs.aventure.accent}`}
-      >
-        {t('restaurant.groups.crossSellLink')}
-      </a>
-    </div>
-  </section>
+  <!-- Cross-link narratif contextuel -->
+  <ContextualCrossLink
+    text={t('crosslink.repasGroupe.aventure')}
+    href={getLocalizedPath('/aventure', lang)}
+    pole="aventure"
+  />
 
   <!-- Cross-linking structurel -->
   <CrossLinkBlock currentPole="restaurant" />

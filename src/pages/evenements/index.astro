@@ -10,6 +10,7 @@ import SectionHero from '@/components/common/SectionHero.astro';
 import VenueSpecs from '@/components/evenements/VenueSpecs.astro';
 import PackComparator from '@/components/evenements/PackComparator.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
 import { generateEventVenueLD } from '@/lib/seo';
@@ -128,6 +129,18 @@ const jsonLd = generateEventVenueLD({
       </div>
     </div>
   </section>
+
+  <!-- Cross-links narratifs contextuels -->
+  <ContextualCrossLink
+    text={t('crosslink.evenementsHub.aventure')}
+    href={getLocalizedPath('/aventure', lang)}
+    pole="aventure"
+  />
+  <ContextualCrossLink
+    text={t('crosslink.evenementsHub.restaurant')}
+    href={getLocalizedPath('/restaurant', lang)}
+    pole="restaurant"
+  />
 
   <!-- Cross-linking structurel -->
   <CrossLinkBlock currentPole="evenements" />

@@ -1,0 +1,38 @@
+---
+/**
+ * Contextual narrative cross-link (Layer 2)
+ * Warm, page-specific suggestion to another pole.
+ * Ghost button style: text-only, target pole accent color, underline on hover.
+ */
+
+interface Props {
+  /** Narrative sentence — must be unique per page, never generic */
+  text: string;
+  /** Destination link */
+  href: string;
+  /** Target pole — determines accent color */
+  pole: 'restaurant' | 'aventure' | 'evenements';
+}
+
+const { text, href, pole } = Astro.props;
+
+const accentColors = {
+  restaurant: '#2D2B1B',
+  aventure: '#537b47',
+  evenements: '#3d4969',
+} as const;
+
+const accent = accentColors[pole];
+---
+
+<aside class="py-10 lg:py-14">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <a
+      href={href}
+      class="inline-block text-lg lg:text-xl italic leading-relaxed transition-all hover:underline"
+      style={`color: ${accent}`}
+    >
+      {text}
+    </a>
+  </div>
+</aside>

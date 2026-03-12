@@ -5,6 +5,7 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import ActivityPrevNext from '@/components/aventure/ActivityPrevNext.astro';
 import AlternativeSuggestions from '@/components/aventure/AlternativeSuggestions.astro';
 import { getLangFromUrl, useTranslations, getLocalizedField, getLocalizedPath } from '@/i18n/utils';
@@ -70,6 +71,17 @@ const placeholderImages = [
 ];
 const placeholderIndex = activity.slug.length % placeholderImages.length;
 const heroImage = activity.image || placeholderImages[placeholderIndex];
+
+// Narrative cross-link text per activity (unique per page, never generic)
+const crossLinkTexts: Record<string, string> = {
+  paddle: t('crosslink.activity.paddle.restaurant'),
+  'archery-tag': t('crosslink.activity.archeryTag.restaurant'),
+  pedalo: t('crosslink.activity.pedalo.restaurant'),
+  canoe: t('crosslink.activity.canoe.restaurant'),
+  vtt: t('crosslink.activity.vtt.restaurant'),
+  'mini-golf': t('crosslink.activity.miniGolf.restaurant'),
+};
+const crossLinkText = crossLinkTexts[activity.slug] ?? t('crosslink.activityDefault.restaurant');
 
 // SEO
 const siteUrl = 'https://laterrasse-saintferreol.fr';
@@ -235,15 +247,12 @@ const jsonLd = generateSportsActivityLD({
   <!-- Alternative Suggestions -->
   <AlternativeSuggestions currentSlug={activity.slug} activities={allActivities} lang={lang} />
 
-  <!-- Cross-sell contextuel -->
-  <section class="py-8 bg-restaurant-light">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-gray-500 italic">{t('aventure.afterActivity')}</p>
-      <a href={getLocalizedPath('/restaurant', lang)} class="inline-block mt-2 text-restaurant font-medium hover:underline">
-        Découvrir le restaurant →
-      </a>
-    </div>
-  </section>
+  <!-- Cross-link narratif contextuel -->
+  <ContextualCrossLink
+    text={crossLinkText}
+    href={getLocalizedPath('/restaurant', lang)}
+    pole="restaurant"
+  />
 
   <!-- Cross-linking structurel -->
   <CrossLinkBlock currentPole="aventure" />

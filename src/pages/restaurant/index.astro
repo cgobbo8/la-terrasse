@@ -8,6 +8,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { poleConfigs, PHONE_NUMBER } from '@/lib/pole-config';
 import { generateRestaurantLD } from '@/lib/seo';
@@ -137,17 +138,12 @@ const subPages = [
     </div>
   </section>
 
-  <!-- Cross-sell contextuel narratif -->
-  <section class="py-12 lg:py-24">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-lg text-gray-500 italic">
-        Après le déjeuner, descendez au lac pour un paddle ou une balade à vélo.
-      </p>
-      <a href={getLocalizedPath('/aventure', lang)} class="inline-block mt-4 font-medium hover:underline" style={`color: ${poleConfigs.aventure.accent}`}>
-        Découvrir les activités →
-      </a>
-    </div>
-  </section>
+  <!-- Cross-link narratif contextuel -->
+  <ContextualCrossLink
+    text={t('crosslink.restaurantHub.aventure')}
+    href={getLocalizedPath('/aventure', lang)}
+    pole="aventure"
+  />
 
   <!-- Cross-linking structurel -->
   <CrossLinkBlock currentPole="restaurant" />
