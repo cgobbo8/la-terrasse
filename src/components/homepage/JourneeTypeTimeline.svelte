@@ -49,9 +49,13 @@
           },
         });
 
-        // Card entrance animations
+        // Card entrance animations — skip cards already visible at start
         const cards = trackEl.querySelectorAll('.timeline-card');
+        const viewportWidth = window.innerWidth;
         cards.forEach((card) => {
+          // Cards already in viewport at start: no entrance animation
+          if (card.offsetLeft + card.offsetWidth < viewportWidth) return;
+
           const tween = gsap.from(card, {
             opacity: 0,
             y: 40,
@@ -60,7 +64,7 @@
             scrollTrigger: {
               trigger: card,
               containerAnimation: scrollTween,
-              start: 'left 80%',
+              start: 'left 100%',
               toggleActions: 'play none none reverse',
             },
           });
