@@ -21,7 +21,7 @@ export const translations = {
 
     // Homepage
     'home.hero.tagline': 'Un lieu, trois expériences',
-    'home.hero.subtitle': 'Restaurant · Aventure · La Salle — au cœur du lac de Saint-Ferréol',
+    'home.hero.subtitle': 'Dégustez, explorez, célébrez — la base de loisirs du lac de Saint-Ferréol',
     'home.poles.title': 'Trois façons de profiter',
     'home.poles.description.restaurant': 'Une cuisine simple, locale et gourmande à 30m du lac.',
     'home.poles.description.aventure': 'Activités terrestres et aquatiques pour profiter de la nature.',
@@ -381,7 +381,7 @@ export const translations = {
     'nav.contact': 'Contact',
 
     'home.hero.tagline': 'One place, three experiences',
-    'home.hero.subtitle': 'Restaurant · Adventure · La Salle — at the heart of Lake Saint-Ferréol',
+    'home.hero.subtitle': 'Taste, explore, celebrate — the leisure base at Lake Saint-Ferréol',
     'home.poles.title': 'Three ways to enjoy',
     'home.poles.description.restaurant': 'Simple, local, and delicious cuisine just 30m from the lake.',
     'home.poles.description.aventure': 'Land and water activities to enjoy nature.',
@@ -734,7 +734,7 @@ export const translations = {
     'nav.contact': 'Contacto',
 
     'home.hero.tagline': 'Un lugar, tres experiencias',
-    'home.hero.subtitle': 'Restaurante · Aventura · La Salle — en el corazón del lago de Saint-Ferréol',
+    'home.hero.subtitle': 'Deguste, explore, celebre — la base de ocio del lago de Saint-Ferréol',
     'home.poles.title': 'Tres formas de disfrutar',
     'home.poles.description.restaurant': 'Cocina sencilla, local y deliciosa a 30m del lago.',
     'home.poles.description.aventure': 'Actividades terrestres y acuáticas para disfrutar de la naturaleza.',
