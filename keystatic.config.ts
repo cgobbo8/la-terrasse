@@ -1,7 +1,12 @@
 import { config, collection, singleton, fields } from '@keystatic/core';
 
 export default config({
-  storage: { kind: 'local' },
+  storage: import.meta.env.DEV
+    ? { kind: 'local' }
+    : {
+        kind: 'github',
+        repo: `${import.meta.env.KEYSTATIC_GITHUB_REPO_OWNER}/${import.meta.env.KEYSTATIC_GITHUB_REPO_NAME}`,
+      },
   ui: {
     brand: { name: 'La Terrasse — CMS' },
   },

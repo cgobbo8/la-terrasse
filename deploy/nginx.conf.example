@@ -1,0 +1,85 @@
+# =============================================================================
+# Nginx config — La Terrasse Saint-Ferreol
+#
+# Copy to /etc/nginx/sites-available/laterrasse-saintferreol
+# then: ln -s /etc/nginx/sites-available/laterrasse-saintferreol /etc/nginx/sites-enabled/
+#       nginx -t && systemctl reload nginx
+#
+# HTTPS: run certbot after initial setup:
+#   certbot --nginx -d laterrasse-saintferreol.fr -d www.laterrasse-saintferreol.fr
+# =============================================================================
+
+# Redirect www → root
+server {
+    listen 80;
+    server_name www.laterrasse-saintferreol.fr;
+    return 301 https://laterrasse-saintferreol.fr$request_uri;
+}
+
+server {
+    listen 80;
+    server_name laterrasse-saintferreol.fr;
+
+    # Certbot will add HTTPS directives here automatically
+
+    root /var/www/laterrasse-saintferreol/dist/client;
+
+    # Gzip compression
+    gzip on;
+    gzip_types text/plain text/css application/json application/javascript text/xml application/xml image/svg+xml;
+    gzip_min_length 256;
+    gzip_vary on;
+
+    # Static assets with long cache (Astro hashed filenames)
+    location /_astro/ {
+        expires 1y;
+        add_header Cache-Control "public, immutable";
+        access_log off;
+    }
+
+    # Images, fonts, etc.
+    location /images/ {
+        expires 30d;
+        add_header Cache-Control "public";
+        access_log off;
+    }
+
+    # Keystatic admin — proxy to Node SSR
+    location /keystatic {
+        proxy_pass http://127.0.0.1:4321;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+
+        # Optional: restrict access by IP
+        # allow 1.2.3.4;
+        # deny all;
+    }
+
+    # Keystatic API routes
+    location /api/keystatic {
+        proxy_pass http://127.0.0.1:4321;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+
+    # Static pages — try files first, fallback to Node SSR
+    location / {
+        try_files $uri $uri/index.html @node;
+    }
+
+    # Fallback to Node SSR for any routes not found as static files
+    location @node {
+        proxy_pass http://127.0.0.1:4321;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
