@@ -24,6 +24,7 @@ Thumbs.db
 # Playwright MCP screenshots
 .playwright-mcp/
 *.png
+!public/apple-touch-icon.png
 
 # Debug
 npm-debug.log*
