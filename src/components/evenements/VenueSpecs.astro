@@ -5,6 +5,8 @@
  * Pure Astro component, no Svelte island needed
  */
 import { Icon } from 'astro-icon/components';
+import { useTranslations } from '@/i18n/utils';
+import type { Lang } from '@/i18n/translations';
 
 interface LayoutOption {
   name: string;
@@ -17,9 +19,11 @@ interface Props {
   surfaceM2: number;
   equipment: readonly string[];
   layoutOptions: readonly LayoutOption[];
+  lang?: Lang;
 }
 
-const { capacitySeated, capacityStanding, surfaceM2, equipment, layoutOptions } = Astro.props;
+const { capacitySeated, capacityStanding, surfaceM2, equipment, layoutOptions, lang = 'fr' } = Astro.props;
+const t = useTranslations(lang);
 ---
 
 <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
@@ -40,19 +44,19 @@ const { capacitySeated, capacityStanding, surfaceM2, equipment, layoutOptions } 
             <div class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
               {capacitySeated}
             </div>
-            <div class="text-sm text-gray-600 mt-1">places assises</div>
+            <div class="text-sm text-gray-600 mt-1">{t('evenements.venue.seatedLabel')}</div>
           </div>
           <div class="text-center rounded-xl p-4" style="background-color: #edf0f5;">
             <div class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
               {capacityStanding}
             </div>
-            <div class="text-sm text-gray-600 mt-1">debout</div>
+            <div class="text-sm text-gray-600 mt-1">{t('evenements.venue.standingLabel')}</div>
           </div>
           <div class="text-center rounded-xl p-4" style="background-color: #edf0f5;">
             <div class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
               {surfaceM2}<span class="text-base font-normal"> m²</span>
             </div>
-            <div class="text-sm text-gray-600 mt-1">de surface</div>
+            <div class="text-sm text-gray-600 mt-1">{t('evenements.venue.surfaceLabel')}</div>
           </div>
         </div>
       </div>
@@ -62,7 +66,7 @@ const { capacitySeated, capacityStanding, surfaceM2, equipment, layoutOptions } 
         <!-- Equipment -->
         <div>
           <h3 class="font-heading text-lg font-bold mb-4" style="color: #3d4969;">
-            Équipements
+            {t('evenements.venue.equipmentTitle')}
           </h3>
           <div class="flex flex-wrap gap-2">
             {equipment.map((item) => (
@@ -80,14 +84,14 @@ const { capacitySeated, capacityStanding, surfaceM2, equipment, layoutOptions } 
         <!-- Layout configurations -->
         <div>
           <h3 class="font-heading text-lg font-bold mb-4" style="color: #3d4969;">
-            Configurations
+            {t('evenements.venue.configurationsTitle')}
           </h3>
           <div class="grid grid-cols-2 gap-3">
             {layoutOptions.map((layout) => (
               <div class="flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3">
                 <span class="font-medium text-gray-800">{layout.name}</span>
                 <span class="text-sm font-bold" style="color: #3d4969;">
-                  {layout.capacity} pers.
+                  {layout.capacity} {t('common.personsShort')}
                 </span>
               </div>
             ))}

@@ -5,6 +5,8 @@
  * Pure Astro component — no JS shipped
  */
 import { Icon } from 'astro-icon/components';
+import { useTranslations } from '@/i18n/utils';
+import type { Lang } from '@/i18n/translations';
 
 interface Props {
   title: string;
@@ -14,9 +16,11 @@ interface Props {
   price: string;
   ctaHref: string;
   highlighted?: boolean;
+  lang?: Lang;
 }
 
-const { title, subtitle, description, inclusions, price, ctaHref, highlighted = false } = Astro.props;
+const { title, subtitle, description, inclusions, price, ctaHref, highlighted = false, lang = 'fr' } = Astro.props;
+const t = useTranslations(lang);
 const accent = '#3d4969';
 ---
 
@@ -33,7 +37,7 @@ const accent = '#3d4969';
         class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full"
         style={`background-color: ${accent}15; color: ${accent};`}
       >
-        Recommandé
+        {t('common.recommended')}
       </span>
     </div>
   )}
@@ -67,7 +71,7 @@ const accent = '#3d4969';
       class="inline-block w-full text-center text-white px-6 py-3 rounded-lg font-medium hover:opacity-90 transition-opacity"
       style={`background-color: ${accent};`}
     >
-      Demander un devis
+      {t('common.requestQuote')}
     </a>
   </div>
 </div>

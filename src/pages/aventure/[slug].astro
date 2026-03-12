@@ -120,7 +120,7 @@ const jsonLd = generateSportsActivityLD({
           href={getLocalizedPath('/aventure', lang)}
           class="text-sm tracking-wider uppercase text-white/70 hover:text-white transition-colors"
         >
-          Aventure
+          {t('nav.aventure')}
         </a>
         <span class="text-white/40 mx-2">›</span>
         <span class="text-sm tracking-wider uppercase text-white/90">{localizedTitle}</span>
@@ -156,8 +156,8 @@ const jsonLd = generateSportsActivityLD({
         {activity.age_min != null && activity.age_min > 0 && (
           <div class="flex flex-col items-center text-center p-4 rounded-xl border border-gray-200">
             <Icon name="lucide:user" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} />
-            <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">Âge</span>
-            <span class="text-lg font-bold text-gray-800">Dès {activity.age_min} ans</span>
+            <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">{t('aventure.activity.ageLabel')}</span>
+            <span class="text-lg font-bold text-gray-800">{t('aventure.activity.ageFrom').replace('{age}', String(activity.age_min))}</span>
           </div>
         )}
 
@@ -174,7 +174,7 @@ const jsonLd = generateSportsActivityLD({
         {(activity.minPersons || activity.maxPersons) && (
           <div class="flex flex-col items-center text-center p-4 rounded-xl border border-gray-200">
             <Icon name="lucide:users" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} />
-            <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">Groupe</span>
+            <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">{t('aventure.activity.groupLabel')}</span>
             <span class="text-lg font-bold text-gray-800">
               {activity.minPersons && activity.maxPersons
                 ? `${activity.minPersons}–${activity.maxPersons}`
@@ -219,7 +219,7 @@ const jsonLd = generateSportsActivityLD({
                 class="block w-full py-3 px-6 rounded-lg text-white font-medium text-center transition-opacity hover:opacity-90"
                 style={`background-color: ${pole.accent};`}
               >
-                {pole.ctaLabel}
+                {t('aventure.cta.label')}
               </a>
             </div>
           </div>

@@ -84,7 +84,7 @@ const jsonLd = generateEventVenueLD({
     pole="evenements"
   >
     <a href={buildQuoteMailto()} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
-      Demander un devis
+      {t('common.requestQuote')}
     </a>
   </SectionHero>
 
@@ -101,6 +101,7 @@ const jsonLd = generateEventVenueLD({
       surfaceM2={surfaceM2}
       equipment={equipment}
       layoutOptions={layoutOptions}
+      lang={lang}
     />
   </div>
 
@@ -110,7 +111,7 @@ const jsonLd = generateEventVenueLD({
       <h2 class="font-heading text-2xl font-bold text-center mb-8" style="color: #3d4969;">
         {t('evenements.packs.title')}
       </h2>
-      <PackComparator packages={packages} />
+      <PackComparator packages={packages} lang={lang} />
     </div>
   </section>
 
@@ -122,10 +123,10 @@ const jsonLd = generateEventVenueLD({
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href={getLocalizedPath('/en-entreprise', lang)} class="text-white px-6 py-3 rounded-lg font-medium transition-colors" style="background-color: #3d4969;">
-          Journée entreprise complète
+          {t('evenements.hub.fullDayButton')}
         </a>
         <a href={buildQuoteMailto()} class="px-6 py-3 rounded-lg font-medium transition-colors" style="border: 1px solid #3d4969; color: #3d4969;">
-          Demander un devis
+          {t('common.requestQuote')}
         </a>
       </div>
     </div>

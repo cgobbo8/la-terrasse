@@ -6,6 +6,8 @@
  */
 import { Icon } from 'astro-icon/components';
 import SeminarPackageCard from './SeminarPackageCard.astro';
+import { useTranslations } from '@/i18n/utils';
+import type { Lang } from '@/i18n/translations';
 
 interface Features {
   salleEquipee: boolean;
@@ -33,21 +35,23 @@ interface Package {
 
 interface Props {
   packages: Package[];
+  lang?: Lang;
 }
 
-const { packages } = Astro.props;
+const { packages, lang = 'fr' } = Astro.props;
+const t = useTranslations(lang);
 const accent = '#3d4969';
 
 const featureRows: { key: keyof Features; label: string }[] = [
-  { key: 'salleEquipee', label: 'Salle équipée' },
-  { key: 'videoprojecteur', label: 'Vidéoprojecteur' },
-  { key: 'wifi', label: 'Wi-Fi' },
-  { key: 'parking', label: 'Parking' },
-  { key: 'petitDejeuner', label: 'Petit-déjeuner d\'accueil' },
-  { key: 'dejeuner', label: 'Déjeuner terroir' },
-  { key: 'pausesCafe', label: 'Pauses café' },
-  { key: 'teamBuilding', label: 'Activités team building' },
-  { key: 'encadrement', label: 'Encadrement dédié' },
+  { key: 'salleEquipee', label: t('evenements.feature.roomEquipped') },
+  { key: 'videoprojecteur', label: t('evenements.feature.projector') },
+  { key: 'wifi', label: t('evenements.feature.wifi') },
+  { key: 'parking', label: t('evenements.feature.parking') },
+  { key: 'petitDejeuner', label: t('evenements.feature.breakfast') },
+  { key: 'dejeuner', label: t('evenements.feature.lunch') },
+  { key: 'pausesCafe', label: t('evenements.feature.coffeeBreaks') },
+  { key: 'teamBuilding', label: t('evenements.feature.teamBuilding') },
+  { key: 'encadrement', label: t('evenements.feature.coaching') },
 ];
 ---
 
@@ -66,7 +70,7 @@ const featureRows: { key: keyof Features; label: string }[] = [
                   class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2"
                   style={`background-color: ${accent}15; color: ${accent};`}
                 >
-                  Recommandé
+                  {t('common.recommended')}
                 </span>
               )}
               <p class="text-xs font-medium uppercase tracking-wider" style={`color: ${accent}99;`}>
@@ -99,7 +103,7 @@ const featureRows: { key: keyof Features; label: string }[] = [
 
         <!-- Price row -->
         <tr class="border-t border-gray-200">
-          <td class="py-4 pr-4 text-sm text-gray-700 font-bold">Tarif</td>
+          <td class="py-4 pr-4 text-sm text-gray-700 font-bold">{t('common.price')}</td>
           {packages.map((pkg) => (
             <td class="py-4 px-4 text-center">
               <span class="font-heading text-lg font-bold" style={`color: ${accent};`}>
@@ -125,7 +129,7 @@ const featureRows: { key: keyof Features; label: string }[] = [
                   : `border: 1px solid ${accent}; color: ${accent};`
                 }
               >
-                Demander un devis
+                {t('common.requestQuote')}
               </a>
             </td>
           ))}
@@ -146,6 +150,7 @@ const featureRows: { key: keyof Features; label: string }[] = [
       price={pkg.priceFrom}
       ctaHref={pkg.ctaHref}
       highlighted={pkg.highlighted}
+      lang={lang}
     />
   ))}
 </div>

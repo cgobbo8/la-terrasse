@@ -4,7 +4,7 @@
  * Wraps around at boundaries. Pure Astro, zero JS.
  */
 import { Icon } from 'astro-icon/components';
-import { getLocalizedPath, getLocalizedField } from '@/i18n/utils';
+import { getLocalizedPath, getLocalizedField, useTranslations } from '@/i18n/utils';
 import type { Lang } from '@/i18n/translations';
 
 interface Activity {
@@ -21,6 +21,7 @@ interface Props {
 }
 
 const { currentSlug, activities, lang } = Astro.props;
+const t = useTranslations(lang);
 
 const currentIndex = activities.findIndex((a) => a.slug === currentSlug);
 const prevIndex = currentIndex <= 0 ? activities.length - 1 : currentIndex - 1;
@@ -46,7 +47,7 @@ const nextHref = getLocalizedPath(`/aventure/${next.slug}`, lang);
           <Icon name="lucide:chevron-left" class="w-4 h-4 text-gray-400 group-hover:text-aventure transition-colors" />
         </span>
         <span class="min-w-0">
-          <span class="block text-xs uppercase tracking-wider text-gray-400">Précédent</span>
+          <span class="block text-xs uppercase tracking-wider text-gray-400">{t('common.previous')}</span>
           <span class="block text-sm font-medium text-gray-700 group-hover:text-aventure transition-colors truncate">{prevTitle}</span>
         </span>
       </a>
@@ -56,7 +57,7 @@ const nextHref = getLocalizedPath(`/aventure/${next.slug}`, lang);
         class="prev-next-link group flex items-center justify-end gap-3 p-4 rounded-xl border border-gray-200 hover:border-aventure/30 hover:bg-aventure/5 transition-all text-right"
       >
         <span class="min-w-0">
-          <span class="block text-xs uppercase tracking-wider text-gray-400">Suivant</span>
+          <span class="block text-xs uppercase tracking-wider text-gray-400">{t('common.next')}</span>
           <span class="block text-sm font-medium text-gray-700 group-hover:text-aventure transition-colors truncate">{nextTitle}</span>
         </span>
         <span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 group-hover:bg-aventure/10 flex items-center justify-center transition-colors">
