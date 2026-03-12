@@ -1,8 +1,136 @@
-# Project Rules — La Terrasse Saint-Ferréol
+# CLAUDE.md
+
+This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+
+---
+
+## Project Overview
+
+**La Terrasse Saint-Ferréol** — Website for a multi-service leisure base at Lac de Saint-Ferréol (near Toulouse). Three distinct poles under one brand: **Restaurant**, **Aventure**, **Événements**.
+
+- V1 target: mid-April 2026 (static public site + CMS for operators)
+- V2: dynamic features (availability calendar, booking forms)
+- Design principle: **Clarity > Flexibility** — simple choices, no over-engineering
+
+---
+
+## Dev Commands
+
+```bash
+pnpm dev        # Astro dev server with hot reload
+pnpm build      # Static + SSR build (Keystatic admin routes)
+pnpm preview    # Serve production build locally
+```
+
+---
+
+## Tech Stack
+
+| Layer | Tech |
+|---|---|
+| Framework | Astro 5 (static-first, Node.js standalone adapter) |
+| Reactivity | Svelte 5 (interactive islands), React 19 (Keystatic admin only) |
+| Styling | Tailwind CSS v4 via `@tailwindcss/vite` |
+| CMS | Keystatic 0.5 (local in dev, GitHub mode in prod) |
+| i18n | Astro built-in — FR (default, no prefix) / EN (`/en/`) / ES (`/es/`) |
+| Animations | GSAP 3 (logo mask reveal, journée type timeline) |
+| Icons | Lucide via `astro-icon` + `lucide-svelte` |
+
+Import alias: `@/` maps to `src/`.
+
+---
+
+## Architecture
+
+### Static-first, SSR-minimal
+
+All public pages are **pre-rendered static HTML**. Only Keystatic admin routes (`/keystatic`, `/api/keystatic/*`) use SSR. This means no server-side logic in page components — data is loaded at build time via `Astro.glob` or content collections.
+
+### Multi-pole design system
+
+Each pole has a fixed visual identity resolved via `src/lib/pole-config.ts`:
+
+| Pole | Accent color | Background |
+|---|---|---|
+| restaurant | `#2D2B1B` (brun terre) | `#f5f0e8` |
+| aventure | `#537b47` (vert végétal) | `#eef5ec` |
+| evenements | `#3d4969` (bleu ardoise) | `#edf0f5` |
+
+Pole-aware components accept a `pole` prop. Colors are applied via **inline `style` attributes**, never via dynamic Tailwind class interpolation. CTAs also change per pole (tel: for restaurant/aventure, mailto: for events).
+
+### Double-layer cross-linking
+
+Every page has two cross-link layers:
+1. **Structural** — Permanent "La Terrasse c'est aussi…" block linking to other poles
+2. **Contextual** — Narrative suggestions specific to the page (e.g. "Après votre pédalo, déjeunez au bord du lac")
+
+### SEO infrastructure
+
+- `src/lib/seo.ts` generates JSON-LD for: `LocalBusiness`, `Restaurant`, `SportsActivityLocation`, `EventVenue`
+- `src/components/common/SEOHead.astro` injects all meta, OG, canonical, hreflang tags
+- Every page receives a `pagePath` prop for canonical/hreflang generation
+
+---
+
+## i18n System
+
+- Translations centralized in `src/i18n/translations.ts` with helper utilities in `src/i18n/utils.ts`
+- CMS fields: each field has `_en` and `_es` suffixed variants (fallback to FR if empty)
+- URL structure: FR `/restaurant`, EN `/en/restaurant`, ES `/es/restaurant`
+- Routing strategy: `prefixDefaultLocale: false` with fallback rewrite
+
+---
+
+## CMS — Keystatic
+
+Config in `keystatic.config.ts`. Collections and singletons:
+
+| Type | Name | Path |
+|---|---|---|
+| collection | activities | `src/content/activities/*.mdx` |
+| collection | seminars | `src/content/seminars/*.mdx` |
+| collection | events | `src/content/events/*.mdx` |
+| collection | producers | `src/content/producers/*.yaml` |
+| singleton | restaurant | `src/content/restaurant/info.yaml` |
+| singleton | venue | `src/content/venue/info.yaml` |
+| singleton | settings | `src/content/settings/site.yaml` |
+
+In production, Keystatic uses **GitHub mode** (content edits → GitHub commits → webhook → `git pull` + rebuild).
+
+---
+
+## Tailwind CSS v4
+
+- Uses `@tailwindcss/vite` plugin — **NOT** `@astrojs/tailwind` (which is v3 only)
+- Config via `@theme` directive in `src/styles/global.css` — no `tailwind.config.js`
+- `.svelte` files require `@source "../components/**/*.svelte"` in `global.css` to be scanned
+- Avoid dynamic class interpolation (`{cond ? 'class-a' : 'class-b'}`) — use `class:name={cond}` directive or inline `style`
+- Per-pole colors → always inline `style` with hex values
+
+---
+
+## Icons — Lucide via astro-icon
+
+- Use **Lucide** everywhere — no inline SVG for standard icons
+- `.astro` files: `import { Icon } from 'astro-icon/components'` → `<Icon name="lucide:icon-name" class="w-4 h-4" />`
+- `.svelte` files: `import { Phone, ArrowRight } from 'lucide-svelte'` → `<Phone class="w-4 h-4" />`
+- Browse: [lucide.dev/icons](https://lucide.dev/icons)
+- Brand logos (`LogoTerrasse`, `LogoTerrasseFull`, `LogoMaskReveal`) stay as custom inline SVGs
+- Pass `stroke-width="1.5"` for a thinner stroke (default is 2)
+
+---
+
+## Svelte Islands in Astro
+
+- Cannot pass **functions** as props to `client:*` islands (not serializable) — pass data objects instead
+- `position: fixed` inside a parent with `backdrop-filter` (e.g. `backdrop-blur-sm`) won't work relative to viewport — use a DOM portal (`document.body.appendChild`) to escape
+- Client directives: `client:load` (eager), `client:visible` (lazy / below-fold), `client:idle` (deferred)
+
+---
 
 ## Commits
 
-Use [Conventional Commits](https://www.conventionalcommits.org/) format:
+Conventional Commits format:
 
 ```
 <type>(<scope>): <description>
@@ -10,33 +138,19 @@ Use [Conventional Commits](https://www.conventionalcommits.org/) format:
 
 Types: `feat`, `fix`, `chore`, `refactor`, `style`, `docs`, `test`, `perf`, `ci`
 
-Scopes: `menu`, `header`, `homepage`, `restaurant`, `aventure`, `evenements`, `i18n`, `cms`, `layout`, `a11y`, `deps`, etc.
+Scopes: `menu`, `header`, `homepage`, `restaurant`, `aventure`, `evenements`, `i18n`, `cms`, `layout`, `a11y`, `deploy`, `deps`, etc.
 
-Examples:
-- `feat(menu): add multi-column mega menu with featured cards`
-- `fix(mobile): portal slide-out panel to body to escape backdrop-blur`
-- `chore(deps): update astro to 5.19`
+Short messages, English, lowercase after the colon.
 
-Keep messages short, in English, lowercase after the colon.
+---
 
-## Tailwind CSS v4
+## Deployment
 
-- Uses `@tailwindcss/vite` plugin (NOT `@astrojs/tailwind` which requires v3)
-- Config via `@theme` directive in `src/styles/global.css` (no `tailwind.config.js`)
-- `.svelte` files require `@source "../components/**/*.svelte"` in global.css to be scanned
-- Avoid dynamic Tailwind classes in string interpolation (`{cond ? 'class-a' : 'class-b'}`) — use `class:name={cond}` directive or inline `style` for dynamic values
-- For colors that vary per pole, use inline `style` attributes with the color hex values
+- **Server:** VPS with Nginx reverse proxy + PM2 process manager
+- **Static assets** served by Nginx directly from `dist/client/` (cache headers applied)
+- **Node.js process** (`dist/server/entry.mjs`) runs on `127.0.0.1:4321`, handles only Keystatic admin routes
+- **PM2 config:** `ecosystem.config.cjs` — app name `laterrasse`, port 4321
+- **Deploy flow:** GitHub webhook → `git pull` + `pnpm install` + `pnpm build` + PM2 restart (~2 min content-to-live)
+- **HTTPS:** Let's Encrypt / Certbot
 
-## Icons — Lucide via astro-icon
-
-- Use **Lucide** icons everywhere — no inline SVG for standard icons
-- In `.astro` files: `import { Icon } from 'astro-icon/components'` → `<Icon name="lucide:icon-name" class="w-4 h-4" />`
-- In `.svelte` files: `import { Phone, ArrowRight } from 'lucide-svelte'` → `<Phone class="w-4 h-4" />`
-- Browse available icons at [lucide.dev/icons](https://lucide.dev/icons)
-- Brand logos (LogoTerrasse, LogoTerrasseFull, LogoMaskReveal) stay as custom inline SVGs
-- Pass `stroke-width="1.5"` when a thinner stroke is needed (default is 2)
-
-## Svelte Islands in Astro
-
-- Cannot pass functions as props to `client:*` islands (not serializable) — pass data objects instead
-- `position: fixed` inside a parent with `backdrop-filter` (e.g. `backdrop-blur-sm`) won't work relative to viewport — use a DOM portal (`document.body.appendChild`) to escape
+Required env vars: see `.env.example` (GitHub OAuth for Keystatic, `SITE_URL`, `DEPLOY_WEBHOOK_SECRET`, `PLAUSIBLE_DOMAIN`).
