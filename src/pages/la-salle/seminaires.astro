@@ -1,19 +1,15 @@
 ---
 /**
- * ÉVÉNEMENTS HUB — Bleu ardoise
- * Tone: sobre, professionnel, rassurant
- * Specs-first: salle, capacité, équipements dès le hero
- * 3 packs nommés par expérience
+ * LA SALLE — SÉMINAIRES & PRO
+ * Dedicated page for seminar packages (Simple, Gourmet, Aventure)
+ * CTA: mailto for quote requests
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
-import VenueSpecs from '@/components/evenements/VenueSpecs.astro';
-import PackComparator from '@/components/evenements/PackComparator.astro';
+import PackComparator from '@/components/salle/PackComparator.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
-import { defaultLang } from '@/i18n/translations';
-import { generateEventVenueLD } from '@/lib/seo';
 import { buildQuoteMailto } from '@/lib/pole-config';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
@@ -21,28 +17,8 @@ import keystaticConfig from '../../../keystatic.config';
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
-// Load venue data from Keystatic
-const reader = createReader(process.cwd(), keystaticConfig);
-const venueData = await reader.singletons.venue.read();
-
-const capacitySeated = venueData?.capacitySeated ?? 0;
-const capacityStanding = venueData?.capacityStanding ?? 0;
-const surfaceM2 = venueData?.surfaceM2 ?? 0;
-
-// For array fields, check localized version first, fall back to FR
-const venueAny = venueData as Record<string, unknown> | null;
-const equipment = venueData
-  ? (lang !== defaultLang && venueAny?.[`equipment_${lang}`] as readonly string[])
-    || venueData.equipment
-    || []
-  : [] as readonly string[];
-const layoutOptions = venueData
-  ? (lang !== defaultLang && venueAny?.[`layoutOptions_${lang}`] as readonly { name: string; capacity: number }[])
-    || venueData.layoutOptions
-    || []
-  : [] as readonly { name: string; capacity: number }[];
-
 // Load seminar packages from Keystatic
+const reader = createReader(process.cwd(), keystaticConfig);
 const allSeminars = await reader.collections.seminars.all();
 const seminars = allSeminars
   .filter((s) => s.entry.visible)
@@ -61,69 +37,45 @@ const packages = seminars.map((s) => ({
 }));
 
 const seoTitle = 'Séminaire nature près de Toulouse — La Terrasse Saint-Ferréol';
-const seoDescription = 'Salle de séminaire au lac de Saint-Ferréol : capacité jusqu\'à ' + capacityStanding + ' personnes, équipements modernes, cadre nature. Formules séminaire, restauration et team building.';
-
-const jsonLd = generateEventVenueLD({
-  capacitySeated,
-  capacityStanding,
-  amenities: venueData?.equipment ?? [],
-});
+const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle équipée, restauration et team building. 3 packs pour entreprises, écoles et institutions.';
 ---
 
 <BaseLayout
   title={seoTitle}
   description={seoDescription}
-  pole="evenements"
-  jsonLd={jsonLd}
-  pagePath="/evenements"
+  pole="salle"
+  pagePath="/la-salle/seminaires"
 >
   <!-- Hero -->
   <SectionHero
-    tagline={t('evenements.hero.tagline')}
-    subtitle={t('evenements.hero.subtitle')}
-    pole="evenements"
+    tagline={t('salle.seminaires.hero.tagline')}
+    subtitle={t('salle.seminaires.hero.subtitle')}
+    pole="salle"
   >
     <a href={buildQuoteMailto()} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
       {t('common.requestQuote')}
     </a>
   </SectionHero>
 
-  <!-- LA SALLE — Specs first -->
-  <div class="pt-(--spacing-section-mobile) lg:pt-(--spacing-section)">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-2xl font-bold mb-2" style="color: #3d4969;">
-        {t('evenements.venue.title')}
-      </h2>
-    </div>
-    <VenueSpecs
-      capacitySeated={capacitySeated}
-      capacityStanding={capacityStanding}
-      surfaceM2={surfaceM2}
-      equipment={equipment}
-      layoutOptions={layoutOptions}
-      lang={lang}
-    />
-  </div>
-
   <!-- LES PACKS — Comparateur side-by-side -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="font-heading text-2xl font-bold text-center mb-8" style="color: #3d4969;">
-        {t('evenements.packs.title')}
+        {t('salle.packs.title')}
       </h2>
       <PackComparator packages={packages} lang={lang} />
     </div>
   </section>
 
-  <!-- Section groupes (adaptée Événements) -->
+  <!-- Section groupes -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <p class="text-gray-500 italic mb-4">
-        {t('evenements.groups.cta')}
+        {t('salle.groups.cta')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href={getLocalizedPath('/en-entreprise', lang)} class="text-white px-6 py-3 rounded-lg font-medium transition-colors" style="background-color: #3d4969;">
-          {t('evenements.hub.fullDayButton')}
+          {t('salle.hub.fullDayButton')}
         </a>
         <a href={buildQuoteMailto()} class="px-6 py-3 rounded-lg font-medium transition-colors" style="border: 1px solid #3d4969; color: #3d4969;">
           {t('common.requestQuote')}
@@ -132,18 +84,18 @@ const jsonLd = generateEventVenueLD({
     </div>
   </section>
 
-  <!-- Cross-links narratifs contextuels -->
+  <!-- Cross-links narratifs -->
   <ContextualCrossLink
-    text={t('crosslink.evenementsHub.aventure')}
+    text={t('crosslink.salleHub.aventure')}
     href={getLocalizedPath('/aventure', lang)}
     pole="aventure"
   />
   <ContextualCrossLink
-    text={t('crosslink.evenementsHub.restaurant')}
+    text={t('crosslink.salleHub.restaurant')}
     href={getLocalizedPath('/restaurant', lang)}
     pole="restaurant"
   />
 
   <!-- Cross-linking structurel -->
-  <CrossLinkBlock currentPole="evenements" />
+  <CrossLinkBlock currentPole="salle" />
 </BaseLayout>

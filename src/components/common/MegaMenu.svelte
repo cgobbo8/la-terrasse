@@ -1,6 +1,6 @@
 <script lang="ts">
   import { tick } from 'svelte';
-  import { ChevronDown, ArrowRight, CornerUpRight, Leaf, Users, Sailboat, Waves, Flag, Compass, Building, Briefcase, UtensilsCrossed, Trophy, Menu } from 'lucide-svelte';
+  import { ChevronDown, ArrowRight, CornerUpRight, Leaf, Users, Sailboat, Waves, Flag, Compass, Building, Briefcase, UtensilsCrossed, Trophy, Menu, Music, Store, Sparkles, ShoppingBag, Presentation, GraduationCap } from 'lucide-svelte';
   import type { Component } from 'svelte';
 
   const iconMap: Record<string, Component> = {
@@ -15,6 +15,12 @@
     briefcase: Briefcase,
     utensils: UtensilsCrossed,
     trophy: Trophy,
+    music: Music,
+    store: Store,
+    sparkles: Sparkles,
+    'shopping-bag': ShoppingBag,
+    presentation: Presentation,
+    'graduation-cap': GraduationCap,
   };
 
   interface SubLink {
@@ -22,6 +28,7 @@
     href: string;
     description?: string;
     icon?: string;
+    category?: string;
   }
 
   interface Featured {
@@ -142,14 +149,25 @@
   const bgLight: Record<string, string> = {
     restaurant: '#f5f0e8',
     aventure: '#eef5ec',
-    evenements: '#edf0f5',
+    salle: '#edf0f5',
   };
 
   const accent: Record<string, string> = {
     restaurant: '#2D2B1B',
     aventure: '#537b47',
-    evenements: '#3d4969',
+    salle: '#3d4969',
   };
+
+  /** Group subLinks by category when categories are present */
+  function groupByCategory(links: SubLink[]): Map<string, SubLink[]> {
+    const groups = new Map<string, SubLink[]>();
+    for (const link of links) {
+      const cat = link.category ?? '';
+      if (!groups.has(cat)) groups.set(cat, []);
+      groups.get(cat)!.push(link);
+    }
+    return groups;
+  }
 
 </script>
 
@@ -170,6 +188,7 @@
         aria-haspopup="true"
         aria-expanded={activeMenu === pole.id}
         onkeydown={(e) => handleTriggerKeydown(e, pole.id)}
+        data-nav-trigger
       >
         {pole.label}
         <ChevronDown
@@ -179,6 +198,8 @@
       </a>
 
       {#if activeMenu === pole.id}
+        {@const hasCategories = pole.subLinks.some(l => l.category)}
+        {@const grouped = hasCategories ? groupByCategory(pole.subLinks) : null}
         <!-- svelte-ignore a11y_no_static_element_interactions -->
         <div
           class="absolute left-1/2 -translate-x-1/2 top-full pt-2 z-50"
@@ -186,36 +207,71 @@
           onmouseleave={startClose}
         >
           <div
-            class="bg-white rounded-2xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 p-6 grid grid-cols-[1fr_16rem] grid-rows-[1fr_auto] gap-6 min-w-[32rem] animate-[megaFadeIn_0.15s_ease-out]"
+            class="bg-white rounded-2xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 p-6 grid grid-rows-[1fr_auto] gap-6 animate-[megaFadeIn_0.15s_ease-out]"
+            class:grid-cols-[1fr_16rem]={!hasCategories}
+            class:grid-cols-[1fr_1fr_16rem]={hasCategories}
+            class:min-w-[32rem]={!hasCategories}
+            class:min-w-[48rem]={hasCategories}
             role="menu"
             data-menu={pole.id}
           >
-            <!-- Left: Sub links -->
-            <div>
-              <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">{labelExplore}</p>
-              {#each pole.subLinks as link}
-                <a
-                  href={link.href}
-                  role="menuitem"
-                  class="flex items-center gap-3 px-2 py-2.5 rounded-lg hover:bg-offwhite transition-colors group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
-                  style="outline-color: {accent[pole.accentColor]}"
-                  onkeydown={(e) => handleMenuItemKeydown(e, pole.id)}
-                >
-                  <span
-                    class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
-                    style="background-color: {bgLight[pole.accentColor]}; color: {accent[pole.accentColor]}"
-                  >
-                    <svelte:component this={iconMap[link.icon ?? 'compass']} class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
-                  </span>
-                  <span class="flex flex-col min-w-0">
-                    <span class="text-sm font-semibold text-gray-800 leading-tight">{link.label}</span>
-                    {#if link.description}
-                      <span class="text-xs text-gray-400 mt-0.5 leading-tight">{link.description}</span>
-                    {/if}
-                  </span>
-                </a>
+            {#if grouped}
+              <!-- Multi-column: grouped by category -->
+              {#each [...grouped.entries()] as [category, links]}
+                <div>
+                  <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">{category}</p>
+                  {#each links as link}
+                    <a
+                      href={link.href}
+                      role="menuitem"
+                      class="flex items-center gap-3 px-2 py-2.5 rounded-lg hover:bg-offwhite transition-colors group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+                      style="outline-color: {accent[pole.accentColor]}"
+                      onkeydown={(e) => handleMenuItemKeydown(e, pole.id)}
+                    >
+                      <span
+                        class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
+                        style="background-color: {bgLight[pole.accentColor]}; color: {accent[pole.accentColor]}"
+                      >
+                        <svelte:component this={iconMap[link.icon ?? 'compass']} class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
+                      </span>
+                      <span class="flex flex-col min-w-0">
+                        <span class="text-sm font-semibold text-gray-800 leading-tight">{link.label}</span>
+                        {#if link.description}
+                          <span class="text-xs text-gray-400 mt-0.5 leading-tight">{link.description}</span>
+                        {/if}
+                      </span>
+                    </a>
+                  {/each}
+                </div>
               {/each}
-            </div>
+            {:else}
+              <!-- Single column: flat list -->
+              <div>
+                <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">{labelExplore}</p>
+                {#each pole.subLinks as link}
+                  <a
+                    href={link.href}
+                    role="menuitem"
+                    class="flex items-center gap-3 px-2 py-2.5 rounded-lg hover:bg-offwhite transition-colors group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+                    style="outline-color: {accent[pole.accentColor]}"
+                    onkeydown={(e) => handleMenuItemKeydown(e, pole.id)}
+                  >
+                    <span
+                      class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
+                      style="background-color: {bgLight[pole.accentColor]}; color: {accent[pole.accentColor]}"
+                    >
+                      <svelte:component this={iconMap[link.icon ?? 'compass']} class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
+                    </span>
+                    <span class="flex flex-col min-w-0">
+                      <span class="text-sm font-semibold text-gray-800 leading-tight">{link.label}</span>
+                      {#if link.description}
+                        <span class="text-xs text-gray-400 mt-0.5 leading-tight">{link.description}</span>
+                      {/if}
+                    </span>
+                  </a>
+                {/each}
+              </div>
+            {/if}
 
             <!-- Right: Featured card -->
             {#if pole.featured}
@@ -286,6 +342,7 @@
       aria-haspopup="true"
       aria-expanded={activeMenu === 'transversal'}
       onkeydown={(e) => handleTriggerKeydown(e, 'transversal')}
+      data-nav-trigger
     >
       {labelExperiences}
       <ChevronDown
@@ -347,6 +404,7 @@
         class:text-gray-400={currentLang !== code}
         class:hover:text-brun-terre={currentLang !== code}
         style="outline-color: #2D2B1B"
+        data-nav-trigger
       >
         {code}
       </a>

@@ -79,8 +79,8 @@ export function generateEventVenueLD(venue: {
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'EventVenue',
-    name: 'La Terrasse — Salle de séminaire',
-    url: `${BUSINESS_INFO.url}/evenements`,
+    name: 'La Terrasse — La Salle',
+    url: `${BUSINESS_INFO.url}/la-salle`,
     telephone: BUSINESS_INFO.telephone,
     email: BUSINESS_INFO.email,
     image: BUSINESS_INFO.image,

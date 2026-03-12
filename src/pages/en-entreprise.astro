@@ -15,10 +15,10 @@ const t = useTranslations(lang);
 
 const journeeTypeSteps = [
   { time: '9h00', title: 'Accueil café', description: 'Installation dans la salle de séminaire, café et viennoiseries.', pole: undefined },
-  { time: '9h30', title: 'Session de travail', description: 'Réunion, formation ou atelier dans un cadre calme et inspirant.', pole: 'evenements' as const },
+  { time: '9h30', title: 'Session de travail', description: 'Réunion, formation ou atelier dans un cadre calme et inspirant.', pole: 'salle' as const },
   { time: '12h30', title: 'Déjeuner au restaurant', description: 'Cuisine locale et faite maison, moment de convivialité.', pole: 'restaurant' as const },
   { time: '14h00', title: 'Activités team building', description: 'Archery tag, course d\'orientation, paddle... pour souder l\'équipe.', pole: 'aventure' as const },
-  { time: '16h30', title: 'Debrief et clôture', description: 'Retour en salle ou en terrasse pour conclure la journée.', pole: 'evenements' as const },
+  { time: '16h30', title: 'Debrief et clôture', description: 'Retour en salle ou en terrasse pour conclure la journée.', pole: 'salle' as const },
 ];
 
 const seminarPackages = [
@@ -82,7 +82,7 @@ const seminarPackages = [
       </div>
       <div class="text-center mt-8">
         <a
-          href={getLocalizedPath('/evenements', lang)}
+          href={getLocalizedPath('/la-salle/seminaires', lang)}
           class="inline-block border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors"
         >
           {t('entreprise.packages.cta')}

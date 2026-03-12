@@ -1,0 +1,214 @@
+---
+/**
+ * LA SALLE HUB — Bleu ardoise
+ * Venue vitrine: specs, equipment, configurations
+ * Dispatch to sub-pages: Séminaires & Pro, Événementiel
+ * Agenda preview of upcoming events
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHero from '@/components/common/SectionHero.astro';
+import VenueSpecs from '@/components/salle/VenueSpecs.astro';
+import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
+import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { defaultLang } from '@/i18n/translations';
+import { generateEventVenueLD } from '@/lib/seo';
+import { buildQuoteMailto } from '@/lib/pole-config';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
+
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
+const t = useTranslations(lang);
+
+// Load venue data from Keystatic
+const reader = createReader(process.cwd(), keystaticConfig);
+const venueData = await reader.singletons.venue.read();
+
+const capacitySeated = venueData?.capacitySeated ?? 0;
+const capacityStanding = venueData?.capacityStanding ?? 0;
+const surfaceM2 = venueData?.surfaceM2 ?? 0;
+
+// For array fields, check localized version first, fall back to FR
+const venueAny = venueData as Record<string, unknown> | null;
+const equipment = venueData
+  ? (lang !== defaultLang && venueAny?.[`equipment_${lang}`] as readonly string[])
+    || venueData.equipment
+    || []
+  : [] as readonly string[];
+const layoutOptions = venueData
+  ? (lang !== defaultLang && venueAny?.[`layoutOptions_${lang}`] as readonly { name: string; capacity: number }[])
+    || venueData.layoutOptions
+    || []
+  : [] as readonly { name: string; capacity: number }[];
+
+// Load upcoming events for agenda preview
+const allEvents = await reader.collections.events.all();
+const upcomingEvents = allEvents
+  .filter((e) => {
+    if (!e.entry.date) return false;
+    return new Date(e.entry.date) >= new Date();
+  })
+  .sort((a, b) => new Date(a.entry.date!).getTime() - new Date(b.entry.date!).getTime())
+  .slice(0, 3);
+
+const seoTitle = 'La Salle — Location de salle près de Toulouse — La Terrasse Saint-Ferréol';
+const seoDescription = 'Salle modulable au lac de Saint-Ferréol : capacité jusqu\'à ' + capacityStanding + ' personnes. Séminaires, concerts, foires, soirées privées. Équipements modernes, cadre nature.';
+
+const jsonLd = generateEventVenueLD({
+  capacitySeated,
+  capacityStanding,
+  amenities: venueData?.equipment ?? [],
+});
+---
+
+<BaseLayout
+  title={seoTitle}
+  description={seoDescription}
+  pole="salle"
+  jsonLd={jsonLd}
+  pagePath="/la-salle"
+>
+  <!-- Hero -->
+  <SectionHero
+    tagline={t('salle.hero.tagline')}
+    subtitle={t('salle.hero.subtitle')}
+    pole="salle"
+  >
+    <div class="flex flex-wrap gap-4">
+      <a href={getLocalizedPath('/la-salle/seminaires', lang)} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+        {t('salle.hub.seminairesCta')}
+      </a>
+      <a href={getLocalizedPath('/la-salle/evenementiel', lang)} class="bg-white/20 text-white border border-white/30 px-6 py-3 rounded-lg font-medium hover:bg-white/30 transition-colors">
+        {t('salle.hub.evenementielCta')}
+      </a>
+    </div>
+  </SectionHero>
+
+  <!-- L'ESPACE — Venue specs -->
+  <div class="pt-(--spacing-section-mobile) lg:pt-(--spacing-section)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-2xl font-bold mb-2" style="color: #3d4969;">
+        {t('salle.venue.title')}
+      </h2>
+    </div>
+    <VenueSpecs
+      capacitySeated={capacitySeated}
+      capacityStanding={capacityStanding}
+      surfaceM2={surfaceM2}
+      equipment={equipment}
+      layoutOptions={layoutOptions}
+      lang={lang}
+    />
+  </div>
+
+  <!-- DOUBLE DISPATCH: Événementiel + Séminaires -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <!-- Événementiel card -->
+        <a
+          href={getLocalizedPath('/la-salle/evenementiel', lang)}
+          class="group block rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all"
+        >
+          <div class="aspect-[16/9] overflow-hidden">
+            <img
+              src="/images/placeholders/nils-lindner.webp"
+              alt="Événementiel"
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-xl font-bold mb-2" style="color: #3d4969;">
+              {t('salle.hub.evenementielTitle')}
+            </h3>
+            <p class="text-gray-600 text-sm mb-4">{t('salle.hub.evenementielDesc')}</p>
+            <span class="text-sm font-medium transition-all group-hover:underline" style="color: #3d4969;">
+              {t('salle.hub.evenementielCta')} →
+            </span>
+          </div>
+        </a>
+
+        <!-- Séminaires card -->
+        <a
+          href={getLocalizedPath('/la-salle/seminaires', lang)}
+          class="group block rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all"
+        >
+          <div class="aspect-[16/9] overflow-hidden">
+            <img
+              src="/images/placeholders/emma-harper.webp"
+              alt="Séminaires"
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class="font-heading text-xl font-bold mb-2" style="color: #3d4969;">
+              {t('salle.hub.seminairesTitle')}
+            </h3>
+            <p class="text-gray-600 text-sm mb-4">{t('salle.hub.seminairesDesc')}</p>
+            <span class="text-sm font-medium transition-all group-hover:underline" style="color: #3d4969;">
+              {t('salle.hub.seminairesCta')} →
+            </span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- AGENDA — Événements à venir -->
+  {upcomingEvents.length > 0 && (
+    <section id="agenda" class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="font-heading text-2xl font-bold text-center mb-8" style="color: #3d4969;">
+          {t('salle.hub.agendaTitle')}
+        </h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {upcomingEvents.map((event) => (
+            <div class="rounded-xl border border-gray-200 p-6">
+              <time class="text-sm font-medium" style="color: #3d4969;">
+                {new Date(event.entry.date!).toLocaleDateString(lang, { day: 'numeric', month: 'long', year: 'numeric' })}
+              </time>
+              <h3 class="font-heading font-bold text-gray-800 mt-2">{event.entry.title}</h3>
+              {event.entry.description && (
+                <p class="text-gray-600 text-sm mt-2">{event.entry.description}</p>
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Section contact -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <p class="text-gray-500 italic mb-4">
+        {t('salle.groups.cta')}
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href={getLocalizedPath('/en-entreprise', lang)} class="text-white px-6 py-3 rounded-lg font-medium transition-colors" style="background-color: #3d4969;">
+          {t('salle.hub.fullDayButton')}
+        </a>
+        <a href={buildQuoteMailto()} class="px-6 py-3 rounded-lg font-medium transition-colors" style="border: 1px solid #3d4969; color: #3d4969;">
+          {t('common.requestQuote')}
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cross-links narratifs contextuels -->
+  <ContextualCrossLink
+    text={t('crosslink.salleHub.aventure')}
+    href={getLocalizedPath('/aventure', lang)}
+    pole="aventure"
+  />
+  <ContextualCrossLink
+    text={t('crosslink.salleHub.restaurant')}
+    href={getLocalizedPath('/restaurant', lang)}
+    pole="restaurant"
+  />
+
+  <!-- Cross-linking structurel -->
+  <CrossLinkBlock currentPole="salle" />
+</BaseLayout>

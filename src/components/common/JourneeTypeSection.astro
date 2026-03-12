@@ -7,7 +7,7 @@ interface TimelineStep {
   time: string;
   title: string;
   description: string;
-  pole?: 'restaurant' | 'aventure' | 'evenements';
+  pole?: 'restaurant' | 'aventure' | 'salle';
 }
 
 interface Props {
@@ -21,7 +21,7 @@ const { title, steps, accentColor } = Astro.props;
 const poleColors: Record<string, string> = {
   restaurant: '#2D2B1B',
   aventure: '#537b47',
-  evenements: '#3d4969',
+  salle: '#3d4969',
 };
 
 function getStepColor(step: TimelineStep): string {

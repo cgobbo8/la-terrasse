@@ -8,7 +8,7 @@ import { Image } from 'astro:assets';
 interface Props {
   tagline: string;
   subtitle?: string;
-  pole?: 'restaurant' | 'aventure' | 'evenements' | null;
+  pole?: 'restaurant' | 'aventure' | 'salle' | null;
   /** Optional background image path */
   image?: string;
   /** Extra CSS classes on the outer section (e.g. min-height) */
@@ -20,7 +20,7 @@ const { tagline, subtitle, pole = null, image, class: className } = Astro.props;
 const accentColors: Record<string, string> = {
   restaurant: 'from-restaurant/80',
   aventure: 'from-aventure/80',
-  evenements: 'from-bleu-ardoise/80',
+  salle: 'from-bleu-ardoise/80',
 };
 
 const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-brun-terre/80';

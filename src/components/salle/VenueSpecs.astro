@@ -44,19 +44,19 @@ const t = useTranslations(lang);
             <div class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
               {capacitySeated}
             </div>
-            <div class="text-sm text-gray-600 mt-1">{t('evenements.venue.seatedLabel')}</div>
+            <div class="text-sm text-gray-600 mt-1">{t('salle.venue.seatedLabel')}</div>
           </div>
           <div class="text-center rounded-xl p-4" style="background-color: #edf0f5;">
             <div class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
               {capacityStanding}
             </div>
-            <div class="text-sm text-gray-600 mt-1">{t('evenements.venue.standingLabel')}</div>
+            <div class="text-sm text-gray-600 mt-1">{t('salle.venue.standingLabel')}</div>
           </div>
           <div class="text-center rounded-xl p-4" style="background-color: #edf0f5;">
             <div class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
               {surfaceM2}<span class="text-base font-normal"> m²</span>
             </div>
-            <div class="text-sm text-gray-600 mt-1">{t('evenements.venue.surfaceLabel')}</div>
+            <div class="text-sm text-gray-600 mt-1">{t('salle.venue.surfaceLabel')}</div>
           </div>
         </div>
       </div>
@@ -66,7 +66,7 @@ const t = useTranslations(lang);
         <!-- Equipment -->
         <div>
           <h3 class="font-heading text-lg font-bold mb-4" style="color: #3d4969;">
-            {t('evenements.venue.equipmentTitle')}
+            {t('salle.venue.equipmentTitle')}
           </h3>
           <div class="flex flex-wrap gap-2">
             {equipment.map((item) => (
@@ -84,7 +84,7 @@ const t = useTranslations(lang);
         <!-- Layout configurations -->
         <div>
           <h3 class="font-heading text-lg font-bold mb-4" style="color: #3d4969;">
-            {t('evenements.venue.configurationsTitle')}
+            {t('salle.venue.configurationsTitle')}
           </h3>
           <div class="grid grid-cols-2 gap-3">
             {layoutOptions.map((layout) => (

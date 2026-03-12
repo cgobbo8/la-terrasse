@@ -137,17 +137,17 @@ const accentColors: Record<string, string> = {
 };
 ---
 
-<header class="sticky top-0 z-50 bg-white/95 backdrop-blur-sm border-b border-gray-200">
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300">
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->
-      <a href={getLocalizedPath('/', lang)} class="flex items-center gap-2">
+      <a href={getLocalizedPath('/', lang)} class="flex items-center gap-2 transition-colors duration-300" data-header-logo>
         <!-- Mobile: single-letter logo -->
-        <LogoTerrasse color="#2D2B1B" height="1.5rem" class="lg:hidden" />
+        <LogoTerrasse color="currentColor" height="1.5rem" class="lg:hidden" />
         <!-- Desktop: full logo + pole label -->
-        <LogoTerrasseFull color="#2D2B1B" height="1rem" class="hidden lg:block" />
+        <LogoTerrasseFull color="currentColor" height="1rem" class="hidden lg:block" />
         {pole && (
-          <span class={`hidden lg:inline font-heading text-sm font-medium uppercase tracking-wider ${accentColors[pole] ?? ''}`}>
+          <span class="hidden lg:inline font-heading text-sm font-medium uppercase tracking-wider transition-colors duration-300" data-pole-label data-pole-color={accentColors[pole] ?? ''}>
             {pole === 'restaurant' ? t('nav.restaurant') : pole === 'aventure' ? t('nav.aventure') : t('nav.pole.salle')}
           </span>
         )}
@@ -188,3 +188,16 @@ const accentColors: Record<string, string> = {
     </div>
   </nav>
 </header>
+
+<script>
+  const header = document.getElementById('site-header');
+  function onScroll() {
+    if (window.scrollY > 50) {
+      header?.classList.add('scrolled');
+    } else {
+      header?.classList.remove('scrolled');
+    }
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+</script>

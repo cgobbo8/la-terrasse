@@ -6,7 +6,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-**La Terrasse Saint-Ferréol** — Website for a multi-service leisure base at Lac de Saint-Ferréol (near Toulouse). Three distinct poles under one brand: **Restaurant**, **Aventure**, **Événements**.
+**La Terrasse Saint-Ferréol** — Website for a multi-service leisure base at Lac de Saint-Ferréol (near Toulouse). Three distinct poles under one brand: **Restaurant**, **Aventure**, **La Salle**.
 
 - V1 target: mid-April 2026 (static public site + CMS for operators)
 - V2: dynamic features (availability calendar, booking forms)
@@ -54,9 +54,17 @@ Each pole has a fixed visual identity resolved via `src/lib/pole-config.ts`:
 |---|---|---|
 | restaurant | `#2D2B1B` (brun terre) | `#f5f0e8` |
 | aventure | `#537b47` (vert végétal) | `#eef5ec` |
-| evenements | `#3d4969` (bleu ardoise) | `#edf0f5` |
+| salle | `#3d4969` (bleu ardoise) | `#edf0f5` |
 
-Pole-aware components accept a `pole` prop. Colors are applied via **inline `style` attributes**, never via dynamic Tailwind class interpolation. CTAs also change per pole (tel: for restaurant/aventure, mailto: for events).
+Pole-aware components accept a `pole` prop. Colors are applied via **inline `style` attributes**, never via dynamic Tailwind class interpolation. CTAs also change per pole (tel: for restaurant/aventure, mailto: for la salle).
+
+### La Salle — Multi-purpose venue
+
+"La Salle" replaces the former "Événements" pole. It represents the physical venue (a modular hall) and covers two use-case categories:
+- **Séminaires & Pro** (`/la-salle/seminaires`) — corporate seminars, conferences, training
+- **Événementiel** (`/la-salle/evenementiel`) — concerts, fairs, exhibitions, private parties
+
+The hub page (`/la-salle`) showcases the venue specs and dispatches to both sub-pages.
 
 ### Double-layer cross-linking
 
@@ -138,7 +146,7 @@ Conventional Commits format:
 
 Types: `feat`, `fix`, `chore`, `refactor`, `style`, `docs`, `test`, `perf`, `ci`
 
-Scopes: `menu`, `header`, `homepage`, `restaurant`, `aventure`, `evenements`, `i18n`, `cms`, `layout`, `a11y`, `deploy`, `deps`, etc.
+Scopes: `menu`, `header`, `homepage`, `restaurant`, `aventure`, `salle`, `i18n`, `cms`, `layout`, `a11y`, `deploy`, `deps`, etc.
 
 Short messages, English, lowercase after the colon.
 

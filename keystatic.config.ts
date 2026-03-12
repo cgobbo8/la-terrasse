@@ -87,7 +87,7 @@ export default config({
     }),
 
     // ========================================
-    // Seminar packs (Événements pole)
+    // Seminar packs (La Salle pole)
     // Stored as: src/content/seminars/seminaire-simple.mdx
     // ========================================
     seminars: collection({

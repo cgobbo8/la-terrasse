@@ -9,7 +9,7 @@ import { Image } from 'astro:assets';
 
 interface Props {
   /** Current pole to exclude from suggestions */
-  currentPole: 'restaurant' | 'aventure' | 'evenements';
+  currentPole: 'restaurant' | 'aventure' | 'salle';
 }
 
 const { currentPole } = Astro.props;
@@ -38,11 +38,11 @@ const poles = [
     image: '/images/placeholders/pietro-de-grandi.webp',
   },
   {
-    id: 'evenements' as const,
-    label: t('nav.evenements'),
-    description: t('crosslink.evenements.description'),
-    href: getLocalizedPath('/evenements', lang),
-    color: 'bg-evenements-light border-bleu-ardoise/20',
+    id: 'salle' as const,
+    label: t('nav.salle'),
+    description: t('crosslink.salle.description'),
+    href: getLocalizedPath('/la-salle', lang),
+    color: 'bg-salle-light border-bleu-ardoise/20',
     textColor: 'text-bleu-ardoise',
     accent: '#3d4969',
     image: '/images/placeholders/nils-lindner.webp',

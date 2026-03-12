@@ -11,7 +11,7 @@ interface Props {
   /** Destination link */
   href: string;
   /** Target pole — determines accent color */
-  pole: 'restaurant' | 'aventure' | 'evenements';
+  pole: 'restaurant' | 'aventure' | 'salle';
 }
 
 const { text, href, pole } = Astro.props;
@@ -19,7 +19,7 @@ const { text, href, pole } = Astro.props;
 const accentColors = {
   restaurant: '#2D2B1B',
   aventure: '#537b47',
-  evenements: '#3d4969',
+  salle: '#3d4969',
 } as const;
 
 const accent = accentColors[pole];

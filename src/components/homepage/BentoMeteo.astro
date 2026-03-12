@@ -63,7 +63,7 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
       </div>
 
       {/* Weather + Time cell — live data from Open-Meteo API */}
-      <WeatherTimeCard client:visible {lang} />
+      <WeatherTimeCard client:only="svelte" {lang} />
 
       {/* Promotion cell — only shown if promotionText is non-empty */}
       {promotionText && (
