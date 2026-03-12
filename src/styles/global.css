@@ -128,3 +128,37 @@ h1, h2, h3, h4, h5, h6 {
 #site-header.scrolled [data-header-logo] {
   color: var(--color-brun-terre);
 }
+
+/* Language pill — transparent header (over hero) */
+#site-header:not(.scrolled) [data-lang-pill] {
+  background-color: rgb(255 255 255 / 0.15);
+}
+
+#site-header:not(.scrolled) [data-lang-pill] a {
+  color: rgb(255 255 255 / 0.6);
+}
+
+#site-header:not(.scrolled) [data-lang-pill] a:hover {
+  color: white;
+}
+
+#site-header:not(.scrolled) [data-lang-pill] a.bg-white {
+  color: var(--color-brun-terre);
+}
+
+/* Language pill — scrolled header (white bg) */
+#site-header.scrolled [data-lang-pill] {
+  background-color: rgb(0 0 0 / 0.06);
+}
+
+#site-header.scrolled [data-lang-pill] a {
+  color: rgb(0 0 0 / 0.35);
+}
+
+#site-header.scrolled [data-lang-pill] a:hover {
+  color: rgb(0 0 0 / 0.7);
+}
+
+#site-header.scrolled [data-lang-pill] a.bg-white {
+  color: var(--color-brun-terre);
+}

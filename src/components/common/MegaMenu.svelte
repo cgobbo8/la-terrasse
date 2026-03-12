@@ -384,6 +384,21 @@
     {/if}
   </div>
 
+  <!-- Language switcher (pill) -->
+  <div class="flex items-center rounded-full p-0.5 text-xs ml-2" data-lang-pill>
+    {#each Object.entries(languages) as [code, _name]}
+      <a
+        href={langPaths[code] ?? '/'}
+        class="uppercase px-2 py-1 rounded-full font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-2"
+        class:bg-white={currentLang === code}
+        class:shadow-sm={currentLang === code}
+        style="outline-color: #2D2B1B"
+      >
+        {code}
+      </a>
+    {/each}
+  </div>
+
   <!-- CTA -->
   <a
     href={ctaHref}
@@ -392,22 +407,4 @@
   >
     {ctaLabel}
   </a>
-
-  <!-- Language switcher -->
-  <div class="flex items-center gap-1.5 text-xs ml-1">
-    {#each Object.entries(languages) as [code, _name]}
-      <a
-        href={langPaths[code] ?? '/'}
-        class="uppercase transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
-        class:text-brun-terre={currentLang === code}
-        class:font-bold={currentLang === code}
-        class:text-gray-400={currentLang !== code}
-        class:hover:text-brun-terre={currentLang !== code}
-        style="outline-color: #2D2B1B"
-        data-nav-trigger
-      >
-        {code}
-      </a>
-    {/each}
-  </div>
 </div>
