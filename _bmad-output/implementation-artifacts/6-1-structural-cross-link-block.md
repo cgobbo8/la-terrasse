@@ -1,6 +1,6 @@
 # Story 6.1: Structural Cross-Link Block
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -20,31 +20,31 @@ so that I'm aware of the full range of offerings without leaving the current pag
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Audit existing CrossLinkBlock.astro component (AC: #1, #2, #4, #6)
-  - [ ] Read current implementation at `src/components/common/CrossLinkBlock.astro`
-  - [ ] Confirm it accepts `currentPole` prop and correctly filters to show the 2 other poles
-  - [ ] Confirm it uses `getLocalizedPath()` for i18n-safe hrefs
-  - [ ] Confirm it uses `t('common.alsoAt')` for the section heading
-  - [ ] Verify the component renders correctly with all 3 possible `currentPole` values
+- [x] Task 1: Audit existing CrossLinkBlock.astro component (AC: #1, #2, #4, #6)
+  - [x] Read current implementation at `src/components/common/CrossLinkBlock.astro`
+  - [x] Confirm it accepts `currentPole` prop and correctly filters to show the 2 other poles
+  - [x] Confirm it uses `getLocalizedPath()` for i18n-safe hrefs
+  - [x] Confirm it uses `t('common.alsoAt')` for the section heading
+  - [x] Verify the component renders correctly with all 3 possible `currentPole` values
 
-- [ ] Task 2: Enhance CrossLinkBlock with image + ghost CTA (AC: #3)
-  - [ ] Add pole image to each card (placeholder div with pole light background color for V1, replaceable with `<img>` when photos are available)
-  - [ ] Add ghost CTA text "Découvrir →" at the bottom of each card
-  - [ ] Ghost CTA style: text-only, pole accent color, underline on hover, no background, no border
-  - [ ] Ensure card layout: image area (aspect-[16/9] placeholder) → pole name → description → ghost CTA
-  - [ ] Each pole's description should be concise and neutral (current descriptions are good: "Une cuisine simple, locale et gourmande", etc.)
+- [x] Task 2: Enhance CrossLinkBlock with image + ghost CTA (AC: #3)
+  - [x] Add pole image to each card (placeholder div with pole light background color for V1, replaceable with `<img>` when photos are available)
+  - [x] Add ghost CTA text "Découvrir →" at the bottom of each card
+  - [x] Ghost CTA style: text-only, pole accent color, underline on hover, no background, no border
+  - [x] Ensure card layout: image area (aspect-[16/9] placeholder) → pole name → description → ghost CTA
+  - [x] Each pole's description should be concise and neutral (current descriptions are good: "Une cuisine simple, locale et gourmande", etc.)
 
-- [ ] Task 3: Verify CrossLinkBlock placement on all pole pages (AC: #1, #5)
-  - [ ] Confirm included in `src/pages/evenements/index.astro` — YES (line 143: `<CrossLinkBlock currentPole="evenements" />`)
-  - [ ] Confirm included in `src/pages/restaurant/index.astro` with `currentPole="restaurant"` — check and add if missing
-  - [ ] Confirm included in `src/pages/aventure/index.astro` with `currentPole="aventure"` — check and add if missing
-  - [ ] Confirm included on activity detail pages (if they exist) with `currentPole="aventure"`
-  - [ ] Confirm NOT included on: en-famille.astro, en-groupe.astro, en-entreprise.astro — verify none of these import or render CrossLinkBlock
+- [x] Task 3: Verify CrossLinkBlock placement on all pole pages (AC: #1, #5)
+  - [x] Confirm included in `src/pages/evenements/index.astro` — YES (line 133: `<CrossLinkBlock currentPole="evenements" />`)
+  - [x] Confirm included in `src/pages/restaurant/index.astro` with `currentPole="restaurant"` — YES (line 153)
+  - [x] Confirm included in `src/pages/aventure/index.astro` with `currentPole="aventure"` — YES (line 167)
+  - [x] Confirm included on activity detail pages (if they exist) with `currentPole="aventure"` — YES ([slug].astro line 249)
+  - [x] Confirm NOT included on: en-famille.astro, en-groupe.astro, en-entreprise.astro — VERIFIED: none import CrossLinkBlock
 
-- [ ] Task 4: Add i18n translations for descriptions if missing (AC: #6, #7)
-  - [ ] Verify `common.alsoAt` translation key exists in FR/EN/ES translation files
-  - [ ] Add pole description translation keys if descriptions should be translatable (e.g., `crosslink.restaurant.description`, `crosslink.aventure.description`, `crosslink.evenements.description`)
-  - [ ] Add "Découvrir →" CTA text as translation key: `common.discover`
+- [x] Task 4: Add i18n translations for descriptions if missing (AC: #6, #7)
+  - [x] Verify `common.alsoAt` translation key exists in FR/EN/ES translation files — YES, all 3
+  - [x] Add pole description translation keys if descriptions should be translatable (e.g., `crosslink.restaurant.description`, `crosslink.aventure.description`, `crosslink.evenements.description`)
+  - [x] Add "Découvrir →" CTA text as translation key: `common.discover` — already existed in FR/EN/ES
 
 ## Dev Notes
 
@@ -116,8 +116,25 @@ This story is primarily about **enhancement and verification**, not creation fro
 
 ### Agent Model Used
 
+Claude Opus 4.6
+
 ### Debug Log References
+
+No issues encountered.
 
 ### Completion Notes List
 
+- Task 1: Audited existing CrossLinkBlock.astro — component was already functional with correct pole filtering, i18n hrefs, and heading translation. All 3 pole values work correctly.
+- Task 2: Enhanced CrossLinkBlock with placeholder images per pole (using existing project placeholders), 16/9 aspect ratio image area with hover scale effect, and ghost CTA "Découvrir →" with pole accent color and underline on hover. Card layout follows the design spec exactly.
+- Task 3: Verified CrossLinkBlock is included on all pole pages (restaurant, aventure, evenements hubs + activity detail pages + restaurant sub-pages) and NOT included on transversal pages (en-famille, en-groupe, en-entreprise).
+- Task 4: Added `crosslink.restaurant.description`, `crosslink.aventure.description`, `crosslink.evenements.description` translation keys in FR/EN/ES. `common.alsoAt` and `common.discover` already existed in all 3 languages.
+
+### Change Log
+
+- 2026-03-12: Enhanced CrossLinkBlock with images, ghost CTA, and i18n description keys
+
 ### File List
+
+- `src/components/common/CrossLinkBlock.astro` (modified) — added image placeholder, ghost CTA, translated descriptions
+- `src/i18n/translations.ts` (modified) — added crosslink.*.description keys in FR/EN/ES
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` (modified) — epic-6 and story status updates

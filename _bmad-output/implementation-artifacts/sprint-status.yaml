@@ -77,9 +77,9 @@ development_status:
   epic-5-retrospective: optional
 
   # Epic 6: Cross-Pole Discovery & Transversal Pages
-  epic-6: backlog
-  6-1-structural-cross-link-block: ready-for-dev
-  6-2-contextual-narrative-cross-links: ready-for-dev
+  epic-6: in-progress
+  6-1-structural-cross-link-block: review
+  6-2-contextual-narrative-cross-links: in-progress
   6-3-transversal-pages: ready-for-dev
   epic-6-retrospective: optional
 

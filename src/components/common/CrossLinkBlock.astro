@@ -19,26 +19,32 @@ const poles = [
   {
     id: 'restaurant' as const,
     label: t('nav.restaurant'),
-    description: 'Une cuisine simple, locale et gourmande',
+    description: t('crosslink.restaurant.description'),
     href: getLocalizedPath('/restaurant', lang),
     color: 'bg-restaurant-light border-restaurant/20',
     textColor: 'text-restaurant',
+    accent: '#2D2B1B',
+    image: '/images/placeholders/emma-harper.webp',
   },
   {
     id: 'aventure' as const,
     label: t('nav.aventure'),
-    description: 'Activités terrestres et aquatiques en pleine nature',
+    description: t('crosslink.aventure.description'),
     href: getLocalizedPath('/aventure', lang),
     color: 'bg-aventure-light border-aventure/20',
     textColor: 'text-aventure',
+    accent: '#537b47',
+    image: '/images/placeholders/pietro-de-grandi.webp',
   },
   {
     id: 'evenements' as const,
     label: t('nav.evenements'),
-    description: 'Séminaires et événements dans un cadre inspirant',
+    description: t('crosslink.evenements.description'),
     href: getLocalizedPath('/evenements', lang),
     color: 'bg-evenements-light border-bleu-ardoise/20',
     textColor: 'text-bleu-ardoise',
+    accent: '#3d4969',
+    image: '/images/placeholders/nils-lindner.webp',
   },
 ];
 
@@ -55,14 +61,30 @@ const otherPoles = poles.filter((p) => p.id !== currentPole);
         <a
           href={pole.href}
           class:list={[
-            'block p-8 rounded-2xl border transition-all hover:shadow-lg hover:-translate-y-1',
+            'group block rounded-2xl border overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1',
             pole.color,
           ]}
         >
-          <h3 class:list={['font-heading text-xl font-bold mb-2', pole.textColor]}>
-            La Terrasse {pole.label}
-          </h3>
-          <p class="text-gray-600 text-sm">{pole.description}</p>
+          <div class="aspect-[16/9] overflow-hidden">
+            <img
+              src={pole.image}
+              alt={`La Terrasse ${pole.label}`}
+              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              loading="lazy"
+            />
+          </div>
+          <div class="p-6">
+            <h3 class:list={['font-heading text-xl font-bold mb-2', pole.textColor]}>
+              La Terrasse {pole.label}
+            </h3>
+            <p class="text-gray-600 text-sm mb-4">{pole.description}</p>
+            <span
+              class="text-sm font-medium transition-all group-hover:underline"
+              style={`color: ${pole.accent}`}
+            >
+              {t('common.discover')} →
+            </span>
+          </div>
         </a>
       ))}
     </div>
