@@ -1,0 +1,71 @@
+---
+/**
+ * JourneeTypeSection — Reusable timeline for "journée type" across transversal pages.
+ * Pure Astro component, zero JS.
+ */
+interface TimelineStep {
+  time: string;
+  title: string;
+  description: string;
+  pole?: 'restaurant' | 'aventure' | 'evenements';
+}
+
+interface Props {
+  title: string;
+  steps: TimelineStep[];
+  accentColor?: string;
+}
+
+const { title, steps, accentColor } = Astro.props;
+
+const poleColors: Record<string, string> = {
+  restaurant: '#2D2B1B',
+  aventure: '#537b47',
+  evenements: '#3d4969',
+};
+
+function getStepColor(step: TimelineStep): string {
+  if (step.pole && poleColors[step.pole]) return poleColors[step.pole];
+  if (accentColor) return accentColor;
+  return '#2D2B1B';
+}
+---
+
+<section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="font-heading text-3xl font-bold text-brun-terre text-center mb-12">
+      {title}
+    </h2>
+    <div class="relative">
+      {/* Vertical connecting line */}
+      <div class="absolute left-[1.75rem] top-3 bottom-3 w-px bg-gray-200 hidden sm:block" aria-hidden="true" />
+
+      <div class="space-y-8">
+        {steps.map((step) => (
+          <div class="flex gap-6 items-start relative">
+            {/* Time badge with pole color */}
+            <div class="flex flex-col items-center shrink-0">
+              <span
+                class="font-heading font-bold text-lg min-w-14 text-center"
+                style={`color: ${getStepColor(step)}`}
+              >
+                {step.time}
+              </span>
+              {/* Dot on the connecting line */}
+              <div
+                class="w-3 h-3 rounded-full mt-2 hidden sm:block"
+                style={`background-color: ${getStepColor(step)}`}
+                aria-hidden="true"
+              />
+            </div>
+            {/* Content */}
+            <div class="pt-0.5">
+              <h3 class="font-heading font-bold text-brun-terre">{step.title}</h3>
+              <p class="text-gray-600 text-sm mt-1">{step.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

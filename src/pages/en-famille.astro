@@ -1,62 +1,142 @@
 ---
 /**
  * PAGE TRANSVERSALE — En Famille
- * Journée type: activité matin + repas midi + activité/baignade après-midi
+ * Cross-pole page: family activities + dining + journée type
+ * Brand-mother neutral styling (brun terre headings, no single pole accent)
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
+import JourneeTypeSection from '@/components/common/JourneeTypeSection.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const familyActivities = [
+  {
+    title: 'Mini-golf',
+    description: 'Un parcours ludique et ombragé, idéal pour les petits comme les grands.',
+    pole: 'aventure' as const,
+    image: '/images/placeholders/nils-lindner.webp',
+  },
+  {
+    title: 'Pédalo',
+    description: 'Naviguez en famille sur le lac, à votre rythme.',
+    pole: 'aventure' as const,
+    image: '/images/placeholders/pietro-de-grandi.webp',
+  },
+  {
+    title: 'Paddle',
+    description: 'Initiez-vous au paddle sur les eaux calmes du lac.',
+    pole: 'aventure' as const,
+    image: '/images/placeholders/cristian-negraia.webp',
+  },
+  {
+    title: 'Balade autour du lac',
+    description: 'Sentier facile et accessible pour toute la famille.',
+    pole: 'aventure' as const,
+    image: '/images/placeholders/dirk-von-loen-wagner.webp',
+  },
+];
+
+const journeeTypeSteps = [
+  { time: '10h00', title: 'Mini-golf ou course d\'orientation', description: 'Une activité ludique pour commencer la journée tous ensemble.', pole: 'aventure' as const },
+  { time: '12h30', title: 'Déjeuner au restaurant', description: 'Cuisine locale et faite maison, terrasse avec vue sur le lac.', pole: 'restaurant' as const },
+  { time: '14h30', title: 'Pédalo ou paddle sur le lac', description: 'Cap sur l\'eau pour une activité rafraîchissante.', pole: 'aventure' as const },
+  { time: '16h30', title: 'Balade autour du lac', description: 'Profitez du cadre naturel de Saint-Ferréol avant de repartir.', pole: 'aventure' as const },
+];
 ---
 
-<BaseLayout title="En Famille" description={t('famille.hero.tagline')}>
-  <SectionHero tagline={t('famille.hero.tagline')} subtitle="Activités, baignade et déjeuner au bord du lac de Saint-Ferréol">
+<BaseLayout title={t('famille.page.title')} description={t('famille.hero.tagline')}>
+  <SectionHero tagline={t('famille.hero.tagline')} subtitle={t('famille.hero.subtitle')}>
     <div class="flex flex-wrap gap-4">
-      <a href={getLocalizedPath('/aventure', lang)} class="bg-white text-aventure px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
-        Voir les activités
+      <a href={getLocalizedPath('/aventure', lang)} class="bg-white text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+        {t('famille.hero.ctaActivities')}
       </a>
       <a href={getLocalizedPath('/restaurant', lang)} class="border border-white/30 text-white px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
-        Le restaurant
+        {t('famille.hero.ctaRestaurant')}
       </a>
     </div>
   </SectionHero>
 
   <!-- Journée type famille -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-3xl font-bold text-brun-terre text-center mb-12">
-        Une journée en famille type
+  <JourneeTypeSection
+    title={t('famille.journee.title')}
+    steps={journeeTypeSteps}
+  />
+
+  <!-- Activités famille -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl font-bold text-brun-terre text-center mb-4">
+        {t('famille.activities.title')}
       </h2>
-      <div class="space-y-8">
-        {[
-          { time: '10h00', title: 'Mini-golf ou course d\'orientation', desc: 'Une activité ludique pour commencer la journée tous ensemble.' },
-          { time: '12h30', title: 'Déjeuner au restaurant', desc: 'Cuisine locale et faite maison, terrasse avec vue sur le lac.' },
-          { time: '14h30', title: 'Pédalo ou paddle sur le lac', desc: 'Cap sur l\'eau pour une activité rafraîchissante.' },
-          { time: '16h30', title: 'Balade autour du lac', desc: 'Profitez du cadre naturel de Saint-Ferréol avant de repartir.' },
-        ].map((step) => (
-          <div class="flex gap-6 items-start">
-            <span class="font-heading font-bold text-aventure text-lg min-w-16">{step.time}</span>
-            <div>
-              <h3 class="font-heading font-bold text-brun-terre">{step.title}</h3>
-              <p class="text-gray-600 text-sm mt-1">{step.desc}</p>
+      <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+        {t('famille.activities.intro')}
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {familyActivities.map((activity) => (
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-md transition-shadow">
+            <div class="aspect-[4/3] bg-gray-100">
+              <img src={activity.image} alt={activity.title} class="w-full h-full object-cover" loading="lazy" />
+            </div>
+            <div class="p-5">
+              <h3 class="font-heading font-bold text-brun-terre mb-1">{activity.title}</h3>
+              <p class="text-gray-600 text-sm">{activity.description}</p>
             </div>
           </div>
         ))}
       </div>
+      <div class="text-center mt-8">
+        <a
+          href={getLocalizedPath('/aventure', lang)}
+          class="inline-block border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors"
+        >
+          {t('famille.activities.cta')}
+        </a>
+      </div>
     </div>
   </section>
 
-  <!-- CTA -->
+  <!-- Restaurant famille -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="flex-1">
+          <h2 class="font-heading text-3xl font-bold text-brun-terre mb-4">
+            {t('famille.restaurant.title')}
+          </h2>
+          <p class="text-gray-600 mb-2">
+            {t('famille.restaurant.desc1')}
+          </p>
+          <p class="text-gray-600 mb-6">
+            {t('famille.restaurant.desc2')}
+          </p>
+          <a
+            href={getLocalizedPath('/restaurant', lang)}
+            class="inline-block border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors"
+          >
+            {t('famille.restaurant.cta')}
+          </a>
+        </div>
+        <div class="flex-1">
+          <div class="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden">
+            <img src="/images/placeholders/emma-harper.webp" alt="Restaurant en famille" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA final -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <h2 class="font-heading text-2xl font-bold text-brun-terre mb-6">
-        Prêts pour une journée en famille ?
+        {t('famille.cta.title')}
       </h2>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href={getLocalizedPath('/aventure', lang)} class="bg-aventure text-white px-6 py-3 rounded-lg font-medium hover:bg-aventure/90 transition-colors">
-          Voir les activités
+        <a href={getLocalizedPath('/aventure', lang)} class="bg-brun-terre text-white px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/90 transition-colors">
+          {t('famille.cta.activities')}
         </a>
         <a href={getLocalizedPath('/contact', lang)} class="border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors">
           {t('common.contact')}

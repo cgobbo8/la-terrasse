@@ -1,6 +1,6 @@
 # Story 6.3: Transversal Pages (En Famille, En Groupe, En Entreprise)
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -20,49 +20,49 @@ so that I can plan my visit in one place without navigating between separate pol
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/components/common/JourneeTypeSection.astro` (AC: #5)
-  - [ ] Accept props: `title` (string), `steps` (array of { time: string, title: string, description: string, pole?: Pole }), `accentColor?` (string)
-  - [ ] Render timeline layout: time on left, title + description on right, with subtle connecting line or spacing
-  - [ ] Optional pole coloring per step: time badge color matches the pole of that step's activity (aventure green for outdoor, restaurant brown for meals, evenements blue for work sessions)
-  - [ ] Responsive: clean single-column layout on all screen sizes
-  - [ ] Extract pattern from existing en-famille.astro (lines 33-48) which already has a working timeline
+- [x] Task 1: Create `src/components/common/JourneeTypeSection.astro` (AC: #5)
+  - [x] Accept props: `title` (string), `steps` (array of { time: string, title: string, description: string, pole?: Pole }), `accentColor?` (string)
+  - [x] Render timeline layout: time on left, title + description on right, with subtle connecting line or spacing
+  - [x] Optional pole coloring per step: time badge color matches the pole of that step's activity (aventure green for outdoor, restaurant brown for meals, evenements blue for work sessions)
+  - [x] Responsive: clean single-column layout on all screen sizes
+  - [x] Extract pattern from existing en-famille.astro (lines 33-48) which already has a working timeline
 
-- [ ] Task 2: Update `src/pages/en-famille.astro` (AC: #1, #4, #5, #6, #7)
-  - [ ] Replace inline journée type markup with JourneeTypeSection component
-  - [ ] Add family activity highlights section: 3-4 cards of family-friendly activities (mini-golf, pédalo, paddle, balade) with CTAs to /aventure
-  - [ ] Add family restaurant section: brief mention of family-friendly dining, kids-friendly atmosphere, terrace with view — CTA to /restaurant
-  - [ ] Ensure hero uses brand-mother neutral tone (no single pole accent in hero)
-  - [ ] Journée type steps with pole colors: aventure green for activities, restaurant brown for lunch
-  - [ ] Verify NO CrossLinkBlock import or render
-  - [ ] Content can use placeholder text for V1; structure and components must be final
+- [x] Task 2: Update `src/pages/en-famille.astro` (AC: #1, #4, #5, #6, #7)
+  - [x] Replace inline journée type markup with JourneeTypeSection component
+  - [x] Add family activity highlights section: 3-4 cards of family-friendly activities (mini-golf, pédalo, paddle, balade) with CTAs to /aventure
+  - [x] Add family restaurant section: brief mention of family-friendly dining, kids-friendly atmosphere, terrace with view — CTA to /restaurant
+  - [x] Ensure hero uses brand-mother neutral tone (no single pole accent in hero)
+  - [x] Journée type steps with pole colors: aventure green for activities, restaurant brown for lunch
+  - [x] Verify NO CrossLinkBlock import or render
+  - [x] Content can use placeholder text for V1; structure and components must be final
 
-- [ ] Task 3: Update `src/pages/en-groupe.astro` (AC: #2, #4, #5, #6, #7)
-  - [ ] Replace inline journée type markup with JourneeTypeSection component
-  - [ ] Add prominent phone number section: large phone number, "Appelez Karine pour organiser votre sortie", styled as a highlight callout box
-  - [ ] Phone number display: `<a href="tel:+33XXXXXXXXX">` with large font, centered, high visual weight
-  - [ ] Add group offerings section: group activities (10-50 people), group dining (menu convivial adapté), combined day programs
-  - [ ] Add pricing indication section: "À partir de XX€/personne" for combined day programs (placeholder pricing OK)
-  - [ ] Ensure hero uses brand-mother neutral styling
-  - [ ] Journée type steps with pole colors per step
-  - [ ] Verify NO CrossLinkBlock import or render
-  - [ ] CTA pattern: "Organiser ma sortie" → tel: link (groups prefer phone)
+- [x] Task 3: Update `src/pages/en-groupe.astro` (AC: #2, #4, #5, #6, #7)
+  - [x] Replace inline journée type markup with JourneeTypeSection component
+  - [x] Add prominent phone number section: large phone number, "Appelez Karine pour organiser votre sortie", styled as a highlight callout box
+  - [x] Phone number display: `<a href="tel:+33XXXXXXXXX">` with large font, centered, high visual weight
+  - [x] Add group offerings section: group activities (10-50 people), group dining (menu convivial adapté), combined day programs
+  - [x] Add pricing indication section: "À partir de XX€/personne" for combined day programs (placeholder pricing OK)
+  - [x] Ensure hero uses brand-mother neutral styling
+  - [x] Journée type steps with pole colors per step
+  - [x] Verify NO CrossLinkBlock import or render
+  - [x] CTA pattern: "Organiser ma sortie" → tel: link (groups prefer phone)
 
-- [ ] Task 4: Update `src/pages/en-entreprise.astro` (AC: #3, #4, #5, #6, #7)
-  - [ ] Replace inline journée type markup with JourneeTypeSection component
-  - [ ] Add seminar packages summary section: brief overview of 3 packages (Simple/Gourmet/Aventure) with CTA "Voir les formules" → /evenements
-  - [ ] Add team building section: highlight of outdoor activities available for corporate groups, CTA → /aventure
-  - [ ] Add corporate dining section: mention of local cuisine, custom menus for groups, CTA → /restaurant
-  - [ ] Professional tone throughout — matching événements pole register but brand-mother neutral colors
-  - [ ] Journée type steps with pole colors: bleu ardoise for work sessions, aventure green for team building, restaurant brown for lunch
-  - [ ] CTA: "Demander un devis" → mailto: link (from Story 5.3's buildQuoteMailto)
-  - [ ] Verify NO CrossLinkBlock import or render
+- [x] Task 4: Update `src/pages/en-entreprise.astro` (AC: #3, #4, #5, #6, #7)
+  - [x] Replace inline journée type markup with JourneeTypeSection component
+  - [x] Add seminar packages summary section: brief overview of 3 packages (Simple/Gourmet/Aventure) with CTA "Voir les formules" → /evenements
+  - [x] Add team building section: highlight of outdoor activities available for corporate groups, CTA → /aventure
+  - [x] Add corporate dining section: mention of local cuisine, custom menus for groups, CTA → /restaurant
+  - [x] Professional tone throughout — matching événements pole register but brand-mother neutral colors
+  - [x] Journée type steps with pole colors: bleu ardoise for work sessions, aventure green for team building, restaurant brown for lunch
+  - [x] CTA: "Demander un devis" → mailto: link (from Story 5.3's buildQuoteMailto)
+  - [x] Verify NO CrossLinkBlock import or render
 
-- [ ] Task 5: Content structure and section ordering (AC: #1, #2, #3)
-  - [ ] En Famille page order: Hero → Journée Type → Activités famille → Restaurant famille → CTA final
-  - [ ] En Groupe page order: Hero → Phone callout → Journée Type → Offres groupe (activities + dining) → Pricing indication → CTA final
-  - [ ] En Entreprise page order: Hero → Journée Type → Formules séminaire → Team building → Restauration → CTA final
-  - [ ] Each section has its own heading (H2) and brief intro paragraph
-  - [ ] In-section CTAs as ghost buttons or outlined buttons linking to pole pages
+- [x] Task 5: Content structure and section ordering (AC: #1, #2, #3)
+  - [x] En Famille page order: Hero → Journée Type → Activités famille → Restaurant famille → CTA final
+  - [x] En Groupe page order: Hero → Phone callout → Journée Type → Offres groupe (activities + dining) → Pricing indication → CTA final
+  - [x] En Entreprise page order: Hero → Journée Type → Formules séminaire → Team building → Restauration → CTA final
+  - [x] Each section has its own heading (H2) and brief intro paragraph
+  - [x] In-section CTAs as ghost buttons or outlined buttons linking to pole pages
 
 ## Dev Notes
 
@@ -161,9 +161,25 @@ Use `<a href="tel:+33XXXXXXXXX">` so mobile visitors can tap to call. Placeholde
 ## Dev Agent Record
 
 ### Agent Model Used
+Claude Opus 4.6
 
 ### Debug Log References
+- Build passed successfully with no errors related to transversal pages
 
 ### Completion Notes List
+- Created JourneeTypeSection.astro: reusable timeline component with pole-colored time badges, vertical connecting line, and dot indicators. Pure Astro, zero JS.
+- Updated en-famille.astro: replaced inline timeline with JourneeTypeSection, added 4 family activity cards (mini-golf, pédalo, paddle, balade) with placeholder images, added restaurant family section with image, brand-mother neutral styling throughout.
+- Updated en-groupe.astro: replaced inline timeline with JourneeTypeSection, added prominent phone callout (large clickable number + Karine subtitle), 3 group offering cards with pole-colored accents, pricing indication section (35€/personne placeholder), all CTAs point to tel: for group organizers.
+- Updated en-entreprise.astro: replaced inline timeline with JourneeTypeSection (bleu ardoise for work sessions, aventure green for team building, restaurant brown for lunch), 3 seminar packages (Simple/Gourmet/Aventure) with recommended badge, team building section with image, corporate dining section with image, buildQuoteMailto CTA.
+- Added ~60 translation keys across FR/EN/ES for all 3 transversal pages.
+- All images use existing placeholders from /images/placeholders/*.webp.
+- No CrossLinkBlock on any transversal page.
 
 ### File List
+- src/components/common/JourneeTypeSection.astro (NEW)
+- src/pages/en-famille.astro (MODIFIED)
+- src/pages/en-groupe.astro (MODIFIED)
+- src/pages/en-entreprise.astro (MODIFIED)
+- src/i18n/translations.ts (MODIFIED)
+- _bmad-output/implementation-artifacts/sprint-status.yaml (MODIFIED)
+- _bmad-output/implementation-artifacts/6-3-transversal-pages.md (MODIFIED)

@@ -1,57 +1,168 @@
 ---
+/**
+ * PAGE TRANSVERSALE — En Entreprise
+ * Cross-pole page: seminars + team building + corporate dining
+ * Brand-mother neutral styling with professional tone (événements register)
+ */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
+import JourneeTypeSection from '@/components/common/JourneeTypeSection.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { buildQuoteMailto } from '@/lib/pole-config';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const journeeTypeSteps = [
+  { time: '9h00', title: 'Accueil café', description: 'Installation dans la salle de séminaire, café et viennoiseries.', pole: undefined },
+  { time: '9h30', title: 'Session de travail', description: 'Réunion, formation ou atelier dans un cadre calme et inspirant.', pole: 'evenements' as const },
+  { time: '12h30', title: 'Déjeuner au restaurant', description: 'Cuisine locale et faite maison, moment de convivialité.', pole: 'restaurant' as const },
+  { time: '14h00', title: 'Activités team building', description: 'Archery tag, course d\'orientation, paddle... pour souder l\'équipe.', pole: 'aventure' as const },
+  { time: '16h30', title: 'Debrief et clôture', description: 'Retour en salle ou en terrasse pour conclure la journée.', pole: 'evenements' as const },
+];
+
+const seminarPackages = [
+  {
+    name: 'Simple',
+    description: 'Salle de réunion équipée + pauses café. L\'essentiel pour travailler au calme.',
+    highlight: false,
+  },
+  {
+    name: 'Gourmet',
+    description: 'Salle + pauses café + déjeuner au restaurant avec menu dédié.',
+    highlight: true,
+  },
+  {
+    name: 'Aventure',
+    description: 'Salle + déjeuner + activité team building l\'après-midi.',
+    highlight: false,
+  },
+];
 ---
 
-<BaseLayout title="En Entreprise" description={t('entreprise.hero.tagline')}>
-  <SectionHero tagline={t('entreprise.hero.tagline')} subtitle="Séminaire, repas d'équipe et activités de cohésion au lac de Saint-Ferréol" pole="evenements">
-    <a href={buildQuoteMailto()} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
-      Demander un devis
+<BaseLayout title={t('entreprise.page.title')} description={t('entreprise.hero.tagline')}>
+  <SectionHero tagline={t('entreprise.hero.tagline')} subtitle={t('entreprise.hero.subtitle')}>
+    <a href={buildQuoteMailto()} class="bg-white text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+      {t('entreprise.hero.cta')}
     </a>
   </SectionHero>
 
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-3xl font-bold text-bleu-ardoise text-center mb-12">
-        Une journée d'entreprise type
+  <!-- Journée type entreprise -->
+  <JourneeTypeSection
+    title={t('entreprise.journee.title')}
+    steps={journeeTypeSteps}
+  />
+
+  <!-- Formules séminaire -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-3xl font-bold text-brun-terre text-center mb-4">
+        {t('entreprise.packages.title')}
       </h2>
-      <div class="space-y-8">
-        {[
-          { time: '9h00', title: 'Accueil café', desc: 'Installation dans la salle de séminaire, café et viennoiseries.' },
-          { time: '9h30', title: 'Session de travail', desc: 'Réunion, formation ou atelier dans un cadre calme et inspirant.' },
-          { time: '12h30', title: 'Déjeuner au restaurant', desc: 'Cuisine locale et faite maison, moment de convivialité.' },
-          { time: '14h00', title: 'Activités team building', desc: 'Archery tag, course d\'orientation, paddle... pour souder l\'équipe.' },
-          { time: '16h30', title: 'Debrief et clôture', desc: 'Retour en salle ou en terrasse pour conclure la journée.' },
-        ].map((step) => (
-          <div class="flex gap-6 items-start">
-            <span class="font-heading font-bold text-bleu-ardoise text-lg min-w-16">{step.time}</span>
-            <div>
-              <h3 class="font-heading font-bold text-brun-terre">{step.title}</h3>
-              <p class="text-gray-600 text-sm mt-1">{step.desc}</p>
-            </div>
+      <p class="text-gray-600 text-center max-w-2xl mx-auto mb-12">
+        {t('entreprise.packages.intro')}
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {seminarPackages.map((pkg) => (
+          <div class:list={[
+            'rounded-xl p-6 shadow-sm',
+            pkg.highlight ? 'bg-white ring-2 ring-brun-terre' : 'bg-white',
+          ]}>
+            {pkg.highlight && (
+              <span class="inline-block bg-brun-terre text-white text-xs font-medium px-3 py-1 rounded-full mb-4">
+                {t('entreprise.packages.recommended')}
+              </span>
+            )}
+            <h3 class="font-heading font-bold text-brun-terre text-xl mb-2">
+              {t('entreprise.packages.prefix')} {pkg.name}
+            </h3>
+            <p class="text-gray-600 text-sm mb-6">{pkg.description}</p>
           </div>
         ))}
+      </div>
+      <div class="text-center mt-8">
+        <a
+          href={getLocalizedPath('/evenements', lang)}
+          class="inline-block border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors"
+        >
+          {t('entreprise.packages.cta')}
+        </a>
       </div>
     </div>
   </section>
 
-  <!-- Packs séminaire -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-2xl font-bold text-bleu-ardoise mb-6">Découvrez nos formules</h2>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href={getLocalizedPath('/evenements', lang)} class="bg-bleu-ardoise text-white px-6 py-3 rounded-lg font-medium hover:bg-bleu-ardoise/90 transition-colors">
-          Voir les packs séminaire
-        </a>
-        <a href={buildQuoteMailto()} class="border border-bleu-ardoise text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-evenements-light transition-colors">
-          Demander un devis sur mesure
-        </a>
+  <!-- Team building -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row gap-8 items-center">
+        <div class="flex-1">
+          <h2 class="font-heading text-3xl font-bold text-brun-terre mb-4">
+            {t('entreprise.teambuilding.title')}
+          </h2>
+          <p class="text-gray-600 mb-2">
+            {t('entreprise.teambuilding.desc1')}
+          </p>
+          <p class="text-gray-600 mb-6">
+            {t('entreprise.teambuilding.desc2')}
+          </p>
+          <a
+            href={getLocalizedPath('/aventure', lang)}
+            class="inline-block border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors"
+          >
+            {t('entreprise.teambuilding.cta')}
+          </a>
+        </div>
+        <div class="flex-1">
+          <div class="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden">
+            <img src="/images/placeholders/daniel-jacob.webp" alt="Team building en pleine nature" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+        </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Restauration corporate -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex flex-col md:flex-row-reverse gap-8 items-center">
+        <div class="flex-1">
+          <h2 class="font-heading text-3xl font-bold text-brun-terre mb-4">
+            {t('entreprise.dining.title')}
+          </h2>
+          <p class="text-gray-600 mb-2">
+            {t('entreprise.dining.desc1')}
+          </p>
+          <p class="text-gray-600 mb-6">
+            {t('entreprise.dining.desc2')}
+          </p>
+          <a
+            href={getLocalizedPath('/restaurant', lang)}
+            class="inline-block border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors"
+          >
+            {t('entreprise.dining.cta')}
+          </a>
+        </div>
+        <div class="flex-1">
+          <div class="aspect-[4/3] bg-gray-100 rounded-xl overflow-hidden">
+            <img src="/images/placeholders/claudia-chiavazza.webp" alt="Restauration d'entreprise" class="w-full h-full object-cover" loading="lazy" />
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA final -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h2 class="font-heading text-2xl font-bold text-brun-terre mb-4">
+        {t('entreprise.cta.title')}
+      </h2>
+      <p class="text-gray-600 mb-6">
+        {t('entreprise.cta.subtitle')}
+      </p>
+      <a href={buildQuoteMailto()} class="inline-block bg-brun-terre text-white px-8 py-4 rounded-lg font-medium text-lg hover:bg-brun-terre/90 transition-colors">
+        {t('entreprise.cta.button')}
+      </a>
     </div>
   </section>
 </BaseLayout>
