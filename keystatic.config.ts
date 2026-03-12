@@ -97,6 +97,17 @@ export default config({
           { label: 'Ce qui est inclus', itemLabel: (props) => props.value || 'Élément' },
         ),
         priceFrom: fields.text({ label: 'À partir de (prix indicatif)' }),
+        features: fields.object({
+          salleEquipee: fields.checkbox({ label: 'Salle équipée', defaultValue: true }),
+          videoprojecteur: fields.checkbox({ label: 'Vidéoprojecteur', defaultValue: true }),
+          wifi: fields.checkbox({ label: 'Wi-Fi', defaultValue: true }),
+          parking: fields.checkbox({ label: 'Parking', defaultValue: true }),
+          petitDejeuner: fields.checkbox({ label: 'Petit-déjeuner d\'accueil', defaultValue: false }),
+          dejeuner: fields.checkbox({ label: 'Déjeuner terroir', defaultValue: false }),
+          pausesCafe: fields.checkbox({ label: 'Pauses café', defaultValue: false }),
+          teamBuilding: fields.checkbox({ label: 'Activités team building', defaultValue: false }),
+          encadrement: fields.checkbox({ label: 'Encadrement dédié', defaultValue: false }),
+        }, { label: 'Fonctionnalités (comparateur)' }),
         image: fields.image({
           label: 'Photo',
           directory: 'public/images/seminars',

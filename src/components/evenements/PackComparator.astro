@@ -1,0 +1,152 @@
+---
+/**
+ * PackComparator — Side-by-side comparison table (desktop) + stacked cards (mobile)
+ * Bleu ardoise (#3d4969) accent, clean professional table
+ * Pure Astro component — no JS shipped
+ */
+import SeminarPackageCard from './SeminarPackageCard.astro';
+
+interface Features {
+  salleEquipee: boolean;
+  videoprojecteur: boolean;
+  wifi: boolean;
+  parking: boolean;
+  petitDejeuner: boolean;
+  dejeuner: boolean;
+  pausesCafe: boolean;
+  teamBuilding: boolean;
+  encadrement: boolean;
+}
+
+interface Package {
+  slug: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  includes: string[];
+  priceFrom: string;
+  features: Features;
+  ctaHref: string;
+  highlighted?: boolean;
+}
+
+interface Props {
+  packages: Package[];
+}
+
+const { packages } = Astro.props;
+const accent = '#3d4969';
+
+const featureRows: { key: keyof Features; label: string }[] = [
+  { key: 'salleEquipee', label: 'Salle équipée' },
+  { key: 'videoprojecteur', label: 'Vidéoprojecteur' },
+  { key: 'wifi', label: 'Wi-Fi' },
+  { key: 'parking', label: 'Parking' },
+  { key: 'petitDejeuner', label: 'Petit-déjeuner d\'accueil' },
+  { key: 'dejeuner', label: 'Déjeuner terroir' },
+  { key: 'pausesCafe', label: 'Pauses café' },
+  { key: 'teamBuilding', label: 'Activités team building' },
+  { key: 'encadrement', label: 'Encadrement dédié' },
+];
+---
+
+<!-- Desktop: comparison table -->
+<div class="hidden md:block">
+  <div class="overflow-x-auto">
+    <table class="w-full border-collapse">
+      <!-- Header row: package names -->
+      <thead>
+        <tr>
+          <th class="text-left py-4 pr-4 w-1/4"></th>
+          {packages.map((pkg) => (
+            <th class="text-center py-4 px-4" style={pkg.highlighted ? `border-top: 3px solid ${accent};` : undefined}>
+              {pkg.highlighted && (
+                <span
+                  class="inline-block text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full mb-2"
+                  style={`background-color: ${accent}15; color: ${accent};`}
+                >
+                  Recommandé
+                </span>
+              )}
+              <p class="text-xs font-medium uppercase tracking-wider" style={`color: ${accent}99;`}>
+                {pkg.subtitle}
+              </p>
+              <p class="font-heading text-lg font-bold mt-1" style={`color: ${accent};`}>
+                {pkg.title}
+              </p>
+            </th>
+          ))}
+        </tr>
+      </thead>
+
+      <!-- Feature rows -->
+      <tbody>
+        {featureRows.map((feature, i) => (
+          <tr class={i % 2 === 0 ? 'bg-gray-50/50' : ''}>
+            <td class="py-3 pr-4 text-sm text-gray-700 font-medium">{feature.label}</td>
+            {packages.map((pkg) => (
+              <td class="py-3 px-4 text-center">
+                {pkg.features[feature.key] ? (
+                  <svg class="w-5 h-5 mx-auto" style={`color: ${accent};`} viewBox="0 0 20 20" fill="currentColor" aria-label="Inclus">
+                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
+                  </svg>
+                ) : (
+                  <span class="text-gray-300 text-lg" aria-label="Non inclus">—</span>
+                )}
+              </td>
+            ))}
+          </tr>
+        ))}
+
+        <!-- Price row -->
+        <tr class="border-t border-gray-200">
+          <td class="py-4 pr-4 text-sm text-gray-700 font-bold">Tarif</td>
+          {packages.map((pkg) => (
+            <td class="py-4 px-4 text-center">
+              <span class="font-heading text-lg font-bold" style={`color: ${accent};`}>
+                {pkg.priceFrom}
+              </span>
+            </td>
+          ))}
+        </tr>
+
+        <!-- CTA row -->
+        <tr>
+          <td class="py-4 pr-4"></td>
+          {packages.map((pkg) => (
+            <td class="py-4 px-4 text-center">
+              <a
+                href={pkg.ctaHref}
+                class:list={[
+                  'inline-block px-6 py-3 rounded-lg font-medium transition-opacity hover:opacity-90',
+                  pkg.highlighted ? 'text-white' : '',
+                ]}
+                style={pkg.highlighted
+                  ? `background-color: ${accent}; color: white;`
+                  : `border: 1px solid ${accent}; color: ${accent};`
+                }
+              >
+                Demander un devis
+              </a>
+            </td>
+          ))}
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Mobile: stacked cards -->
+<div class="md:hidden space-y-6">
+  {packages.map((pkg) => (
+    <SeminarPackageCard
+      title={pkg.title}
+      subtitle={pkg.subtitle}
+      description={pkg.description}
+      inclusions={pkg.includes}
+      price={pkg.priceFrom}
+      ctaHref={pkg.ctaHref}
+      highlighted={pkg.highlighted}
+    />
+  ))}
+</div>
