@@ -60,11 +60,22 @@ const localizedDescription = getLocalizedField(activity, 'description', lang);
 const localizedPriceDetails = getLocalizedField(activity, 'priceDetails', lang);
 
 // Load compiled MDX content
-const mdxModules = import.meta.glob<{ Content: any }>('/src/content/activities/**/*.mdx', { eager: true });
-const mdxModule =
-  mdxModules[`/src/content/activities/locales/${activity.slug}.${lang}.mdx`] ??
-  mdxModules[`/src/content/activities/${activity.slug}.mdx`];
-const Content = mdxModule?.Content;
+// FR files only — eager (10 files, fast)
+const mdxModules = import.meta.glob<{ Content: any }>('/src/content/activities/*.mdx', { eager: true });
+// Locale files — lazy (only the one needed is loaded per page)
+const localeMdxModules = import.meta.glob<{ Content: any }>('/src/content/activities/locales/*.mdx');
+
+let Content: any = undefined;
+if (lang !== 'fr') {
+  const localeKey = `/src/content/activities/locales/${activity.slug}.${lang}.mdx`;
+  if (localeMdxModules[localeKey]) {
+    const mod = await localeMdxModules[localeKey]();
+    Content = mod.Content;
+  }
+}
+if (!Content) {
+  Content = mdxModules[`/src/content/activities/${activity.slug}.mdx`]?.Content;
+}
 
 // Placeholder images — cycled by slug hash for consistency
 const placeholderImages = [
@@ -113,8 +124,12 @@ const jsonLd = generateSportsActivityLD({
     <img
       src={heroImage}
       alt={localizedTitle}
+      width="1920"
+      height="1080"
       class="absolute inset-0 w-full h-full object-cover"
       loading="eager"
+      fetchpriority="high"
+      decoding="sync"
     />
     <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent" />
 

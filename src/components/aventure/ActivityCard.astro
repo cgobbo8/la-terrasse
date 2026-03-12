@@ -5,6 +5,7 @@
  * Matches original card design: rounded-2xl, translate-y hover, "Découvrir →" CTA.
  */
 import { Icon } from 'astro-icon/components';
+import { Image } from 'astro:assets';
 import { getLocalizedField, getLocalizedPath } from '@/i18n/utils';
 import { useTranslations } from '@/i18n/utils';
 import type { Lang } from '@/i18n/translations';
@@ -52,12 +53,13 @@ const cardBorder = variant === 'aquatique' ? 'border-aventure/10' : 'border-gray
   ]}
 >
   <div class="aspect-[16/10] overflow-hidden">
-    <img
+    <Image
       src={imageSrc}
       alt={localizedTitle}
-      width="640"
-      height="400"
+      width={640}
+      height={400}
       loading="lazy"
+      decoding="async"
       class="w-full h-full object-cover"
     />
   </div>

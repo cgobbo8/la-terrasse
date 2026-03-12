@@ -3,6 +3,8 @@
  * Hero section — used on every page as the emotional entry point.
  * Adapts color accent based on the pole.
  */
+import { Image } from 'astro:assets';
+
 interface Props {
   tagline: string;
   subtitle?: string;
@@ -26,11 +28,15 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
 
 <section class:list={['relative overflow-hidden bg-brun-terre', className]}>
   {image && (
-    <img
+    <Image
       src={image}
       alt=""
+      width={1920}
+      height={1080}
       class="absolute inset-0 w-full h-full object-cover"
       loading="eager"
+      fetchpriority="high"
+      decoding="sync"
     />
   )}
   <div class:list={['absolute inset-0 bg-gradient-to-t to-transparent', overlayClass]} />

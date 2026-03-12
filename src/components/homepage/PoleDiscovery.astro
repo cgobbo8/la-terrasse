@@ -1,5 +1,6 @@
 ---
 import { poleConfigs, type Pole } from '@/lib/pole-config';
+import { Image } from 'astro:assets';
 import type { Lang } from '@/i18n/translations';
 import { useTranslations, getLocalizedPath } from '@/i18n/utils';
 
@@ -32,11 +33,14 @@ const poles: { key: Pole; href: string; image: string }[] = [
         return (
           <div class="rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all">
             <div class="aspect-[3/2] overflow-hidden">
-              <img
+              <Image
                 src={image}
                 alt={`La Terrasse ${config.name}`}
+                width={640}
+                height={427}
                 class="w-full h-full object-cover"
                 loading="lazy"
+                decoding="async"
               />
             </div>
             <div class="p-6">
