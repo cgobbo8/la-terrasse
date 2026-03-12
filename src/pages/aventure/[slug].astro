@@ -3,6 +3,7 @@
  * Activity detail page — dynamic route for each Keystatic activity.
  * Pole: Aventure (vert végétal #537b47)
  */
+import { Icon } from 'astro-icon/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
@@ -142,10 +143,7 @@ const jsonLd = generateSportsActivityLD({
         <!-- Price -->
         {activity.price && (
           <div class="flex flex-col items-center text-center p-4 rounded-xl border border-gray-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="1" x2="12" y2="23"></line>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
-            </svg>
+            <Icon name="lucide:euro" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} />
             <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">{t('common.price')}</span>
             <span class="text-lg font-bold text-gray-800">{activity.price}</span>
             {activity.priceDetails && (
@@ -157,9 +155,7 @@ const jsonLd = generateSportsActivityLD({
         <!-- Age -->
         {activity.age_min != null && activity.age_min > 0 && (
           <div class="flex flex-col items-center text-center p-4 rounded-xl border border-gray-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd" />
-            </svg>
+            <Icon name="lucide:user" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} />
             <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">Âge</span>
             <span class="text-lg font-bold text-gray-800">Dès {activity.age_min} ans</span>
           </div>
@@ -168,9 +164,7 @@ const jsonLd = generateSportsActivityLD({
         <!-- Duration -->
         {activity.duration && (
           <div class="flex flex-col items-center text-center p-4 rounded-xl border border-gray-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} viewBox="0 0 20 20" fill="currentColor">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z" clip-rule="evenodd" />
-            </svg>
+            <Icon name="lucide:clock" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} />
             <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">{t('common.duration')}</span>
             <span class="text-lg font-bold text-gray-800">{activity.duration}</span>
           </div>
@@ -179,9 +173,7 @@ const jsonLd = generateSportsActivityLD({
         <!-- Group size -->
         {(activity.minPersons || activity.maxPersons) && (
           <div class="flex flex-col items-center text-center p-4 rounded-xl border border-gray-200">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} viewBox="0 0 20 20" fill="currentColor">
-              <path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z" />
-            </svg>
+            <Icon name="lucide:users" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} />
             <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">Groupe</span>
             <span class="text-lg font-bold text-gray-800">
               {activity.minPersons && activity.maxPersons

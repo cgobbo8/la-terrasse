@@ -1,5 +1,6 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
+  import { Menu, X, ChevronDown, Phone } from 'lucide-svelte';
 
   interface SubLink {
     label: string;
@@ -160,9 +161,7 @@
   aria-label="Menu"
   aria-expanded={isOpen}
 >
-  <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-    <path d="M4 6h16M4 12h16M4 18h16" />
-  </svg>
+  <Menu class="w-6 h-6" />
 </button>
 
 <!-- Portal container (moved to body on mount) -->
@@ -192,9 +191,7 @@
         class="min-w-11 min-h-11 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
         aria-label={labelClose}
       >
-        <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M6 18L18 6M6 6l12 12" />
-        </svg>
+        <X class="w-5 h-5" />
       </button>
     </div>
 
@@ -219,13 +216,10 @@
               aria-expanded={expandedPole === pole.id}
               aria-controls="submenu-{pole.id}"
             >
-              <svg
-                class="w-4 h-4 transition-transform duration-200"
-                class:rotate-180={expandedPole === pole.id}
-                viewBox="0 0 20 20" fill="currentColor"
-              >
-                <path fill-rule="evenodd" d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z" clip-rule="evenodd" />
-              </svg>
+              <ChevronDown
+                class="w-4 h-4 transition-transform duration-200 {expandedPole === pole.id ? 'rotate-180' : ''}"
+                size={16}
+              />
             </button>
           </div>
 
@@ -262,9 +256,7 @@
           onclick={close}
           class="flex items-center justify-center gap-2 min-h-11 text-sm text-gray-600 hover:text-brun-terre transition-colors"
         >
-          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z" />
-          </svg>
+          <Phone class="w-4 h-4 shrink-0" />
           <span>{formatPhone(phoneNumber)}</span>
         </a>
       </div>

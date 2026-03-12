@@ -4,6 +4,7 @@
  * Bleu ardoise (#3d4969) accent, clean professional table
  * Pure Astro component — no JS shipped
  */
+import { Icon } from 'astro-icon/components';
 import SeminarPackageCard from './SeminarPackageCard.astro';
 
 interface Features {
@@ -87,9 +88,7 @@ const featureRows: { key: keyof Features; label: string }[] = [
             {packages.map((pkg) => (
               <td class="py-3 px-4 text-center">
                 {pkg.features[feature.key] ? (
-                  <svg class="w-5 h-5 mx-auto" style={`color: ${accent};`} viewBox="0 0 20 20" fill="currentColor" aria-label="Inclus">
-                    <path fill-rule="evenodd" d="M16.704 4.153a.75.75 0 0 1 .143 1.052l-8 10.5a.75.75 0 0 1-1.127.075l-4.5-4.5a.75.75 0 0 1 1.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 0 1 1.05-.143Z" clip-rule="evenodd" />
-                  </svg>
+                  <Icon name="lucide:check" class="w-5 h-5 mx-auto" style={`color: ${accent};`} aria-label="Inclus" />
                 ) : (
                   <span class="text-gray-300 text-lg" aria-label="Non inclus">—</span>
                 )}

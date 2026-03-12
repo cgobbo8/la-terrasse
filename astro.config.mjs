@@ -7,21 +7,17 @@ import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
 import keystatic from '@keystatic/astro';
 
+import icon from 'astro-icon';
+
 export default defineConfig({
   site: 'https://laterrasse-saintferreol.fr',
   adapter: node({ mode: 'standalone' }),
-  integrations: [
-    svelte(),
-    react(),
-    mdx(),
-    keystatic(),
-    sitemap({
-      i18n: {
-        defaultLocale: 'fr',
-        locales: { fr: 'fr', en: 'en', es: 'es' },
-      },
-    }),
-  ],
+  integrations: [svelte(), react(), mdx(), keystatic(), sitemap({
+    i18n: {
+      defaultLocale: 'fr',
+      locales: { fr: 'fr', en: 'en', es: 'es' },
+    },
+  }), icon()],
   vite: {
     plugins: [tailwindcss()],
   },
