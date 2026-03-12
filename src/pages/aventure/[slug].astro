@@ -28,6 +28,8 @@ export async function getStaticPaths() {
     slug: a.slug,
     price: a.entry.price ?? '',
     priceDetails: a.entry.priceDetails ?? '',
+    priceDetails_en: a.entry.priceDetails_en ?? '',
+    priceDetails_es: a.entry.priceDetails_es ?? '',
     age_min: a.entry.age_min ?? 0,
     duration: a.entry.duration ?? '',
     image: a.entry.image ?? null,
@@ -55,10 +57,13 @@ const pole = poleConfigs.aventure;
 
 const localizedTitle = getLocalizedField(activity, 'title', lang);
 const localizedDescription = getLocalizedField(activity, 'description', lang);
+const localizedPriceDetails = getLocalizedField(activity, 'priceDetails', lang);
 
 // Load compiled MDX content
-const mdxModules = import.meta.glob<{ Content: any }>('/src/content/activities/*.mdx', { eager: true });
-const mdxModule = mdxModules[`/src/content/activities/${activity.slug}.mdx`];
+const mdxModules = import.meta.glob<{ Content: any }>('/src/content/activities/**/*.mdx', { eager: true });
+const mdxModule =
+  mdxModules[`/src/content/activities/locales/${activity.slug}.${lang}.mdx`] ??
+  mdxModules[`/src/content/activities/${activity.slug}.mdx`];
 const Content = mdxModule?.Content;
 
 // Placeholder images — cycled by slug hash for consistency
@@ -146,8 +151,8 @@ const jsonLd = generateSportsActivityLD({
             <Icon name="lucide:euro" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} />
             <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">{t('common.price')}</span>
             <span class="text-lg font-bold text-gray-800">{activity.price}</span>
-            {activity.priceDetails && (
-              <span class="text-xs text-gray-500 mt-0.5">{activity.priceDetails}</span>
+            {localizedPriceDetails && (
+              <span class="text-xs text-gray-500 mt-0.5">{localizedPriceDetails}</span>
             )}
           </div>
         )}

@@ -17,6 +17,14 @@ const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 const cta = getCtaForPole(pole);
 
+const ctaLabelLocalized = pole === 'aventure'
+  ? t('aventure.cta.label')
+  : pole === 'restaurant'
+    ? t('restaurant.cta.label')
+    : pole === 'evenements'
+      ? t('common.requestQuote')
+      : t('common.contact');
+
 // Build navigation data for Svelte components
 const megaMenuPoles = [
   {
@@ -148,7 +156,7 @@ const accentColors: Record<string, string> = {
         client:load
         poles={megaMenuPoles}
         transversalItems={transversalItems}
-        ctaLabel={cta.label}
+        ctaLabel={ctaLabelLocalized}
         ctaHref={cta.href}
         ctaColor={cta.accent}
         currentPole={pole}
@@ -165,7 +173,7 @@ const accentColors: Record<string, string> = {
         client:load
         poles={mobilePoles}
         transversalItems={mobileTransversal}
-        ctaLabel={cta.label}
+        ctaLabel={ctaLabelLocalized}
         ctaHref={cta.href}
         ctaColor={cta.accent}
         phoneNumber={phoneNumber}

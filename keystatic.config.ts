@@ -62,6 +62,8 @@ export default config({
         }),
         price: fields.text({ label: 'Prix (ex: 25€/h)' }),
         priceDetails: fields.text({ label: 'Détails prix (ex: pour 4-5 personnes)', multiline: true }),
+        priceDetails_en: fields.text({ label: 'Price details (EN)' }),
+        priceDetails_es: fields.text({ label: 'Detalles de precio (ES)' }),
         duration: fields.text({ label: 'Durée (ex: 1h, 2h, demi-journée)' }),
         minPersons: fields.integer({ label: 'Nombre minimum de personnes', defaultValue: 1 }),
         maxPersons: fields.integer({ label: 'Nombre maximum de personnes' }),

@@ -68,7 +68,7 @@ const seoDescription = 'Découvrez toutes les activités plein air au lac de Sai
     pole="aventure"
   >
     <a href="#activites" class="bg-white text-aventure px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
-      Voir les activités
+      {t('aventure.hub.viewActivities')}
     </a>
   </SectionHero>
 
@@ -139,14 +139,14 @@ const seoDescription = 'Découvrez toutes les activités plein air au lac de Sai
         {t('aventure.groups.title')}
       </h2>
       <p class="text-gray-600 mb-6">
-        Organisez une sortie de groupe — activités personnalisées pour entreprises, associations, écoles et groupes d'amis.
+        {t('aventure.hub.groupBody')}
       </p>
       <p class="text-gray-500 italic mb-6">
         {t('aventure.groups.cta')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href={getLocalizedPath('/en-groupe', lang)} class="bg-aventure text-white px-6 py-3 rounded-lg font-medium hover:bg-aventure/90 transition-colors">
-          Sortie de groupe
+          {t('aventure.hub.groupCta')}
         </a>
         <a href={getLocalizedPath('/contact', lang)} class="border border-aventure text-aventure px-6 py-3 rounded-lg font-medium hover:bg-aventure-light transition-colors">
           {t('common.contact')}

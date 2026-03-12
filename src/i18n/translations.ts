@@ -106,6 +106,9 @@ export const translations = {
     'aventure.cta.label': 'Réserver mon aventure',
     'aventure.activityNav.previous': 'Précédent',
     'aventure.activityNav.next': 'Suivant',
+    'aventure.hub.viewActivities': 'Voir les activités',
+    'aventure.hub.groupBody': 'Organisez une sortie de groupe — activités personnalisées pour entreprises, associations, écoles et groupes d\'amis.',
+    'aventure.hub.groupCta': 'Sortie de groupe',
 
     // Restaurant hub
     'restaurant.hub.viewMenu': 'Voir la carte',
@@ -426,6 +429,9 @@ export const translations = {
     'aventure.cta.label': 'Book my adventure',
     'aventure.activityNav.previous': 'Previous',
     'aventure.activityNav.next': 'Next',
+    'aventure.hub.viewActivities': 'View activities',
+    'aventure.hub.groupBody': 'Organize a group outing — customized activities for companies, associations, schools and groups of friends.',
+    'aventure.hub.groupCta': 'Group outing',
 
     // Restaurant hub
     'restaurant.hub.viewMenu': 'View menu',
@@ -739,6 +745,9 @@ export const translations = {
     'aventure.cta.label': 'Reservar mi aventura',
     'aventure.activityNav.previous': 'Anterior',
     'aventure.activityNav.next': 'Siguiente',
+    'aventure.hub.viewActivities': 'Ver las actividades',
+    'aventure.hub.groupBody': 'Organice una salida de grupo — actividades personalizadas para empresas, asociaciones, escuelas y grupos de amigos.',
+    'aventure.hub.groupCta': 'Salida en grupo',
 
     // Restaurant hub
     'restaurant.hub.viewMenu': 'Ver la carta',
