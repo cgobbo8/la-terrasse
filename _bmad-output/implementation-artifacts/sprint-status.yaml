@@ -95,7 +95,7 @@ development_status:
   epic-8-retrospective: optional
 
   # Epic 9: Content Management & Deployment
-  epic-9: backlog
-  9-1-keystatic-content-schema-collections: ready-for-dev
+  epic-9: in-progress
+  9-1-keystatic-content-schema-collections: review
   9-2-deployment-pipeline-auto-rebuild: ready-for-dev
   epic-9-retrospective: optional
