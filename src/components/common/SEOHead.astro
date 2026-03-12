@@ -26,9 +26,14 @@ const {
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const siteUrl = import.meta.env.SITE_URL ?? 'https://laterrasse-saintferreol.fr';
 const fullTitle = `${title} — La Terrasse`;
-const canonical = canonicalUrl ?? `${siteUrl}${Astro.url.pathname}`;
-const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
 const pathForHreflang = pagePath ?? (Astro.url.pathname.replace(/^\/(en|es)/, '') || '/');
+const localizedPath = getLocalizedPath(pathForHreflang, lang);
+const canonical = canonicalUrl ?? `${siteUrl}${localizedPath}`;
+const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${siteUrl}${ogImage}`;
+
+const ogLocales: Record<string, string> = { fr: 'fr_FR', en: 'en_GB', es: 'es_ES' };
+const currentOgLocale = ogLocales[lang] ?? 'fr_FR';
+const alternateOgLocales = Object.entries(ogLocales).filter(([l]) => l !== lang).map(([, v]) => v);
 ---
 
 <title>{fullTitle}</title>
@@ -42,6 +47,10 @@ const pathForHreflang = pagePath ?? (Astro.url.pathname.replace(/^\/(en|es)/, ''
 <meta property="og:image" content={ogImageUrl} />
 <meta property="og:url" content={canonical} />
 <meta property="og:type" content="website" />
+<meta property="og:locale" content={currentOgLocale} />
+{alternateOgLocales.map((locale) => (
+  <meta property="og:locale:alternate" content={locale} />
+))}
 
 <!-- Hreflang -->
 {Object.keys(languages).map((l) => (

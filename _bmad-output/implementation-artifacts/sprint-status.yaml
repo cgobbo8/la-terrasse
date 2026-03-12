@@ -91,7 +91,7 @@ development_status:
   # Epic 8: Internationalization
   epic-8: in-progress
   8-1-language-switcher-ui-translations: review
-  8-2-multilingual-content-seo: ready-for-dev
+  8-2-multilingual-content-seo: review
   epic-8-retrospective: optional
 
   # Epic 9: Content Management & Deployment
