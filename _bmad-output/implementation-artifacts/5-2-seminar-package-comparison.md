@@ -1,6 +1,6 @@
 # Story 5.2: Seminar Package Comparison
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -19,39 +19,39 @@ so that I can quickly identify which formula matches my budget and needs.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Create `src/components/evenements/SeminarPackageCard.astro` (AC: #1, #2, #6)
-  - [ ] Accept props: title, subtitle, description, inclusions (string[]), price (string), ctaHref (string), highlighted (boolean for featured/recommended)
-  - [ ] Render card with: subtitle (uppercase small), title (heading), description, inclusion list with bullet markers, price display, CTA button
-  - [ ] CTA button text: "Demander un devis" — href is a mailto: link (constructed by parent)
-  - [ ] Use bleu ardoise (#3d4969) accent via inline `style` for headings and CTA
-  - [ ] Optional `highlighted` prop adds a subtle border or "Recommandé" badge for Séminaire Gourmet (most popular)
-  - [ ] Card style: white background, rounded-2xl, border, hover shadow — consistent with existing evenements card pattern
+- [x] Task 1: Create `src/components/evenements/SeminarPackageCard.astro` (AC: #1, #2, #6)
+  - [x] Accept props: title, subtitle, description, inclusions (string[]), price (string), ctaHref (string), highlighted (boolean for featured/recommended)
+  - [x] Render card with: subtitle (uppercase small), title (heading), description, inclusion list with bullet markers, price display, CTA button
+  - [x] CTA button text: "Demander un devis" — href is a mailto: link (constructed by parent)
+  - [x] Use bleu ardoise (#3d4969) accent via inline `style` for headings and CTA
+  - [x] Optional `highlighted` prop adds a subtle border or "Recommandé" badge for Séminaire Gourmet (most popular)
+  - [x] Card style: white background, rounded-2xl, border, hover shadow — consistent with existing evenements card pattern
 
-- [ ] Task 2: Create `src/components/evenements/PackComparator.astro` (AC: #3, #4, #5)
-  - [ ] Accept props: packages (array of package objects from Keystatic seminars collection)
-  - [ ] Desktop (md+): Render a comparison table with feature rows
-    - [ ] Header row: package names
-    - [ ] Feature rows: each feature with check (included) or cross/dash (not included) per package
-    - [ ] Features to compare: Salle équipée, Vidéoprojecteur, Wi-Fi, Parking, Petit-déjeuner d'accueil, Déjeuner, Pauses café, Activités team building, Encadrement dédié
-    - [ ] Price row at bottom
-    - [ ] CTA row: "Demander un devis" per package
-  - [ ] Mobile (<md): Render stacked SeminarPackageCard components instead of table
-  - [ ] Use CSS `hidden md:block` / `md:hidden` for responsive switch (no JS needed)
-  - [ ] Check marks: bleu ardoise checkmark icon or bullet. Cross: gray dash or empty
-  - [ ] Clean, professional styling matching bleu ardoise pole identity
+- [x] Task 2: Create `src/components/evenements/PackComparator.astro` (AC: #3, #4, #5)
+  - [x] Accept props: packages (array of package objects from Keystatic seminars collection)
+  - [x] Desktop (md+): Render a comparison table with feature rows
+    - [x] Header row: package names
+    - [x] Feature rows: each feature with check (included) or cross/dash (not included) per package
+    - [x] Features to compare: Salle équipée, Vidéoprojecteur, Wi-Fi, Parking, Petit-déjeuner d'accueil, Déjeuner, Pauses café, Activités team building, Encadrement dédié
+    - [x] Price row at bottom
+    - [x] CTA row: "Demander un devis" per package
+  - [x] Mobile (<md): Render stacked SeminarPackageCard components instead of table
+  - [x] Use CSS `hidden md:block` / `md:hidden` for responsive switch (no JS needed)
+  - [x] Check marks: bleu ardoise checkmark icon or bullet. Cross: gray dash or empty
+  - [x] Clean, professional styling matching bleu ardoise pole identity
 
-- [ ] Task 3: Update `src/pages/evenements/index.astro` packages section (AC: #5, #6)
-  - [ ] Replace current hardcoded `packs` array (lines 16-38) with Keystatic seminars query
-  - [ ] Query: `const seminars = await getCollection('seminars');`
-  - [ ] Sort seminars by a sort_order field or fixed slug order: seminaire-simple, seminaire-gourmet, seminaire-aventure
-  - [ ] Replace current packages grid with PackComparator component
-  - [ ] Pass constructed mailto: hrefs per package (see Story 5.3 for format)
+- [x] Task 3: Update `src/pages/evenements/index.astro` packages section (AC: #5, #6)
+  - [x] Replace current hardcoded `packs` array (lines 16-38) with Keystatic seminars query
+  - [x] Query: `const seminars = await reader.collections.seminars.all();`
+  - [x] Sort seminars by a sort_order field or fixed slug order: seminaire-simple, seminaire-gourmet, seminaire-aventure
+  - [x] Replace current packages grid with PackComparator component
+  - [x] Pass constructed mailto: hrefs per package (see Story 5.3 for format)
 
-- [ ] Task 4: Verify Keystatic seminars collection schema (AC: #5)
-  - [ ] Confirm seminars collection has fields: title, subtitle, description, inclusions (list of strings), price (string), features (map of feature_name → boolean for comparator)
-  - [ ] If `features` field is missing, add it to keystatic.config.tsx seminars collection
-  - [ ] Ensure 3 entries exist: seminaire-simple, seminaire-gourmet, seminaire-aventure
-  - [ ] Seed with content from current hardcoded packs data if entries don't exist
+- [x] Task 4: Verify Keystatic seminars collection schema (AC: #5)
+  - [x] Confirm seminars collection has fields: title, subtitle, description, inclusions (list of strings), price (string), features (map of feature_name → boolean for comparator)
+  - [x] If `features` field is missing, add it to keystatic.config.tsx seminars collection
+  - [x] Ensure 3 entries exist: seminaire-simple, seminaire-gourmet, seminaire-aventure
+  - [x] Seed with content from current hardcoded packs data if entries don't exist
 
 ## Dev Notes
 
@@ -120,8 +120,33 @@ Mobile: 3 stacked SeminarPackageCard components
 
 ### Agent Model Used
 
+Claude Opus 4.6
+
 ### Debug Log References
+
+None — clean implementation with no blockers.
 
 ### Completion Notes List
 
+- Created SeminarPackageCard.astro: mobile card component with bleu ardoise accent, highlighted/recommended badge, CTA mailto button, checkmark inclusion list. Follows GroupFormulaCard pattern.
+- Created PackComparator.astro: responsive comparator — desktop renders a comparison table with 9 feature rows (check/dash), price row, CTA row; mobile renders stacked SeminarPackageCard components. Uses `hidden md:block` / `md:hidden` for responsive switch (zero JS).
+- Updated evenements/index.astro: replaced hardcoded packs array with Keystatic `reader.collections.seminars.all()` query, sorted by order field, integrated PackComparator component.
+- Added `features` object field to Keystatic seminars collection schema (9 boolean checkboxes for comparator features).
+- Seeded 3 seminar content files (seminaire-simple, seminaire-gourmet, seminaire-aventure) with appropriate feature flags, inclusions, and i18n placeholders.
+- Fixed pre-existing bug in `buildQuoteMailto()` that doubled "Séminaire" prefix in mailto subject lines.
+
 ### File List
+
+- src/components/evenements/SeminarPackageCard.astro (NEW)
+- src/components/evenements/PackComparator.astro (NEW)
+- src/content/seminars/seminaire-simple.mdx (NEW)
+- src/content/seminars/seminaire-gourmet.mdx (NEW)
+- src/content/seminars/seminaire-aventure.mdx (NEW)
+- src/pages/evenements/index.astro (MODIFIED)
+- keystatic.config.ts (MODIFIED)
+- src/lib/pole-config.ts (MODIFIED)
+- _bmad-output/implementation-artifacts/sprint-status.yaml (MODIFIED)
+
+### Change Log
+
+- 2026-03-12: Implemented story 5-2 — seminar package comparison with desktop table and mobile cards, Keystatic-driven data, mailto CTAs

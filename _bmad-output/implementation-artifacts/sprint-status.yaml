@@ -72,7 +72,7 @@ development_status:
   # Epic 5: Événements Pole — Seminars & Events
   epic-5: in-progress
   5-1-evenements-hub-venue-specs: review
-  5-2-seminar-package-comparison: in-progress
+  5-2-seminar-package-comparison: review
   5-3-quote-request-flow: review
   epic-5-retrospective: optional
 
