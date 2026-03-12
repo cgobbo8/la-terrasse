@@ -147,7 +147,7 @@ const accentColors: Record<string, string> = {
         <!-- Desktop: full logo + pole label -->
         <LogoTerrasseFull color="currentColor" height="1rem" class="hidden lg:block" />
         {pole && (
-          <span class="hidden lg:inline font-heading text-sm font-medium uppercase tracking-wider transition-colors duration-300" data-pole-label data-pole-color={accentColors[pole] ?? ''}>
+          <span class="hidden lg:inline whitespace-nowrap font-heading text-sm font-medium uppercase tracking-wider transition-colors duration-300" data-pole-label data-pole-color={accentColors[pole] ?? ''}>
             {pole === 'restaurant' ? t('nav.restaurant') : pole === 'aventure' ? t('nav.aventure') : t('nav.pole.salle')}
           </span>
         )}

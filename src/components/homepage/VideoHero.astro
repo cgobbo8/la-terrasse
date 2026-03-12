@@ -15,7 +15,7 @@ const { tagline, subtitle } = Astro.props;
 ---
 
 <section
-  class="video-hero relative min-h-[50vh] lg:min-h-[70vh] overflow-hidden bg-brun-terre"
+  class="video-hero relative min-h-[60vh] lg:min-h-[80vh] overflow-hidden bg-brun-terre -mt-16 flex flex-col"
   aria-label="Vue aérienne du lac de Saint-Ferréol"
 >
   <!-- Video — hidden when prefers-reduced-motion: reduce -->
@@ -42,18 +42,23 @@ const { tagline, subtitle } = Astro.props;
   <!-- Dark gradient overlay for text readability -->
   <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 
-  <!-- Text content -->
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-36 flex flex-col justify-end min-h-[50vh] lg:min-h-[70vh]">
-    <h1 class="font-heading text-4xl lg:text-6xl font-bold text-white max-w-3xl">
-      {tagline}
-    </h1>
-    {subtitle && (
-      <p class="mt-6 text-lg lg:text-xl text-white/80 max-w-2xl">
-        {subtitle}
-      </p>
-    )}
-    <div class="mt-8">
-      <slot />
+  <!-- Spacer: compensate for fixed header height -->
+  <div class="h-16 shrink-0" aria-hidden="true"></div>
+
+  <!-- Text content centered in visible area -->
+  <div class="relative z-10 flex-1 flex items-center">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <h1 class="font-heading text-4xl lg:text-6xl font-bold text-white max-w-3xl">
+        {tagline}
+      </h1>
+      {subtitle && (
+        <p class="mt-6 text-lg lg:text-xl text-white/80 max-w-2xl">
+          {subtitle}
+        </p>
+      )}
+      <div class="mt-8">
+        <slot />
+      </div>
     </div>
   </div>
 </section>

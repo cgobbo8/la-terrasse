@@ -26,7 +26,7 @@ const accentColors: Record<string, string> = {
 const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-brun-terre/80';
 ---
 
-<section class:list={['relative overflow-hidden bg-brun-terre', className]}>
+<section class:list={['relative overflow-hidden bg-brun-terre -mt-16 min-h-[60vh] lg:min-h-[80vh] flex flex-col', className]}>
   {image && (
     <Image
       src={image}
@@ -41,17 +41,23 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
   )}
   <div class:list={['absolute inset-0 bg-gradient-to-t to-transparent', overlayClass]} />
 
-  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 lg:py-36">
-    <h1 class="font-heading text-4xl lg:text-6xl font-bold text-white max-w-3xl">
-      {tagline}
-    </h1>
-    {subtitle && (
-      <p class="mt-6 text-lg lg:text-xl text-white/80 max-w-2xl">
-        {subtitle}
-      </p>
-    )}
-    <div class="mt-8">
-      <slot />
+  <!-- Spacer: compensate for fixed header height -->
+  <div class="h-16 shrink-0" aria-hidden="true"></div>
+
+  <!-- Content centered in visible area (below header) -->
+  <div class="relative flex-1 flex items-center">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
+      <h1 class="font-heading text-4xl lg:text-6xl font-bold text-white max-w-3xl">
+        {tagline}
+      </h1>
+      {subtitle && (
+        <p class="mt-6 text-lg lg:text-xl text-white/80 max-w-2xl">
+          {subtitle}
+        </p>
+      )}
+      <div class="mt-8">
+        <slot />
+      </div>
     </div>
   </div>
 </section>

@@ -149,6 +149,7 @@
   class="lg:hidden min-w-11 min-h-11 flex items-center justify-center text-gray-600 hover:text-brun-terre transition-colors"
   aria-label="Menu"
   aria-expanded={isOpen}
+  data-nav-trigger
 >
   <Menu class="w-6 h-6" />
 </button>
