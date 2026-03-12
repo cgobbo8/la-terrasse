@@ -12,7 +12,7 @@ interface Props {
 }
 
 const { currentPole } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const poles = [

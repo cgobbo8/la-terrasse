@@ -23,7 +23,7 @@ const {
   noindex = false,
 } = Astro.props;
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const siteUrl = import.meta.env.SITE_URL ?? 'https://laterrasse-saintferreol.fr';
 const fullTitle = `${title} — La Terrasse`;
 const canonical = canonicalUrl ?? `${siteUrl}${Astro.url.pathname}`;

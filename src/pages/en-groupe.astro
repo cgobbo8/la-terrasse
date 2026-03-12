@@ -9,7 +9,7 @@ import SectionHero from '@/components/common/SectionHero.astro';
 import JourneeTypeSection from '@/components/common/JourneeTypeSection.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const PHONE_NUMBER = '+33 5 XX XX XX XX';

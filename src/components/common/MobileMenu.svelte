@@ -29,6 +29,10 @@
     languages,
     currentLang,
     langPaths,
+    labelExperiences = 'Experiences',
+    labelClose = 'Fermer',
+    labelCloseMenu = 'Fermer le menu',
+    labelSubmenu = 'Sous-menu',
   }: {
     poles: PoleNav[];
     transversalItems: TransversalItem[];
@@ -39,6 +43,10 @@
     languages: Record<string, string>;
     currentLang: string;
     langPaths: Record<string, string>;
+    labelExperiences?: string;
+    labelClose?: string;
+    labelCloseMenu?: string;
+    labelSubmenu?: string;
   } = $props();
 
   function formatPhone(raw: string): string {
@@ -164,7 +172,7 @@
     <button
       class="fixed inset-0 bg-black/30 z-[9998] lg:hidden"
       onclick={close}
-      aria-label="Fermer le menu"
+      aria-label={labelCloseMenu}
     ></button>
   {/if}
 
@@ -182,7 +190,7 @@
         bind:this={closeBtn}
         onclick={close}
         class="min-w-11 min-h-11 flex items-center justify-center text-gray-400 hover:text-gray-600 transition-colors"
-        aria-label="Fermer"
+        aria-label={labelClose}
       >
         <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M6 18L18 6M6 6l12 12" />
@@ -207,7 +215,7 @@
             <button
               onclick={() => togglePole(pole.id)}
               class="min-w-11 min-h-11 flex items-center justify-center text-gray-400"
-              aria-label="Sous-menu {pole.label}"
+              aria-label="{labelSubmenu} {pole.label}"
               aria-expanded={expandedPole === pole.id}
               aria-controls="submenu-{pole.id}"
             >
@@ -239,7 +247,7 @@
 
       <!-- Transversal -->
       <div class="mt-5 mb-2">
-        <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-2">Experiences</p>
+        <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-2">{labelExperiences}</p>
         {#each transversalItems as item}
           <a href={item.href} onclick={close} class="block py-3 text-sm text-gray-600 hover:text-brun-terre transition-colors">
             {item.label}

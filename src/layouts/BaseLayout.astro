@@ -27,7 +27,7 @@ const {
   noindex = false,
 } = Astro.props;
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const poleConfig = pole ? poleConfigs[pole] : null;

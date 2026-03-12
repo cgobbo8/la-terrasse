@@ -4,7 +4,7 @@ import { PHONE_NUMBER, EMAIL_ADDRESS } from '@/lib/pole-config';
 import ContactLinks from './ContactLinks.astro';
 import LogoTerrasse from './LogoTerrasse.astro';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 ---
 

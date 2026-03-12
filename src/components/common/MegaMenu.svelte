@@ -42,6 +42,9 @@
     languages,
     currentLang,
     langPaths,
+    labelExplore = 'Explorer',
+    labelExperiences = 'Expériences',
+    labelComposeDay = 'Composez votre journée',
   }: {
     poles: PoleNav[];
     transversalItems: TransversalItem[];
@@ -52,6 +55,9 @@
     languages: Record<string, string>;
     currentLang: string;
     langPaths: Record<string, string>;
+    labelExplore?: string;
+    labelExperiences?: string;
+    labelComposeDay?: string;
   } = $props();
 
   let activeMenu = $state<string | null>(null);
@@ -186,7 +192,7 @@
           >
             <!-- Left: Sub links -->
             <div>
-              <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">Explorer</p>
+              <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">{labelExplore}</p>
               {#each pole.subLinks as link}
                 <a
                   href={link.href}
@@ -287,7 +293,7 @@
       aria-expanded={activeMenu === 'transversal'}
       onkeydown={(e) => handleTriggerKeydown(e, 'transversal')}
     >
-      Expériences
+      {labelExperiences}
       <svg
         class="w-3.5 h-3.5 transition-transform duration-200"
         class:rotate-180={activeMenu === 'transversal'}
@@ -309,7 +315,7 @@
           role="menu"
           data-menu="transversal"
         >
-          <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">Composez votre journée</p>
+          <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">{labelComposeDay}</p>
           {#each transversalItems as item}
             <a
               href={item.href}

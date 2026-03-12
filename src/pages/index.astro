@@ -18,7 +18,7 @@ import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 // Load Keystatic CMS data
@@ -70,7 +70,7 @@ const timeBlocks = [
 ];
 ---
 
-<BaseLayout title="Accueil" description="La Terrasse — Restaurant, Aventure et Événements au lac de Saint-Ferréol">
+<BaseLayout title={t('home.page.title')} description={t('home.page.description')} pagePath="/">
   <!-- 0. INTRO — Logo mask reveal (first visit only) -->
   <script is:inline>
     // Prevent flash: hide overlay immediately for return visitors (before Svelte hydrates)

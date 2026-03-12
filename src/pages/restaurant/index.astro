@@ -13,7 +13,7 @@ import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils'
 import { poleConfigs, PHONE_NUMBER } from '@/lib/pole-config';
 import { generateRestaurantLD } from '@/lib/seo';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const restaurant = poleConfigs.restaurant;

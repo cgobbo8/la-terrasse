@@ -13,7 +13,7 @@ interface Props {
 }
 
 const { pole = null } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 const cta = getCtaForPole(pole);
 
@@ -26,18 +26,18 @@ const megaMenuPoles = [
     color: pole === 'restaurant' ? 'text-restaurant' : 'text-gray-600',
     accentColor: 'restaurant',
     subLinks: [
-      { label: 'La carte', href: getLocalizedPath('/restaurant/carte', lang), description: 'Menu et plats de saison', icon: 'menu' },
-      { label: t('restaurant.producers.title'), href: getLocalizedPath('/restaurant/producteurs', lang), description: 'Circuits courts et terroir', icon: 'leaf' },
-      { label: t('restaurant.groups.title'), href: getLocalizedPath('/restaurant/repas-groupe', lang), description: 'Entreprises, assos, anniversaires', icon: 'users' },
+      { label: t('nav.restaurant.carte'), href: getLocalizedPath('/restaurant/carte', lang), description: t('nav.restaurant.carte.desc'), icon: 'menu' },
+      { label: t('restaurant.producers.title'), href: getLocalizedPath('/restaurant/producteurs', lang), description: t('nav.restaurant.producteurs.desc'), icon: 'leaf' },
+      { label: t('restaurant.groups.title'), href: getLocalizedPath('/restaurant/repas-groupe', lang), description: t('nav.restaurant.groupes.desc'), icon: 'users' },
     ],
     featured: {
-      title: 'Une cuisine au bord du lac',
-      description: 'Produits locaux, plats faits maison, vue sur le lac de Saint-Ferréol.',
+      title: t('nav.restaurant.featured.title'),
+      description: t('nav.restaurant.featured.desc'),
       href: getLocalizedPath('/restaurant', lang),
-      cta: 'Découvrir le restaurant',
+      cta: t('nav.restaurant.featured.cta'),
     },
     crossSell: {
-      text: 'Après le repas, profitez des activités',
+      text: t('nav.restaurant.crossSell'),
       href: getLocalizedPath('/aventure', lang),
       targetPole: 'aventure',
     },
@@ -49,19 +49,19 @@ const megaMenuPoles = [
     color: pole === 'aventure' ? 'text-aventure' : 'text-gray-600',
     accentColor: 'aventure',
     subLinks: [
-      { label: 'Pédalo', href: getLocalizedPath('/aventure/pedalo', lang), description: '25€/h — 4-5 personnes', icon: 'boat' },
-      { label: 'Paddle', href: getLocalizedPath('/aventure/paddle', lang), description: '12€/h par personne', icon: 'waves' },
-      { label: 'Mini-golf', href: getLocalizedPath('/aventure/mini-golf', lang), description: '8€ par personne', icon: 'flag' },
-      { label: 'Toutes les activités', href: getLocalizedPath('/aventure', lang) + '#activites', description: 'Aquatiques et terrestres', icon: 'compass' },
+      { label: t('nav.aventure.pedalo'), href: getLocalizedPath('/aventure/pedalo', lang), description: t('nav.aventure.pedalo.desc'), icon: 'boat' },
+      { label: t('nav.aventure.paddle'), href: getLocalizedPath('/aventure/paddle', lang), description: t('nav.aventure.paddle.desc'), icon: 'waves' },
+      { label: t('nav.aventure.miniGolf'), href: getLocalizedPath('/aventure/mini-golf', lang), description: t('nav.aventure.miniGolf.desc'), icon: 'flag' },
+      { label: t('nav.aventure.all'), href: getLocalizedPath('/aventure', lang) + '#activites', description: t('nav.aventure.all.desc'), icon: 'compass' },
     ],
     featured: {
-      title: 'Activités nature au lac',
-      description: 'Aquatiques ou terrestres, seul ou en groupe, profitez du cadre.',
+      title: t('nav.aventure.featured.title'),
+      description: t('nav.aventure.featured.desc'),
       href: getLocalizedPath('/aventure', lang),
-      cta: 'Voir les activités',
+      cta: t('nav.aventure.featured.cta'),
     },
     crossSell: {
-      text: 'Déjeunez sur place après votre activité',
+      text: t('nav.aventure.crossSell'),
       href: getLocalizedPath('/restaurant', lang),
       targetPole: 'restaurant',
     },
@@ -73,19 +73,19 @@ const megaMenuPoles = [
     color: pole === 'evenements' ? 'text-bleu-ardoise' : 'text-gray-600',
     accentColor: 'evenements',
     subLinks: [
-      { label: 'La salle', href: getLocalizedPath('/evenements', lang) + '#salle', description: 'Capacité et équipements', icon: 'building' },
-      { label: 'Séminaire Simple', href: getLocalizedPath('/evenements/seminaire-simple', lang), description: 'Location sèche', icon: 'briefcase' },
-      { label: 'Séminaire Gourmet', href: getLocalizedPath('/evenements/seminaire-gourmet', lang), description: 'Avec restauration', icon: 'utensils' },
-      { label: 'Séminaire Aventure', href: getLocalizedPath('/evenements/seminaire-aventure', lang), description: 'Team building complet', icon: 'trophy' },
+      { label: t('nav.evenements.salle'), href: getLocalizedPath('/evenements', lang) + '#salle', description: t('nav.evenements.salle.desc'), icon: 'building' },
+      { label: t('nav.evenements.simple'), href: getLocalizedPath('/evenements/seminaire-simple', lang), description: t('nav.evenements.simple.desc'), icon: 'briefcase' },
+      { label: t('nav.evenements.gourmet'), href: getLocalizedPath('/evenements/seminaire-gourmet', lang), description: t('nav.evenements.gourmet.desc'), icon: 'utensils' },
+      { label: t('nav.evenements.aventure'), href: getLocalizedPath('/evenements/seminaire-aventure', lang), description: t('nav.evenements.aventure.desc'), icon: 'trophy' },
     ],
     featured: {
-      title: 'Un cadre inspirant pour vos événements',
-      description: 'Séminaires, team building et événements d\'entreprise en pleine nature.',
+      title: t('nav.evenements.featured.title'),
+      description: t('nav.evenements.featured.desc'),
       href: getLocalizedPath('/evenements', lang),
-      cta: 'Découvrir les formules',
+      cta: t('nav.evenements.featured.cta'),
     },
     crossSell: {
-      text: 'Découvrez nos journées entreprise complètes',
+      text: t('nav.evenements.crossSell'),
       href: getLocalizedPath('/en-entreprise', lang),
       targetPole: 'evenements',
     },
@@ -93,9 +93,9 @@ const megaMenuPoles = [
 ];
 
 const transversalItems = [
-  { label: t('nav.enFamille'), href: getLocalizedPath('/en-famille', lang), description: 'Activités + repas en famille' },
-  { label: t('nav.enGroupe'), href: getLocalizedPath('/en-groupe', lang), description: 'Sorties asso, clubs, amis' },
-  { label: t('nav.enEntreprise'), href: getLocalizedPath('/en-entreprise', lang), description: 'Séminaire + team building' },
+  { label: t('nav.enFamille'), href: getLocalizedPath('/en-famille', lang), description: t('nav.famille.desc') },
+  { label: t('nav.enGroupe'), href: getLocalizedPath('/en-groupe', lang), description: t('nav.groupe.desc') },
+  { label: t('nav.enEntreprise'), href: getLocalizedPath('/en-entreprise', lang), description: t('nav.entreprise.desc') },
 ];
 
 const mobilePoles = megaMenuPoles.map(p => ({
@@ -134,7 +134,7 @@ const accentColors: Record<string, string> = {
         <LogoTerrasse color="#2D2B1B" height="1.5rem" />
         {pole && (
           <span class={`font-heading text-sm font-medium uppercase tracking-wider ${accentColors[pole] ?? ''}`}>
-            {pole === 'restaurant' ? 'Restaurant' : pole === 'aventure' ? 'Aventure' : 'Événement'}
+            {pole === 'restaurant' ? t('nav.restaurant') : pole === 'aventure' ? t('nav.aventure') : t('nav.pole.evenement')}
           </span>
         )}
       </a>
@@ -155,6 +155,9 @@ const accentColors: Record<string, string> = {
         languages={languages}
         currentLang={lang}
         langPaths={langPaths}
+        labelExplore={t('nav.explore')}
+        labelExperiences={t('nav.experiences')}
+        labelComposeDay={t('nav.composeDay')}
       />
 
       <!-- Mobile: Burger only (slide-out panel portals to body) -->
@@ -169,6 +172,10 @@ const accentColors: Record<string, string> = {
         languages={languages}
         currentLang={lang}
         langPaths={langPaths}
+        labelExperiences={t('nav.experiences')}
+        labelClose={t('nav.close')}
+        labelCloseMenu={t('nav.closeMenu')}
+        labelSubmenu={t('nav.submenu')}
       />
     </div>
   </nav>

@@ -14,7 +14,7 @@ import { generateSportsActivityLD } from '@/lib/seo';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 // Load activities from Keystatic

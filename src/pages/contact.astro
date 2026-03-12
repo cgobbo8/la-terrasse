@@ -8,7 +8,7 @@ import SectionHero from '@/components/common/SectionHero.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { generateLocalBusinessLD } from '@/lib/seo';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const phone = '05 61 83 XX XX';
