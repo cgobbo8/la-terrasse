@@ -1,6 +1,6 @@
 # Story 5.3: Quote Request Flow
 
-Status: ready-for-dev
+Status: review
 
 ## Story
 
@@ -18,38 +18,38 @@ so that my inquiry reaches the operator with enough context to respond quickly.
 
 ## Tasks / Subtasks
 
-- [ ] Task 1: Define mailto: link construction utility (AC: #1, #2, #3, #5)
-  - [ ] Create helper function `buildQuoteMailto(packageName?: string): string` in `src/lib/pole-config.ts` or `src/lib/utils.ts`
-  - [ ] If packageName provided: `mailto:contact@laterrasse.fr?subject=Demande%20de%20devis%20%E2%80%94%20S%C3%A9minaire%20${encodeURIComponent(packageName)}`
-  - [ ] If no packageName: `mailto:contact@laterrasse.fr?subject=Demande%20de%20devis%20%E2%80%94%20S%C3%A9minaire`
-  - [ ] URL-encode the entire subject line properly (accented characters, em dash)
-  - [ ] Export for use in Astro components
+- [x] Task 1: Define mailto: link construction utility (AC: #1, #2, #3, #5)
+  - [x] Create helper function `buildQuoteMailto(packageName?: string): string` in `src/lib/pole-config.ts` or `src/lib/utils.ts`
+  - [x] If packageName provided: `mailto:contact@laterrasse.fr?subject=Demande%20de%20devis%20%E2%80%94%20S%C3%A9minaire%20${encodeURIComponent(packageName)}`
+  - [x] If no packageName: `mailto:contact@laterrasse.fr?subject=Demande%20de%20devis%20%E2%80%94%20S%C3%A9minaire`
+  - [x] URL-encode the entire subject line properly (accented characters, em dash)
+  - [x] Export for use in Astro components
 
-- [ ] Task 2: Update package CTAs in evenements page (AC: #2)
-  - [ ] In PackComparator.astro / SeminarPackageCard.astro: construct mailto: href using `buildQuoteMailto(package.title)` for each package
-  - [ ] Verify each CTA renders `<a href="mailto:...">Demander un devis</a>` with correct package-specific subject
-  - [ ] Test that clicking opens email client with correct pre-filled subject
+- [x] Task 2: Update package CTAs in evenements page (AC: #2)
+  - [x] In PackComparator.astro / SeminarPackageCard.astro: construct mailto: href using `buildQuoteMailto(package.title)` for each package
+  - [x] Verify each CTA renders `<a href="mailto:...">Demander un devis</a>` with correct package-specific subject
+  - [x] Test that clicking opens email client with correct pre-filled subject
 
-- [ ] Task 3: Update generic CTAs on événements pages (AC: #3)
-  - [ ] Événements hub hero CTA: replace current `/contact` link with `buildQuoteMailto()` (no package name)
-  - [ ] En-entreprise page "Demander un devis sur mesure" CTA: update href to `buildQuoteMailto()`
-  - [ ] Any other "Demander un devis" links on événements-related pages: audit and update
+- [x] Task 3: Update generic CTAs on événements pages (AC: #3)
+  - [x] Événements hub hero CTA: replace current `/contact` link with `buildQuoteMailto()` (no package name)
+  - [x] En-entreprise page "Demander un devis sur mesure" CTA: update href to `buildQuoteMailto()`
+  - [x] Any other "Demander un devis" links on événements-related pages: audit and update
 
-- [ ] Task 4: Verify sticky CTA configuration in pole-config.ts (AC: #4)
-  - [ ] Confirm evenements pole config has `ctaLabel: "Demander un devis"` and `ctaHref` pointing to mailto: link
-  - [ ] If pole-config.ts doesn't exist yet (Story 1.1 dependency), document the expected config:
+- [x] Task 4: Verify sticky CTA configuration in pole-config.ts (AC: #4)
+  - [x] Confirm evenements pole config has `ctaLabel: "Demander un devis"` and `ctaHref` pointing to mailto: link
+  - [x] If pole-config.ts doesn't exist yet (Story 1.1 dependency), document the expected config:
     ```ts
     evenements: {
       ctaLabel: 'Demander un devis',
       ctaHref: 'mailto:contact@laterrasse.fr?subject=Demande%20de%20devis%20%E2%80%94%20Séminaire',
     }
     ```
-  - [ ] Sticky CTA in header resolves from pole-config.ts when `pole="evenements"` — no hardcoded mailto: in header
+  - [x] Sticky CTA in header resolves from pole-config.ts when `pole="evenements"` — no hardcoded mailto: in header
 
-- [ ] Task 5: Audit all événements-related CTAs for consistency (AC: #1, #2, #3)
-  - [ ] List all "Demander un devis" links across: evenements/index.astro, en-entreprise.astro, any seminar detail pages
-  - [ ] Ensure all use `buildQuoteMailto()` utility (or hardcoded equivalent if utility not yet available)
-  - [ ] Ensure none point to a non-existent `/contact` page for quote requests
+- [x] Task 5: Audit all événements-related CTAs for consistency (AC: #1, #2, #3)
+  - [x] List all "Demander un devis" links across: evenements/index.astro, en-entreprise.astro, any seminar detail pages
+  - [x] Ensure all use `buildQuoteMailto()` utility (or hardcoded equivalent if utility not yet available)
+  - [x] Ensure none point to a non-existent `/contact` page for quote requests
 
 ## Dev Notes
 
@@ -109,9 +109,26 @@ The sticky CTA (Story 1.4) displays in the header when scrolled past the hero. F
 ## Dev Agent Record
 
 ### Agent Model Used
+Claude Opus 4.6
 
 ### Debug Log References
+None — clean implementation, no issues encountered.
 
 ### Completion Notes List
+- Created `buildQuoteMailto(packageName?: string)` utility in `src/lib/pole-config.ts` using `EMAIL_ADDRESS` constant and `encodeURIComponent()` for proper URL encoding of subject with em dash and accented characters
+- Updated evenements pole config `ctaHref` to use `buildQuoteMailto()` for the sticky CTA
+- Replaced all `/contact` hrefs on événements hub hero, groups section, and en-entreprise hero/section CTAs with `buildQuoteMailto()`
+- PackComparator receives `ctaHref: buildQuoteMailto(s.entry.title)` per package from the evenements index page, providing package-specific subjects
+- SeminarPackageCard receives `ctaHref` prop from PackComparator — chain is complete
+- Audited all "Demander un devis" CTAs across the codebase — none point to `/contact` for événements pages
+- Build passes cleanly with no errors
 
 ### File List
+- `src/lib/pole-config.ts` — Added `buildQuoteMailto()` utility, updated evenements `ctaHref`
+- `src/pages/evenements/index.astro` — Replaced `/contact` CTAs with `buildQuoteMailto()`, uses PackComparator with package-specific mailto hrefs
+- `src/pages/en-entreprise.astro` — Replaced `/contact` CTAs with `buildQuoteMailto()`
+- `_bmad-output/implementation-artifacts/sprint-status.yaml` — Updated story status
+- `_bmad-output/implementation-artifacts/5-3-quote-request-flow.md` — Updated tasks, status, dev agent record
+
+### Change Log
+- 2026-03-11: Implemented quote request flow — all "Demander un devis" CTAs now use mailto: links with pre-filled subject lines via centralized `buildQuoteMailto()` utility

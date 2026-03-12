@@ -2,6 +2,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { buildQuoteMailto } from '@/lib/pole-config';
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
@@ -9,7 +10,7 @@ const t = useTranslations(lang);
 
 <BaseLayout title="En Entreprise" description={t('entreprise.hero.tagline')}>
   <SectionHero tagline={t('entreprise.hero.tagline')} subtitle="Séminaire, repas d'équipe et activités de cohésion au lac de Saint-Ferréol" pole="evenements">
-    <a href={getLocalizedPath('/contact', lang)} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+    <a href={buildQuoteMailto()} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
       Demander un devis
     </a>
   </SectionHero>
@@ -47,7 +48,7 @@ const t = useTranslations(lang);
         <a href={getLocalizedPath('/evenements', lang)} class="bg-bleu-ardoise text-white px-6 py-3 rounded-lg font-medium hover:bg-bleu-ardoise/90 transition-colors">
           Voir les packs séminaire
         </a>
-        <a href={getLocalizedPath('/contact', lang)} class="border border-bleu-ardoise text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-evenements-light transition-colors">
+        <a href={buildQuoteMailto()} class="border border-bleu-ardoise text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-evenements-light transition-colors">
           Demander un devis sur mesure
         </a>
       </div>

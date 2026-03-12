@@ -8,10 +8,12 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import VenueSpecs from '@/components/evenements/VenueSpecs.astro';
+import PackComparator from '@/components/evenements/PackComparator.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
 import { generateEventVenueLD } from '@/lib/seo';
+import { buildQuoteMailto } from '@/lib/pole-config';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
 
@@ -39,29 +41,23 @@ const layoutOptions = venueData
     || []
   : [] as readonly { name: string; capacity: number }[];
 
-const packs = [
-  {
-    slug: 'seminaire-simple',
-    title: 'Séminaire Simple',
-    subtitle: 'Location sèche',
-    description: 'La salle et les équipements pour votre réunion ou formation.',
-    includes: ['Salle équipée', 'Vidéoprojecteur', 'Wi-Fi', 'Parking'],
-  },
-  {
-    slug: 'seminaire-gourmet',
-    title: 'Séminaire Gourmet',
-    subtitle: 'Avec restauration',
-    description: 'Votre séminaire accompagné d\'un repas fait maison avec des produits locaux.',
-    includes: ['Salle équipée', 'Petit-déjeuner d\'accueil', 'Déjeuner', 'Pauses café'],
-  },
-  {
-    slug: 'seminaire-aventure',
-    title: 'Séminaire Aventure',
-    subtitle: 'Team building complet',
-    description: 'La journée de cohésion parfaite : séminaire, repas et activités nature.',
-    includes: ['Salle équipée', 'Repas', 'Activités team building', 'Encadrement'],
-  },
-];
+// Load seminar packages from Keystatic
+const allSeminars = await reader.collections.seminars.all();
+const seminars = allSeminars
+  .filter((s) => s.entry.visible)
+  .sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0));
+
+const packages = seminars.map((s) => ({
+  slug: s.slug,
+  title: s.entry.title,
+  subtitle: s.entry.subtitle ?? '',
+  description: s.entry.description ?? '',
+  includes: [...(s.entry.includes ?? [])],
+  priceFrom: s.entry.priceFrom ?? 'Sur devis',
+  features: s.entry.features,
+  ctaHref: buildQuoteMailto(s.entry.title),
+  highlighted: s.slug === 'seminaire-gourmet',
+}));
 
 const seoTitle = 'Séminaire nature près de Toulouse — La Terrasse Saint-Ferréol';
 const seoDescription = 'Salle de séminaire au lac de Saint-Ferréol : capacité jusqu\'à ' + capacityStanding + ' personnes, équipements modernes, cadre nature. Formules séminaire, restauration et team building.';
@@ -85,7 +81,7 @@ const jsonLd = generateEventVenueLD({
     subtitle={t('evenements.hero.subtitle')}
     pole="evenements"
   >
-    <a href={getLocalizedPath('/contact', lang)} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+    <a href={buildQuoteMailto()} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
       Demander un devis
     </a>
   </SectionHero>
@@ -106,37 +102,13 @@ const jsonLd = generateEventVenueLD({
     />
   </div>
 
-  <!-- LES PACKS — Nommés par expérience -->
+  <!-- LES PACKS — Comparateur side-by-side -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="font-heading text-2xl font-bold text-center mb-8" style="color: #3d4969;">
         {t('evenements.packs.title')}
       </h2>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        {packs.map((pack) => (
-          <a
-            href={getLocalizedPath(`/evenements/${pack.slug}`, lang)}
-            class="group block bg-white rounded-2xl border border-gray-200 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all"
-          >
-            <div class="p-8">
-              <p class="text-sm font-medium uppercase tracking-wider" style="color: #3d4969; opacity: 0.6;">{pack.subtitle}</p>
-              <h3 class="font-heading text-xl font-bold mt-1 mb-3" style="color: #3d4969;">{pack.title}</h3>
-              <p class="text-gray-600 text-sm mb-6">{pack.description}</p>
-              <ul class="space-y-2">
-                {pack.includes.map((item) => (
-                  <li class="flex items-center gap-2 text-sm text-gray-600">
-                    <span class="w-1.5 h-1.5 rounded-full" style="background-color: #3d4969; opacity: 0.4;" />
-                    {item}
-                  </li>
-                ))}
-              </ul>
-              <span class="inline-block mt-6 text-sm font-medium group-hover:underline" style="color: #3d4969;">
-                En savoir plus →
-              </span>
-            </div>
-          </a>
-        ))}
-      </div>
+      <PackComparator packages={packages} />
     </div>
   </section>
 
@@ -150,7 +122,7 @@ const jsonLd = generateEventVenueLD({
         <a href={getLocalizedPath('/en-entreprise', lang)} class="text-white px-6 py-3 rounded-lg font-medium transition-colors" style="background-color: #3d4969;">
           Journée entreprise complète
         </a>
-        <a href={getLocalizedPath('/contact', lang)} class="px-6 py-3 rounded-lg font-medium transition-colors" style="border: 1px solid #3d4969; color: #3d4969;">
+        <a href={buildQuoteMailto()} class="px-6 py-3 rounded-lg font-medium transition-colors" style="border: 1px solid #3d4969; color: #3d4969;">
           Demander un devis
         </a>
       </div>

@@ -12,6 +12,17 @@ export interface PoleConfig {
 export const PHONE_NUMBER = '+33000000000';
 export const EMAIL_ADDRESS = 'contact@laterrasse-saintferreol.fr';
 
+/**
+ * Build a mailto: link for quote requests.
+ * @param packageName — Optional seminar package name for subject specificity
+ */
+export function buildQuoteMailto(packageName?: string): string {
+  const subject = packageName
+    ? `Demande de devis — ${packageName}`
+    : 'Demande de devis — Séminaire';
+  return `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(subject)}`;
+}
+
 export const poleConfigs: Record<Pole, PoleConfig> = {
   restaurant: {
     name: 'Restaurant',
@@ -32,7 +43,7 @@ export const poleConfigs: Record<Pole, PoleConfig> = {
     accent: '#3d4969',
     light: '#edf0f5',
     ctaLabel: 'Demander un devis',
-    ctaHref: `mailto:${EMAIL_ADDRESS}?subject=Demande%20de%20devis`,
+    ctaHref: buildQuoteMailto(),
   },
 };
 
