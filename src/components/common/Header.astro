@@ -80,16 +80,8 @@ const megaMenuPoles = [
     color: pole === 'salle' ? 'text-bleu-ardoise' : 'text-gray-600',
     accentColor: 'salle',
     subLinks: [
-      // Événementiel column
-      { label: t('nav.salle.concerts'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.concerts.desc'), icon: 'music', category: t('nav.salle.category.evenementiel') },
-      { label: t('nav.salle.foires'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.foires.desc'), icon: 'store', category: t('nav.salle.category.evenementiel') },
-      { label: t('nav.salle.soirees'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.soirees.desc'), icon: 'sparkles', category: t('nav.salle.category.evenementiel') },
-      { label: t('nav.salle.marches'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.marches.desc'), icon: 'shopping-bag', category: t('nav.salle.category.evenementiel') },
-      // Séminaires & Pro column
-      { label: t('nav.salle.seminaires'), href: getLocalizedPath('/la-salle/seminaires', lang), description: t('nav.salle.seminaires.desc'), icon: 'briefcase', category: t('nav.salle.category.pro') },
-      { label: t('nav.salle.congres'), href: getLocalizedPath('/la-salle/seminaires', lang), description: t('nav.salle.congres.desc'), icon: 'presentation', category: t('nav.salle.category.pro') },
-      { label: t('nav.salle.formations'), href: getLocalizedPath('/la-salle/seminaires', lang), description: t('nav.salle.formations.desc'), icon: 'graduation-cap', category: t('nav.salle.category.pro') },
-      { label: t('nav.salle.teambuilding'), href: getLocalizedPath('/la-salle/seminaires', lang), description: t('nav.salle.teambuilding.desc'), icon: 'users', category: t('nav.salle.category.pro') },
+      { label: t('nav.salle.evenementiel'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.evenementiel.desc'), icon: 'music' },
+      { label: t('nav.salle.seminairesPro'), href: getLocalizedPath('/la-salle/seminaires', lang), description: t('nav.salle.seminairesPro.desc'), icon: 'briefcase' },
     ],
     featured: {
       title: t('nav.salle.featured.title'),

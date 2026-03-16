@@ -205,7 +205,7 @@
             class="bg-white rounded-2xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 p-6 grid grid-rows-[1fr_auto] gap-6 animate-[megaFadeIn_0.15s_ease-out]"
             class:grid-cols-[1fr_16rem]={!hasCategories}
             class:grid-cols-[1fr_1fr_16rem]={hasCategories}
-            class:min-w-[32rem]={!hasCategories}
+            class:min-w-[40rem]={!hasCategories}
             class:min-w-[48rem]={hasCategories}
             role="menu"
             data-menu={pole.id}
