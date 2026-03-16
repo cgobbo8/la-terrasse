@@ -10,6 +10,7 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
+import SoireesSection from '@/components/homepage/SoireesSection.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { poleConfigs, PHONE_NUMBER } from '@/lib/pole-config';
 import { generateRestaurantLD } from '@/lib/seo';
@@ -20,8 +21,8 @@ const t = useTranslations(lang);
 const restaurant = poleConfigs.restaurant;
 const jsonLd = generateRestaurantLD();
 
-const seoTitle = 'Restaurant au lac de Saint-Ferréol — La Terrasse';
-const seoDescription = 'Restaurant avec terrasse et vue sur le lac de Saint-Ferréol. Cuisine locale et de saison, producteurs du terroir, repas de groupe. Réservez votre table.';
+const seoTitle = 'Restaurant & Soirées au lac de Saint-Ferréol — La Terrasse';
+const seoDescription = 'Tapas, burgers, salades et soirées en terrasse face au lac de Saint-Ferréol. Concerts, karaoké, blind test. Producteurs locaux, ambiance guinguette.';
 
 const subPages = [
   {
@@ -104,6 +105,9 @@ const subPages = [
       </div>
     </div>
   </section>
+
+  <!-- Soirées en terrasse -->
+  <SoireesSection lang={lang} hideRestaurantCta />
 
   <!-- CTA — Réserver votre table -->
   <section class="py-12 lg:py-24" style={`background-color: ${restaurant.accent}`}>

@@ -1,0 +1,70 @@
+---
+import type { Lang } from '@/i18n/translations';
+import { useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { Icon } from 'astro-icon/components';
+
+interface Props {
+  lang: Lang;
+  hideRestaurantCta?: boolean;
+}
+
+const { lang, hideRestaurantCta = false } = Astro.props;
+const t = useTranslations(lang);
+
+const soireeTypes = [
+  { icon: 'lucide:music', label: 'Concerts en terrasse', color: '#537b47' },
+  { icon: 'lucide:mic', label: 'Soirées karaoké', color: '#2D2B1B' },
+  { icon: 'lucide:brain', label: 'Blind tests', color: '#3d4969' },
+  { icon: 'lucide:disc-3', label: 'DJ sets', color: '#c27a2a' },
+];
+---
+
+<section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite overflow-hidden">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+      <!-- Left: content -->
+      <div>
+        <span class="text-sm font-semibold uppercase tracking-wider text-brun-terre/60 mb-3 block">
+          Restaurant & soirées
+        </span>
+        <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre mb-6">
+          {t('home.soirees.title')}
+        </h2>
+        <p class="text-lg text-gray-600 leading-relaxed mb-8">
+          {t('home.soirees.body')}
+        </p>
+        <div class="flex flex-wrap gap-3">
+          <a
+            href={getLocalizedPath('/agenda', lang)}
+            class="bg-brun-terre text-white px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/90 transition-colors"
+          >
+            {t('home.soirees.ctaAgenda')}
+          </a>
+          {!hideRestaurantCta && (
+            <a
+              href={getLocalizedPath('/restaurant', lang)}
+              class="border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors"
+            >
+              {t('home.soirees.ctaRestaurant')}
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Right: visual grid of soirée types -->
+      <div class="grid grid-cols-2 gap-4">
+        {soireeTypes.map((item) => (
+          <div class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
+            <div
+              class="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
+              style={`background-color: ${item.color}15;`}
+            >
+              <Icon name={item.icon} class="w-6 h-6" style={`color: ${item.color};`} />
+            </div>
+            <p class="font-heading font-bold text-sm text-gray-900">{item.label}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

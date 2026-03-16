@@ -59,7 +59,7 @@ export function generateRestaurantLD(): string {
     url: `${BUSINESS_INFO.url}/restaurant`,
     telephone: BUSINESS_INFO.telephone,
     image: BUSINESS_INFO.image,
-    servesCuisine: 'Cuisine locale et de terroir',
+    servesCuisine: 'Tapas, burgers, cuisine conviviale',
     address: {
       '@type': 'PostalAddress',
       ...BUSINESS_INFO.address,

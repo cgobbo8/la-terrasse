@@ -1,0 +1,147 @@
+---
+/**
+ * AGENDA PAGE — Events & Evenings at La Terrasse
+ * Grouped by month, sorted chronologically
+ * Category badges with color coding
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import SectionHero from '@/components/common/SectionHero.astro';
+import { getLangFromUrl, useTranslations, getLocalizedField } from '@/i18n/utils';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
+
+const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
+const t = useTranslations(lang);
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const allEvents = await reader.collections.events.all();
+
+// Filter visible + future events, sort chronologically
+const now = new Date();
+const upcomingEvents = allEvents
+  .filter((e) => {
+    if (!e.entry.visible) return false;
+    if (!e.entry.date) return false;
+    return new Date(e.entry.date) >= now;
+  })
+  .sort((a, b) => new Date(a.entry.date!).getTime() - new Date(b.entry.date!).getTime());
+
+// Pre-compute display data to avoid `as` casts in template
+const displayEvents = upcomingEvents.map((event) => {
+  const entryAny = event.entry as Record<string, unknown>;
+  return {
+    slug: event.slug,
+    date: event.entry.date!,
+    category: (entryAny.category as string) || 'autre',
+    title: getLocalizedField(event.entry, 'title', lang) || event.slug,
+    description: getLocalizedField(event.entry, 'description', lang),
+  };
+});
+
+// Group by month
+type DisplayEvent = typeof displayEvents[number];
+const eventsByMonth = new Map<string, DisplayEvent[]>();
+for (const event of displayEvents) {
+  const date = new Date(event.date);
+  const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+  if (!eventsByMonth.has(monthKey)) eventsByMonth.set(monthKey, []);
+  eventsByMonth.get(monthKey)!.push(event);
+}
+
+function formatDay(dateStr: string) {
+  return new Intl.DateTimeFormat('fr', { day: 'numeric' }).format(new Date(dateStr));
+}
+
+function formatMonth(dateStr: string, locale: string) {
+  return new Intl.DateTimeFormat(locale, { month: 'short' }).format(new Date(dateStr));
+}
+
+function formatMonthYear(monthKey: string, locale: string) {
+  const [year, month] = monthKey.split('-').map(Number);
+  const date = new Date(year, month - 1);
+  return new Intl.DateTimeFormat(locale, { month: 'long', year: 'numeric' }).format(date);
+}
+
+const categoryColors: Record<string, string> = {
+  concert: '#537b47',
+  'soiree-theme': '#2D2B1B',
+  festival: '#3d4969',
+  marche: '#c27a2a',
+  autre: '#6b7280',
+};
+
+const categoryLabels: Record<string, string> = {
+  concert: t('agenda.category.concert'),
+  'soiree-theme': t('agenda.category.soiree-theme'),
+  festival: t('agenda.category.festival'),
+  marche: t('agenda.category.marche'),
+  autre: t('agenda.category.autre'),
+};
+
+function getCategoryLabel(category: string): string {
+  return categoryLabels[category] || category;
+}
+---
+
+<BaseLayout
+  title={t('agenda.page.title')}
+  description={t('agenda.hero.subtitle')}
+  pagePath="/agenda"
+>
+  <SectionHero
+    tagline={t('agenda.hero.tagline')}
+    subtitle={t('agenda.hero.subtitle')}
+  />
+
+  <section class="py-12 lg:py-24">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {displayEvents.length > 0 ? (
+        <>
+          {[...eventsByMonth.entries()].map(([monthKey, monthEvents]) => (
+            <div class="mb-12">
+              <h2 class="font-heading text-xl font-bold text-brun-terre capitalize mb-6 border-b border-gray-200 pb-2">
+                {formatMonthYear(monthKey, lang)}
+              </h2>
+              <div class="grid grid-cols-1 gap-4">
+                {monthEvents.map((event) => (
+                  <article class="flex gap-4 items-start p-5 rounded-2xl bg-white shadow-sm border border-gray-100">
+                    <div class="flex-shrink-0 text-center bg-offwhite rounded-xl p-3 w-16">
+                      <span class="block text-2xl font-bold text-brun-terre leading-none">
+                        {formatDay(event.date)}
+                      </span>
+                      <span class="block text-xs text-gray-600 uppercase mt-1">
+                        {formatMonth(event.date, lang)}
+                      </span>
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <div class="flex items-center gap-2 mb-1">
+                        <h3 class="font-heading font-bold text-lg text-gray-900 leading-snug">
+                          {event.title}
+                        </h3>
+                        <span
+                          class="inline-block text-[0.6875rem] font-semibold px-2 py-0.5 rounded-full text-white whitespace-nowrap"
+                          style={`background-color: ${categoryColors[event.category] || categoryColors.autre}`}
+                        >
+                          {getCategoryLabel(event.category)}
+                        </span>
+                      </div>
+                      {event.description && (
+                        <p class="text-sm text-gray-600 leading-relaxed">
+                          {event.description}
+                        </p>
+                      )}
+                    </div>
+                  </article>
+                ))}
+              </div>
+            </div>
+          ))}
+        </>
+      ) : (
+        <p class="text-center text-gray-400 text-lg py-12">
+          {t('agenda.empty')}
+        </p>
+      )}
+    </div>
+  </section>
+</BaseLayout>

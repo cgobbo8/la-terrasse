@@ -49,15 +49,14 @@
     crossSell?: { text: string; href: string; targetPole: string };
   }
 
-  interface TransversalItem {
+  interface AgendaLink {
     label: string;
     href: string;
-    description: string;
   }
 
   let {
     poles,
-    transversalItems,
+    agendaLink,
     ctaLabel,
     ctaHref,
     ctaColor,
@@ -66,11 +65,9 @@
     currentLang,
     langPaths,
     labelExplore = 'Explorer',
-    labelExperiences = 'Expériences',
-    labelComposeDay = 'Composez votre journée',
   }: {
     poles: PoleNav[];
-    transversalItems: TransversalItem[];
+    agendaLink: AgendaLink;
     ctaLabel: string;
     ctaHref: string;
     ctaColor: string;
@@ -79,8 +76,6 @@
     currentLang: string;
     langPaths: Record<string, string>;
     labelExplore?: string;
-    labelExperiences?: string;
-    labelComposeDay?: string;
   } = $props();
 
   let activeMenu = $state<string | null>(null);
@@ -219,7 +214,7 @@
               <!-- Multi-column: grouped by category -->
               {#each [...grouped.entries()] as [category, links]}
                 <div>
-                  <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">{category}</p>
+                  <p class="text-[0.8125rem] font-bold uppercase tracking-wider mb-3" style="color: {accent[pole.accentColor]}">{category}</p>
                   {#each links as link}
                     <a
                       href={link.href}
@@ -327,62 +322,15 @@
     </div>
   {/each}
 
-  <!-- Transversal "Experiences" -->
-  <!-- svelte-ignore a11y_no_static_element_interactions -->
-  <div
-    class="relative"
-    onmouseenter={() => openMenu('transversal')}
-    onmouseleave={startClose}
-    onfocusout={handleFocusOut}
+  <!-- Agenda link -->
+  <a
+    href={agendaLink.href}
+    class="inline-flex items-center px-3 py-5 text-sm font-medium text-gray-400 hover:text-brun-terre transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+    style="outline-color: #2D2B1B"
+    data-nav-trigger
   >
-    <button
-      bind:this={triggerElements['transversal']}
-      class="inline-flex items-center gap-1 px-3 py-5 text-sm font-medium text-gray-400 hover:text-brun-terre transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
-      style="outline-color: #2D2B1B"
-      aria-haspopup="true"
-      aria-expanded={activeMenu === 'transversal'}
-      onkeydown={(e) => handleTriggerKeydown(e, 'transversal')}
-      data-nav-trigger
-    >
-      {labelExperiences}
-      <ChevronDown
-        class="w-3.5 h-3.5 transition-transform duration-200 {activeMenu === 'transversal' ? 'rotate-180' : ''}"
-        size={14}
-      />
-    </button>
-
-    {#if activeMenu === 'transversal'}
-      <!-- svelte-ignore a11y_no_static_element_interactions -->
-      <div
-        class="absolute right-0 top-full pt-2 z-50"
-        onmouseenter={cancelClose}
-        onmouseleave={startClose}
-      >
-        <div
-          class="bg-white rounded-2xl shadow-[0_20px_60px_-12px_rgba(0,0,0,0.15)] ring-1 ring-black/5 p-6 min-w-72 animate-[megaFadeIn_0.15s_ease-out]"
-          role="menu"
-          data-menu="transversal"
-        >
-          <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">{labelComposeDay}</p>
-          {#each transversalItems as item}
-            <a
-              href={item.href}
-              role="menuitem"
-              class="flex items-center gap-3 px-2 py-2.5 rounded-lg hover:bg-offwhite transition-colors group focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
-              style="outline-color: #2D2B1B"
-              onkeydown={(e) => handleMenuItemKeydown(e, 'transversal')}
-            >
-              <span class="flex flex-col min-w-0 flex-1">
-                <span class="text-sm font-semibold text-gray-800 leading-tight">{item.label}</span>
-                <span class="text-xs text-gray-400 mt-0.5 leading-tight">{item.description}</span>
-              </span>
-              <ArrowRight class="w-4 h-4 text-gray-200 shrink-0 transition-all group-hover:text-gray-400 group-hover:translate-x-0.5" size={16} />
-            </a>
-          {/each}
-        </div>
-      </div>
-    {/if}
-  </div>
+    {agendaLink.label}
+  </a>
 
   <!-- Language switcher (pill) -->
   <div class="flex items-center rounded-full p-0.5 text-xs ml-2" data-lang-pill>

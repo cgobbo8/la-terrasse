@@ -145,6 +145,17 @@ export default config({
       schema: {
         title: fields.slug({ name: { label: 'Nom de l\'événement', validation: { isRequired: true } } }),
         date: fields.date({ label: 'Date' }),
+        category: fields.select({
+          label: 'Catégorie',
+          options: [
+            { label: 'Concert', value: 'concert' },
+            { label: 'Soirée à thème', value: 'soiree-theme' },
+            { label: 'Festival / Fête', value: 'festival' },
+            { label: 'Marché / Salon', value: 'marche' },
+            { label: 'Autre', value: 'autre' },
+          ],
+          defaultValue: 'autre',
+        }),
         description: fields.text({ label: 'Description', multiline: true }),
         image: fields.image({
           label: 'Visuel',

@@ -1,0 +1,110 @@
+---
+import type { Lang } from '@/i18n/translations';
+import { useTranslations, getLocalizedField, getLocalizedPath } from '@/i18n/utils';
+
+interface EventEntry {
+  slug: string;
+  entry: Record<string, unknown> & {
+    title: string;
+    date: string | null;
+    description: string;
+    visible: boolean;
+  };
+}
+
+interface Props {
+  events: EventEntry[];
+  lang: Lang;
+}
+
+const { events, lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Filter visible + future events, sort chronologically, limit to 3
+const now = new Date();
+const upcomingEvents = events
+  .filter((e) => {
+    if (!e.entry.visible) return false;
+    if (!e.entry.date) return false;
+    return new Date(e.entry.date) >= now;
+  })
+  .sort((a, b) => new Date(a.entry.date!).getTime() - new Date(b.entry.date!).getTime())
+  .slice(0, 3);
+
+const hasEvents = upcomingEvents.length > 0;
+
+function formatDay(dateStr: string) {
+  return new Intl.DateTimeFormat('fr', { day: 'numeric' }).format(new Date(dateStr));
+}
+
+function formatMonth(dateStr: string, locale: string) {
+  return new Intl.DateTimeFormat(locale, { month: 'short' }).format(new Date(dateStr));
+}
+
+const displayEvents = upcomingEvents.map((event) => ({
+  slug: event.slug,
+  date: event.entry.date!,
+  title: getLocalizedField(event.entry, 'title', lang) || event.slug,
+  description: getLocalizedField(event.entry, 'description', lang),
+}));
+---
+
+{hasEvents && (
+  <div class="agenda-floating-widget relative z-10 bg-offwhite lg:bg-none" style="--split-bg: linear-gradient(to bottom, transparent 50%, var(--color-offwhite, #fafaf8) 50%);">
+    <div class="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto py-6 lg:py-0">
+      <a
+        href={getLocalizedPath('/agenda', lang)}
+        class="agenda-widget-card block rounded-2xl shadow-lg p-5 lg:p-6 hover:shadow-xl transition-shadow"
+      >
+        <div class="flex items-center justify-between mb-4">
+          <h2 class="font-heading text-lg font-bold text-brun-terre">
+            {t('home.upcoming.title')}
+          </h2>
+          <span class="text-sm font-medium text-brun-terre whitespace-nowrap">
+            {t('home.upcoming.cta')} →
+          </span>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
+          {displayEvents.map((event) => (
+            <div class="flex gap-3 items-start">
+              <div class="flex-shrink-0 text-center bg-offwhite rounded-lg p-2 w-12">
+                <span class="block text-lg font-bold text-brun-terre leading-none">
+                  {formatDay(event.date)}
+                </span>
+                <span class="block text-[0.625rem] text-gray-500 uppercase mt-0.5">
+                  {formatMonth(event.date, lang)}
+                </span>
+              </div>
+              <div class="min-w-0">
+                <h3 class="font-heading font-bold text-sm text-gray-900 leading-snug">
+                  {event.title}
+                </h3>
+                {event.description && (
+                  <p class="text-xs text-gray-500 mt-0.5 line-clamp-1">
+                    {event.description}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </a>
+    </div>
+  </div>
+)}
+
+<style>
+  .agenda-widget-card {
+    background-color: rgb(255 255 255 / 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgb(255 255 255 / 0.6);
+  }
+
+  @media (min-width: 1024px) {
+    .agenda-floating-widget {
+      margin-top: -4rem;
+      background: linear-gradient(to bottom, transparent 50%, var(--color-offwhite, #fafaf8) 50%);
+    }
+  }
+</style>

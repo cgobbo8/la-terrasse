@@ -94,22 +94,18 @@ const megaMenuPoles = [
     featured: {
       title: t('nav.salle.featured.title'),
       description: t('nav.salle.featured.desc'),
-      href: getLocalizedPath('/la-salle', lang) + '#agenda',
+      href: getLocalizedPath('/la-salle', lang),
       cta: t('nav.salle.featured.cta'),
     },
     crossSell: {
       text: t('nav.salle.crossSell'),
-      href: getLocalizedPath('/en-entreprise', lang),
-      targetPole: 'salle',
+      href: getLocalizedPath('/restaurant', lang),
+      targetPole: 'restaurant',
     },
   },
 ];
 
-const transversalItems = [
-  { label: t('nav.enFamille'), href: getLocalizedPath('/en-famille', lang), description: t('nav.famille.desc') },
-  { label: t('nav.enGroupe'), href: getLocalizedPath('/en-groupe', lang), description: t('nav.groupe.desc') },
-  { label: t('nav.enEntreprise'), href: getLocalizedPath('/en-entreprise', lang), description: t('nav.entreprise.desc') },
-];
+const agendaLink = { label: t('nav.agenda'), href: getLocalizedPath('/agenda', lang) };
 
 const mobilePoles = megaMenuPoles.map(p => ({
   id: p.id,
@@ -118,8 +114,6 @@ const mobilePoles = megaMenuPoles.map(p => ({
   colorClass: p.color,
   subLinks: p.subLinks.map(s => ({ label: s.label, href: s.href })),
 }));
-
-const mobileTransversal = transversalItems.map(t => ({ label: t.label, href: t.href }));
 
 const contactHref = getLocalizedPath('/contact', lang);
 
@@ -156,7 +150,7 @@ const accentColors: Record<string, string> = {
       <MegaMenu
         client:only="svelte"
         poles={megaMenuPoles}
-        transversalItems={transversalItems}
+        agendaLink={agendaLink}
         ctaLabel={ctaLabelLocalized}
         ctaHref={contactHref}
         ctaColor={cta.accent}
@@ -165,22 +159,19 @@ const accentColors: Record<string, string> = {
         currentLang={lang}
         langPaths={langPaths}
         labelExplore={t('nav.explore')}
-        labelExperiences={t('nav.experiences')}
-        labelComposeDay={t('nav.composeDay')}
       />
 
       <!-- Mobile: Burger only (slide-out panel portals to body) -->
       <MobileMenu
         client:only="svelte"
         poles={mobilePoles}
-        transversalItems={mobileTransversal}
+        agendaLink={agendaLink}
         ctaLabel={ctaLabelLocalized}
         ctaHref={contactHref}
         ctaColor={cta.accent}
         languages={languages}
         currentLang={lang}
         langPaths={langPaths}
-        labelExperiences={t('nav.experiences')}
         labelClose={t('nav.close')}
         labelCloseMenu={t('nav.closeMenu')}
         labelSubmenu={t('nav.submenu')}

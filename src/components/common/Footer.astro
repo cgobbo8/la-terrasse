@@ -31,15 +31,14 @@ const t = useTranslations(lang);
         </ul>
       </div>
 
-      <!-- Transversal -->
+      <!-- Agenda & Contact -->
       <div>
         <h3 class="font-heading font-bold text-white text-sm uppercase tracking-wider mb-4">
           {t('common.discover')}
         </h3>
         <ul class="space-y-2 text-sm">
-          <li><a href={getLocalizedPath('/en-famille', lang)} class="hover:text-white transition-colors">{t('nav.enFamille')}</a></li>
-          <li><a href={getLocalizedPath('/en-groupe', lang)} class="hover:text-white transition-colors">{t('nav.enGroupe')}</a></li>
-          <li><a href={getLocalizedPath('/en-entreprise', lang)} class="hover:text-white transition-colors">{t('nav.enEntreprise')}</a></li>
+          <li><a href={getLocalizedPath('/agenda', lang)} class="hover:text-white transition-colors">{t('nav.agenda')}</a></li>
+          <li><a href={getLocalizedPath('/contact', lang)} class="hover:text-white transition-colors">{t('nav.contact')}</a></li>
         </ul>
       </div>
 

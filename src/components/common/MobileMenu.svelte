@@ -15,34 +15,32 @@
     subLinks: SubLink[];
   }
 
-  interface TransversalItem {
+  interface AgendaLink {
     label: string;
     href: string;
   }
 
   let {
     poles,
-    transversalItems,
+    agendaLink,
     ctaLabel,
     ctaHref,
     ctaColor,
     languages,
     currentLang,
     langPaths,
-    labelExperiences = 'Experiences',
     labelClose = 'Fermer',
     labelCloseMenu = 'Fermer le menu',
     labelSubmenu = 'Sous-menu',
   }: {
     poles: PoleNav[];
-    transversalItems: TransversalItem[];
+    agendaLink: AgendaLink;
     ctaLabel: string;
     ctaHref: string;
     ctaColor: string;
     languages: Record<string, string>;
     currentLang: string;
     langPaths: Record<string, string>;
-    labelExperiences?: string;
     labelClose?: string;
     labelCloseMenu?: string;
     labelSubmenu?: string;
@@ -229,14 +227,11 @@
         </div>
       {/each}
 
-      <!-- Transversal -->
-      <div class="mt-5 mb-2">
-        <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-2">{labelExperiences}</p>
-        {#each transversalItems as item}
-          <a href={item.href} onclick={close} class="block py-3 text-sm text-gray-600 hover:text-brun-terre transition-colors">
-            {item.label}
-          </a>
-        {/each}
+      <!-- Agenda link -->
+      <div class="mt-5 mb-2 border-b border-gray-100 pb-3">
+        <a href={agendaLink.href} onclick={close} class="block py-3 font-semibold text-[0.9375rem] text-brun-terre hover:text-brun-terre/80 transition-colors">
+          {agendaLink.label}
+        </a>
       </div>
 
       <!-- CTA -->
