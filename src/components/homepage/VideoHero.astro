@@ -49,25 +49,78 @@ const { tagline, subtitle } = Astro.props;
   <!-- Text content centered in visible area -->
   <div class="relative z-10 flex-1 flex items-center justify-center">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold text-white max-w-4xl mx-auto leading-[1.05]">
+      <h1 class="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold text-white max-w-4xl mx-auto leading-[1.05]" data-vh-heading>
         {tagline}
       </h1>
       {subtitle && (
-        <p class="mt-6 text-lg lg:text-xl text-white/90 max-w-2xl mx-auto font-light drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]">
+        <p class="mt-6 text-lg lg:text-xl text-white/90 max-w-2xl mx-auto font-light drop-shadow-[0_1px_4px_rgba(0,0,0,0.6)]" data-vh-sub>
           {subtitle}
         </p>
       )}
-      <div class="mt-10">
+      <div class="mt-10" data-vh-cta>
         <slot />
       </div>
     </div>
   </div>
 
   <!-- Scroll indicator -->
-  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 z-10" aria-hidden="true">
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 z-10" aria-hidden="true" data-vh-scroll>
     <span class="text-[0.625rem] font-semibold uppercase tracking-[0.25em]">Scroll</span>
     <svg class="w-4 h-4 animate-[scrollHint_2s_ease-in-out_infinite]" fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="1.5">
       <path d="M8 2v10M4 8l4 4 4-4" />
     </svg>
   </div>
 </section>
+
+<style>
+  [data-vh-heading],
+  [data-vh-sub],
+  [data-vh-cta],
+  [data-vh-scroll] {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-vh-heading],
+    [data-vh-sub],
+    [data-vh-cta],
+    [data-vh-scroll] {
+      opacity: 1 !important;
+    }
+  }
+</style>
+
+<script>
+  import gsap from 'gsap';
+
+  if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const heading = document.querySelector<HTMLElement>('[data-vh-heading]');
+    const sub = document.querySelector<HTMLElement>('[data-vh-sub]');
+    const cta = document.querySelector<HTMLElement>('[data-vh-cta]');
+    const scroll = document.querySelector<HTMLElement>('[data-vh-scroll]');
+
+    if (heading) {
+      gsap.fromTo(heading,
+        { opacity: 0, y: 40, filter: 'blur(18px)', scale: 0.95 },
+        { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1, duration: 1.2, ease: 'power3.out', delay: 0.15 }
+      );
+    }
+    if (sub) {
+      gsap.fromTo(sub,
+        { opacity: 0, y: 24, filter: 'blur(10px)' },
+        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out', delay: 0.4 }
+      );
+    }
+    if (cta) {
+      gsap.fromTo(cta,
+        { opacity: 0, y: 18 },
+        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.65 }
+      );
+    }
+    if (scroll) {
+      gsap.fromTo(scroll,
+        { opacity: 0 },
+        { opacity: 1, duration: 0.6, ease: 'power2.out', delay: 1.1 }
+      );
+    }
+  }
+</script>

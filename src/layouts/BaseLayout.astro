@@ -65,25 +65,68 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
     </main>
     <Footer />
 
-    <!-- Scroll-triggered reveal animations -->
-    <script is:inline>
-      (function() {
-        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        if (prefersReducedMotion) return;
+    <!-- Scroll-triggered reveal animations — IntersectionObserver + GSAP -->
+    <!-- Using IO instead of ScrollTrigger: immune to pin-spacer position shifts
+         from client:only Svelte islands (JourneeTypeTimeline) -->
+    <script>
+      import gsap from 'gsap';
 
-        var observer = new IntersectionObserver(function(entries) {
-          entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('revealed');
-              observer.unobserve(entry.target);
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        const isHidden = (el: Element) =>
+          window.getComputedStyle(el).display === 'none';
+
+        const ioOpts: IntersectionObserverInit = {
+          rootMargin: '0px 0px -8% 0px',
+          threshold: 0,
+        };
+
+        // ── [data-reveal] ──
+        const revealObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            revealObserver.unobserve(entry.target);
+            const el = entry.target as HTMLElement;
+
+            if (el.querySelector('[data-reveal-stagger]')) {
+              // Container wrapping a stagger group — clear CSS opacity:0 immediately.
+              // Animating the parent AND children creates compound opacity that looks jerky.
+              gsap.set(el, { opacity: 1 });
+            } else {
+              gsap.fromTo(el,
+                { opacity: 0, y: 28, filter: 'blur(8px)' },
+                { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: 'power3.out' }
+              );
             }
           });
-        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+        }, ioOpts);
 
-        document.querySelectorAll('[data-reveal], [data-reveal-stagger]').forEach(function(el) {
-          observer.observe(el);
+        // ── [data-reveal-stagger] ──
+        const staggerObserver = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            staggerObserver.unobserve(entry.target);
+            const el = entry.target as HTMLElement;
+            const children = Array.from(el.children).filter((c) => !isHidden(c));
+            if (!children.length) return;
+
+            // Parent [data-reveal] is set to opacity:1 immediately — no delay needed
+            const delay = 0;
+
+            gsap.fromTo(
+              children,
+              { opacity: 0, y: 20, filter: 'blur(4px)' },
+              { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.08, duration: 0.8, ease: 'power3.out', delay }
+            );
+          });
+        }, ioOpts);
+
+        document.querySelectorAll('[data-reveal]').forEach((el) => {
+          if (!isHidden(el)) revealObserver.observe(el);
         });
-      })();
+        document.querySelectorAll('[data-reveal-stagger]').forEach((el) => {
+          if (!isHidden(el)) staggerObserver.observe(el);
+        });
+      }
     </script>
   </body>
 </html>

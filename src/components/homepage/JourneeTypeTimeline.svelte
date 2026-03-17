@@ -11,6 +11,7 @@
 
   let sectionEl = $state(null);
   let trackEl = $state(null);
+  let introEl = $state(null);
   let useAnimation = $state(false);
   let mounted = $state(false);
 
@@ -19,6 +20,26 @@
 
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const isDesktop = window.innerWidth >= 768;
+
+    // ── Intro animation (title block) — all devices, respects reduced-motion ──
+    if (!prefersReducedMotion && introEl) {
+      import('gsap').then(({ gsap }) => {
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            obs.unobserve(entry.target);
+            gsap.fromTo(
+              entry.target,
+              { opacity: 0, y: 28, filter: 'blur(8px)' },
+              { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: 'power3.out' }
+            );
+          });
+        }, { threshold: 0.2 });
+        obs.observe(introEl);
+      });
+    } else if (introEl) {
+      introEl.style.opacity = '1';
+    }
 
     if (prefersReducedMotion || !isDesktop) {
       useAnimation = false;
@@ -49,6 +70,10 @@
             invalidateOnRefresh: true,
           },
         });
+
+        // The pin spacer is now in the DOM — recalculate all ScrollTrigger positions
+        // so sections below (e.g. SoireesSection) have correct trigger offsets
+        ScrollTrigger.refresh();
 
         // Card entrance animations — skip cards already visible at start
         const cards = trackEl.querySelectorAll('.timeline-card');
@@ -92,7 +117,7 @@
   aria-label={sectionTitle}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-14 lg:mb-20">
+    <div class="text-center mb-14 lg:mb-20" bind:this={introEl} style="opacity: 0;">
       <p class="section-eyebrow text-brun-terre/40 mb-4" style="display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">Votre journée</p>
       <h2 class="font-heading text-3xl lg:text-5xl font-bold text-brun-terre">
         {sectionTitle}

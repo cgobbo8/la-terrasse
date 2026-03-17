@@ -51,7 +51,7 @@ const displayEvents = upcomingEvents.map((event) => ({
 ---
 
 {hasEvents && (
-  <div class="agenda-floating-widget relative z-10 bg-offwhite lg:bg-none" style="--split-bg: linear-gradient(to bottom, transparent 50%, var(--color-offwhite, #fafaf8) 50%);">
+  <div class="agenda-floating-widget relative z-10 bg-offwhite lg:bg-none" style="--split-bg: linear-gradient(to bottom, transparent 50%, var(--color-offwhite, #fafaf8) 50%);" data-agenda-widget>
     <div class="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto py-6 lg:py-0">
       <a
         href={getLocalizedPath('/agenda', lang)}
@@ -101,6 +101,13 @@ const displayEvents = upcomingEvents.map((event) => ({
 )}
 
 <style>
+  [data-agenda-widget] {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    [data-agenda-widget] { opacity: 1 !important; }
+  }
+
   .agenda-widget-card {
     background-color: rgb(255 255 255 / 0.8);
     backdrop-filter: blur(16px);
@@ -116,3 +123,17 @@ const displayEvents = upcomingEvents.map((event) => ({
     }
   }
 </style>
+
+<script>
+  import gsap from 'gsap';
+
+  const widget = document.querySelector<HTMLElement>('[data-agenda-widget]');
+  if (widget && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    // Slide up after hero text sequence completes
+    // No blur: parent filter breaks child backdrop-filter (glassmorphism)
+    gsap.fromTo(widget,
+      { opacity: 0, y: 24 },
+      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.85 }
+    );
+  }
+</script>
