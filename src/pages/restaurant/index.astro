@@ -11,6 +11,7 @@ import SectionHero from '@/components/common/SectionHero.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import SoireesSection from '@/components/homepage/SoireesSection.astro';
+import OffreJournee from '@/components/common/OffreJournee.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { poleConfigs, PHONE_NUMBER } from '@/lib/pole-config';
 import { generateRestaurantLD } from '@/lib/seo';
@@ -136,6 +137,9 @@ const subPages = [
       </div>
     </div>
   </section>
+
+  <!-- Offre Journée -->
+  <OffreJournee lang={lang} />
 
   <!-- Cross-link narratif contextuel -->
   <ContextualCrossLink

@@ -147,33 +147,16 @@ const jsonLd = generateEventVenueLD({
   </section>
 
   <!-- Section contact -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
       <p class="text-gray-500 italic mb-4">
-        {t('salle.groups.cta')}
+        {t('common.requestQuoteDesc')}
       </p>
-      <div class="flex flex-wrap justify-center gap-4">
-        <a href={getLocalizedPath('/la-salle/seminaires', lang)} class="text-white px-6 py-3 rounded-lg font-medium transition-colors" style="background-color: #3d4969;">
-          {t('salle.hub.seminairesCta')}
-        </a>
-        <a href={buildQuoteMailto()} class="px-6 py-3 rounded-lg font-medium transition-colors" style="border: 1px solid #3d4969; color: #3d4969;">
-          {t('common.requestQuote')}
-        </a>
-      </div>
+      <a href={buildQuoteMailto()} class="inline-block px-6 py-3 rounded-lg font-medium transition-colors text-white" style="background-color: #3d4969;">
+        {t('common.requestQuote')}
+      </a>
     </div>
   </section>
-
-  <!-- Cross-links narratifs contextuels -->
-  <ContextualCrossLink
-    text={t('crosslink.salleHub.aventure')}
-    href={getLocalizedPath('/aventure', lang)}
-    pole="aventure"
-  />
-  <ContextualCrossLink
-    text={t('crosslink.salleHub.restaurant')}
-    href={getLocalizedPath('/restaurant', lang)}
-    pole="restaurant"
-  />
 
   <!-- Cross-linking structurel -->
   <CrossLinkBlock currentPole="salle" />

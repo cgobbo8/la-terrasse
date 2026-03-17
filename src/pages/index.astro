@@ -15,6 +15,7 @@ import JourneeTypeTimeline from '@/components/homepage/JourneeTypeTimeline.svelt
 import BentoMeteo from '@/components/homepage/BentoMeteo.astro';
 import AgendaFloatingWidget from '@/components/homepage/AgendaFloatingWidget.astro';
 import SoireesSection from '@/components/homepage/SoireesSection.astro';
+import OffreJournee from '@/components/common/OffreJournee.astro';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
@@ -145,7 +146,10 @@ const timeBlocks = [
     ctaLabel={t('home.dayTrip.cta')}
   />
 
-  <!-- 5. SOIRÉES & ÉVÉNEMENTS -->
+  <!-- 5. OFFRE JOURNÉE — Pass Journée promo -->
+  <OffreJournee lang={lang} />
+
+  <!-- 6. SOIRÉES & ÉVÉNEMENTS -->
   <SoireesSection lang={lang} />
 
   <!-- 6. INFOS PRATIQUES — Bento grid -->

@@ -23,6 +23,7 @@ interface Activity {
   title_es?: string;
   description_en?: string;
   description_es?: string;
+  isPremium?: boolean;
 }
 
 interface Props {
@@ -52,7 +53,7 @@ const cardBorder = variant === 'aquatique' ? 'border-aventure/10' : 'border-gray
     cardBorder,
   ]}
 >
-  <div class="aspect-[16/10] overflow-hidden">
+  <div class="relative aspect-[16/10] overflow-hidden">
     <Image
       src={imageSrc}
       alt={localizedTitle}
@@ -62,6 +63,12 @@ const cardBorder = variant === 'aquatique' ? 'border-aventure/10' : 'border-gray
       decoding="async"
       class="w-full h-full object-cover"
     />
+    {activity.isPremium && (
+      <div class="absolute top-3 right-3 bg-white/95 backdrop-blur-sm rounded-full px-2.5 py-1 flex items-center gap-1 shadow-sm" title="Activité phare — éligible à l'offre journée">
+        <Icon name="lucide:star" class="w-3.5 h-3.5 text-amber-500" />
+        <span class="text-xs font-medium text-gray-700">Activité phare</span>
+      </div>
+    )}
   </div>
 
   <div class="p-6">

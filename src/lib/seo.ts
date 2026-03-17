@@ -2,7 +2,7 @@ const BUSINESS_INFO = {
   name: 'La Terrasse — Base de loisirs de Saint-Ferréol',
   url: 'https://laterrasse-saintferreol.fr',
   telephone: '+33000000000',
-  email: 'contact@laterrasse-saintferreol.fr',
+  email: 'contact@baseloisirs-saintferreol.fr',
   address: {
     streetAddress: 'Lac de Saint-Ferréol',
     addressLocality: 'Saint-Ferréol',

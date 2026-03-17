@@ -6,14 +6,31 @@
  */
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
+import VenueSpecs from '@/components/salle/VenueSpecs.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
-import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { defaultLang } from '@/i18n/translations';
 import { buildEventContactMailto } from '@/lib/pole-config';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
+
+// Load venue data
+const reader = createReader(process.cwd(), keystaticConfig);
+const venueData = await reader.singletons.venue.read();
+const capacitySeated = venueData?.capacitySeated ?? 0;
+const capacityStanding = venueData?.capacityStanding ?? 0;
+const surfaceM2 = venueData?.surfaceM2 ?? 0;
+const venueAny = venueData as Record<string, unknown> | null;
+const equipment = venueData
+  ? (lang !== defaultLang && venueAny?.[`equipment_${lang}`] as readonly string[]) || venueData.equipment || []
+  : [] as readonly string[];
+const layoutOptions = venueData
+  ? (lang !== defaultLang && venueAny?.[`layoutOptions_${lang}`] as readonly { name: string; capacity: number }[]) || venueData.layoutOptions || []
+  : [] as readonly { name: string; capacity: number }[];
 
 const eventTypes = [
   {
@@ -62,6 +79,23 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
       {t('salle.evenementiel.cta')}
     </a>
   </SectionHero>
+
+  <!-- L'ESPACE — Venue specs -->
+  <div class="pt-(--spacing-section-mobile) lg:pt-(--spacing-section)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-2xl font-bold mb-2" style="color: #3d4969;">
+        {t('salle.venue.title')}
+      </h2>
+    </div>
+    <VenueSpecs
+      capacitySeated={capacitySeated}
+      capacityStanding={capacityStanding}
+      surfaceM2={surfaceM2}
+      equipment={equipment}
+      layoutOptions={layoutOptions}
+      lang={lang}
+    />
+  </div>
 
   <!-- Intro -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
@@ -131,13 +165,6 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
       </div>
     </div>
   </section>
-
-  <!-- Cross-links -->
-  <ContextualCrossLink
-    text={t('crosslink.salleHub.restaurant')}
-    href={getLocalizedPath('/restaurant', lang)}
-    pole="restaurant"
-  />
 
   <!-- Cross-linking structurel -->
   <CrossLinkBlock currentPole="salle" />

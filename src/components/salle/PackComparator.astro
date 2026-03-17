@@ -46,7 +46,7 @@ const featureRows: { key: keyof Features; label: string }[] = [
   { key: 'salleEquipee', label: t('salle.feature.roomEquipped') },
   { key: 'videoprojecteur', label: t('salle.feature.projector') },
   { key: 'wifi', label: t('salle.feature.wifi') },
-  { key: 'parking', label: t('salle.feature.parking') },
+  // { key: 'parking', label: t('salle.feature.parking') }, // parking is public, not managed by us
   { key: 'petitDejeuner', label: t('salle.feature.breakfast') },
   { key: 'dejeuner', label: t('salle.feature.lunch') },
   { key: 'pausesCafe', label: t('salle.feature.coffeeBreaks') },
@@ -73,11 +73,11 @@ const featureRows: { key: keyof Features; label: string }[] = [
                   {t('common.recommended')}
                 </span>
               )}
-              <p class="text-xs font-medium uppercase tracking-wider" style={`color: ${accent}99;`}>
-                {pkg.subtitle}
-              </p>
-              <p class="font-heading text-lg font-bold mt-1" style={`color: ${accent};`}>
+              <p class="font-heading text-lg font-bold" style={`color: ${accent};`}>
                 {pkg.title}
+              </p>
+              <p class="text-xs font-medium uppercase tracking-wider mt-1" style={`color: ${accent}99;`}>
+                {pkg.subtitle}
               </p>
             </th>
           ))}

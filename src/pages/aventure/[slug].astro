@@ -39,6 +39,8 @@ export async function getStaticPaths() {
     title_es: a.entry.title_es ?? '',
     description_en: a.entry.description_en ?? '',
     description_es: a.entry.description_es ?? '',
+    priceTiers: (a.entry as any).priceTiers ?? [],
+    isPremium: (a.entry as any).isPremium ?? false,
   }));
 
   return visible.map((activity) => ({
@@ -164,9 +166,36 @@ const jsonLd = generateSportsActivityLD({
   <!-- Practical Info Grid -->
   <section class="py-8 lg:py-12 bg-white">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+      {activity.isPremium && (
+        <div class="mb-6 flex items-center gap-3 px-4 py-3 rounded-xl border border-amber-200 bg-amber-50">
+          <Icon name="lucide:star" class="w-5 h-5 text-amber-500 flex-shrink-0" />
+          <div>
+            <span class="text-sm font-bold text-amber-800">Activité phare</span>
+            <span class="text-sm text-amber-700 ml-1">— éligible à l'offre Journée à La Terrasse </span>
+            <a href={getLocalizedPath('/restaurant', lang)} class="text-sm font-medium text-amber-800 underline hover:text-amber-900">(-10% restaurant)</a>
+          </div>
+        </div>
+      )}
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Price -->
-        {activity.price && (
+        <!-- Price (single or multi-tier) -->
+        {activity.priceTiers && activity.priceTiers.length > 0 ? (
+          <div class="col-span-2 lg:col-span-1 flex flex-col items-center text-center p-4 rounded-xl border border-gray-200">
+            <Icon name="lucide:euro" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} />
+            <span class="text-xs uppercase tracking-wider text-gray-400 mb-2">{t('common.price')}</span>
+            <div class="space-y-1 w-full">
+              {activity.priceTiers.map((tier: any) => {
+                const tierLabel = lang === 'en' && tier.label_en ? tier.label_en : lang === 'es' && tier.label_es ? tier.label_es : tier.label;
+                return (
+                  <div class="flex items-center justify-between gap-2 text-sm">
+                    <span class="text-gray-600">{tierLabel}</span>
+                    <span class="font-bold text-gray-800">{tier.price}</span>
+                  </div>
+                );
+              })}
+            </div>
+            <span class="text-xs text-gray-500 mt-1">{localizedPriceDetails}</span>
+          </div>
+        ) : activity.price && (
           <div class="flex flex-col items-center text-center p-4 rounded-xl border border-gray-200">
             <Icon name="lucide:euro" class="w-6 h-6 mb-2" style={`color: ${pole.accent};`} />
             <span class="text-xs uppercase tracking-wider text-gray-400 mb-1">{t('common.price')}</span>
@@ -234,7 +263,20 @@ const jsonLd = generateSportsActivityLD({
               <p class="text-sm text-gray-600 mb-4">
                 {localizedDescription}
               </p>
-              {activity.price && (
+              {activity.priceTiers && activity.priceTiers.length > 0 ? (
+                <div class="mb-4 space-y-1">
+                  {activity.priceTiers.map((tier: any) => {
+                    const tierLabel = lang === 'en' && tier.label_en ? tier.label_en : lang === 'es' && tier.label_es ? tier.label_es : tier.label;
+                    return (
+                      <div class="flex items-center justify-between text-sm">
+                        <span class="text-gray-600">{tierLabel}</span>
+                        <span class="text-lg font-bold" style={`color: ${pole.accent};`}>{tier.price}</span>
+                      </div>
+                    );
+                  })}
+                  <p class="text-xs text-gray-500">{localizedPriceDetails}</p>
+                </div>
+              ) : activity.price && (
                 <p class="text-2xl font-bold mb-4" style={`color: ${pole.accent};`}>
                   {activity.price}
                 </p>

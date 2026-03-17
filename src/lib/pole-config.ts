@@ -10,7 +10,7 @@ export interface PoleConfig {
 
 /** Replace with actual phone number when provided by the client */
 export const PHONE_NUMBER = '+33000000000';
-export const EMAIL_ADDRESS = 'contact@laterrasse-saintferreol.fr';
+export const EMAIL_ADDRESS = 'contact@baseloisirs-saintferreol.fr';
 
 /**
  * Build a mailto: link for quote requests.

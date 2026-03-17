@@ -1,0 +1,377 @@
+---
+/**
+ * OffreJournee — "Pass Journée" promotional section
+ *
+ * Premium offer card: 1 grande activité + 2 petites activités = -10% au restaurant.
+ * Used on: homepage, /aventure, /restaurant
+ *
+ * Zero JS — pure Astro + CSS. Hover effects via CSS transitions.
+ */
+import { Icon } from 'astro-icon/components';
+import { getLangFromUrl, getLocalizedPath } from '@/i18n/utils';
+import type { Lang } from '@/i18n/translations';
+
+interface Props {
+  lang?: Lang;
+}
+
+const { lang: langProp } = Astro.props;
+const lang: Lang = langProp ?? getLangFromUrl(Astro.url, Astro.currentLocale);
+
+const aventurePath = getLocalizedPath('/aventure', lang);
+const cartePath = getLocalizedPath('/restaurant/carte', lang);
+
+/* ----------------------------------------------------------------
+   Large activities — the "1 grande activité" anchor points
+---------------------------------------------------------------- */
+const grandesActivites = [
+  { icon: 'lucide:bike',        label: 'VTT tout-terrain' },
+  { icon: 'lucide:waves',       label: 'Pédalo & kayak'   },
+  { icon: 'lucide:target',      label: 'Archery tag'       },
+];
+
+/* ----------------------------------------------------------------
+   Three-step flow (morning → restaurant → afternoon)
+---------------------------------------------------------------- */
+const steps = [
+  {
+    number: '01',
+    icon: 'lucide:mountain-snow',
+    color: '#537b47',
+    bgLight: '#eef5ec',
+    label: 'Grande activité',
+    detail: 'VTT, pédalo, archery tag…',
+  },
+  {
+    number: '+',
+    icon: 'lucide:plus',
+    color: '#a8a8a4',
+    bgLight: 'transparent',
+    label: '',
+    detail: '',
+    isSeparator: true,
+  },
+  {
+    number: '02',
+    icon: 'lucide:sparkles',
+    color: '#537b47',
+    bgLight: '#eef5ec',
+    label: '2 petites activités',
+    detail: 'Tir à l\'arc, accrobranche…',
+  },
+  {
+    number: '=',
+    icon: 'lucide:equal',
+    color: '#a8a8a4',
+    bgLight: 'transparent',
+    label: '',
+    detail: '',
+    isSeparator: true,
+  },
+  {
+    number: '03',
+    icon: 'lucide:utensils',
+    color: '#2D2B1B',
+    bgLight: '#f5f0e8',
+    label: '−10% au restaurant',
+    detail: 'Sur toute votre commande',
+  },
+];
+---
+
+<section class="offre-journee py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+  <!-- Outer wrapper — warm parchment gradient blending into nature -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+    <!-- Main card -->
+    <div class="offre-card relative overflow-hidden rounded-3xl">
+
+      <!-- Background texture layers -->
+      <div class="card-bg" aria-hidden="true"></div>
+      <div class="card-grain" aria-hidden="true"></div>
+
+      <!-- Decorative circle blob — top right -->
+      <div class="blob-tr" aria-hidden="true"></div>
+      <!-- Decorative circle blob — bottom left -->
+      <div class="blob-bl" aria-hidden="true"></div>
+
+      <!-- ============================================================
+           INNER CONTENT — two-column on desktop, stack on mobile
+           ============================================================ -->
+      <div class="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 p-8 sm:p-10 lg:p-14 xl:p-16">
+
+        <!-- ── LEFT COLUMN — Narrative ── -->
+        <div class="flex flex-col justify-center gap-7">
+
+          <!-- Eyebrow pill -->
+          <div class="inline-flex items-center gap-2 self-start">
+            <span
+              class="eyebrow-pill font-heading text-xs font-bold uppercase tracking-widest px-3.5 py-1.5 rounded-full"
+              style="background-color: #537b4720; color: #537b47;"
+            >
+              <Icon name="lucide:sun" class="inline w-3.5 h-3.5 mr-1 -mt-0.5" />
+              Pass Journée
+            </span>
+          </div>
+
+          <!-- Headline -->
+          <div>
+            <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight" style="color: #2D2B1B;">
+              Profitez de<br />
+              <em class="not-italic" style="color: #537b47;">toute La Terrasse</em>
+            </h2>
+            <p class="mt-4 text-base lg:text-lg leading-relaxed max-w-prose" style="color: #5a5a52;">
+              Combinez vos aventures et profitez d'une belle réduction à table.
+              Une journée complète, un seul endroit, un tarif qui récompense les curieux.
+            </p>
+          </div>
+
+          <!-- Grande activité anchor chips -->
+          <div>
+            <p class="text-xs uppercase tracking-widest font-bold mb-3" style="color: #a8a8a4;">
+              Grandes activités éligibles
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {grandesActivites.map((act) => (
+                <span class="activity-chip inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium"
+                  style="background-color: #537b4715; color: #3d6434; border: 1px solid #537b4730;"
+                >
+                  <Icon name={act.icon} class="w-4 h-4 flex-shrink-0" />
+                  {act.label}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- CTA row -->
+          <div class="flex flex-wrap gap-3 pt-1">
+            <a
+              href={aventurePath}
+              class="cta-aventure inline-flex items-center gap-2.5 px-5 py-3 rounded-xl font-heading font-bold text-sm text-white transition-all"
+              style="background-color: #537b47;"
+            >
+              <Icon name="lucide:compass" class="w-4 h-4 flex-shrink-0" />
+              Découvrir les activités
+              <Icon name="lucide:arrow-right" class="w-4 h-4 flex-shrink-0 cta-arrow" />
+            </a>
+            <a
+              href={cartePath}
+              class="cta-restaurant inline-flex items-center gap-2.5 px-5 py-3 rounded-xl font-heading font-bold text-sm transition-all"
+              style="background-color: #2D2B1B1a; color: #2D2B1B; border: 1.5px solid #2D2B1B30;"
+            >
+              <Icon name="lucide:utensils" class="w-4 h-4 flex-shrink-0" />
+              Voir la carte
+            </a>
+          </div>
+        </div>
+
+        <!-- ── RIGHT COLUMN — Offer formula card ── -->
+        <div class="flex items-center justify-center lg:justify-end">
+          <div class="formula-card relative flex flex-col items-stretch gap-1 w-full max-w-xs lg:max-w-[280px] xl:max-w-[300px]">
+
+            <!-- Header: discount badge -->
+            <div class="discount-badge flex flex-col items-center justify-center rounded-2xl py-7 px-6 text-center" style="background-color: #2D2B1B;">
+              <span class="font-heading font-bold leading-none" style="font-size: clamp(3.5rem, 10vw, 5rem); color: #f5f0e8; line-height: 1;">
+                −10%
+              </span>
+              <span class="mt-1.5 text-sm font-medium" style="color: #f5f0e855;">
+                sur votre repas
+              </span>
+              <!-- Subtle star decoration -->
+              <div class="flex gap-1 mt-3 opacity-40" aria-hidden="true">
+                <Icon name="lucide:star" class="w-3 h-3 text-amber-300 fill-amber-300" />
+                <Icon name="lucide:star" class="w-3 h-3 text-amber-300 fill-amber-300" />
+                <Icon name="lucide:star" class="w-3 h-3 text-amber-300 fill-amber-300" />
+              </div>
+            </div>
+
+            <!-- Step-by-step formula -->
+            <div class="formula-steps rounded-2xl overflow-hidden" style="background-color: #faf8f4; border: 1px solid #e8e2d6;">
+              {steps.filter(s => !s.isSeparator).map((step, idx) => (
+                <div class:list={['formula-step flex items-start gap-3.5 px-5 py-4', idx > 0 ? 'formula-step--bordered' : '']}>
+                  <!-- Step icon -->
+                  <div
+                    class="step-icon flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mt-0.5"
+                    style={`background-color: ${step.bgLight};`}
+                  >
+                    <Icon name={step.icon} class="w-4.5 h-4.5" style={`color: ${step.color};`} />
+                  </div>
+                  <!-- Step text -->
+                  <div class="min-w-0">
+                    <p class="font-heading font-bold text-sm leading-tight" style={`color: ${step.color};`}>
+                      {step.label}
+                    </p>
+                    <p class="text-xs mt-0.5 leading-tight" style="color: #8a8a82;">
+                      {step.detail}
+                    </p>
+                  </div>
+                  <!-- Step number -->
+                  <span class="flex-shrink-0 self-start font-heading font-bold text-xs mt-1" style="color: #d0cfc8;">
+                    {step.number}
+                  </span>
+                </div>
+              ))}
+
+              <!-- Validity note -->
+              <div class="px-5 py-3" style="background-color: #f0ece4; border-top: 1px solid #e0dbd1;">
+                <p class="text-xs leading-snug" style="color: #7a7a72;">
+                  <Icon name="lucide:info" class="inline w-3 h-3 mr-1 -mt-0.5" style="color: #537b47;" />
+                  Valable le jour même — sur présentation de vos tickets activités.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div><!-- /grid -->
+    </div><!-- /offre-card -->
+  </div><!-- /container -->
+</section>
+
+<style>
+  /* ================================================================
+     CARD — warm gradient background
+     ================================================================ */
+  .offre-card {
+    background: linear-gradient(
+      135deg,
+      #f5f0e8 0%,
+      #eef5ec 45%,
+      #e8f0e5 100%
+    );
+  }
+
+  /* Grain texture overlay for premium feel */
+  .card-grain {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Soft decorative blobs */
+  .blob-tr {
+    position: absolute;
+    top: -6rem;
+    right: -6rem;
+    width: 28rem;
+    height: 28rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, #537b4712 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  .blob-bl {
+    position: absolute;
+    bottom: -8rem;
+    left: -4rem;
+    width: 32rem;
+    height: 32rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, #2D2B1B0a 0%, transparent 70%);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* ================================================================
+     ACTIVITY CHIPS — subtle lift on hover
+     ================================================================ */
+  .activity-chip {
+    transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .activity-chip:hover {
+    background-color: #537b4725 !important;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px #537b4720;
+  }
+
+  /* ================================================================
+     CTA BUTTONS
+     ================================================================ */
+  .cta-aventure {
+    box-shadow: 0 2px 12px #537b4730;
+    transition: filter 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cta-aventure:hover {
+    filter: brightness(1.08);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px #537b4745;
+  }
+  .cta-aventure:hover .cta-arrow {
+    transform: translateX(3px);
+  }
+  .cta-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .cta-restaurant {
+    transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
+  }
+  .cta-restaurant:hover {
+    background-color: #2D2B1B0d !important;
+    border-color: #2D2B1B60 !important;
+    transform: translateY(-2px);
+  }
+
+  /* ================================================================
+     FORMULA CARD — premium shadow + subtle lift
+     ================================================================ */
+  .formula-card {
+    filter: drop-shadow(0 8px 32px rgba(45, 43, 27, 0.14)) drop-shadow(0 2px 8px rgba(45, 43, 27, 0.08));
+    transition: filter 0.3s ease, transform 0.3s ease;
+  }
+  .formula-card:hover {
+    filter: drop-shadow(0 16px 48px rgba(45, 43, 27, 0.18)) drop-shadow(0 4px 12px rgba(45, 43, 27, 0.10));
+    transform: translateY(-3px);
+  }
+
+  .discount-badge {
+    border-radius: 1rem 1rem 0.5rem 0.5rem;
+  }
+
+  /* ================================================================
+     FORMULA STEPS — divider lines
+     ================================================================ */
+  .formula-step--bordered {
+    border-top: 1px solid #e8e2d6;
+  }
+
+  .step-icon {
+    transition: transform 0.2s ease;
+  }
+  .formula-step:hover .step-icon {
+    transform: scale(1.08);
+  }
+
+  /* ================================================================
+     RESPONSIVE — mobile tweaks
+     ================================================================ */
+  @media (max-width: 1023px) {
+    .formula-card {
+      max-width: 100%;
+      width: 100%;
+    }
+    .discount-badge {
+      border-radius: 1rem;
+    }
+  }
+
+  /* ================================================================
+     REDUCED MOTION
+     ================================================================ */
+  @media (prefers-reduced-motion: reduce) {
+    .activity-chip,
+    .cta-aventure,
+    .cta-restaurant,
+    .cta-arrow,
+    .formula-card,
+    .step-icon {
+      transition: none;
+      transform: none !important;
+    }
+  }
+</style>

@@ -14,7 +14,7 @@ const t = useTranslations(lang);
 
 const phone = '05 61 83 XX XX';
 const phoneTel = '+33561830000';
-const email = 'contact@laterrasse-saintferreol.fr';
+const email = 'contact@baseloisirs-saintferreol.fr';
 const googleMapsEmbedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5780.5!2d2.0505!3d43.4504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDI3JzAxLjQiTiAywrAwMycwMS44IkU!5e0!3m2!1sfr!2sfr!4v1';
 const googleMapsUrl = 'https://maps.google.com/?q=Lac+de+Saint-Ferr%C3%A9ol';
 
@@ -97,18 +97,41 @@ const jsonLd = generateLocalBusinessLD();
             <h2 class="font-heading text-2xl font-bold text-brun-terre mb-6">
               {t('contact.hours.title')}
             </h2>
-            <div class="bg-offwhite rounded-xl p-6">
-              <div class="space-y-3">
-                <div class="flex justify-between items-center py-2 border-b border-gray-200">
-                  <span class="text-gray-800 font-medium">{t('contact.hours.monFri')}</span>
-                  <span class="text-brun-terre font-bold">{t('contact.hours.monFriTime')}</span>
-                </div>
-                <div class="flex justify-between items-center py-2">
-                  <span class="text-gray-800 font-medium">{t('contact.hours.satSun')}</span>
-                  <span class="text-brun-terre font-bold">{t('contact.hours.satSunTime')}</span>
+            <div class="space-y-4">
+              <!-- Seasons -->
+              <div class="bg-offwhite rounded-xl p-6">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3">Saison</h3>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span class="text-gray-800 font-medium">Mai & septembre</span>
+                    <span class="text-brun-terre font-bold text-sm">Weekends & jours fériés</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2">
+                    <span class="text-gray-800 font-medium">Juin, juillet, août</span>
+                    <span class="text-brun-terre font-bold text-sm">Tous les jours</span>
+                  </div>
                 </div>
               </div>
-              <p class="text-sm text-gray-400 mt-4">{t('contact.hours.note')}</p>
+              <!-- Horaires -->
+              <div class="bg-offwhite rounded-xl p-6">
+                <h3 class="text-sm font-bold uppercase tracking-wider text-gray-500 mb-3">Horaires</h3>
+                <div class="space-y-2">
+                  <div class="flex justify-between items-center py-2 border-b border-gray-200">
+                    <span class="text-gray-800 font-medium flex items-center gap-2">
+                      <Icon name="lucide:mountain" class="w-4 h-4 text-aventure" />
+                      Activités
+                    </span>
+                    <span class="text-brun-terre font-bold">10h – 19h</span>
+                  </div>
+                  <div class="flex justify-between items-center py-2">
+                    <span class="text-gray-800 font-medium flex items-center gap-2">
+                      <Icon name="lucide:utensils" class="w-4 h-4 text-restaurant" />
+                      Restaurant
+                    </span>
+                    <span class="text-brun-terre font-bold">9h – 22h</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>

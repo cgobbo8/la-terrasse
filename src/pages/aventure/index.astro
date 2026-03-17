@@ -9,6 +9,7 @@ import SectionHero from '@/components/common/SectionHero.astro';
 import ActivityCard from '@/components/aventure/ActivityCard.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
+import OffreJournee from '@/components/common/OffreJournee.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { generateSportsActivityLD } from '@/lib/seo';
 import { createReader } from '@keystatic/core/reader';
@@ -51,7 +52,7 @@ const jsonLd = generateSportsActivityLD({
 });
 
 const seoTitle = 'Aventure — Activités plein air | La Terrasse Saint-Ferréol';
-const seoDescription = 'Découvrez toutes les activités plein air au lac de Saint-Ferréol : pédalo, paddle, canoë, mini-golf, vélo, archery tag et plus. Activités lac Saint-Ferréol pour toute la famille.';
+const seoDescription = 'Découvrez toutes les activités plein air au lac de Saint-Ferréol : pédalo, paddle, canoë, mini-golf, VTT, archery tag et plus. Activités lac Saint-Ferréol pour toute la famille.';
 ---
 
 <BaseLayout
@@ -92,6 +93,7 @@ const seoDescription = 'Découvrez toutes les activités plein air au lac de Sai
               description: activity.entry.description ?? '',
               title_en: activity.entry.title_en ?? '',
               title_es: activity.entry.title_es ?? '',
+              isPremium: (activity.entry as any).isPremium ?? false,
             }}
             lang={lang}
             placeholderImage={aquaticImages[i % aquaticImages.length]}
@@ -122,6 +124,7 @@ const seoDescription = 'Découvrez toutes les activités plein air au lac de Sai
               description: activity.entry.description ?? '',
               title_en: activity.entry.title_en ?? '',
               title_es: activity.entry.title_es ?? '',
+              isPremium: (activity.entry as any).isPremium ?? false,
             }}
             lang={lang}
             placeholderImage={terrestreImages[i % terrestreImages.length]}
@@ -154,6 +157,9 @@ const seoDescription = 'Découvrez toutes les activités plein air au lac de Sai
       </div>
     </div>
   </section>
+
+  <!-- Offre Journée -->
+  <OffreJournee lang={lang} />
 
   <!-- Cross-link narratif contextuel -->
   <ContextualCrossLink

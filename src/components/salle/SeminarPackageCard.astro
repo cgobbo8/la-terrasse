@@ -43,12 +43,12 @@ const accent = '#3d4969';
   )}
 
   <div class:list={['px-6 pb-8 lg:px-8 lg:pb-10', highlighted ? 'pt-4' : 'pt-6 lg:pt-8']}>
-    <p class="text-sm font-medium uppercase tracking-wider" style={`color: ${accent}99;`}>
-      {subtitle}
-    </p>
-    <h3 class="font-heading text-xl font-bold mt-1 mb-3" style={`color: ${accent};`}>
+    <h3 class="font-heading text-xl font-bold mb-1" style={`color: ${accent};`}>
       {title}
     </h3>
+    <p class="text-sm font-medium uppercase tracking-wider mb-3" style={`color: ${accent}99;`}>
+      {subtitle}
+    </p>
     <p class="text-gray-600 text-sm mb-6 leading-relaxed">{description}</p>
 
     <ul class="space-y-2 mb-6">
