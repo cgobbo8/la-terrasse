@@ -26,6 +26,9 @@ const jsonLd = generateLocalBusinessLD();
   description={t('contact.page.description')}
   jsonLd={jsonLd}
   pagePath="/contact"
+  ctaLabel={phone}
+  ctaHref={`tel:${phoneTel}`}
+  ctaIcon={true}
 >
   <SectionHero
     tagline={t('contact.hero.tagline')}

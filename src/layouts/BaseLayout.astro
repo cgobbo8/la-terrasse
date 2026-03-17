@@ -15,6 +15,9 @@ interface Props {
   jsonLd?: string;
   pagePath?: string;
   noindex?: boolean;
+  ctaLabel?: string;
+  ctaHref?: string;
+  ctaIcon?: boolean;
 }
 
 const {
@@ -25,6 +28,9 @@ const {
   jsonLd,
   pagePath,
   noindex = false,
+  ctaLabel,
+  ctaHref,
+  ctaIcon = false,
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
@@ -53,7 +59,7 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
     )}
   </head>
   <body class="min-h-screen flex flex-col" style={bgStyle}>
-    <Header pole={pole} />
+    <Header pole={pole} ctaLabel={ctaLabel} ctaHref={ctaHref} ctaIcon={ctaIcon} />
     <main class="flex-1 pt-16">
       <slot />
     </main>

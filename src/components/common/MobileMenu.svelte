@@ -1,6 +1,6 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { Menu, X, ChevronDown } from 'lucide-svelte';
+  import { Menu, X, ChevronDown, Phone } from 'lucide-svelte';
 
   interface SubLink {
     label: string;
@@ -26,6 +26,7 @@
     ctaLabel,
     ctaHref,
     ctaColor,
+    ctaIcon = false,
     languages,
     currentLang,
     langPaths,
@@ -38,6 +39,7 @@
     ctaLabel: string;
     ctaHref: string;
     ctaColor: string;
+    ctaIcon?: boolean;
     languages: Record<string, string>;
     currentLang: string;
     langPaths: Record<string, string>;
@@ -239,9 +241,10 @@
         <a
           href={ctaHref}
           onclick={close}
-          class="block w-full text-center text-white min-h-12 px-4 py-3.5 rounded-full font-semibold text-[0.9375rem] transition-all duration-200 hover:shadow-md hover:brightness-95"
+          class="flex items-center justify-center gap-2 w-full text-center text-white min-h-12 px-4 py-3.5 rounded-full font-semibold text-[0.9375rem] transition-all duration-200 hover:shadow-md hover:brightness-95"
           style="background-color: {ctaColor}"
         >
+          {#if ctaIcon}<Phone class="w-4 h-4" strokeWidth={1.5} />{/if}
           {ctaLabel}
         </a>
       </div>
