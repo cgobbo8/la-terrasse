@@ -107,7 +107,10 @@ const timeBlocks = [
   <!-- 3. TROIS FAÇONS DE PROFITER — Les pôles (core value prop) -->
   <PoleDiscovery lang={lang} />
 
-  <!-- 4. UNE JOURNÉE À LA TERRASSE — Pièce créative (Svelte island) -->
+  <!-- 4. INFOS PRATIQUES — Bento grid (practical) -->
+  <BentoMeteo settings={settings} lang={lang} />
+
+  <!-- 5. UNE JOURNÉE À LA TERRASSE — Pièce créative (Svelte island) -->
   <JourneeTypeTimeline
     client:only="svelte"
     timeBlocks={timeBlocks}
@@ -116,14 +119,11 @@ const timeBlocks = [
     ctaLabel={t('home.dayTrip.cta')}
   />
 
-  <!-- 5. OFFRE JOURNÉE — Pass Journée promo (conversion) -->
-  <OffreJournee lang={lang} />
-
   <!-- 6. SOIRÉES & ÉVÉNEMENTS (what's on) -->
   <SoireesSection lang={lang} />
 
-  <!-- 7. INFOS PRATIQUES — Bento grid (practical) -->
-  <BentoMeteo settings={settings} lang={lang} />
+  <!-- 7. OFFRE JOURNÉE — Pass Journée promo (conversion) -->
+  <OffreJournee lang={lang} />
 
   <!-- 8. HISTOIRE — Le lieu comme 4ème personnage (storytelling) -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-brun-terre text-white grain-overlay overflow-hidden">
