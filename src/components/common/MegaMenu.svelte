@@ -308,7 +308,7 @@
                       <img
                         src={pole.featured.image}
                         alt=""
-                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        class="w-full h-full object-cover card-zoom-img"
                         loading="lazy"
                       />
                     {:else}
