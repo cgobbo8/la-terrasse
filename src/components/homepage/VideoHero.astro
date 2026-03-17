@@ -15,7 +15,7 @@ const { tagline, subtitle } = Astro.props;
 ---
 
 <section
-  class="video-hero relative min-h-[60vh] lg:min-h-[80vh] overflow-hidden bg-brun-terre -mt-16 flex flex-col"
+  class="video-hero relative min-h-[80vh] lg:min-h-[85vh] overflow-hidden bg-brun-terre -mt-16 flex flex-col"
   aria-label="Vue aérienne du lac de Saint-Ferréol"
 >
   <!-- Video — hidden when prefers-reduced-motion: reduce -->
@@ -39,26 +39,35 @@ const { tagline, subtitle } = Astro.props;
     role="presentation"
   />
 
-  <!-- Dark gradient overlay for text readability -->
-  <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
+  <!-- Multi-layer gradient overlay for depth -->
+  <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-black/10" />
+  <div class="absolute inset-0 bg-gradient-to-r from-black/30 to-transparent" />
 
   <!-- Spacer: compensate for fixed header height -->
   <div class="h-16 shrink-0" aria-hidden="true"></div>
 
   <!-- Text content centered in visible area -->
-  <div class="relative z-10 flex-1 flex items-center">
-    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-      <h1 class="font-heading text-4xl lg:text-6xl font-bold text-white max-w-3xl">
+  <div class="relative z-10 flex-1 flex items-center justify-center">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <h1 class="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold text-white max-w-4xl mx-auto leading-[1.05]">
         {tagline}
       </h1>
       {subtitle && (
-        <p class="mt-6 text-lg lg:text-xl text-white/80 max-w-2xl">
+        <p class="mt-6 text-lg lg:text-xl text-white/70 max-w-2xl mx-auto font-light">
           {subtitle}
         </p>
       )}
-      <div class="mt-8">
+      <div class="mt-10">
         <slot />
       </div>
     </div>
+  </div>
+
+  <!-- Scroll indicator -->
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 z-10" aria-hidden="true">
+    <span class="text-[0.625rem] font-semibold uppercase tracking-[0.25em]">Scroll</span>
+    <svg class="w-4 h-4 animate-[scrollHint_2s_ease-in-out_infinite]" fill="none" viewBox="0 0 16 16" stroke="currentColor" stroke-width="1.5">
+      <path d="M8 2v10M4 8l4 4 4-4" />
+    </svg>
   </div>
 </section>

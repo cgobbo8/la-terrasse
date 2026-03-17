@@ -121,7 +121,7 @@ const featureRows: { key: keyof Features; label: string }[] = [
               <a
                 href={pkg.ctaHref}
                 class:list={[
-                  'inline-block px-6 py-3 rounded-lg font-medium transition-opacity hover:opacity-90',
+                  'inline-block px-6 py-3 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-md hover:-translate-y-px',
                   pkg.highlighted ? 'text-white' : '',
                 ]}
                 style={pkg.highlighted

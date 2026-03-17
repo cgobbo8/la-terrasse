@@ -5,6 +5,7 @@
  * Dispatch to sub-pages: Séminaires & Pro, Événementiel
  * Agenda preview of upcoming events
  */
+import { Icon } from 'astro-icon/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import VenueSpecs from '@/components/salle/VenueSpecs.astro';
@@ -63,12 +64,14 @@ const jsonLd = generateEventVenueLD({
     tagline={t('salle.hero.tagline')}
     subtitle={t('salle.hero.subtitle')}
     pole="salle"
+    image="/images/heroes/salle.jpg"
   >
     <div class="flex flex-wrap gap-4">
-      <a href={getLocalizedPath('/la-salle/seminaires', lang)} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+      <a href={getLocalizedPath('/la-salle/seminaires', lang)} class="inline-flex items-center gap-2 bg-white text-bleu-ardoise px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
         {t('salle.hub.seminairesCta')}
+        <Icon name="lucide:arrow-right" class="w-4 h-4" />
       </a>
-      <a href={getLocalizedPath('/la-salle/evenementiel', lang)} class="bg-white/20 text-white border border-white/30 px-6 py-3 rounded-lg font-medium hover:bg-white/30 transition-colors">
+      <a href={getLocalizedPath('/la-salle/evenementiel', lang)} class="inline-flex items-center gap-2 border border-white/30 text-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:bg-white/10 hover:border-white/50 transition-all">
         {t('salle.hub.evenementielCta')}
       </a>
     </div>
@@ -76,8 +79,9 @@ const jsonLd = generateEventVenueLD({
 
   <!-- L'ESPACE — Venue specs -->
   <div class="pt-(--spacing-section-mobile) lg:pt-(--spacing-section)">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-2xl font-bold mb-2" style="color: #3d4969;">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+      <p class="section-eyebrow mb-4" style="color: #3d496950;">L'espace</p>
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-2" style="color: #3d4969;">
         {t('salle.venue.title')}
       </h2>
     </div>
@@ -94,27 +98,28 @@ const jsonLd = generateEventVenueLD({
   <!-- DOUBLE DISPATCH: Événementiel + Séminaires -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 lg:gap-6" data-reveal-stagger>
         <!-- Événementiel card -->
         <a
           href={getLocalizedPath('/la-salle/evenementiel', lang)}
-          class="group block rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all"
+          class="group block rounded-2xl overflow-hidden bg-white border border-gray-200/60 card-hover"
         >
           <div class="aspect-[16/9] overflow-hidden">
             <img
-              src="/images/placeholders/nils-lindner.webp"
+              src="/images/heroes/evenementiel.jpg"
               alt="Événementiel"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              class="w-full h-full object-cover card-zoom-img"
               loading="lazy"
             />
           </div>
-          <div class="p-6">
+          <div class="p-7">
             <h3 class="font-heading text-xl font-bold mb-2" style="color: #3d4969;">
               {t('salle.hub.evenementielTitle')}
             </h3>
-            <p class="text-gray-600 text-sm mb-4">Louez la salle pour vos concerts, foires, expositions, soirées privées — un espace modulable à votre disposition.</p>
-            <span class="text-sm font-medium transition-all group-hover:underline" style="color: #3d4969;">
-              {t('salle.hub.evenementielCta')} →
+            <p class="text-gray-500 text-sm mb-4 leading-relaxed">Louez la salle pour vos concerts, foires, expositions, soirées privées — un espace modulable à votre disposition.</p>
+            <span class="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all" style="color: #3d4969;">
+              {t('salle.hub.evenementielCta')}
+              <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </span>
           </div>
         </a>
@@ -122,23 +127,24 @@ const jsonLd = generateEventVenueLD({
         <!-- Séminaires card -->
         <a
           href={getLocalizedPath('/la-salle/seminaires', lang)}
-          class="group block rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all"
+          class="group block rounded-2xl overflow-hidden bg-white border border-gray-200/60 card-hover"
         >
           <div class="aspect-[16/9] overflow-hidden">
             <img
-              src="/images/placeholders/emma-harper.webp"
+              src="/images/heroes/seminaires.jpg"
               alt="Séminaires"
-              class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+              class="w-full h-full object-cover card-zoom-img"
               loading="lazy"
             />
           </div>
-          <div class="p-6">
+          <div class="p-7">
             <h3 class="font-heading text-xl font-bold mb-2" style="color: #3d4969;">
               {t('salle.hub.seminairesTitle')}
             </h3>
-            <p class="text-gray-600 text-sm mb-4">{t('salle.hub.seminairesDesc')}</p>
-            <span class="text-sm font-medium transition-all group-hover:underline" style="color: #3d4969;">
-              {t('salle.hub.seminairesCta')} →
+            <p class="text-gray-500 text-sm mb-4 leading-relaxed">{t('salle.hub.seminairesDesc')}</p>
+            <span class="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all" style="color: #3d4969;">
+              {t('salle.hub.seminairesCta')}
+              <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </span>
           </div>
         </a>
@@ -147,13 +153,16 @@ const jsonLd = generateEventVenueLD({
   </section>
 
   <!-- Section contact -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-gray-500 italic mb-4">
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) grain-overlay overflow-hidden" style="background-color: #3d4969;">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-reveal>
+      <p class="section-eyebrow text-white/30 mb-6">Contact</p>
+      <h2 class="font-heading text-3xl font-bold text-white mb-4">Un projet en tête ?</h2>
+      <p class="text-white/50 mb-10 max-w-lg mx-auto">
         {t('common.requestQuoteDesc')}
       </p>
-      <a href={buildQuoteMailto()} class="inline-block px-6 py-3 rounded-lg font-medium transition-colors text-white" style="background-color: #3d4969;">
+      <a href={buildQuoteMailto()} class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px text-white bg-white/15 border border-white/20 hover:bg-white/25">
         {t('common.requestQuote')}
+        <Icon name="lucide:mail" class="w-4 h-4" />
       </a>
     </div>
   </section>

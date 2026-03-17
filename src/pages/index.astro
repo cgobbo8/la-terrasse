@@ -16,6 +16,7 @@ import BentoMeteo from '@/components/homepage/BentoMeteo.astro';
 import AgendaFloatingWidget from '@/components/homepage/AgendaFloatingWidget.astro';
 import SoireesSection from '@/components/homepage/SoireesSection.astro';
 import OffreJournee from '@/components/common/OffreJournee.astro';
+import { Icon } from 'astro-icon/components';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
@@ -33,7 +34,7 @@ const timeBlocks = [
     time: '9h30',
     title: t('home.dayTrip.block1.title'),
     description: t('home.dayTrip.block1.description'),
-    image: '/images/journee/kayak.webp',
+    image: '/images/journee/kayak.jpg',
     href: getLocalizedPath('/aventure', lang),
     poleAccent: '#537b47',
   },
@@ -41,7 +42,7 @@ const timeBlocks = [
     time: '12h30',
     title: t('home.dayTrip.block2.title'),
     description: t('home.dayTrip.block2.description'),
-    image: '/images/journee/dejeuner.webp',
+    image: '/images/journee/dejeuner.jpg',
     href: getLocalizedPath('/restaurant', lang),
     poleAccent: '#2D2B1B',
   },
@@ -49,7 +50,7 @@ const timeBlocks = [
     time: '14h30',
     title: t('home.dayTrip.block3.title'),
     description: t('home.dayTrip.block3.description'),
-    image: '/images/journee/paddle.webp',
+    image: '/images/journee/paddle.jpg',
     href: getLocalizedPath('/aventure', lang),
     poleAccent: '#537b47',
   },
@@ -57,7 +58,7 @@ const timeBlocks = [
     time: '17h00',
     title: t('home.dayTrip.block4.title'),
     description: t('home.dayTrip.block4.description'),
-    image: '/images/journee/detente.webp',
+    image: '/images/journee/detente.jpg',
     href: '#',
     poleAccent: '#2D2B1B',
   },
@@ -65,7 +66,7 @@ const timeBlocks = [
     time: '19h30',
     title: t('home.dayTrip.block5.title'),
     description: t('home.dayTrip.block5.description'),
-    image: '/images/journee/apero.webp',
+    image: '/images/journee/apero.jpg',
     href: getLocalizedPath('/restaurant', lang),
     poleAccent: '#2D2B1B',
   },
@@ -90,10 +91,11 @@ const timeBlocks = [
   <!-- 1. HERO — Le lieu (vidéo plein écran) -->
   <VideoHero tagline={t('home.hero.tagline')} subtitle={t('home.hero.subtitle')}>
     <div class="flex flex-wrap gap-4">
-      <a href={getLocalizedPath('/agenda', lang)} class="bg-white text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+      <a href={getLocalizedPath('/agenda', lang)} class="inline-flex items-center gap-2 bg-white text-brun-terre px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
         {t('home.hero.ctaAgenda')}
+        <Icon name="lucide:arrow-right" class="w-4 h-4" />
       </a>
-      <a href={getLocalizedPath('/contact', lang)} class="bg-white/20 text-white border border-white/30 px-6 py-3 rounded-lg font-medium hover:bg-white/30 transition-colors">
+      <a href={getLocalizedPath('/contact', lang)} class="inline-flex items-center gap-2 text-white border border-white/30 px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:bg-white/10 hover:border-white/50 transition-all">
         {t('home.hero.ctaContact')}
       </a>
     </div>
@@ -102,40 +104,8 @@ const timeBlocks = [
   <!-- 2. AGENDA WIDGET — Floating between hero and poles -->
   <AgendaFloatingWidget events={allEvents} lang={lang} />
 
-  <!-- 3. TROIS FAÇONS DE PROFITER — Les pôles -->
+  <!-- 3. TROIS FAÇONS DE PROFITER — Les pôles (core value prop) -->
   <PoleDiscovery lang={lang} />
-
-  <!-- 3. HISTOIRE — Le lieu comme 4ème personnage -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-brun-terre text-white">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-5 gap-12 items-center">
-        <!-- Texte -->
-        <div class="lg:col-span-3">
-          <h2 class="font-heading text-3xl lg:text-4xl font-bold mb-6">
-            {t('home.history.title')}
-          </h2>
-          <p class="text-xl text-white/90 font-medium mb-4">
-            {t('home.history.intro')}
-          </p>
-          <p class="text-white/70 leading-relaxed mb-6">
-            {t('home.history.body')}
-          </p>
-          <p class="text-white/80 leading-relaxed italic">
-            {t('home.history.closing')}
-          </p>
-        </div>
-        <!-- Image historique du lac -->
-        <div class="lg:col-span-2">
-          <img
-            src="/images/placeholders/claudia-chiavazza.webp"
-            alt="Le lac de Saint-Ferréol"
-            class="aspect-[3/4] w-full rounded-2xl object-cover"
-            loading="lazy"
-          />
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- 4. UNE JOURNÉE À LA TERRASSE — Pièce créative (Svelte island) -->
   <JourneeTypeTimeline
@@ -146,26 +116,71 @@ const timeBlocks = [
     ctaLabel={t('home.dayTrip.cta')}
   />
 
-  <!-- 5. OFFRE JOURNÉE — Pass Journée promo -->
+  <!-- 5. OFFRE JOURNÉE — Pass Journée promo (conversion) -->
   <OffreJournee lang={lang} />
 
-  <!-- 6. SOIRÉES & ÉVÉNEMENTS -->
+  <!-- 6. SOIRÉES & ÉVÉNEMENTS (what's on) -->
   <SoireesSection lang={lang} />
 
-  <!-- 6. INFOS PRATIQUES — Bento grid -->
+  <!-- 7. INFOS PRATIQUES — Bento grid (practical) -->
   <BentoMeteo settings={settings} lang={lang} />
 
-  <!-- 7. CTA FINAL -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-brun-terre text-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-3xl lg:text-4xl font-bold mb-8">
+  <!-- 8. HISTOIRE — Le lieu comme 4ème personnage (storytelling) -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-brun-terre text-white grain-overlay overflow-hidden">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        <!-- Image -->
+        <div class="order-2 lg:order-1" data-reveal>
+          <div class="relative">
+            <img
+              src="/images/heroes/contact.jpg"
+              alt="Le lac de Saint-Ferréol"
+              class="aspect-[4/5] w-full rounded-2xl object-cover"
+              loading="lazy"
+            />
+            <!-- Decorative frame offset -->
+            <div class="absolute -inset-3 border border-white/10 rounded-3xl -z-10" aria-hidden="true"></div>
+          </div>
+        </div>
+        <!-- Text -->
+        <div class="order-1 lg:order-2" data-reveal>
+          <p class="section-eyebrow text-white/30 mb-6">Notre histoire</p>
+          <h2 class="font-heading text-3xl lg:text-5xl font-bold mb-8 leading-tight">
+            {t('home.history.title')}
+          </h2>
+          <p class="text-xl text-white/80 font-medium mb-6 leading-relaxed">
+            {t('home.history.intro')}
+          </p>
+          <p class="text-white/50 leading-relaxed mb-8">
+            {t('home.history.body')}
+          </p>
+          <p class="text-white/60 leading-relaxed italic border-l-2 border-white/20 pl-6">
+            {t('home.history.closing')}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. CTA FINAL -->
+  <section class="relative py-(--spacing-section-mobile) lg:py-32 bg-brun-terre text-white overflow-hidden grain-overlay">
+    <!-- Decorative background elements -->
+    <div class="absolute top-0 right-0 w-[40rem] h-[40rem] rounded-full opacity-[0.03] bg-white -translate-y-1/2 translate-x-1/3 pointer-events-none" aria-hidden="true"></div>
+
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-reveal>
+      <p class="section-eyebrow text-white/30 mb-6">Rendez-vous au lac</p>
+      <h2 class="font-heading text-3xl lg:text-5xl font-bold mb-6 leading-tight">
         {t('home.cta.title')}
       </h2>
+      <p class="text-white/50 text-lg mb-10 max-w-xl mx-auto">
+        Une journée, trois univers — à 45 minutes de Toulouse.
+      </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href={getLocalizedPath('/agenda', lang)} class="bg-white text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+        <a href={getLocalizedPath('/agenda', lang)} class="inline-flex items-center gap-2 bg-white text-brun-terre px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
           {t('home.hero.ctaAgenda')}
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
         </a>
-        <a href={getLocalizedPath('/contact', lang)} class="border border-white/30 px-6 py-3 rounded-lg font-medium hover:bg-white/10 transition-colors">
+        <a href={getLocalizedPath('/contact', lang)} class="inline-flex items-center border border-white/30 text-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:bg-white/10 hover:border-white/50 transition-all">
           {t('home.hero.ctaContact')}
         </a>
       </div>

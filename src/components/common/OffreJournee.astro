@@ -43,30 +43,12 @@ const steps = [
     detail: 'VTT, pédalo, archery tag…',
   },
   {
-    number: '+',
-    icon: 'lucide:plus',
-    color: '#a8a8a4',
-    bgLight: 'transparent',
-    label: '',
-    detail: '',
-    isSeparator: true,
-  },
-  {
     number: '02',
     icon: 'lucide:sparkles',
     color: '#537b47',
     bgLight: '#eef5ec',
     label: '2 petites activités',
     detail: 'Tir à l\'arc, accrobranche…',
-  },
-  {
-    number: '=',
-    icon: 'lucide:equal',
-    color: '#a8a8a4',
-    bgLight: 'transparent',
-    label: '',
-    detail: '',
-    isSeparator: true,
   },
   {
     number: '03',
@@ -80,11 +62,10 @@ const steps = [
 ---
 
 <section class="offre-journee py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-  <!-- Outer wrapper — warm parchment gradient blending into nature -->
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
     <!-- Main card -->
-    <div class="offre-card relative overflow-hidden rounded-3xl">
+    <div class="offre-card relative overflow-hidden rounded-3xl" data-reveal>
 
       <!-- Background texture layers -->
       <div class="card-bg" aria-hidden="true"></div>
@@ -95,12 +76,10 @@ const steps = [
       <!-- Decorative circle blob — bottom left -->
       <div class="blob-bl" aria-hidden="true"></div>
 
-      <!-- ============================================================
-           INNER CONTENT — two-column on desktop, stack on mobile
-           ============================================================ -->
+      <!-- INNER CONTENT — two-column on desktop, stack on mobile -->
       <div class="relative z-10 grid grid-cols-1 lg:grid-cols-[1fr_auto] gap-10 lg:gap-16 p-8 sm:p-10 lg:p-14 xl:p-16">
 
-        <!-- ── LEFT COLUMN — Narrative ── -->
+        <!-- LEFT COLUMN — Narrative -->
         <div class="flex flex-col justify-center gap-7">
 
           <!-- Eyebrow pill -->
@@ -128,13 +107,13 @@ const steps = [
 
           <!-- Grande activité anchor chips -->
           <div>
-            <p class="text-xs uppercase tracking-widest font-bold mb-3" style="color: #a8a8a4;">
+            <p class="section-eyebrow mb-3" style="color: #a8a8a4;">
               Grandes activités éligibles
             </p>
             <div class="flex flex-wrap gap-2">
               {grandesActivites.map((act) => (
-                <span class="activity-chip inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium"
-                  style="background-color: #537b4715; color: #3d6434; border: 1px solid #537b4730;"
+                <span class="activity-chip inline-flex items-center gap-2 px-3.5 py-2 rounded-full text-sm font-medium"
+                  style="background-color: #537b4712; color: #3d6434; border: 1px solid #537b4725;"
                 >
                   <Icon name={act.icon} class="w-4 h-4 flex-shrink-0" />
                   {act.label}
@@ -147,7 +126,7 @@ const steps = [
           <div class="flex flex-wrap gap-3 pt-1">
             <a
               href={aventurePath}
-              class="cta-aventure inline-flex items-center gap-2.5 px-5 py-3 rounded-xl font-heading font-bold text-sm text-white transition-all"
+              class="cta-aventure inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-heading font-semibold text-sm text-white transition-all"
               style="background-color: #537b47;"
             >
               <Icon name="lucide:compass" class="w-4 h-4 flex-shrink-0" />
@@ -156,8 +135,8 @@ const steps = [
             </a>
             <a
               href={cartePath}
-              class="cta-restaurant inline-flex items-center gap-2.5 px-5 py-3 rounded-xl font-heading font-bold text-sm transition-all"
-              style="background-color: #2D2B1B1a; color: #2D2B1B; border: 1.5px solid #2D2B1B30;"
+              class="cta-restaurant inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all"
+              style="background-color: transparent; color: #2D2B1B; border: 1.5px solid #2D2B1B30;"
             >
               <Icon name="lucide:utensils" class="w-4 h-4 flex-shrink-0" />
               Voir la carte
@@ -165,7 +144,7 @@ const steps = [
           </div>
         </div>
 
-        <!-- ── RIGHT COLUMN — Offer formula card ── -->
+        <!-- RIGHT COLUMN — Offer formula card -->
         <div class="flex items-center justify-center lg:justify-end">
           <div class="formula-card relative flex flex-col items-stretch gap-1 w-full max-w-xs lg:max-w-[280px] xl:max-w-[300px]">
 
@@ -187,7 +166,7 @@ const steps = [
 
             <!-- Step-by-step formula -->
             <div class="formula-steps rounded-2xl overflow-hidden" style="background-color: #faf8f4; border: 1px solid #e8e2d6;">
-              {steps.filter(s => !s.isSeparator).map((step, idx) => (
+              {steps.map((step, idx) => (
                 <div class:list={['formula-step flex items-start gap-3.5 px-5 py-4', idx > 0 ? 'formula-step--bordered' : '']}>
                   <!-- Step icon -->
                   <div
@@ -224,9 +203,9 @@ const steps = [
           </div>
         </div>
 
-      </div><!-- /grid -->
-    </div><!-- /offre-card -->
-  </div><!-- /container -->
+      </div>
+    </div>
+  </div>
 </section>
 
 <style>
@@ -312,8 +291,8 @@ const steps = [
     transition: background-color 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
   }
   .cta-restaurant:hover {
-    background-color: #2D2B1B0d !important;
-    border-color: #2D2B1B60 !important;
+    background-color: #2D2B1B08 !important;
+    border-color: #2D2B1B50 !important;
     transform: translateY(-2px);
   }
 

@@ -1,8 +1,8 @@
 ---
 import { poleConfigs, type Pole } from '@/lib/pole-config';
-import { Image } from 'astro:assets';
 import type { Lang } from '@/i18n/translations';
 import { useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { Icon } from 'astro-icon/components';
 
 interface Props {
   lang: Lang;
@@ -11,20 +11,26 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const poles: { key: Pole; href: string; image: string }[] = [
-  { key: 'restaurant', href: '/restaurant', image: '/images/placeholders/dirk-von-loen-wagner.webp' },
-  { key: 'aventure', href: '/aventure', image: '/images/placeholders/daniel-jacob.webp' },
-  { key: 'salle', href: '/la-salle', image: '/images/placeholders/cristian-negraia.webp' },
+const poles: { key: Pole; href: string; image: string; video: string }[] = [
+  { key: 'restaurant', href: '/restaurant', image: '/images/poles/restaurant.jpg', video: '/videos/pole-restaurant.mp4' },
+  { key: 'aventure', href: '/aventure', image: '/images/poles/aventure.jpg', video: '/videos/pole-aventure.mp4' },
+  { key: 'salle', href: '/la-salle', image: '/images/poles/salle.jpg', video: '/videos/pole-salle.mp4' },
 ];
 ---
 
-<section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+<section class="pole-discovery py-(--spacing-section-mobile) lg:py-(--spacing-section)">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre text-center mb-12">
-      {t('home.poles.title')}
-    </h2>
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      {poles.map(({ key, href, image }) => {
+    <!-- Section header -->
+    <div class="text-center mb-14 lg:mb-20" data-reveal>
+      <p class="section-eyebrow text-brun-terre/40 mb-4">La Terrasse</p>
+      <h2 class="font-heading text-4xl lg:text-5xl font-bold text-brun-terre">
+        {t('home.poles.title')}
+      </h2>
+    </div>
+
+    <!-- Pole cards -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6" data-reveal-stagger>
+      {poles.map(({ key, href, image, video }, i) => {
         const config = poleConfigs[key];
         const description = t(`home.poles.description.${key}` as any);
         const ctaLabel = t(`home.poles.cta.${key}` as any);
@@ -33,34 +39,134 @@ const poles: { key: Pole; href: string; image: string }[] = [
         return (
           <a
             href={localizedHref}
-            class="group block rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all"
+            class="pole-card group relative block rounded-2xl overflow-hidden aspect-[3/4] md:aspect-auto md:h-[520px] lg:h-[580px]"
+            data-pole-video={video}
           >
-            <div class="aspect-[3/2] overflow-hidden">
-              <Image
-                src={image}
-                alt={`La Terrasse ${config.name}`}
-                width={640}
-                height={427}
-                class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
-                loading="lazy"
-                decoding="async"
-              />
-            </div>
-            <div class="p-6">
-              <h3 class="font-heading text-xl font-bold mb-2" style={`color: ${config.accent}`}>
-                La Terrasse {config.name}
+            {/* Background image — visible by default */}
+            <img
+              src={image}
+              alt={`La Terrasse ${config.name}`}
+              class="pole-card-img absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ease-out"
+              loading="lazy"
+              decoding="async"
+            />
+
+            {/* Background video — hidden, plays on hover */}
+            <video
+              class="pole-card-video absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700 ease-out"
+              muted
+              loop
+              playsinline
+              preload="none"
+              poster={image}
+            >
+              <source src={video} type="video/mp4" />
+            </video>
+
+            {/* Base dark gradient */}
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-black/5 transition-opacity duration-500" />
+
+            {/* Pole-colored gradient overlay on hover */}
+            <div
+              class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+              style={`background: linear-gradient(to top, ${config.accent}90, transparent 60%);`}
+            />
+
+            {/* Number decoration */}
+            <span class="absolute top-6 right-7 font-heading text-[5.5rem] lg:text-[7rem] font-bold text-white/[0.07] leading-none select-none pointer-events-none" aria-hidden="true">
+              0{i + 1}
+            </span>
+
+            {/* Content at bottom */}
+            <div class="absolute inset-x-0 bottom-0 p-7 lg:p-9 flex flex-col">
+              <h3 class="font-heading text-2xl lg:text-[1.75rem] font-bold text-white mb-2 leading-tight">
+                La Terrasse<br />{config.name}
               </h3>
-              <p class="text-gray-600 text-sm leading-relaxed">{description}</p>
-              <span
-                class="inline-block mt-4 text-sm font-medium group-hover:underline"
-                style={`color: ${config.accent}`}
-              >
-                {ctaLabel} &rarr;
+              <p class="text-white/60 text-sm leading-relaxed mb-5 max-w-[280px] group-hover:text-white/75 transition-colors duration-300">
+                {description}
+              </p>
+              <span class="inline-flex items-center gap-2 text-sm font-semibold text-white self-start">
+                <span class="border-b border-white/30 pb-0.5 group-hover:border-white/70 transition-colors duration-300">
+                  {ctaLabel}
+                </span>
+                <Icon name="lucide:arrow-right" class="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
               </span>
             </div>
+
+            {/* Bottom accent line — animates in on hover */}
+            <div
+              class="absolute bottom-0 left-0 right-0 h-[3px] transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 ease-out origin-left"
+              style={`background-color: ${config.accent};`}
+            />
           </a>
         );
       })}
     </div>
   </div>
 </section>
+
+<script>
+  // Video-on-hover for pole cards — desktop only, respects reduced motion
+  if (
+    typeof window !== 'undefined' &&
+    window.matchMedia('(hover: hover)').matches &&
+    !window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  ) {
+    document.querySelectorAll<HTMLAnchorElement>('.pole-card[data-pole-video]').forEach((card) => {
+      const video = card.querySelector<HTMLVideoElement>('.pole-card-video');
+      const img = card.querySelector<HTMLImageElement>('.pole-card-img');
+      if (!video || !img) return;
+
+      let videoReady = false;
+
+      // Preload video metadata on first hover
+      video.addEventListener('canplaythrough', () => {
+        videoReady = true;
+      }, { once: true });
+
+      card.addEventListener('mouseenter', () => {
+        // Start loading if not already
+        if (video.preload === 'none') {
+          video.preload = 'auto';
+          video.load();
+        }
+
+        video.play().then(() => {
+          video.style.opacity = '1';
+          img.style.opacity = '0';
+        }).catch(() => {
+          // Video failed to play — keep showing image
+        });
+      });
+
+      card.addEventListener('mouseleave', () => {
+        video.style.opacity = '0';
+        img.style.opacity = '1';
+        video.pause();
+      });
+    });
+  }
+</script>
+
+<style>
+  .pole-card {
+    will-change: transform;
+  }
+
+  .pole-card::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pole-card img,
+    .pole-card video,
+    .pole-card div {
+      transition: none !important;
+    }
+  }
+</style>

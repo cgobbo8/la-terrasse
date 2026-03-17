@@ -2,8 +2,9 @@
 /**
  * Contextual narrative cross-link (Layer 2)
  * Warm, page-specific suggestion to another pole.
- * Ghost button style: text-only, target pole accent color, underline on hover.
+ * Refined ghost style with arrow.
  */
+import { Icon } from 'astro-icon/components';
 
 interface Props {
   /** Narrative sentence — must be unique per page, never generic */
@@ -25,14 +26,17 @@ const accentColors = {
 const accent = accentColors[pole];
 ---
 
-<aside class="py-10 lg:py-14">
+<aside class="py-10 lg:py-16">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
     <a
       href={href}
-      class="inline-block text-lg lg:text-xl italic leading-relaxed transition-all hover:underline"
+      class="group inline-flex items-center gap-3 text-lg lg:text-xl italic font-semibold leading-relaxed transition-all hover:-translate-y-px"
       style={`color: ${accent}`}
     >
-      {text}
+      <span class="underline underline-offset-4 decoration-current/30 group-hover:decoration-current/80 transition-colors">
+        {text}
+      </span>
+      <Icon name="lucide:arrow-right" class="w-5 h-5 transition-transform duration-200 group-hover:translate-x-1 flex-shrink-0" />
     </a>
   </div>
 </aside>

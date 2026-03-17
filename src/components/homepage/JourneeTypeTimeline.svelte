@@ -1,5 +1,6 @@
 <script>
   import { onMount } from 'svelte';
+  import { ArrowRight } from 'lucide-svelte';
 
   /**
    * @typedef {{ time: string, title: string, description: string, image: string, href: string, poleAccent: string }} TimeBlock
@@ -86,14 +87,17 @@
 
 <section
   bind:this={sectionEl}
-  class="journee-section py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite overflow-hidden"
+  class="journee-section py-16 lg:py-28 bg-offwhite overflow-hidden"
   role="region"
   aria-label={sectionTitle}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre text-center mb-12">
-      {sectionTitle}
-    </h2>
+    <div class="text-center mb-14 lg:mb-20">
+      <p class="section-eyebrow text-brun-terre/40 mb-4" style="display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">Votre journée</p>
+      <h2 class="font-heading text-3xl lg:text-5xl font-bold text-brun-terre">
+        {sectionTitle}
+      </h2>
+    </div>
   </div>
 
   {#if useAnimation}
@@ -104,40 +108,35 @@
     >
       {#each timeBlocks as block, i}
         <article
-          class="timeline-card min-w-[80vw] md:min-w-[50vw] lg:min-w-[33vw] max-w-md flex-shrink-0 bg-white rounded-2xl shadow-sm overflow-hidden"
+          class="timeline-card min-w-[80vw] md:min-w-[50vw] lg:min-w-[33vw] max-w-md flex-shrink-0 rounded-2xl overflow-hidden border border-gray-200/60 bg-white"
         >
-          <div class="aspect-[16/9] overflow-hidden">
+          <div class="aspect-[16/9] overflow-hidden relative">
             <img
               src={block.image}
               alt={block.title}
               class="w-full h-full object-cover"
               loading="lazy"
             />
+            <!-- Time badge overlay -->
+            <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-white text-xs font-bold backdrop-blur-sm" style="background-color: {block.poleAccent}cc;">
+              {block.time}
+            </div>
           </div>
           <div class="p-6">
-            <div class="flex items-center gap-3 mb-3">
-              <span
-                class="timeline-dot w-3 h-3 rounded-full flex-shrink-0"
-                style="background-color: {block.poleAccent}"
-              ></span>
-              <span
-                class="font-heading font-bold text-lg"
-                style="color: {block.poleAccent}"
-              >{block.time}</span>
-            </div>
             <h3 class="font-heading font-bold text-xl text-brun-terre mb-2">
               {block.title}
             </h3>
-            <p class="text-sm text-gray-600 leading-relaxed mb-4">
+            <p class="text-sm text-gray-500 leading-relaxed mb-4">
               {block.description}
             </p>
             {#if block.href !== '#'}
               <a
                 href={block.href}
-                class="inline-flex items-center text-sm font-medium transition-colors hover:opacity-80"
+                class="inline-flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-2.5"
                 style="color: {block.poleAccent}"
               >
-                {ctaLabel} <span class="ml-1" aria-hidden="true">&rarr;</span>
+                {ctaLabel}
+                <ArrowRight class="w-4 h-4" size={16} />
               </a>
             {/if}
           </div>
@@ -149,41 +148,35 @@
   {:else}
     <!-- Static fallback: mobile + reduced motion -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {#each timeBlocks as block}
-          <article class="bg-white rounded-2xl shadow-sm overflow-hidden">
-            <div class="aspect-[16/9] overflow-hidden">
+          <article class="rounded-2xl overflow-hidden border border-gray-200/60 bg-white">
+            <div class="aspect-[16/9] overflow-hidden relative">
               <img
                 src={block.image}
                 alt={block.title}
                 class="w-full h-full object-cover"
                 loading="lazy"
               />
+              <div class="absolute top-4 left-4 px-3 py-1.5 rounded-full text-white text-xs font-bold backdrop-blur-sm" style="background-color: {block.poleAccent}cc;">
+                {block.time}
+              </div>
             </div>
             <div class="p-6">
-              <div class="flex items-center gap-3 mb-3">
-                <span
-                  class="w-3 h-3 rounded-full flex-shrink-0"
-                  style="background-color: {block.poleAccent}"
-                ></span>
-                <span
-                  class="font-heading font-bold text-lg"
-                  style="color: {block.poleAccent}"
-                >{block.time}</span>
-              </div>
               <h3 class="font-heading font-bold text-xl text-brun-terre mb-2">
                 {block.title}
               </h3>
-              <p class="text-sm text-gray-600 leading-relaxed mb-4">
+              <p class="text-sm text-gray-500 leading-relaxed mb-4">
                 {block.description}
               </p>
               {#if block.href !== '#'}
                 <a
                   href={block.href}
-                  class="inline-flex items-center text-sm font-medium transition-colors hover:opacity-80"
+                  class="inline-flex items-center gap-1.5 text-sm font-semibold transition-all hover:gap-2.5"
                   style="color: {block.poleAccent}"
                 >
-                  {ctaLabel} <span class="ml-1" aria-hidden="true">&rarr;</span>
+                  {ctaLabel}
+                  <ArrowRight class="w-4 h-4" size={16} />
                 </a>
               {/if}
             </div>

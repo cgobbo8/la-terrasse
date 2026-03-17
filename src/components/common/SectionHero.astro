@@ -1,6 +1,6 @@
 ---
 /**
- * Hero section — used on every page as the emotional entry point.
+ * Hero section — used on every pole page as the emotional entry point.
  * Adapts color accent based on the pole.
  */
 import { Image } from 'astro:assets';
@@ -26,38 +26,96 @@ const accentColors: Record<string, string> = {
 const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-brun-terre/80';
 ---
 
-<section class:list={['relative overflow-hidden bg-brun-terre -mt-16 min-h-[60vh] lg:min-h-[80vh] flex flex-col', className]}>
+<section
+  class:list={['relative overflow-hidden bg-brun-terre -mt-16 min-h-[60vh] lg:min-h-[80vh] flex flex-col', className]}
+  data-hero-parallax
+>
   {image && (
     <Image
       src={image}
       alt=""
       width={1920}
       height={1080}
-      class="absolute inset-0 w-full h-full object-cover"
+      class="absolute inset-0 w-full h-full object-cover scale-[1.15] will-change-transform"
       loading="eager"
       fetchpriority="high"
       decoding="sync"
+      data-hero-image
     />
   )}
+  <!-- Multi-layer gradient for depth -->
   <div class:list={['absolute inset-0 bg-gradient-to-t to-transparent', overlayClass]} />
+  <div class="absolute inset-0 bg-gradient-to-r from-black/20 to-transparent" />
 
   <!-- Spacer: compensate for fixed header height -->
   <div class="h-16 shrink-0" aria-hidden="true"></div>
 
-  <!-- Content centered in visible area (below header) -->
-  <div class="relative flex-1 flex items-center">
-    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 lg:py-16">
-      <h1 class="font-heading text-4xl lg:text-6xl font-bold text-white max-w-3xl">
+  <!-- Content — positioned at bottom for dramatic feel -->
+  <div class="relative flex-1 flex items-end pb-16 lg:pb-24">
+    <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h1
+        class="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold text-white max-w-3xl leading-[1.05]"
+        data-hero-heading
+      >
         {tagline}
       </h1>
       {subtitle && (
-        <p class="mt-6 text-lg lg:text-xl text-white/80 max-w-2xl">
+        <p class="mt-6 text-lg lg:text-xl text-white/70 max-w-2xl font-light" data-hero-heading>
           {subtitle}
         </p>
       )}
-      <div class="mt-8">
+      <div class="mt-10">
         <slot />
       </div>
     </div>
   </div>
 </section>
+
+<script>
+  async function initHeroAnimations() {
+    // Respect reduced-motion preference
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    const { gsap } = await import('gsap');
+    const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+    gsap.registerPlugin(ScrollTrigger);
+
+    // Parallax on hero image
+    document.querySelectorAll<HTMLElement>('[data-hero-parallax]').forEach((section) => {
+      const image = section.querySelector<HTMLElement>('[data-hero-image]');
+      if (image) {
+        gsap.to(image, {
+          y: '20%',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: section,
+            start: 'top top',
+            end: 'bottom top',
+            scrub: true,
+          },
+        });
+      }
+
+      // Heading fade-up entrance
+      const headings = section.querySelectorAll<HTMLElement>('[data-hero-heading]');
+      headings.forEach((heading) => {
+        gsap.fromTo(
+          heading,
+          { opacity: 0, y: 30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: 'power2.out',
+            scrollTrigger: {
+              trigger: heading,
+              start: 'top 90%',
+            },
+          },
+        );
+      });
+    });
+  }
+
+  initHeroAnimations();
+</script>

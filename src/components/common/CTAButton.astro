@@ -4,28 +4,29 @@ interface Props {
   href: string;
   accentColor: string;
   variant?: 'primary' | 'secondary' | 'ghost';
+  class?: string;
 }
 
-const { label, href, accentColor, variant = 'primary' } = Astro.props;
+const { label, href, accentColor, variant = 'primary', class: className } = Astro.props;
 
-const baseClasses = 'inline-flex items-center justify-center min-h-11 px-4 font-medium text-sm rounded-lg transition-[filter] duration-150 hover:brightness-90';
+const baseClasses = 'inline-flex items-center justify-center gap-2 font-heading font-semibold text-sm transition-all duration-200';
 
 const variantStyles: Record<string, string> = {
   primary: `background-color: ${accentColor}; color: #fff;`,
-  secondary: `border: 1.5px solid ${accentColor}; color: ${accentColor};`,
+  secondary: `border: 1.5px solid ${accentColor}40; color: ${accentColor};`,
   ghost: `color: ${accentColor};`,
 };
 
 const variantClasses: Record<string, string> = {
-  primary: '',
-  secondary: 'bg-transparent',
-  ghost: 'bg-transparent underline-offset-2 hover:underline',
+  primary: 'min-h-12 px-7 py-3 rounded-full shadow-sm hover:shadow-md hover:-translate-y-px active:translate-y-0 active:shadow-sm',
+  secondary: 'min-h-12 px-7 py-3 rounded-full bg-transparent hover:shadow-sm hover:-translate-y-px',
+  ghost: 'bg-transparent underline underline-offset-4 decoration-current/30 hover:decoration-current/80',
 };
 ---
 
 <a
   href={href}
-  class:list={[baseClasses, variantClasses[variant]]}
+  class:list={[baseClasses, variantClasses[variant], className]}
   style={variantStyles[variant]}
 >
   {label}

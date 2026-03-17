@@ -3,6 +3,7 @@
  * NOS PRODUCTEURS — Local producers storytelling page
  * Brun terre identity, Keystatic-powered producer grid
  */
+import { Icon } from 'astro-icon/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import ProducerCard from '@/components/restaurant/ProducerCard.astro';
@@ -39,7 +40,7 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
     tagline={t('restaurant.producers.title')}
     subtitle={t('restaurant.producers.heroSubtitle')}
     pole="restaurant"
-    image="/images/placeholders/emma-harper.webp"
+    image="/images/heroes/producteurs.jpg"
   />
 
   <!-- Breadcrumb + Intro -->
@@ -92,8 +93,9 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
   </section>
 
   <!-- CTA — Subtle, storytelling-appropriate -->
-  <section class="py-12 lg:py-16" style={`background-color: ${restaurant.light}`}>
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)" style={`background-color: ${restaurant.light}`}>
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
+      <p class="section-eyebrow mb-3" style={`color: ${restaurant.accent}80`}>Terroir</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4" style={`color: ${restaurant.accent}`}>
         {t('restaurant.producers.ctaTitle')}
       </h2>
@@ -102,10 +104,11 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
       </p>
       <a
         href={restaurant.ctaHref}
-        class="inline-block px-8 py-4 rounded-lg font-medium text-lg text-white transition-colors hover:opacity-90"
+        class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-heading font-semibold text-sm text-white transition-all hover:shadow-lg hover:-translate-y-px"
         style={`background-color: ${restaurant.accent}`}
       >
         {restaurant.ctaLabel}
+        <Icon name="lucide:arrow-right" class="w-4 h-4" />
       </a>
     </div>
   </section>

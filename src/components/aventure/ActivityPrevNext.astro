@@ -41,7 +41,7 @@ const nextHref = getLocalizedPath(`/aventure/${next.slug}`, lang);
     <div class="grid grid-cols-2 gap-4">
       <a
         href={prevHref}
-        class="prev-next-link group flex items-center gap-3 p-4 rounded-xl border border-gray-200 hover:border-aventure/30 hover:bg-aventure/5 transition-all"
+        class="prev-next-link group flex items-center gap-3 p-4 rounded-xl border border-gray-200/60 hover:border-aventure/30 hover:bg-aventure/5 transition-all"
       >
         <span class="flex-shrink-0 w-8 h-8 rounded-full bg-gray-100 group-hover:bg-aventure/10 flex items-center justify-center transition-colors">
           <Icon name="lucide:chevron-left" class="w-4 h-4 text-gray-400 group-hover:text-aventure transition-colors" />
@@ -54,7 +54,7 @@ const nextHref = getLocalizedPath(`/aventure/${next.slug}`, lang);
 
       <a
         href={nextHref}
-        class="prev-next-link group flex items-center justify-end gap-3 p-4 rounded-xl border border-gray-200 hover:border-aventure/30 hover:bg-aventure/5 transition-all text-right"
+        class="prev-next-link group flex items-center justify-end gap-3 p-4 rounded-xl border border-gray-200/60 hover:border-aventure/30 hover:bg-aventure/5 transition-all text-right"
       >
         <span class="min-w-0">
           <span class="block text-xs uppercase tracking-wider text-gray-400">{t('common.next')}</span>

@@ -31,8 +31,9 @@ const {
 
 <article
   class:list={[
-    'rounded-2xl overflow-hidden bg-white shadow-sm',
-    recommended && 'ring-2',
+    'rounded-2xl overflow-hidden bg-white border',
+    recommended ? 'ring-2 border-transparent' : 'border-gray-200/60 hover:border-gray-300/80',
+    'transition-all duration-300 hover:shadow-md',
   ]}
   style={recommended ? `--tw-ring-color: ${accent}` : undefined}
 >

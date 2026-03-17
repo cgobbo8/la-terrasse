@@ -32,7 +32,7 @@ const t = useTranslations(lang);
       <!-- Left column: venue photo + key figures -->
       <div class="space-y-8">
         <img
-          src="/images/placeholders/emma-harper.webp"
+          src="/images/heroes/salle.jpg"
           alt="La salle événementielle"
           class="aspect-[4/3] w-full rounded-2xl object-cover"
           loading="lazy"
@@ -88,7 +88,7 @@ const t = useTranslations(lang);
           </h3>
           <div class="grid grid-cols-2 gap-3">
             {layoutOptions.map((layout) => (
-              <div class="flex items-center justify-between rounded-xl border border-gray-200 px-4 py-3">
+              <div class="flex items-center justify-between rounded-xl border border-gray-200/60 px-4 py-3 bg-white">
                 <span class="font-medium text-gray-800">{layout.name}</span>
                 <span class="text-sm font-bold" style="color: #3d4969;">
                   {layout.capacity} {t('common.personsShort')}

@@ -239,7 +239,7 @@
         <a
           href={ctaHref}
           onclick={close}
-          class="block w-full text-center text-white min-h-11 px-4 py-3 rounded-lg font-medium text-[0.9375rem] transition-[filter] duration-150 hover:brightness-90"
+          class="block w-full text-center text-white min-h-12 px-4 py-3.5 rounded-full font-semibold text-[0.9375rem] transition-all duration-200 hover:shadow-md hover:brightness-95"
           style="background-color: {ctaColor}"
         >
           {ctaLabel}

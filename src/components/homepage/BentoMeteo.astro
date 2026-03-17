@@ -31,33 +31,36 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
 
 <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre text-center mb-12">
-      {t('home.bento.title')}
-    </h2>
+    <div class="text-center mb-14" data-reveal>
+      <p class="section-eyebrow text-brun-terre/40 mb-4">Pratique</p>
+      <h2 class="font-heading text-3xl lg:text-5xl font-bold text-brun-terre">
+        {t('home.bento.title')}
+      </h2>
+    </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-6">
+    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5" data-reveal-stagger>
       {/* Hours cell — spans 2 rows on md+ */}
-      <div class="bg-white rounded-2xl p-6 shadow-sm flex flex-col md:row-span-2">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-xl bg-brun-terre/10 flex items-center justify-center">
+      <div class="bento-cell bg-white rounded-2xl p-6 lg:p-8 flex flex-col md:row-span-2 border border-gray-200/60">
+        <div class="flex items-center gap-3 mb-5">
+          <div class="w-10 h-10 rounded-xl bg-brun-terre/8 flex items-center justify-center">
             <Icon name="lucide:clock" class="w-5 h-5 text-brun-terre" />
           </div>
-          <h3 class="font-heading font-bold text-lg text-brun-terre">{t('common.openingHours')}</h3>
+          <h3 class="font-heading font-bold text-base text-brun-terre">{t('common.openingHours')}</h3>
         </div>
-        <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line flex-1">
+        <p class="text-gray-500 text-sm leading-relaxed whitespace-pre-line flex-1">
           {openingHours}
         </p>
       </div>
 
       {/* Season cell */}
-      <div class="bg-white rounded-2xl p-6 shadow-sm flex flex-col">
+      <div class="bento-cell bg-white rounded-2xl p-6 flex flex-col border border-gray-200/60">
         <div class="flex items-center gap-2 mb-3">
           <span class="text-2xl">{season.icon}</span>
-          <span class="text-xs font-semibold uppercase tracking-wider" style={`color: ${season.color}`}>
+          <span class="text-xs font-bold uppercase tracking-wider" style={`color: ${season.color}`}>
             {season.label}
           </span>
         </div>
-        <p class="text-gray-600 text-sm leading-relaxed">
+        <p class="text-gray-500 text-sm leading-relaxed">
           {seasonalMessage}
         </p>
       </div>
@@ -67,9 +70,9 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
 
       {/* Promotion cell — only shown if promotionText is non-empty */}
       {promotionText && (
-        <div class="bg-white rounded-2xl p-6 shadow-sm border-2" style={`border-color: ${season.color}20`}>
+        <div class="bento-cell bg-white rounded-2xl p-6 border-2" style={`border-color: ${season.color}20`}>
           <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style={`background-color: ${season.color}15`}>
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style={`background-color: ${season.color}12`}>
               <Icon name="lucide:tag" class="w-5 h-5" style={`color: ${season.color}`} />
             </div>
             <h3 class="font-heading font-bold text-sm text-gray-800">{t('home.bento.promo')}</h3>
@@ -81,31 +84,34 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
       )}
 
       {/* Info cell — practical info */}
-      <div class="bg-white rounded-2xl p-6 shadow-sm">
+      <div class="bento-cell bg-white rounded-2xl p-6 border border-gray-200/60">
         <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-xl bg-brun-terre/10 flex items-center justify-center">
+          <div class="w-10 h-10 rounded-xl bg-brun-terre/8 flex items-center justify-center">
             <Icon name="lucide:map-pin" class="w-5 h-5 text-brun-terre" />
           </div>
           <h3 class="font-heading font-bold text-sm text-brun-terre">{t('home.bento.info')}</h3>
         </div>
-        <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line mb-3">
+        <p class="text-gray-500 text-sm leading-relaxed whitespace-pre-line mb-3">
           {address}
         </p>
         {phone && (
-          <a href={`tel:${phone.replace(/\s/g, '')}`} class="text-brun-terre text-sm font-medium hover:underline">
+          <a href={`tel:${phone.replace(/\s/g, '')}`} class="text-brun-terre text-sm font-semibold hover:underline underline-offset-2">
             {phone}
           </a>
         )}
       </div>
 
       {/* CTA cell — full-width banner row */}
-      <div class="col-span-2 md:col-span-3 rounded-2xl px-8 py-5 shadow-sm bg-brun-terre text-white flex flex-row items-center justify-between gap-4">
-        <h3 class="font-heading font-bold text-lg">
-          {t('home.bento.cta')}
-        </h3>
+      <div class="col-span-2 md:col-span-3 rounded-2xl px-8 py-6 bg-brun-terre text-white flex flex-row items-center justify-between gap-4">
+        <div>
+          <h3 class="font-heading font-bold text-lg mb-1">
+            {t('home.bento.cta')}
+          </h3>
+          <p class="text-white/40 text-sm hidden sm:block">Une question ? Écrivez-nous.</p>
+        </div>
         <a
           href={getLocalizedPath('/contact', lang)}
-          class="inline-flex items-center gap-2 bg-white text-brun-terre px-5 py-2.5 rounded-lg font-medium text-sm hover:bg-white/90 transition-colors shrink-0"
+          class="inline-flex items-center gap-2 bg-white text-brun-terre px-6 py-3 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all shrink-0"
         >
           {t('common.contact')}
           <Icon name="lucide:arrow-right" class="w-4 h-4" />

@@ -477,7 +477,7 @@
           <!-- CTA -->
           <a
             href={mailtoHref}
-            class="cta-btn group relative overflow-hidden flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-xl font-heading font-bold text-sm text-white transition-all duration-200 hover:brightness-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-xl mt-2"
+            class="cta-btn group relative overflow-hidden flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-full font-heading font-bold text-sm text-white transition-all duration-200 hover:shadow-md hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-full mt-2"
             style="background: linear-gradient(135deg, {accentColor} 0%, #2a3450 100%); outline-color: {accentColor};"
           >
             <!-- Shimmer -->

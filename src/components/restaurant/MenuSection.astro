@@ -25,25 +25,26 @@ function formatPrice(raw: string): string {
 }
 ---
 
-<div class="mb-12 lg:mb-16">
+<div class="mb-14 lg:mb-18" data-reveal>
   <h3
-    class="font-heading text-xl lg:text-2xl font-bold mb-6 pb-3 border-b-2"
-    style={`color: ${accent}; border-color: ${accent}`}
+    class="font-heading text-xl lg:text-2xl font-bold mb-8 pb-3 flex items-center gap-4"
+    style={`color: ${accent}`}
   >
-    {title}
+    <span>{title}</span>
+    <span class="flex-1 h-[2px]" style={`background-color: ${accent}30`}></span>
   </h3>
 
-  <ul class="space-y-4">
+  <ul class="space-y-1">
     {dishes.map((dish) => (
-      <li class="flex flex-wrap items-baseline gap-x-4 py-2 border-b border-gray-100 last:border-b-0">
+      <li class="flex flex-wrap items-baseline gap-x-4 py-3 border-b border-gray-100/80 last:border-b-0">
         <div class="flex-1 min-w-0">
           <span class="font-bold text-base lg:text-lg text-gray-900">{dish.name}</span>
           {dish.tags && dish.tags.length > 0 && (
             <span class="inline-flex gap-1 ml-2">
               {dish.tags.map((tag) => (
                 <span
-                  class="inline-block text-[11px] font-medium px-1.5 py-0.5 rounded-full"
-                  style={`background-color: ${accent}15; color: ${accent}`}
+                  class="inline-block text-[0.6875rem] font-semibold px-2 py-0.5 rounded-full"
+                  style={`background-color: ${accent}12; color: ${accent}`}
                 >
                   {tag}
                 </span>
@@ -51,7 +52,7 @@ function formatPrice(raw: string): string {
             </span>
           )}
           {dish.description && (
-            <p class="text-sm lg:text-base text-gray-500 mt-0.5">{dish.description}</p>
+            <p class="text-sm text-gray-500 mt-1 leading-relaxed">{dish.description}</p>
           )}
         </div>
         <span

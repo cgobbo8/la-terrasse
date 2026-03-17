@@ -57,7 +57,7 @@ const localizedFormulas = groupFormulas.map((formula) => {
     tagline={t('restaurant.groups.heroTitle')}
     subtitle={t('restaurant.groups.heroSubtitle')}
     pole="restaurant"
-    image="/images/placeholders/emma-harper.webp"
+    image="/images/heroes/repas-groupe.jpg"
   />
 
   <!-- Breadcrumb + Intro -->
@@ -88,11 +88,14 @@ const localizedFormulas = groupFormulas.map((formula) => {
   </section>
 
   <!-- Formula cards -->
-  <section class="py-12 lg:py-24" style={`background-color: ${restaurant.light}`}>
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)" style={`background-color: ${restaurant.light}`}>
     <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-3xl font-bold text-center mb-12" style={`color: ${restaurant.accent}`}>
-        {t('restaurant.groups.formulasTitle')}
-      </h2>
+      <div class="text-center mb-12" data-reveal>
+        <p class="section-eyebrow mb-3" style={`color: ${restaurant.accent}80`}>Nos formules</p>
+        <h2 class="font-heading text-3xl font-bold" style={`color: ${restaurant.accent}`}>
+          {t('restaurant.groups.formulasTitle')}
+        </h2>
+      </div>
 
       {localizedFormulas.length > 0 ? (
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -119,16 +122,19 @@ const localizedFormulas = groupFormulas.map((formula) => {
   </section>
 
   <!-- Practical info -->
-  <section class="py-12 lg:py-24">
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-3xl font-bold text-center mb-12" style={`color: ${restaurant.accent}`}>
-        {t('restaurant.groups.practicalTitle')}
-      </h2>
+      <div class="text-center mb-12" data-reveal>
+        <p class="section-eyebrow mb-3" style={`color: ${restaurant.accent}80`}>Pratique</p>
+        <h2 class="font-heading text-3xl font-bold" style={`color: ${restaurant.accent}`}>
+          {t('restaurant.groups.practicalTitle')}
+        </h2>
+      </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6" data-reveal-stagger>
         <!-- Customizable menu -->
-        <div class="flex items-start gap-4 bg-white rounded-2xl p-6 shadow-sm">
-          <div class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={`background-color: ${restaurant.light}`}>
+        <div class="flex items-start gap-4 bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
+          <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style={`background-color: ${restaurant.light}`}>
             <Icon name="lucide:calendar" class="w-5 h-5" stroke-width="1.5" style={`color: ${restaurant.accent}`} />
           </div>
           <div>
@@ -137,8 +143,8 @@ const localizedFormulas = groupFormulas.map((formula) => {
         </div>
 
         <!-- Dietary needs -->
-        <div class="flex items-start gap-4 bg-white rounded-2xl p-6 shadow-sm">
-          <div class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={`background-color: ${restaurant.light}`}>
+        <div class="flex items-start gap-4 bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
+          <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style={`background-color: ${restaurant.light}`}>
             <Icon name="lucide:badge-check" class="w-5 h-5" stroke-width="1.5" style={`color: ${restaurant.accent}`} />
           </div>
           <div>
@@ -147,8 +153,8 @@ const localizedFormulas = groupFormulas.map((formula) => {
         </div>
 
         <!-- Terrace -->
-        <div class="flex items-start gap-4 bg-white rounded-2xl p-6 shadow-sm">
-          <div class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={`background-color: ${restaurant.light}`}>
+        <div class="flex items-start gap-4 bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
+          <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style={`background-color: ${restaurant.light}`}>
             <Icon name="lucide:users" class="w-5 h-5" stroke-width="1.5" style={`color: ${restaurant.accent}`} />
           </div>
           <div>
@@ -157,8 +163,8 @@ const localizedFormulas = groupFormulas.map((formula) => {
         </div>
 
         <!-- Activities combo -->
-        <div class="flex items-start gap-4 bg-white rounded-2xl p-6 shadow-sm">
-          <div class="shrink-0 w-10 h-10 rounded-full flex items-center justify-center" style={`background-color: ${restaurant.light}`}>
+        <div class="flex items-start gap-4 bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
+          <div class="shrink-0 w-12 h-12 rounded-xl flex items-center justify-center" style={`background-color: ${restaurant.light}`}>
             <Icon name="lucide:star" class="w-5 h-5" stroke-width="1.5" style={`color: ${restaurant.accent}`} />
           </div>
           <div>
@@ -170,12 +176,14 @@ const localizedFormulas = groupFormulas.map((formula) => {
   </section>
 
   <!-- Contact CTA — Phone-first for persona Karine -->
-  <section class="py-16 lg:py-24" style={`background-color: ${restaurant.accent}`}>
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-3xl lg:text-4xl font-bold text-white mb-6">
+  <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style={`background-color: ${restaurant.accent}`}>
+    <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 60% 40%, rgba(255,255,255,0.15) 0%, transparent 60%);"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
+      <p class="section-eyebrow text-white/40 mb-3">Réservation groupe</p>
+      <h2 class="font-heading text-3xl lg:text-4xl font-bold mb-6">
         {t('restaurant.groups.ctaTitle')}
       </h2>
-      <p class="text-white/80 text-lg mb-10">
+      <p class="text-white/70 text-lg mb-10">
         {t('restaurant.groups.ctaReassurance')}
       </p>
 
@@ -192,7 +200,7 @@ const localizedFormulas = groupFormulas.map((formula) => {
       <div class="block">
         <a
           href={`mailto:${EMAIL_ADDRESS}?subject=Repas%20de%20groupe`}
-          class="inline-flex items-center gap-2 text-white/70 text-base hover:text-white transition-colors"
+          class="inline-flex items-center gap-2 text-white/50 text-base hover:text-white transition-colors"
         >
           <Icon name="lucide:mail" class="w-5 h-5" stroke-width="1.5" />
           {EMAIL_ADDRESS}

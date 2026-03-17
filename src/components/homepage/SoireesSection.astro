@@ -12,38 +12,39 @@ const { lang, hideRestaurantCta = false } = Astro.props;
 const t = useTranslations(lang);
 
 const soireeTypes = [
-  { icon: 'lucide:music', label: 'Concerts en terrasse', color: '#537b47' },
-  { icon: 'lucide:mic', label: 'Soirées karaoké', color: '#2D2B1B' },
-  { icon: 'lucide:brain', label: 'Blind tests', color: '#3d4969' },
-  { icon: 'lucide:disc-3', label: 'DJ sets', color: '#c27a2a' },
+  { icon: 'lucide:music', label: 'Concerts en terrasse', description: 'Artistes locaux, coucher de soleil', color: '#537b47' },
+  { icon: 'lucide:mic', label: 'Soirées karaoké', description: 'Votre scène, votre micro', color: '#2D2B1B' },
+  { icon: 'lucide:brain', label: 'Blind tests', description: 'Musique, ciné, culture', color: '#3d4969' },
+  { icon: 'lucide:disc-3', label: 'DJ sets', description: 'Électro, house, funk', color: '#c27a2a' },
 ];
 ---
 
-<section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite overflow-hidden">
-  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
+<section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-brun-terre text-white grain-overlay overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
       <!-- Left: content -->
-      <div>
-        <span class="text-sm font-semibold uppercase tracking-wider text-brun-terre/60 mb-3 block">
+      <div data-reveal>
+        <p class="section-eyebrow text-white/30 mb-4">
           Restaurant & soirées
-        </span>
-        <h2 class="font-heading text-3xl lg:text-4xl font-bold text-brun-terre mb-6">
+        </p>
+        <h2 class="font-heading text-3xl lg:text-5xl font-bold mb-6 leading-tight">
           {t('home.soirees.title')}
         </h2>
-        <p class="text-lg text-gray-600 leading-relaxed mb-8">
+        <p class="text-lg text-white/60 leading-relaxed mb-10">
           {t('home.soirees.body')}
         </p>
-        <div class="flex flex-wrap gap-3">
+        <div class="flex flex-wrap gap-4">
           <a
             href={getLocalizedPath('/agenda', lang)}
-            class="bg-brun-terre text-white px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/90 transition-colors"
+            class="inline-flex items-center gap-2 bg-white text-brun-terre px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all"
           >
             {t('home.soirees.ctaAgenda')}
+            <Icon name="lucide:arrow-right" class="w-4 h-4" />
           </a>
           {!hideRestaurantCta && (
             <a
               href={getLocalizedPath('/restaurant', lang)}
-              class="border border-brun-terre text-brun-terre px-6 py-3 rounded-lg font-medium hover:bg-brun-terre/5 transition-colors"
+              class="inline-flex items-center gap-2 border border-white/25 text-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:bg-white/10 hover:border-white/40 transition-all"
             >
               {t('home.soirees.ctaRestaurant')}
             </a>
@@ -52,16 +53,17 @@ const soireeTypes = [
       </div>
 
       <!-- Right: visual grid of soirée types -->
-      <div class="grid grid-cols-2 gap-4">
+      <div class="grid grid-cols-2 gap-4" data-reveal-stagger>
         {soireeTypes.map((item) => (
-          <div class="group bg-white rounded-2xl p-6 shadow-sm hover:shadow-md transition-all hover:-translate-y-0.5">
+          <div class="group rounded-2xl p-6 transition-all duration-300 hover:-translate-y-0.5" style={`background-color: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.08);`}>
             <div
               class="w-12 h-12 rounded-xl flex items-center justify-center mb-4"
-              style={`background-color: ${item.color}15;`}
+              style={`background-color: ${item.color}25;`}
             >
-              <Icon name={item.icon} class="w-6 h-6" style={`color: ${item.color};`} />
+              <Icon name={item.icon} class="w-5 h-5" style={`color: ${item.color};`} />
             </div>
-            <p class="font-heading font-bold text-sm text-gray-900">{item.label}</p>
+            <p class="font-heading font-bold text-sm text-white mb-1">{item.label}</p>
+            <p class="text-xs text-white/40">{item.description}</p>
           </div>
         ))}
       </div>

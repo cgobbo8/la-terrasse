@@ -1,6 +1,7 @@
 ---
 import type { Lang } from '@/i18n/translations';
 import { useTranslations, getLocalizedField, getLocalizedPath } from '@/i18n/utils';
+import { Icon } from 'astro-icon/components';
 
 interface EventEntry {
   slug: string;
@@ -54,33 +55,39 @@ const displayEvents = upcomingEvents.map((event) => ({
     <div class="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto py-6 lg:py-0">
       <a
         href={getLocalizedPath('/agenda', lang)}
-        class="agenda-widget-card block rounded-2xl shadow-lg p-5 lg:p-6 hover:shadow-xl transition-shadow"
+        class="agenda-widget-card block rounded-2xl p-5 lg:p-6 card-hover"
       >
         <div class="flex items-center justify-between mb-4">
-          <h2 class="font-heading text-lg font-bold text-brun-terre">
-            {t('home.upcoming.title')}
-          </h2>
-          <span class="text-sm font-medium text-brun-terre whitespace-nowrap">
-            {t('home.upcoming.cta')} →
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-lg bg-brun-terre/8 flex items-center justify-center">
+              <Icon name="lucide:calendar" class="w-4 h-4 text-brun-terre" />
+            </div>
+            <h2 class="font-heading text-base font-bold text-brun-terre">
+              {t('home.upcoming.title')}
+            </h2>
+          </div>
+          <span class="inline-flex items-center gap-1 text-sm font-semibold text-brun-terre whitespace-nowrap">
+            {t('home.upcoming.cta')}
+            <Icon name="lucide:arrow-right" class="w-3.5 h-3.5" />
           </span>
         </div>
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {displayEvents.map((event) => (
             <div class="flex gap-3 items-start">
-              <div class="flex-shrink-0 text-center bg-offwhite rounded-lg p-2 w-12">
+              <div class="flex-shrink-0 text-center rounded-xl p-2.5 w-14 border border-gray-200/60" style="background-color: #fafaf8;">
                 <span class="block text-lg font-bold text-brun-terre leading-none">
                   {formatDay(event.date)}
                 </span>
-                <span class="block text-[0.625rem] text-gray-500 uppercase mt-0.5">
+                <span class="block text-[0.5625rem] text-gray-400 uppercase mt-1 font-semibold tracking-wide">
                   {formatMonth(event.date, lang)}
                 </span>
               </div>
-              <div class="min-w-0">
+              <div class="min-w-0 pt-0.5">
                 <h3 class="font-heading font-bold text-sm text-gray-900 leading-snug">
                   {event.title}
                 </h3>
                 {event.description && (
-                  <p class="text-xs text-gray-500 mt-0.5 line-clamp-1">
+                  <p class="text-xs text-gray-400 mt-1 line-clamp-1">
                     {event.description}
                   </p>
                 )}
@@ -95,10 +102,11 @@ const displayEvents = upcomingEvents.map((event) => ({
 
 <style>
   .agenda-widget-card {
-    background-color: rgb(255 255 255 / 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgb(255 255 255 / 0.6);
+    background-color: rgb(255 255 255 / 0.8);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgb(255 255 255 / 0.7);
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.06), 0 1px 4px rgba(0, 0, 0, 0.04);
   }
 
   @media (min-width: 1024px) {

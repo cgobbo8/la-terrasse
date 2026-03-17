@@ -14,20 +14,20 @@ interface Props {
 const { name, photo, product, story } = Astro.props;
 ---
 
-<article class="rounded-2xl overflow-hidden bg-white shadow-sm">
+<article class="group rounded-2xl overflow-hidden bg-white border border-gray-200/60 card-hover">
   <div class="aspect-[4/3] overflow-hidden">
     <img
       src={photo}
       alt={`${name}, ${product}`}
       loading="lazy"
-      class="w-full h-full object-cover"
+      class="w-full h-full object-cover card-zoom-img"
     />
   </div>
-  <div class="p-6">
+  <div class="p-6 lg:p-7">
     <h3 class="font-heading text-xl font-bold" style="color: #2D2B1B">
       {name}
     </h3>
-    <p class="text-sm font-medium uppercase tracking-wider mt-1" style="color: #2D2B1B99">
+    <p class="text-xs font-bold uppercase tracking-[0.15em] mt-1.5" style="color: #2D2B1B80">
       {product}
     </p>
     <p class="text-sm text-gray-600 mt-3 leading-relaxed">

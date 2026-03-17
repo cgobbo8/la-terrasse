@@ -91,35 +91,37 @@ function getCategoryLabel(category: string): string {
   <SectionHero
     tagline={t('agenda.hero.tagline')}
     subtitle={t('agenda.hero.subtitle')}
+    image="/images/heroes/agenda.jpg"
   />
 
-  <section class="py-12 lg:py-24">
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
       {displayEvents.length > 0 ? (
         <>
           {[...eventsByMonth.entries()].map(([monthKey, monthEvents]) => (
-            <div class="mb-12">
-              <h2 class="font-heading text-xl font-bold text-brun-terre capitalize mb-6 border-b border-gray-200 pb-2">
-                {formatMonthYear(monthKey, lang)}
+            <div class="mb-14" data-reveal>
+              <h2 class="font-heading text-xl font-bold text-brun-terre capitalize mb-8 flex items-center gap-4">
+                <span>{formatMonthYear(monthKey, lang)}</span>
+                <span class="flex-1 h-px bg-gray-200"></span>
               </h2>
-              <div class="grid grid-cols-1 gap-4">
+              <div class="grid grid-cols-1 gap-4" data-reveal-stagger>
                 {monthEvents.map((event) => (
-                  <article class="flex gap-4 items-start p-5 rounded-2xl bg-white shadow-sm border border-gray-100">
-                    <div class="flex-shrink-0 text-center bg-offwhite rounded-xl p-3 w-16">
+                  <article class="group flex gap-5 items-start p-5 lg:p-6 rounded-2xl bg-white border border-gray-200/60 hover:border-gray-300/80 hover:shadow-sm transition-all duration-300">
+                    <div class="flex-shrink-0 text-center rounded-xl p-3 w-16 border border-gray-200/60">
                       <span class="block text-2xl font-bold text-brun-terre leading-none">
                         {formatDay(event.date)}
                       </span>
-                      <span class="block text-xs text-gray-600 uppercase mt-1">
+                      <span class="block text-xs text-gray-500 uppercase tracking-wider mt-1">
                         {formatMonth(event.date, lang)}
                       </span>
                     </div>
                     <div class="min-w-0 flex-1">
-                      <div class="flex items-center gap-2 mb-1">
+                      <div class="flex flex-wrap items-center gap-2 mb-1.5">
                         <h3 class="font-heading font-bold text-lg text-gray-900 leading-snug">
                           {event.title}
                         </h3>
                         <span
-                          class="inline-block text-[0.6875rem] font-semibold px-2 py-0.5 rounded-full text-white whitespace-nowrap"
+                          class="inline-block text-[0.6875rem] font-semibold px-2.5 py-0.5 rounded-full text-white whitespace-nowrap"
                           style={`background-color: ${categoryColors[event.category] || categoryColors.autre}`}
                         >
                           {getCategoryLabel(event.category)}
@@ -138,9 +140,12 @@ function getCategoryLabel(category: string): string {
           ))}
         </>
       ) : (
-        <p class="text-center text-gray-400 text-lg py-12">
-          {t('agenda.empty')}
-        </p>
+        <div class="text-center py-20" data-reveal>
+          <p class="text-6xl font-bold text-gray-100 select-none mb-4">🎶</p>
+          <p class="text-gray-400 text-lg">
+            {t('agenda.empty')}
+          </p>
+        </div>
       )}
     </div>
   </section>

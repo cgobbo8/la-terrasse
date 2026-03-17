@@ -74,62 +74,50 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
     tagline={t('salle.evenementiel.hero.tagline')}
     subtitle={t('salle.evenementiel.hero.subtitle')}
     pole="salle"
+    image="/images/heroes/evenementiel.jpg"
   >
-    <a href={buildEventContactMailto()} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+    <a href={buildEventContactMailto()} class="bg-white text-bleu-ardoise px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all inline-flex items-center gap-2">
       {t('salle.evenementiel.cta')}
     </a>
   </SectionHero>
 
-  <!-- L'ESPACE — Venue specs -->
-  <div class="pt-(--spacing-section-mobile) lg:pt-(--spacing-section)">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-2xl font-bold mb-2" style="color: #3d4969;">
-        {t('salle.venue.title')}
-      </h2>
-    </div>
-    <VenueSpecs
-      capacitySeated={capacitySeated}
-      capacityStanding={capacityStanding}
-      surfaceM2={surfaceM2}
-      equipment={equipment}
-      layoutOptions={layoutOptions}
-      lang={lang}
-    />
-  </div>
-
-  <!-- Intro -->
+  <!-- Intro (what this page is about) -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
+      <p class="section-eyebrow mb-3" style="color: #3d496980;">La Salle</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4" style="color: #3d4969;">
         {t('salle.evenementiel.intro.title')}
       </h2>
-      <p class="text-gray-600 leading-relaxed">
+      <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
         {t('salle.evenementiel.intro.desc')}
       </p>
     </div>
   </section>
 
-  <!-- Types d'événements -->
+  <!-- Types d'événements (what events work here) -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-2xl font-bold text-center mb-12" style="color: #3d4969;">
-        {t('salle.evenementiel.types.title')}
-      </h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <div class="text-center mb-12" data-reveal>
+        <p class="section-eyebrow mb-3" style="color: #3d496980;">Événementiel</p>
+        <h2 class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
+          {t('salle.evenementiel.types.title')}
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8" data-reveal-stagger>
         {eventTypes.map((type) => (
-          <div class="rounded-2xl overflow-hidden bg-white shadow-sm">
+          <div class="group rounded-2xl overflow-hidden bg-white border border-gray-200/60 card-hover">
             <div class="aspect-[16/9] overflow-hidden">
               <img
                 src={type.image}
                 alt={type.title}
-                class="w-full h-full object-cover"
+                class="w-full h-full object-cover card-zoom-img"
                 loading="lazy"
               />
             </div>
-            <div class="p-6">
+            <div class="p-6 lg:p-8">
               <div class="flex items-center gap-3 mb-3">
                 <span
-                  class="shrink-0 w-10 h-10 rounded-lg flex items-center justify-center"
+                  class="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
                   style="background-color: #edf0f5; color: #3d4969;"
                 >
                   <Icon name={type.icon} class="w-5 h-5" />
@@ -146,21 +134,43 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
     </div>
   </section>
 
+  <!-- L'ESPACE — Venue specs (detailed proof) -->
+  <div class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+      <p class="section-eyebrow mb-4" style="color: #3d496980;">L'espace</p>
+      <h2 class="font-heading text-2xl font-bold mb-2" style="color: #3d4969;">
+        {t('salle.venue.title')}
+      </h2>
+    </div>
+    <VenueSpecs
+      capacitySeated={capacitySeated}
+      capacityStanding={capacityStanding}
+      surfaceM2={surfaceM2}
+      equipment={equipment}
+      layoutOptions={layoutOptions}
+      lang={lang}
+    />
+  </div>
+
   <!-- CTA -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-2xl font-bold mb-4" style="color: #3d4969;">
+  <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style="background-color: #3d4969;">
+    <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
+      <p class="section-eyebrow text-white/40 mb-3">Contact</p>
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4">
         {t('salle.evenementiel.intro.title')}
       </h2>
-      <p class="text-gray-500 mb-6">
+      <p class="text-white/70 mb-8 max-w-xl mx-auto">
         {t('salle.evenementiel.intro.desc')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href={buildEventContactMailto()} class="text-white px-6 py-3 rounded-lg font-medium transition-colors" style="background-color: #3d4969;">
+        <a href={buildEventContactMailto()} class="bg-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px inline-flex items-center gap-2" style="color: #3d4969;">
+          <Icon name="lucide:mail" class="w-4 h-4" />
           {t('salle.evenementiel.cta')}
         </a>
-        <a href={getLocalizedPath('/la-salle', lang)} class="px-6 py-3 rounded-lg font-medium transition-colors" style="border: 1px solid #3d4969; color: #3d4969;">
-          {t('salle.venue.title')} →
+        <a href={getLocalizedPath('/la-salle', lang)} class="px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:bg-white/10 inline-flex items-center gap-2 border border-white/20 text-white">
+          {t('salle.venue.title')}
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
         </a>
       </div>
     </div>

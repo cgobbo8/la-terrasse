@@ -2,7 +2,6 @@
 /**
  * Cross-linking structural block (Layer 1)
  * Compact, discreet links at bottom of every pole page.
- * Inspired by ActivityPrevNext navigation style.
  */
 import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
@@ -46,24 +45,24 @@ const poles = [
 const otherPoles = poles.filter((p) => p.id !== currentPole);
 ---
 
-<section class="py-8 lg:py-12">
+<section class="py-10 lg:py-16">
   <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-    <p class="text-xs uppercase tracking-wider text-gray-400 text-center mb-4">
+    <p class="section-eyebrow text-gray-400 text-center mb-6">
       {t('common.alsoAt')}
     </p>
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       {otherPoles.map((pole) => (
         <a
           href={pole.href}
-          class="group flex items-center gap-3 p-4 rounded-xl border border-gray-200 hover:border-gray-300 hover:bg-gray-50 transition-all"
+          class="group flex items-center gap-4 p-5 rounded-2xl border border-gray-200/60 bg-white card-hover"
         >
           <span
-            class="flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center transition-colors"
-            style={`background-color: ${pole.accent}10;`}
+            class="flex-shrink-0 w-12 h-12 rounded-xl flex items-center justify-center"
+            style={`background-color: ${pole.accent}0a;`}
           >
             <Icon
               name={pole.icon}
-              class="w-5 h-5 transition-colors"
+              class="w-5 h-5"
               style={`color: ${pole.accent};`}
             />
           </span>
@@ -71,11 +70,11 @@ const otherPoles = poles.filter((p) => p.id !== currentPole);
             <span class="block text-sm font-bold text-gray-800 group-hover:text-gray-900 transition-colors">
               La Terrasse {pole.label}
             </span>
-            <span class="block text-xs text-gray-500 truncate">{pole.description}</span>
+            <span class="block text-xs text-gray-400 mt-0.5">{pole.description}</span>
           </span>
           <Icon
-            name="lucide:chevron-right"
-            class="w-4 h-4 text-gray-300 group-hover:text-gray-500 transition-colors flex-shrink-0"
+            name="lucide:arrow-right"
+            class="w-4 h-4 text-gray-300 group-hover:text-gray-500 transition-all duration-200 group-hover:translate-x-0.5 flex-shrink-0"
           />
         </a>
       ))}

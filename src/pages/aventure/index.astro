@@ -4,6 +4,7 @@
  * Tone: dynamique, fun, familial
  * Fiches navigables avec suggestions d'alternatives
  */
+import { Icon } from 'astro-icon/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import ActivityCard from '@/components/aventure/ActivityCard.astro';
@@ -67,19 +68,26 @@ const seoDescription = 'Découvrez toutes les activités plein air au lac de Sai
     tagline={t('aventure.hero.tagline')}
     subtitle={t('aventure.hero.subtitle')}
     pole="aventure"
+    image="/images/heroes/aventure.jpg"
   >
-    <a href="#activites" class="bg-white text-aventure px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+    <a href="#activites" class="inline-flex items-center gap-2 bg-white text-aventure px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
       {t('aventure.hub.viewActivities')}
+      <Icon name="lucide:arrow-down" class="w-4 h-4" />
     </a>
   </SectionHero>
 
   <!-- Activités aquatiques -->
   <section id="activites" class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-2xl font-bold text-aventure mb-8">
-        {t('aventure.aquatique')}
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="flex items-center gap-4 mb-8" data-reveal>
+        <div class="w-10 h-10 rounded-xl bg-aventure/10 flex items-center justify-center">
+          <Icon name="lucide:waves" class="w-5 h-5 text-aventure" />
+        </div>
+        <h2 class="font-heading text-2xl font-bold text-aventure">
+          {t('aventure.aquatique')}
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-stagger>
         {aquatiques.map((activity, i) => (
           <ActivityCard
             activity={{
@@ -107,10 +115,15 @@ const seoDescription = 'Découvrez toutes les activités plein air au lac de Sai
   <!-- Activités terrestres -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-2xl font-bold text-aventure mb-8">
-        {t('aventure.terrestre')}
-      </h2>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div class="flex items-center gap-4 mb-8" data-reveal>
+        <div class="w-10 h-10 rounded-xl bg-aventure/10 flex items-center justify-center">
+          <Icon name="lucide:mountain" class="w-5 h-5 text-aventure" />
+        </div>
+        <h2 class="font-heading text-2xl font-bold text-aventure">
+          {t('aventure.terrestre')}
+        </h2>
+      </div>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-stagger>
         {terrestres.map((activity, i) => (
           <ActivityCard
             activity={{
@@ -137,21 +150,23 @@ const seoDescription = 'Découvrez toutes les activités plein air au lac de Sai
 
   <!-- Section groupes -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h2 class="font-heading text-2xl font-bold text-aventure mb-4">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
+      <p class="section-eyebrow text-aventure/40 mb-4">Groupes & scolaires</p>
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold text-aventure mb-4">
         {t('aventure.groups.title')}
       </h2>
-      <p class="text-gray-600 mb-6">
+      <p class="text-gray-500 mb-6 max-w-xl mx-auto">
         {t('aventure.hub.groupBody')}
       </p>
-      <p class="text-gray-500 italic mb-6">
+      <p class="text-gray-400 italic mb-8">
         {t('aventure.groups.cta')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href={getLocalizedPath('/contact', lang)} class="bg-aventure text-white px-6 py-3 rounded-lg font-medium hover:bg-aventure/90 transition-colors">
+        <a href={getLocalizedPath('/contact', lang)} class="inline-flex items-center gap-2 bg-aventure text-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
           {t('aventure.hub.groupCta')}
+          <Icon name="lucide:arrow-right" class="w-4 h-4" />
         </a>
-        <a href={getLocalizedPath('/contact', lang)} class="border border-aventure text-aventure px-6 py-3 rounded-lg font-medium hover:bg-aventure-light transition-colors">
+        <a href={getLocalizedPath('/contact', lang)} class="inline-flex items-center gap-2 border border-aventure/30 text-aventure px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:bg-aventure-light transition-all">
           {t('common.contact')}
         </a>
       </div>

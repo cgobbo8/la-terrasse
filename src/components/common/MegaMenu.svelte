@@ -350,7 +350,7 @@
   <!-- CTA -->
   <a
     href={ctaHref}
-    class="ml-2 text-white min-h-11 px-4 py-2 rounded-lg text-sm font-medium transition-[filter] duration-150 hover:brightness-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded inline-flex items-center"
+    class="ml-2 text-white min-h-11 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:shadow-md hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-full inline-flex items-center"
     style="background-color: {ctaColor}; outline-color: {ctaColor}"
   >
     {ctaLabel}

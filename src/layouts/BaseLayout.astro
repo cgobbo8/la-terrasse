@@ -58,5 +58,26 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
       <slot />
     </main>
     <Footer />
+
+    <!-- Scroll-triggered reveal animations -->
+    <script is:inline>
+      (function() {
+        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (prefersReducedMotion) return;
+
+        var observer = new IntersectionObserver(function(entries) {
+          entries.forEach(function(entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('revealed');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+        document.querySelectorAll('[data-reveal], [data-reveal-stagger]').forEach(function(el) {
+          observer.observe(el);
+        });
+      })();
+    </script>
   </body>
 </html>

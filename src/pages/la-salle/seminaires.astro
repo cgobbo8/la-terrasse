@@ -65,33 +65,18 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
     tagline={t('salle.seminaires.hero.tagline')}
     subtitle={t('salle.seminaires.hero.subtitle')}
     pole="salle"
+    image="/images/heroes/seminaires.jpg"
   >
-    <a href={buildQuoteMailto()} class="bg-white text-bleu-ardoise px-6 py-3 rounded-lg font-medium hover:bg-white/90 transition-colors">
+    <a href={buildQuoteMailto()} class="bg-white text-bleu-ardoise px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all inline-flex items-center gap-2">
       {t('common.requestQuote')}
     </a>
   </SectionHero>
 
-  <!-- L'ESPACE — Venue specs -->
-  <div class="pt-(--spacing-section-mobile) lg:pt-(--spacing-section)">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="font-heading text-2xl font-bold mb-2" style="color: #3d4969;">
-        {t('salle.venue.title')}
-      </h2>
-    </div>
-    <VenueSpecs
-      capacitySeated={capacitySeated}
-      capacityStanding={capacityStanding}
-      surfaceM2={surfaceM2}
-      equipment={equipment}
-      layoutOptions={layoutOptions}
-      lang={lang}
-    />
-  </div>
-
-  <!-- CONFIGURATEUR — Interactive pricing builder -->
+  <!-- CONFIGURATEUR — Interactive pricing builder (primary action) -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-10">
+      <div class="text-center mb-10" data-reveal>
+        <p class="section-eyebrow mb-3" style="color: #3d496980;">Configurateur</p>
         <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-3" style="color: #3d4969;">
           Composez votre séminaire
         </h2>
@@ -110,7 +95,8 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
   <!-- TEAM BUILDING -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="text-center mb-12">
+      <div class="text-center mb-12" data-reveal>
+        <p class="section-eyebrow mb-3" style="color: #3d496980;">Cohésion</p>
         <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4" style="color: #3d4969;">
           Team building
         </h2>
@@ -121,7 +107,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
 
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <!-- Activités du centre -->
-        <div class="rounded-2xl border border-gray-200 bg-white p-8">
+        <div class="rounded-2xl border border-gray-200/60 bg-white p-8 hover:border-gray-300/80 transition-colors">
           <div class="flex items-center gap-3 mb-6">
             <span class="w-12 h-12 rounded-xl flex items-center justify-center" style="background-color: #eef5ec;">
               <Icon name="lucide:trees" class="w-6 h-6 text-aventure" />
@@ -191,7 +177,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
           </ul>
           <a
             href={buildQuoteMailto('Team building avec coach')}
-            class="inline-flex items-center gap-2 mt-6 text-sm font-medium text-white px-5 py-2.5 rounded-lg transition-opacity hover:opacity-90"
+            class="inline-flex items-center gap-2 mt-6 font-heading font-semibold text-sm text-white px-7 py-3.5 rounded-full transition-all hover:shadow-lg hover:-translate-y-px"
             style="background-color: #3d4969;"
           >
             Demander un devis
@@ -202,13 +188,34 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
     </div>
   </section>
 
+  <!-- L'ESPACE — Venue specs (proof/details) -->
+  <div class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+      <p class="section-eyebrow mb-4" style="color: #3d496980;">L'espace</p>
+      <h2 class="font-heading text-2xl font-bold mb-2" style="color: #3d4969;">
+        {t('salle.venue.title')}
+      </h2>
+    </div>
+    <VenueSpecs
+      capacitySeated={capacitySeated}
+      capacityStanding={capacityStanding}
+      surfaceM2={surfaceM2}
+      equipment={equipment}
+      layoutOptions={layoutOptions}
+      lang={lang}
+    />
+  </div>
+
   <!-- Section contact -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <p class="text-gray-500 italic mb-4">
+  <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style="background-color: #3d4969;">
+    <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 70% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);"></div>
+    <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
+      <p class="section-eyebrow text-white/40 mb-3">Devis</p>
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4">
         {t('common.requestQuoteDesc')}
-      </p>
-      <a href={buildQuoteMailto()} class="inline-block px-6 py-3 rounded-lg font-medium transition-colors text-white" style="background-color: #3d4969;">
+      </h2>
+      <a href={buildQuoteMailto()} class="inline-flex items-center gap-2 bg-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px" style="color: #3d4969;">
+        <Icon name="lucide:mail" class="w-4 h-4" />
         {t('common.requestQuote')}
       </a>
     </div>
