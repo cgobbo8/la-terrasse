@@ -75,7 +75,9 @@ const t = useTranslations(lang);
     </div>
 
     <!-- Bottom bar: copyright + legal links -->
-    <div class="mt-16 pt-8 border-t border-white/8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-white/25">
+    <div class="mt-16 pt-8 border-t border-white/8 flex flex-col items-center gap-4 text-xs text-white/25">
+      <p class="italic text-white/20">Certaines photos et vidéos sont issues de banques d'images libres de droits et seront remplacées par des visuels propres à l'établissement.</p>
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
       <p>&copy; {new Date().getFullYear()} La Terrasse — Base de loisirs de Saint-Ferréol</p>
       <nav class="flex items-center gap-6" aria-label="Legal">
         <a href={getLocalizedPath('/mentions-legales', lang)} class="hover:text-white/50 transition-colors">
@@ -85,6 +87,7 @@ const t = useTranslations(lang);
           {t('footer.privacy')}
         </a>
       </nav>
+      </div>
     </div>
   </div>
 </footer>
