@@ -57,45 +57,44 @@
 
         if (!sectionEl || !trackEl) return;
 
-        const cards = trackEl.querySelectorAll('.timeline-card');
+        const cards = Array.from(trackEl.querySelectorAll('.timeline-card'));
         const RADIUS = 4000; // Virtual circle radius (px) — increase for subtler curve
 
         // Curved arc transforms: cards sit on a large virtual wheel
         function updateCurve() {
           const vCenter = window.innerWidth / 2;
-          cards.forEach((card) => {
+          // Batch reads (avoid layout thrashing)
+          const centers = cards.map((card) => {
             const rect = card.getBoundingClientRect();
-            const d = rect.left + rect.width / 2 - vCenter;
-
-            // Parabolic arc (≈ circle for small angles) — edges rise
+            return rect.left + rect.width / 2;
+          });
+          // Batch writes
+          centers.forEach((center, i) => {
+            const d = center - vCenter;
             const y = -(d * d) / (2 * RADIUS);
-            // Tangent tilt — halved for subtlety
-            const rot = ((d / RADIUS) * (180 / Math.PI)) * 0.5;
-            // Depth: slight scale + opacity falloff at edges
+            const rot = ((d / RADIUS) * 57.2958) * 0.5;
             const norm = Math.min(Math.abs(d) / (window.innerWidth * 0.8), 1);
             const sc = 1 - norm * 0.05;
             const op = 1 - norm * 0.3;
-
-            card.style.transform = `translateY(${y}px) rotate(${rot}deg) scale(${sc})`;
-            card.style.opacity = `${op}`;
+            cards[i].style.transform = `translateY(${y}px) rotate(${rot}deg) scale(${sc})`;
+            cards[i].style.opacity = `${op}`;
           });
         }
 
-        // Main horizontal scroll with curve update
+        // onUpdate on the TWEEN (not ScrollTrigger) — stays in sync with scrub
         scrollTween = gsap.to(trackEl, {
           x: () => -(trackEl.scrollWidth - window.innerWidth),
           ease: 'none',
+          onUpdate: updateCurve,
           scrollTrigger: {
             trigger: sectionEl,
             pin: true,
             scrub: 1,
             end: () => `+=${trackEl.scrollWidth - window.innerWidth}`,
             invalidateOnRefresh: true,
-            onUpdate: updateCurve,
           },
         });
 
-        // Apply initial curve state + recalculate positions for sections below
         updateCurve();
         ScrollTrigger.refresh();
       });
