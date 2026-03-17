@@ -219,7 +219,7 @@
 
         <!-- Text -->
         <div class="flex-1 min-w-0">
-          <h3 class="font-heading font-bold text-base" style="color: {accentColor};">
+          <h3 class="font-heading font-bold text-base text-gray-900">
             Location de salle séminaire
           </h3>
           <p class="text-sm text-gray-500 mt-0.5 leading-relaxed">

@@ -71,7 +71,7 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
   </div>
 
   {sunburst && (
-    <div class="absolute -bottom-[12%] -right-[8%] w-[clamp(200px,28vw,400px)] aspect-square opacity-[0.15] pointer-events-none z-[1]" aria-hidden="true" data-hero-sunburst>
+    <div class="absolute -bottom-[12%] -right-[8%] w-[clamp(200px,28vw,400px)] aspect-square pointer-events-none z-[1]" aria-hidden="true" data-hero-sunburst>
       <Sunburst variant={sunburst} pole={pole} size="100%" />
     </div>
   )}

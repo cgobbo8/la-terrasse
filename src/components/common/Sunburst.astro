@@ -5,10 +5,12 @@ import { poleConfigs, brandColors } from '@/lib/pole-config';
 import sunburst1 from '@/assets/svg/sunburst-1.svg?raw';
 import sunburst2 from '@/assets/svg/sunburst-2.svg?raw';
 import sunburst3 from '@/assets/svg/sunburst-3.svg?raw';
+import sunburst4 from '@/assets/svg/sunburst-4.svg?raw';
+import sunburst5 from '@/assets/svg/sunburst-5.svg?raw';
 
 interface Props {
-  /** Which sunburst variant (1, 2, or 3) */
-  variant?: 1 | 2 | 3;
+  /** Which sunburst variant (1–5) */
+  variant?: 1 | 2 | 3 | 4 | 5;
   /** Pole for accent color — defaults to soleil yellow */
   pole?: Pole;
   /** CSS size (width & height) */
@@ -26,7 +28,7 @@ const {
 
 const color = pole ? poleConfigs[pole].accent : brandColors.soleil;
 
-const svgMap = { 1: sunburst1, 2: sunburst2, 3: sunburst3 } as const;
+const svgMap = { 1: sunburst1, 2: sunburst2, 3: sunburst3, 4: sunburst4, 5: sunburst5 } as const;
 const rawSvg = svgMap[variant];
 ---
 
