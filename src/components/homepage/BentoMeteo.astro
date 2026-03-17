@@ -13,17 +13,16 @@ const { settings, lang } = Astro.props;
 const t = useTranslations(lang);
 
 const seasonalMessage = getLocalizedField(settings, 'seasonalMessage', lang);
-const promotionText = getLocalizedField(settings, 'promotionText', lang);
 const openingHours = (settings.openingHours as string) ?? '';
 const address = (settings.address as string) ?? '';
 const phone = (settings.phone as string) ?? '';
 const currentSeason = (settings.currentSeason as string) ?? 'printemps';
 
-const seasonConfig: Record<string, { label: string; icon: string; color: string }> = {
-  printemps: { label: 'Printemps', icon: '🌸', color: '#537b47' },
-  ete: { label: 'Été', icon: '☀️', color: '#e8a520' },
-  automne: { label: 'Automne', icon: '🍂', color: '#b5651d' },
-  hiver: { label: 'Hiver', icon: '❄️', color: '#3d4969' },
+const seasonConfig: Record<string, { label: string; icon: string; gradient: string; accent: string }> = {
+  printemps: { label: 'Printemps', icon: 'lucide:flower-2', gradient: 'from-emerald-50 via-green-50 to-lime-50', accent: '#537b47' },
+  ete: { label: 'Été', icon: 'lucide:sun', gradient: 'from-amber-50 via-yellow-50 to-orange-50', accent: '#e8a520' },
+  automne: { label: 'Automne', icon: 'lucide:leaf', gradient: 'from-orange-50 via-amber-50 to-yellow-50', accent: '#b5651d' },
+  hiver: { label: 'Hiver', icon: 'lucide:snowflake', gradient: 'from-slate-50 via-blue-50 to-indigo-50', accent: '#3d4969' },
 };
 
 const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
@@ -38,80 +37,119 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
       </h2>
     </div>
 
-    <div class="grid grid-cols-2 md:grid-cols-3 gap-4 lg:gap-5" data-reveal-stagger>
-      {/* Hours cell — spans 2 rows on md+ */}
-      <div class="bento-cell bg-white rounded-2xl p-6 lg:p-8 flex flex-col md:row-span-2 border border-gray-200/60">
-        <div class="flex items-center gap-3 mb-5">
-          <div class="w-10 h-10 rounded-xl bg-brun-terre/8 flex items-center justify-center">
-            <Icon name="lucide:clock" class="w-5 h-5 text-brun-terre" />
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5" data-reveal-stagger>
+
+      {/* ── HORAIRES — dark accent card, row-span-2 ── */}
+      <div class="bento-cell rounded-2xl p-7 lg:p-8 flex flex-col md:row-span-2 relative overflow-hidden grain-overlay" style="background-color: #2D2B1B;">
+        <div class="relative z-10 flex flex-col h-full">
+          <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-6">
+            <Icon name="lucide:clock" class="w-6 h-6 text-white/80" />
           </div>
-          <h3 class="font-heading font-bold text-base text-brun-terre">{t('common.openingHours')}</h3>
+          <h3 class="font-heading font-bold text-xl text-white mb-6">{t('common.openingHours')}</h3>
+          <div class="flex-1 space-y-4">
+            <div>
+              <p class="text-white/40 text-xs font-semibold uppercase tracking-wider mb-1.5">Période</p>
+              <p class="text-white/70 text-sm leading-relaxed">Mai & septembre : weekends et jours fériés</p>
+              <p class="text-white/70 text-sm leading-relaxed">Juin, juillet, août : tous les jours</p>
+            </div>
+            <div class="border-t border-white/10 pt-4">
+              <div class="flex items-center justify-between mb-2">
+                <span class="text-white/50 text-xs font-semibold uppercase tracking-wider">Activités</span>
+                <span class="text-white font-heading font-bold text-sm">10h – 19h</span>
+              </div>
+              <div class="flex items-center justify-between">
+                <span class="text-white/50 text-xs font-semibold uppercase tracking-wider">Restaurant</span>
+                <span class="text-white font-heading font-bold text-sm">9h – 22h</span>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="text-gray-500 text-sm leading-relaxed whitespace-pre-line flex-1">
-          {openingHours}
-        </p>
+        {/* Decorative circle */}
+        <div class="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-white/[0.03]" aria-hidden="true"></div>
       </div>
 
-      {/* Season cell */}
-      <div class="bento-cell bg-white rounded-2xl p-6 flex flex-col border border-gray-200/60">
-        <div class="flex items-center gap-2 mb-3">
-          <span class="text-2xl">{season.icon}</span>
-          <span class="text-xs font-bold uppercase tracking-wider" style={`color: ${season.color}`}>
+      {/* ── SAISON — colored gradient card ── */}
+      <div class={`bento-cell rounded-2xl p-7 flex flex-col relative overflow-hidden bg-gradient-to-br ${season.gradient}`}>
+        <div class="flex items-center justify-between mb-5">
+          <div class="w-11 h-11 rounded-xl flex items-center justify-center" style={`background-color: ${season.accent}15;`}>
+            <Icon name={season.icon} class="w-5 h-5" style={`color: ${season.accent};`} />
+          </div>
+          <span class="text-xs font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full" style={`background-color: ${season.accent}12; color: ${season.accent};`}>
             {season.label}
           </span>
         </div>
-        <p class="text-gray-500 text-sm leading-relaxed">
+        <p class="text-gray-700 text-sm leading-relaxed flex-1">
           {seasonalMessage}
         </p>
+        {/* Large decorative icon */}
+        <div class="absolute -bottom-4 -right-4 opacity-[0.04] pointer-events-none" aria-hidden="true">
+          <Icon name={season.icon} class="w-32 h-32" style={`color: ${season.accent};`} />
+        </div>
       </div>
 
-      {/* Weather + Time cell — live data from Open-Meteo API */}
+      {/* ── MÉTÉO — live weather (Svelte island) ── */}
       <WeatherTimeCard client:only="svelte" {lang} />
 
-      {/* Promotion cell — only shown if promotionText is non-empty */}
-      {promotionText && (
-        <div class="bento-cell bg-white rounded-2xl p-6 border-2" style={`border-color: ${season.color}20`}>
-          <div class="flex items-center gap-3 mb-3">
-            <div class="w-10 h-10 rounded-xl flex items-center justify-center" style={`background-color: ${season.color}12`}>
-              <Icon name="lucide:tag" class="w-5 h-5" style={`color: ${season.color}`} />
+      {/* ── NOUS TROUVER — wide location + contact card ── */}
+      <div class="bento-cell rounded-2xl p-7 flex flex-col md:flex-row gap-6 md:col-span-2 bg-white border border-gray-200/60">
+        {/* Address side */}
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-brun-terre/8 flex items-center justify-center">
+              <Icon name="lucide:map-pin" class="w-5 h-5 text-brun-terre" />
             </div>
-            <h3 class="font-heading font-bold text-sm text-gray-800">{t('home.bento.promo')}</h3>
+            <h3 class="font-heading font-bold text-base text-brun-terre">{t('home.bento.info')}</h3>
           </div>
-          <p class="text-gray-700 text-sm font-medium">
-            {promotionText}
+          <p class="text-gray-600 text-sm leading-relaxed whitespace-pre-line mb-3">
+            {address}
+          </p>
+          <a
+            href="https://maps.google.com/?q=Base+de+loisirs+Saint-Ferreol+31250+Revel"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="inline-flex items-center gap-1.5 text-xs font-semibold text-brun-terre/70 hover:text-brun-terre transition-colors"
+          >
+            <Icon name="lucide:external-link" class="w-3.5 h-3.5" />
+            Ouvrir dans Google Maps
+          </a>
+        </div>
+        {/* Divider */}
+        <div class="hidden md:block w-px bg-gray-200/80 self-stretch" aria-hidden="true"></div>
+        <div class="block md:hidden h-px bg-gray-200/80" aria-hidden="true"></div>
+        {/* Contact side */}
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="w-11 h-11 rounded-xl bg-brun-terre/8 flex items-center justify-center">
+              <Icon name="lucide:phone" class="w-5 h-5 text-brun-terre" />
+            </div>
+            <h3 class="font-heading font-bold text-base text-brun-terre">Contact</h3>
+          </div>
+          {phone && (
+            <a
+              href={`tel:${phone.replace(/\s/g, '')}`}
+              class="inline-flex items-center gap-2 text-lg font-heading font-bold text-brun-terre hover:underline underline-offset-4 mb-3"
+            >
+              {phone}
+            </a>
+          )}
+          <p class="text-gray-400 text-xs">
+            <Icon name="lucide:navigation" class="w-3 h-3 inline-block mr-1" />
+            À 45 min de Toulouse
           </p>
         </div>
-      )}
-
-      {/* Info cell — practical info */}
-      <div class="bento-cell bg-white rounded-2xl p-6 border border-gray-200/60">
-        <div class="flex items-center gap-3 mb-4">
-          <div class="w-10 h-10 rounded-xl bg-brun-terre/8 flex items-center justify-center">
-            <Icon name="lucide:map-pin" class="w-5 h-5 text-brun-terre" />
-          </div>
-          <h3 class="font-heading font-bold text-sm text-brun-terre">{t('home.bento.info')}</h3>
-        </div>
-        <p class="text-gray-500 text-sm leading-relaxed whitespace-pre-line mb-3">
-          {address}
-        </p>
-        {phone && (
-          <a href={`tel:${phone.replace(/\s/g, '')}`} class="text-brun-terre text-sm font-semibold hover:underline underline-offset-2">
-            {phone}
-          </a>
-        )}
       </div>
 
-      {/* CTA cell — full-width banner row */}
-      <div class="col-span-2 md:col-span-3 rounded-2xl px-8 py-6 bg-brun-terre text-white flex flex-row items-center justify-between gap-4">
-        <div>
-          <h3 class="font-heading font-bold text-lg mb-1">
+      {/* ── CTA — full-width banner ── */}
+      <div class="col-span-1 md:col-span-3 rounded-2xl px-8 py-6 flex flex-row items-center justify-between gap-4 relative overflow-hidden grain-overlay" style="background-color: #2D2B1B;">
+        <div class="relative z-10">
+          <h3 class="font-heading font-bold text-lg text-white mb-1">
             {t('home.bento.cta')}
           </h3>
           <p class="text-white/40 text-sm hidden sm:block">Une question ? Écrivez-nous.</p>
         </div>
         <a
           href={getLocalizedPath('/contact', lang)}
-          class="inline-flex items-center gap-2 bg-white text-brun-terre px-6 py-3 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all shrink-0"
+          class="relative z-10 inline-flex items-center gap-2 bg-white text-brun-terre px-6 py-3 rounded-full font-heading font-semibold text-sm card-hover shrink-0"
         >
           {t('common.contact')}
           <Icon name="lucide:arrow-right" class="w-4 h-4" />

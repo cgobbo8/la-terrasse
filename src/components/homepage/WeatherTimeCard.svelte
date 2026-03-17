@@ -1,5 +1,9 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
+  import {
+    Sun, CloudSun, Cloud, CloudFog, CloudDrizzle,
+    CloudRain, Snowflake, CloudLightning, Wind, MapPin, Thermometer
+  } from 'lucide-svelte';
 
   export let lang: 'fr' | 'en' | 'es' = 'fr';
 
@@ -45,17 +49,18 @@
     },
   };
 
-  function getWeatherIcon(code: number | null): string {
-    if (code === null) return '🌡️';
-    if (code === 0) return '☀️';
-    if (code <= 2) return '⛅';
-    if (code === 3) return '☁️';
-    if (code <= 48) return '🌫️';
-    if (code <= 55) return '🌦️';
-    if (code <= 65) return '🌧️';
-    if (code <= 75) return '❄️';
-    if (code <= 82) return '🌧️';
-    return '⛈️';
+  // Map weather codes to icon components
+  function getWeatherIcon(code: number | null) {
+    if (code === null) return Thermometer;
+    if (code === 0) return Sun;
+    if (code <= 2) return CloudSun;
+    if (code === 3) return Cloud;
+    if (code <= 48) return CloudFog;
+    if (code <= 55) return CloudDrizzle;
+    if (code <= 65) return CloudRain;
+    if (code <= 75) return Snowflake;
+    if (code <= 82) return CloudRain;
+    return CloudLightning;
   }
 
   function getWeatherLabel(code: number | null): string {
@@ -105,56 +110,64 @@
   };
 
   const nowLabel: Record<string, string> = {
-    fr: 'En ce moment',
-    en: 'Right now',
-    es: 'Ahora mismo',
-  };
-
-  const windLabel: Record<string, string> = {
-    fr: 'Vent',
-    en: 'Wind',
-    es: 'Viento',
+    fr: 'En direct',
+    en: 'Live',
+    es: 'En vivo',
   };
 </script>
 
-<div class="weather-card bg-gradient-to-br from-blue-50 to-sky-100 rounded-2xl p-6 shadow-sm flex flex-col justify-between md:col-span-2 lg:col-span-1">
-  <div class="flex items-center justify-between mb-3">
-    <span class="text-xs font-semibold uppercase tracking-wider text-sky-700/70">
-      {nowLabel[lang] ?? nowLabel.fr}
-    </span>
-    <span class="text-sm font-mono font-bold text-sky-800">
+<div class="weather-card rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden" style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-5">
+    <div class="flex items-center gap-2">
+      <span class="relative flex h-2 w-2">
+        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-sky-500 opacity-75"></span>
+        <span class="relative inline-flex rounded-full h-2 w-2 bg-sky-600"></span>
+      </span>
+      <span class="text-xs font-bold uppercase tracking-[0.15em] text-sky-800/60">
+        {nowLabel[lang] ?? nowLabel.fr}
+      </span>
+    </div>
+    <span class="text-sm font-mono font-bold text-sky-900/70 tabular-nums">
       {currentTime || '--:--'}
     </span>
   </div>
 
   {#if loading}
-    <div class="flex items-center justify-center flex-1 py-4">
-      <div class="w-6 h-6 border-2 border-sky-300 border-t-sky-600 rounded-full animate-spin"></div>
+    <div class="flex items-center justify-center flex-1 py-6">
+      <div class="w-6 h-6 border-2 border-sky-400 border-t-sky-700 rounded-full animate-spin"></div>
     </div>
   {:else if error}
-    <div class="flex-1 flex items-center justify-center">
-      <p class="text-sky-600/60 text-sm text-center">
-        🌡️
-      </p>
+    <div class="flex-1 flex items-center justify-center py-6">
+      <Thermometer class="w-8 h-8 text-sky-400" strokeWidth={1.5} />
     </div>
   {:else}
-    <div class="flex items-center gap-3 mb-2">
-      <span class="text-4xl leading-none">{getWeatherIcon(weatherCode)}</span>
-      <div>
-        <span class="text-3xl font-bold text-sky-900 leading-none">{temperature}°</span>
-      </div>
+    <!-- Temperature + icon -->
+    <div class="flex items-center gap-4 mb-3">
+      <svelte:component this={getWeatherIcon(weatherCode)} class="w-10 h-10 text-sky-700" strokeWidth={1.5} />
+      <span class="text-4xl font-heading font-bold text-sky-950 leading-none tabular-nums">{temperature}°</span>
     </div>
-    <p class="text-sm text-sky-800/80 font-medium mb-1">
+    <p class="text-sm text-sky-900/70 font-medium mb-1">
       {getWeatherLabel(weatherCode)}
     </p>
     {#if windSpeed !== null}
-      <p class="text-xs text-sky-700/50">
-        {windLabel[lang] ?? windLabel.fr} {windSpeed} km/h
-      </p>
+      <div class="flex items-center gap-1.5 text-sky-700/50">
+        <Wind class="w-3.5 h-3.5" strokeWidth={1.5} />
+        <span class="text-xs">{windSpeed} km/h</span>
+      </div>
     {/if}
   {/if}
 
-  <p class="text-xs text-sky-700/40 mt-2 pt-2 border-t border-sky-200/50">
-    📍 {locationLabel[lang] ?? locationLabel.fr}
-  </p>
+  <!-- Location footer -->
+  <div class="flex items-center gap-1.5 mt-4 pt-3 border-t border-sky-300/30">
+    <MapPin class="w-3 h-3 text-sky-600/50" strokeWidth={2} />
+    <span class="text-xs text-sky-700/50">{locationLabel[lang] ?? locationLabel.fr}</span>
+  </div>
+
+  <!-- Decorative large icon -->
+  <div class="absolute -bottom-6 -right-6 opacity-[0.06] pointer-events-none" aria-hidden="true">
+    {#if !loading && !error}
+      <svelte:component this={getWeatherIcon(weatherCode)} class="w-36 h-36" strokeWidth={1} />
+    {/if}
+  </div>
 </div>
