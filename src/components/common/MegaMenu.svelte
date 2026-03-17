@@ -1,6 +1,6 @@
 <script lang="ts">
   import { tick } from 'svelte';
-  import { ChevronDown, ArrowRight, CornerUpRight, Leaf, Users, Sailboat, Waves, Flag, Compass, Building, Briefcase, UtensilsCrossed, Trophy, Menu, Music, Store, Sparkles, ShoppingBag, Presentation, GraduationCap } from 'lucide-svelte';
+  import { ChevronDown, ArrowRight, CornerUpRight, Leaf, Users, Sailboat, Waves, Flag, Compass, Building, Briefcase, UtensilsCrossed, Trophy, Menu, Music, Store, Sparkles, ShoppingBag, Presentation, GraduationCap, Sun } from 'lucide-svelte';
   import type { Component } from 'svelte';
 
   const iconMap: Record<string, Component> = {
@@ -21,6 +21,7 @@
     'shopping-bag': ShoppingBag,
     presentation: Presentation,
     'graduation-cap': GraduationCap,
+    'sun': Sun,
   };
 
   interface SubLink {
