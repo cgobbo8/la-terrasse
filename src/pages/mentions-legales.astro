@@ -1,0 +1,143 @@
+---
+/**
+ * PAGE MENTIONS LÉGALES
+ * Données éditeur gérées via Keystatic (singleton legalMentions)
+ * Données techniques (hébergeur, développeur, CDN) statiques
+ */
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const legal = await reader.singletons.legalMentions.read();
+---
+
+<BaseLayout
+  title="Mentions légales — La Terrasse Saint-Ferréol"
+  description="Mentions légales du site La Terrasse, base de loisirs au lac de Saint-Ferréol."
+  pagePath="/mentions-legales"
+  noindex={true}
+>
+  <section class="py-16 lg:py-24">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <h1 class="font-heading text-4xl font-bold text-brun-terre mb-2">Mentions légales</h1>
+      <p class="text-sm text-gray-400 mb-12">Conformément aux articles 6-III et 19 de la Loi n° 2004-575 du 21 juin 2004 pour la Confiance dans l'Économie Numérique (LCEN).</p>
+
+      <!-- 1. Éditeur du site -->
+      <div class="mb-10">
+        <h2 class="font-heading text-xl font-bold text-brun-terre mb-4 pb-2 border-b border-gray-200">1. Éditeur du site</h2>
+        <dl class="space-y-3 text-sm">
+          <div class="grid grid-cols-[180px_1fr] gap-2">
+            <dt class="font-medium text-gray-500">Raison sociale</dt>
+            <dd class="text-gray-800">{legal?.companyName}</dd>
+          </div>
+          <div class="grid grid-cols-[180px_1fr] gap-2">
+            <dt class="font-medium text-gray-500">Forme juridique</dt>
+            <dd class="text-gray-800">{legal?.legalForm}</dd>
+          </div>
+          <div class="grid grid-cols-[180px_1fr] gap-2">
+            <dt class="font-medium text-gray-500">Adresse</dt>
+            <dd class="text-gray-800">{legal?.address}</dd>
+          </div>
+          <div class="grid grid-cols-[180px_1fr] gap-2">
+            <dt class="font-medium text-gray-500">SIRET</dt>
+            <dd class="text-gray-800">{legal?.siret}</dd>
+          </div>
+          <div class="grid grid-cols-[180px_1fr] gap-2">
+            <dt class="font-medium text-gray-500">Directeur de publication</dt>
+            <dd class="text-gray-800">{legal?.director}</dd>
+          </div>
+          <div class="grid grid-cols-[180px_1fr] gap-2">
+            <dt class="font-medium text-gray-500">Téléphone</dt>
+            <dd class="text-gray-800">{legal?.phone}</dd>
+          </div>
+          <div class="grid grid-cols-[180px_1fr] gap-2">
+            <dt class="font-medium text-gray-500">Email</dt>
+            <dd class="text-gray-800">
+              <a href={`mailto:${legal?.email}`} class="text-brun-terre hover:underline">{legal?.email}</a>
+            </dd>
+          </div>
+        </dl>
+      </div>
+
+      <!-- 2. Hébergement -->
+      <div class="mb-10">
+        <h2 class="font-heading text-xl font-bold text-brun-terre mb-4 pb-2 border-b border-gray-200">2. Hébergement</h2>
+        <p class="text-sm text-gray-700 mb-3">Le site est hébergé par :</p>
+        <address class="not-italic text-sm text-gray-800 leading-relaxed">
+          <strong>Hetzner Online GmbH</strong><br />
+          Industriestr. 25<br />
+          91710 Gunzenhausen<br />
+          Allemagne
+        </address>
+        <p class="text-sm text-gray-500 mt-3">Les serveurs et les données sont hébergés en Allemagne.</p>
+      </div>
+
+      <!-- 3. Cache & CDN -->
+      <div class="mb-10">
+        <h2 class="font-heading text-xl font-bold text-brun-terre mb-4 pb-2 border-b border-gray-200">3. Cache & distribution (CDN)</h2>
+        <p class="text-sm text-gray-700 leading-relaxed">
+          Ce site utilise <strong>Cloudflare</strong> pour la mise en cache et la distribution des contenus (CDN), afin d'améliorer les performances et la disponibilité du site.
+        </p>
+        <address class="not-italic text-sm text-gray-500 mt-2 leading-relaxed">
+          Cloudflare, Inc. — 101 Townsend St, San Francisco, CA 94107, États-Unis<br />
+          <a href="https://www.cloudflare.com/privacypolicy/" target="_blank" rel="noopener noreferrer" class="text-brun-terre hover:underline">Politique de confidentialité Cloudflare</a>
+        </address>
+      </div>
+
+      <!-- 4. Conception & développement -->
+      <div class="mb-10">
+        <h2 class="font-heading text-xl font-bold text-brun-terre mb-4 pb-2 border-b border-gray-200">4. Conception & développement</h2>
+        <p class="text-sm text-gray-700 leading-relaxed">
+          Ce site a été conçu et développé par <strong>Corentin Gobbo</strong>,
+          développeur web freelance.
+        </p>
+        <p class="text-sm text-gray-500 mt-1">
+          <a href="https://corentingobbo.dev" target="_blank" rel="noopener noreferrer" class="text-brun-terre hover:underline">corentingobbo.dev</a>
+        </p>
+      </div>
+
+      <!-- 5. Propriété intellectuelle -->
+      <div class="mb-10">
+        <h2 class="font-heading text-xl font-bold text-brun-terre mb-4 pb-2 border-b border-gray-200">5. Propriété intellectuelle</h2>
+        <p class="text-sm text-gray-700 leading-relaxed">
+          L'ensemble des contenus présents sur ce site (textes, photographies, vidéos, logo, identité visuelle) sont la propriété exclusive de {legal?.companyName}, sauf mention contraire explicite. Toute reproduction, représentation ou exploitation, même partielle, de ces contenus sans autorisation préalable et écrite est strictement interdite.
+        </p>
+      </div>
+
+      <!-- 6. Protection des données personnelles -->
+      <div class="mb-10">
+        <h2 class="font-heading text-xl font-bold text-brun-terre mb-4 pb-2 border-b border-gray-200">6. Protection des données personnelles</h2>
+        <p class="text-sm text-gray-700 leading-relaxed mb-3">
+          Conformément au Règlement Général sur la Protection des Données (RGPD — UE 2016/679) et à la loi Informatique et Libertés, vous disposez d'un droit d'accès, de rectification, de suppression et de portabilité de vos données personnelles.
+        </p>
+        <p class="text-sm text-gray-700 leading-relaxed">
+          Pour exercer ces droits ou pour toute question relative au traitement de vos données, contactez-nous à :
+          <a href={`mailto:${legal?.rgpdEmail}`} class="text-brun-terre hover:underline ml-1">{legal?.rgpdEmail}</a>
+        </p>
+      </div>
+
+      <!-- 7. Cookies -->
+      <div class="mb-10">
+        <h2 class="font-heading text-xl font-bold text-brun-terre mb-4 pb-2 border-b border-gray-200">7. Cookies</h2>
+        <p class="text-sm text-gray-700 leading-relaxed mb-3">
+          Ce site utilise des cookies techniques strictement nécessaires à son bon fonctionnement (session, préférences de langue). Aucun cookie publicitaire ou de traçage tiers n'est déposé.
+        </p>
+        <p class="text-sm text-gray-700 leading-relaxed">
+          Ce site utilise <strong>Plausible Analytics</strong>, une solution d'analyse d'audience sans cookies, respectueuse de la vie privée et conforme au RGPD. Aucune donnée personnelle identifiable n'est collectée à des fins statistiques.
+          <a href="https://plausible.io/data-policy" target="_blank" rel="noopener noreferrer" class="text-brun-terre hover:underline ml-1">En savoir plus sur Plausible</a>.
+        </p>
+      </div>
+
+      <!-- 8. Droit applicable -->
+      <div class="mb-10">
+        <h2 class="font-heading text-xl font-bold text-brun-terre mb-4 pb-2 border-b border-gray-200">8. Droit applicable</h2>
+        <p class="text-sm text-gray-700 leading-relaxed">
+          Les présentes mentions légales sont régies par le droit français. En cas de litige, et après toute tentative de résolution amiable, les tribunaux français seront seuls compétents.
+        </p>
+      </div>
+
+    </div>
+  </section>
+</BaseLayout>

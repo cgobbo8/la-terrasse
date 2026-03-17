@@ -306,6 +306,26 @@ export default config({
     }),
 
     // ========================================
+    // Legal mentions
+    // Stored as: src/content/legal/mentions-legales.yaml
+    // ========================================
+    legalMentions: singleton({
+      label: 'Mentions légales',
+      path: 'src/content/legal/mentions-legales',
+      format: { data: 'yaml' },
+      schema: {
+        companyName: fields.text({ label: 'Raison sociale', validation: { isRequired: true } }),
+        legalForm: fields.text({ label: 'Forme juridique (SAS, SARL, EURL…)' }),
+        address: fields.text({ label: 'Adresse complète', multiline: true }),
+        siret: fields.text({ label: 'N° SIRET' }),
+        director: fields.text({ label: 'Directeur de publication' }),
+        phone: fields.text({ label: 'Téléphone' }),
+        email: fields.text({ label: 'Email de contact' }),
+        rgpdEmail: fields.text({ label: 'Email dédié RGPD (si différent)' }),
+      },
+    }),
+
+    // ========================================
     // Site settings
     // Stored as: src/content/settings/site.yaml
     // ========================================
