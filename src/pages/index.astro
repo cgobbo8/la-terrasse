@@ -131,12 +131,17 @@ const timeBlocks = [
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <!-- Image -->
         <div class="order-2 lg:order-1" data-reveal>
-          <div class="relative">
+          <div class="relative group cursor-pointer">
             <img
               src="/images/heroes/riquet.webp"
               alt="Portrait de Pierre-Paul Riquet, créateur du Canal du Midi et du lac de Saint-Ferréol"
               class="aspect-[4/5] w-full rounded-2xl object-cover"
               loading="lazy"
+            />
+            <img
+              src="/images/heroes/riquet-wink.webp"
+              alt="Pierre-Paul Riquet fait un clin d'œil"
+              class="absolute inset-0 aspect-[4/5] w-full rounded-2xl object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
             />
             <!-- Decorative frame offset -->
             <div class="absolute -inset-3 border border-white/10 rounded-3xl -z-10" aria-hidden="true"></div>
