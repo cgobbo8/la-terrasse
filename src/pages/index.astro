@@ -34,7 +34,7 @@ const timeBlocks = [
     time: '9h30',
     title: t('home.dayTrip.block1.title'),
     description: t('home.dayTrip.block1.description'),
-    image: '/images/journee/kayak.jpg',
+    image: '/images/journee/kayak.webp',
     href: getLocalizedPath('/aventure', lang),
     poleAccent: '#537b47',
   },
@@ -42,7 +42,7 @@ const timeBlocks = [
     time: '12h30',
     title: t('home.dayTrip.block2.title'),
     description: t('home.dayTrip.block2.description'),
-    image: '/images/journee/dejeuner.jpg',
+    image: '/images/journee/dejeuner.webp',
     href: getLocalizedPath('/restaurant', lang),
     poleAccent: '#2D2B1B',
   },
@@ -50,7 +50,7 @@ const timeBlocks = [
     time: '14h30',
     title: t('home.dayTrip.block3.title'),
     description: t('home.dayTrip.block3.description'),
-    image: '/images/journee/paddle.jpg',
+    image: '/images/journee/paddle.webp',
     href: getLocalizedPath('/aventure', lang),
     poleAccent: '#537b47',
   },
@@ -58,7 +58,7 @@ const timeBlocks = [
     time: '17h00',
     title: t('home.dayTrip.block4.title'),
     description: t('home.dayTrip.block4.description'),
-    image: '/images/journee/detente.jpg',
+    image: '/images/journee/detente.webp',
     href: '#',
     poleAccent: '#2D2B1B',
   },
@@ -66,7 +66,7 @@ const timeBlocks = [
     time: '19h30',
     title: t('home.dayTrip.block5.title'),
     description: t('home.dayTrip.block5.description'),
-    image: '/images/journee/apero.jpg',
+    image: '/images/journee/apero.webp',
     href: getLocalizedPath('/restaurant', lang),
     poleAccent: '#2D2B1B',
   },
@@ -90,7 +90,7 @@ const timeBlocks = [
 
   <!-- 1. HERO — Le lieu (vidéo plein écran) -->
   <VideoHero tagline={t('home.hero.tagline')} subtitle={t('home.hero.subtitle')}>
-    <div class="flex flex-wrap gap-4">
+    <div class="flex flex-wrap justify-center gap-4">
       <a href={getLocalizedPath('/agenda', lang)} class="inline-flex items-center gap-2 bg-white text-brun-terre px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
         {t('home.hero.ctaAgenda')}
         <Icon name="lucide:arrow-right" class="w-4 h-4" />
@@ -133,8 +133,8 @@ const timeBlocks = [
         <div class="order-2 lg:order-1" data-reveal>
           <div class="relative">
             <img
-              src="/images/heroes/contact.jpg"
-              alt="Le lac de Saint-Ferréol"
+              src="/images/heroes/riquet.webp"
+              alt="Portrait de Pierre-Paul Riquet, créateur du Canal du Midi et du lac de Saint-Ferréol"
               class="aspect-[4/5] w-full rounded-2xl object-cover"
               loading="lazy"
             />
