@@ -31,6 +31,14 @@ const allEvents = await reader.collections.events.all();
 
 const timeBlocks = [
   {
+    time: '9h00',
+    title: t('home.dayTrip.block0.title'),
+    description: t('home.dayTrip.block0.description'),
+    image: '/images/journee/arrivee.webp',
+    href: '#',
+    poleAccent: '#2D2B1B',
+  },
+  {
     time: '9h30',
     title: t('home.dayTrip.block1.title'),
     description: t('home.dayTrip.block1.description'),
@@ -168,7 +176,11 @@ const timeBlocks = [
   </section>
 
   <!-- 9. CTA FINAL -->
-  <section class="relative py-(--spacing-section-mobile) lg:py-32 bg-brun-terre text-white overflow-hidden grain-overlay">
+  <section
+    class="relative py-(--spacing-section-mobile) lg:py-32 text-white overflow-hidden bg-cover bg-center bg-fixed bg-brun-terre"
+    style="background-image: url('/images/heroes/contact.webp');"
+  >
+    <div class="absolute inset-0 bg-black/60" />
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-reveal>
       <p class="section-eyebrow text-white/30 mb-6">Rendez-vous au lac</p>
       <h2 class="font-heading text-3xl lg:text-5xl font-bold mb-6 leading-tight">
@@ -188,4 +200,5 @@ const timeBlocks = [
       </div>
     </div>
   </section>
+
 </BaseLayout>

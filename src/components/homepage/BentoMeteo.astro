@@ -37,7 +37,7 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
       </h2>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-5" data-reveal-stagger>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 lg:gap-5" data-reveal-stagger>
 
       {/* ── HORAIRES — dark accent card, row-span-2 ── */}
       <div class="bento-cell rounded-2xl p-7 lg:p-8 flex flex-col md:row-span-2 relative overflow-hidden grain-overlay" style="background-color: #2D2B1B;">
@@ -90,6 +90,16 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
       {/* ── MÉTÉO — live weather (Svelte island) ── */}
       <WeatherTimeCard client:only="svelte" {lang} />
 
+      {/* ── LAC ÉTÉ — photo ambiance, row-span-2 ── */}
+      <div class="hidden md:block bento-cell rounded-2xl md:row-span-2 overflow-hidden relative">
+        <img
+          src="/images/bento-lac-ete.webp"
+          alt="Baigneurs dans le lac de Saint-Ferréol en été"
+          class="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+        />
+      </div>
+
       {/* ── NOUS TROUVER — wide location + contact card ── */}
       <div class="bento-cell rounded-2xl p-7 flex flex-col md:flex-row gap-6 md:col-span-2 bg-white border border-gray-200/60">
         {/* Address side */}
@@ -140,7 +150,7 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
       </div>
 
       {/* ── CTA — full-width banner ── */}
-      <div class="col-span-1 md:col-span-3 rounded-2xl px-8 py-6 flex flex-row items-center justify-between gap-4 relative overflow-hidden grain-overlay" style="background-color: #2D2B1B;">
+      <div class="col-span-1 md:col-span-4 rounded-2xl px-8 py-6 flex flex-row items-center justify-between gap-4 relative overflow-hidden grain-overlay" style="background-color: #2D2B1B;">
         <div class="relative z-10">
           <h3 class="font-heading font-bold text-lg text-white mb-1">
             {t('home.bento.cta')}

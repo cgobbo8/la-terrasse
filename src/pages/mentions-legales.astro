@@ -18,7 +18,18 @@ const legal = await reader.singletons.legalMentions.read();
   pagePath="/mentions-legales"
   noindex={true}
 >
-  <section class="py-16 lg:py-24">
+  <!-- Bandeau patrimonial — barrage de Saint-Ferréol -->
+  <div class="relative h-[25vh] lg:h-[30vh] overflow-hidden -mt-16 bg-brun-terre">
+    <img
+      src="/images/heroes/barrage-saint-ferreol.webp"
+      alt="Le barrage de Saint-Ferréol, ouvrage de Pierre-Paul Riquet"
+      class="absolute inset-0 w-full h-full object-cover opacity-70"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-white via-transparent to-black/20" />
+  </div>
+
+  <section class="py-16 lg:py-24 -mt-12 relative z-10">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
 
       <h1 class="font-heading text-4xl font-bold text-brun-terre mb-2">Mentions légales</h1>
