@@ -38,12 +38,6 @@ const subPages = [
     description: t('restaurant.subpage.producteurs.desc'),
     icon: 'lucide:leaf',
   },
-  {
-    title: t('restaurant.subpage.groupe.title'),
-    href: '/restaurant/repas-groupe',
-    description: t('restaurant.subpage.groupe.desc'),
-    icon: 'lucide:users',
-  },
 ];
 ---
 
@@ -82,7 +76,7 @@ const subPages = [
   <!-- Sous-pages — Navigation vers les détails (core offering) -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5" data-reveal-stagger>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-3xl mx-auto" data-reveal-stagger>
         {subPages.map((page) => (
           <a
             href={getLocalizedPath(page.href, lang)}

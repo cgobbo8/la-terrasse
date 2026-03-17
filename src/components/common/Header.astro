@@ -9,20 +9,22 @@ import LogoTerrasseFull from './LogoTerrasseFull.astro';
 
 interface Props {
   pole?: 'restaurant' | 'aventure' | 'salle' | null;
+  ctaLabel?: string;
+  ctaHref?: string;
 }
 
-const { pole = null } = Astro.props;
+const { pole = null, ctaLabel: ctaLabelOverride, ctaHref: ctaHrefOverride } = Astro.props;
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 const cta = getCtaForPole(pole);
 
-const ctaLabelLocalized = pole === 'aventure'
+const ctaLabelLocalized = ctaLabelOverride ?? (pole === 'aventure'
   ? t('aventure.cta.label')
   : pole === 'restaurant'
     ? t('restaurant.cta.label')
     : pole === 'salle'
       ? t('common.contact')
-      : t('common.contact');
+      : t('common.contact'));
 
 // Build navigation data for Svelte components
 const megaMenuPoles = [
@@ -35,7 +37,6 @@ const megaMenuPoles = [
     subLinks: [
       { label: t('nav.restaurant.carte'), href: getLocalizedPath('/restaurant/carte', lang), description: t('nav.restaurant.carte.desc'), icon: 'menu' },
       { label: t('restaurant.producers.title'), href: getLocalizedPath('/restaurant/producteurs', lang), description: t('nav.restaurant.producteurs.desc'), icon: 'leaf' },
-      { label: t('restaurant.groups.title'), href: getLocalizedPath('/restaurant/repas-groupe', lang), description: t('nav.restaurant.groupes.desc'), icon: 'users' },
     ],
     featured: {
       title: t('nav.restaurant.featured.title'),
@@ -106,7 +107,7 @@ const mobilePoles = megaMenuPoles.map(p => ({
   subLinks: p.subLinks.map(s => ({ label: s.label, href: s.href })),
 }));
 
-const contactHref = getLocalizedPath('/contact', lang);
+const contactHref = ctaHrefOverride ?? getLocalizedPath('/contact', lang);
 
 // Build language switcher paths
 const langPaths: Record<string, string> = {};
