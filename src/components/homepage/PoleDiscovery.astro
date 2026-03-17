@@ -3,6 +3,7 @@ import { poleConfigs, type Pole } from '@/lib/pole-config';
 import type { Lang } from '@/i18n/translations';
 import { useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { Icon } from 'astro-icon/components';
+import Sunburst from '@/components/common/Sunburst.astro';
 
 interface Props {
   lang: Lang;
@@ -18,7 +19,11 @@ const poles: { key: Pole; href: string; image: string; video: string }[] = [
 ];
 ---
 
-<section class="pole-discovery py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+<section class="pole-discovery relative py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+  <!-- Sunburst decoration — behind section, subtle -->
+  <div class="absolute -top-[5%] -right-[8%] w-[clamp(200px,30vw,400px)] aspect-square opacity-[0.06] pointer-events-none sunburst-spin" aria-hidden="true">
+    <Sunburst variant={3} size="100%" />
+  </div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <!-- Section header -->
     <div class="text-center mb-14 lg:mb-20" data-reveal>
@@ -162,11 +167,23 @@ const poles: { key: Pole; href: string; image: string; video: string }[] = [
     pointer-events: none;
   }
 
+  /* Slow continuous spin for sunburst decoration */
+  @keyframes sunburst-spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .sunburst-spin {
+    animation: sunburst-spin 40s linear infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .pole-card img,
     .pole-card video,
     .pole-card div {
       transition: none !important;
+    }
+    .sunburst-spin {
+      animation: none;
     }
   }
 </style>

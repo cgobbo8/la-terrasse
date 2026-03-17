@@ -4,6 +4,7 @@
  * Adapts color accent based on the pole.
  */
 import { Image } from 'astro:assets';
+import Sunburst from '@/components/common/Sunburst.astro';
 
 interface Props {
   tagline: string;
@@ -11,11 +12,13 @@ interface Props {
   pole?: 'restaurant' | 'aventure' | 'salle' | null;
   /** Optional background image path */
   image?: string;
+  /** Show a sunburst decoration (variant number) — bottom right, pole-colored */
+  sunburst?: 1 | 2 | 3;
   /** Extra CSS classes on the outer section (e.g. min-height) */
   class?: string;
 }
 
-const { tagline, subtitle, pole = null, image, class: className } = Astro.props;
+const { tagline, subtitle, pole = null, image, sunburst, class: className } = Astro.props;
 
 const accentColors: Record<string, string> = {
   restaurant: 'from-restaurant/80',
@@ -66,6 +69,12 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
       </div>
     </div>
   </div>
+
+  {sunburst && (
+    <div class="absolute -bottom-[12%] -right-[8%] w-[clamp(200px,28vw,400px)] aspect-square opacity-[0.15] pointer-events-none z-[1]" aria-hidden="true" data-hero-sunburst>
+      <Sunburst variant={sunburst} pole={pole} size="100%" />
+    </div>
+  )}
 </section>
 
 <style>
@@ -127,6 +136,16 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
           { opacity: 0, y: 16 },
           { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.55 }
         );
+      }
+
+      // ── Sunburst: slow rotation on scroll ──
+      const heroSunburst = section.querySelector<HTMLElement>('[data-hero-sunburst]');
+      if (heroSunburst) {
+        gsap.to(heroSunburst, {
+          rotation: 60,
+          ease: 'none',
+          scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: 1.5 },
+        });
       }
     });
   }
