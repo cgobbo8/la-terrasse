@@ -1,9 +1,16 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
-  import {
-    Sun, CloudSun, Cloud, CloudFog, CloudDrizzle,
-    CloudRain, Snowflake, CloudLightning, Wind, MapPin, Thermometer
-  } from 'lucide-svelte';
+  import Sun from 'lucide-svelte/icons/sun';
+  import CloudSun from 'lucide-svelte/icons/cloud-sun';
+  import Cloud from 'lucide-svelte/icons/cloud';
+  import CloudFog from 'lucide-svelte/icons/cloud-fog';
+  import CloudDrizzle from 'lucide-svelte/icons/cloud-drizzle';
+  import CloudRain from 'lucide-svelte/icons/cloud-rain';
+  import Snowflake from 'lucide-svelte/icons/snowflake';
+  import CloudLightning from 'lucide-svelte/icons/cloud-lightning';
+  import Wind from 'lucide-svelte/icons/wind';
+  import MapPin from 'lucide-svelte/icons/map-pin';
+  import Thermometer from 'lucide-svelte/icons/thermometer';
 
   export let lang: 'fr' | 'en' | 'es' = 'fr';
 

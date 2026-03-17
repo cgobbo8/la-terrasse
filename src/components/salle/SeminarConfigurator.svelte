@@ -5,20 +5,18 @@
    * Svelte 5 runes, lucide-svelte icons, CSS transitions
    */
   import { untrack } from 'svelte';
-  import {
-    Coffee,
-    UtensilsCrossed,
-    Wine,
-    Trees,
-    Trophy,
-    Users,
-    Check,
-    Plus,
-    Minus,
-    ArrowRight,
-    Building,
-    Sparkles,
-  } from 'lucide-svelte';
+  import Coffee from 'lucide-svelte/icons/coffee';
+  import UtensilsCrossed from 'lucide-svelte/icons/utensils-crossed';
+  import Wine from 'lucide-svelte/icons/wine';
+  import Trees from 'lucide-svelte/icons/trees';
+  import Trophy from 'lucide-svelte/icons/trophy';
+  import Users from 'lucide-svelte/icons/users';
+  import Check from 'lucide-svelte/icons/check';
+  import Plus from 'lucide-svelte/icons/plus';
+  import Minus from 'lucide-svelte/icons/minus';
+  import ArrowRight from 'lucide-svelte/icons/arrow-right';
+  import Building from 'lucide-svelte/icons/building';
+  import Sparkles from 'lucide-svelte/icons/sparkles';
 
   interface Props {
     accentColor?: string;

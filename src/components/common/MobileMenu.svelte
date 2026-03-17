@@ -1,6 +1,9 @@
 <script lang="ts">
   import { slide } from 'svelte/transition';
-  import { Menu, X, ChevronDown, Phone } from 'lucide-svelte';
+  import Menu from 'lucide-svelte/icons/menu';
+  import X from 'lucide-svelte/icons/x';
+  import ChevronDown from 'lucide-svelte/icons/chevron-down';
+  import Phone from 'lucide-svelte/icons/phone';
 
   interface SubLink {
     label: string;

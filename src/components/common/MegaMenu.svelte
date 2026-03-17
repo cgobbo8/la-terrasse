@@ -1,6 +1,27 @@
 <script lang="ts">
   import { tick } from 'svelte';
-  import { ChevronDown, ArrowRight, CornerUpRight, Leaf, Users, Sailboat, Waves, Flag, Compass, Building, Briefcase, UtensilsCrossed, Trophy, Menu, Music, Store, Sparkles, ShoppingBag, Presentation, GraduationCap, Sun, Phone } from 'lucide-svelte';
+  import ChevronDown from 'lucide-svelte/icons/chevron-down';
+  import ArrowRight from 'lucide-svelte/icons/arrow-right';
+  import CornerUpRight from 'lucide-svelte/icons/corner-up-right';
+  import Leaf from 'lucide-svelte/icons/leaf';
+  import Users from 'lucide-svelte/icons/users';
+  import Sailboat from 'lucide-svelte/icons/sailboat';
+  import Waves from 'lucide-svelte/icons/waves';
+  import Flag from 'lucide-svelte/icons/flag';
+  import Compass from 'lucide-svelte/icons/compass';
+  import Building from 'lucide-svelte/icons/building';
+  import Briefcase from 'lucide-svelte/icons/briefcase';
+  import UtensilsCrossed from 'lucide-svelte/icons/utensils-crossed';
+  import Trophy from 'lucide-svelte/icons/trophy';
+  import Menu from 'lucide-svelte/icons/menu';
+  import Music from 'lucide-svelte/icons/music';
+  import Store from 'lucide-svelte/icons/store';
+  import Sparkles from 'lucide-svelte/icons/sparkles';
+  import ShoppingBag from 'lucide-svelte/icons/shopping-bag';
+  import Presentation from 'lucide-svelte/icons/presentation';
+  import GraduationCap from 'lucide-svelte/icons/graduation-cap';
+  import Sun from 'lucide-svelte/icons/sun';
+  import Phone from 'lucide-svelte/icons/phone';
   import type { Component } from 'svelte';
 
   const iconMap: Record<string, Component> = {

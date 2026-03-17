@@ -1,6 +1,6 @@
 <script>
   import { onMount } from 'svelte';
-  import { ArrowRight } from 'lucide-svelte';
+  import ArrowRight from 'lucide-svelte/icons/arrow-right';
 
   /**
    * @typedef {{ time: string, title: string, description: string, image: string, href: string, poleAccent: string }} TimeBlock
