@@ -109,7 +109,7 @@
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
       >
-        <path d={logoPath} fill="white" />
+        <path d={logoPath} fill="var(--color-brun-terre)" />
       </svg>
     </div>
   </div>
@@ -120,7 +120,7 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: var(--color-brun-terre);
+    background: var(--color-soleil);
 
     /* Two mask layers: logo (hole) XOR full coverage */
     -webkit-mask-image: var(--logo-mask), linear-gradient(white, white);
