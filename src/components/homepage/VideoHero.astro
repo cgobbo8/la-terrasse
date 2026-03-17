@@ -6,6 +6,8 @@
  * Plays a muted, looping video of Lac de Saint-Ferréol with a dark gradient overlay.
  * Falls back to a static image when prefers-reduced-motion is active.
  */
+import Sunburst from '@/components/common/Sunburst.astro';
+
 interface Props {
   tagline: string;
   subtitle?: string;
@@ -64,6 +66,14 @@ const { tagline, subtitle } = Astro.props;
     </div>
   </div>
 
+  <!-- Sunburst decoration — top left -->
+  <div
+    class="absolute -top-[15%] -left-[10%] w-[clamp(280px,35vw,500px)] aspect-square pointer-events-none z-[1]"
+    data-vh-sunburst
+  >
+    <Sunburst variant={1} size="100%" />
+  </div>
+
   <!-- Scroll indicator -->
   <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 z-10" aria-hidden="true" data-vh-scroll>
     <span class="text-[0.625rem] font-semibold uppercase tracking-[0.25em]">Scroll</span>
@@ -92,12 +102,15 @@ const { tagline, subtitle } = Astro.props;
 
 <script>
   import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
 
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const heading = document.querySelector<HTMLElement>('[data-vh-heading]');
     const sub = document.querySelector<HTMLElement>('[data-vh-sub]');
     const cta = document.querySelector<HTMLElement>('[data-vh-cta]');
     const scroll = document.querySelector<HTMLElement>('[data-vh-scroll]');
+    const sunburst = document.querySelector<HTMLElement>('[data-vh-sunburst]');
 
     if (heading) {
       gsap.fromTo(heading,
@@ -122,6 +135,29 @@ const { tagline, subtitle } = Astro.props;
         { opacity: 0 },
         { opacity: 1, duration: 0.6, ease: 'power2.out', delay: 1.1 }
       );
+    }
+
+    // Sunburst: slow idle rotation + scroll-accelerated spin
+    if (sunburst) {
+      // Slow continuous rotation (20s per full turn)
+      const idleSpin = gsap.to(sunburst, {
+        rotation: 360,
+        duration: 20,
+        ease: 'none',
+        repeat: -1,
+      });
+
+      // Scroll adds extra rotation on top (smooth scrub)
+      gsap.to(sunburst, {
+        rotation: '+=180',
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.video-hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1.5,
+        },
+      });
     }
   }
 </script>

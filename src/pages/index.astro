@@ -21,6 +21,7 @@ import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { poleConfigs } from '@/lib/pole-config';
+import Sunburst from '@/components/common/Sunburst.astro';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
@@ -140,7 +141,7 @@ const timeBlocks = [
       <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
         <!-- Image -->
         <div class="order-2 lg:order-1" data-reveal>
-          <div class="relative group cursor-pointer">
+          <div class="relative group cursor-pointer" data-riquet-container>
             <img
               src="/images/heroes/riquet.webp"
               alt="Portrait de Pierre-Paul Riquet, créateur du Canal du Midi et du lac de Saint-Ferréol"
@@ -154,6 +155,10 @@ const timeBlocks = [
               class="absolute inset-0 aspect-[4/5] w-full rounded-2xl object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
               data-raw
             />
+            <!-- Sunburst decoration — top left -->
+            <div class="absolute -top-[12%] -left-[12%] w-[clamp(120px,30%,200px)] aspect-square z-20" data-riquet-sunburst>
+              <Sunburst variant={2} size="100%" />
+            </div>
             <!-- Decorative frame offset -->
             <div class="absolute -inset-3 border border-brun-terre/8 rounded-3xl -z-10" aria-hidden="true"></div>
           </div>
@@ -177,6 +182,22 @@ const timeBlocks = [
       </div>
     </div>
   </section>
+
+  <!-- Riquet sunburst: rotate on hover -->
+  <script>
+    import gsap from 'gsap';
+
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const container = document.querySelector<HTMLElement>('[data-riquet-container]');
+      const sunburst = document.querySelector<HTMLElement>('[data-riquet-sunburst]');
+
+      if (container && sunburst) {
+        container.addEventListener('mouseenter', () => {
+          gsap.to(sunburst, { rotation: '+=120', duration: 1.2, ease: 'power2.out' });
+        });
+      }
+    }
+  </script>
 
   <!-- 9. CTA FINAL — warm, saturated photo CTA -->
   <section

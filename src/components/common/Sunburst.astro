@@ -1,0 +1,46 @@
+---
+import type { Pole } from '@/lib/pole-config';
+import { poleConfigs, brandColors } from '@/lib/pole-config';
+
+import sunburst1 from '@/assets/svg/sunburst-1.svg?raw';
+import sunburst2 from '@/assets/svg/sunburst-2.svg?raw';
+import sunburst3 from '@/assets/svg/sunburst-3.svg?raw';
+
+interface Props {
+  /** Which sunburst variant (1, 2, or 3) */
+  variant?: 1 | 2 | 3;
+  /** Pole for accent color — defaults to soleil yellow */
+  pole?: Pole;
+  /** CSS size (width & height) */
+  size?: string;
+  /** Extra classes for positioning */
+  class?: string;
+}
+
+const {
+  variant = 1,
+  pole,
+  size = '200px',
+  class: className = '',
+} = Astro.props;
+
+const color = pole ? poleConfigs[pole].accent : brandColors.soleil;
+
+const svgMap = { 1: sunburst1, 2: sunburst2, 3: sunburst3 } as const;
+const rawSvg = svgMap[variant];
+---
+
+<div
+  class:list={['sunburst pointer-events-none', className]}
+  style={`color: ${color}; width: ${size}; height: ${size};`}
+  aria-hidden="true"
+  set:html={rawSvg}
+/>
+
+<style>
+  .sunburst :global(svg) {
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+</style>
