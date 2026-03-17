@@ -6,7 +6,8 @@ interface Props {
   class?: string;
 }
 
-const { color = '#2D2B1B', width = 'auto', height = '2rem', class: className } = Astro.props;
+import { brandColors } from '@/lib/pole-config';
+const { color = brandColors.brunTerre, width = 'auto', height = '2rem', class: className } = Astro.props;
 ---
 
 <svg

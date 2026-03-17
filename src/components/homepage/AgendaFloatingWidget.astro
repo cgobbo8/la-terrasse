@@ -51,7 +51,7 @@ const displayEvents = upcomingEvents.map((event) => ({
 ---
 
 {hasEvents && (
-  <div class="agenda-floating-widget relative z-10  lg:bg-none" style="--split-bg: linear-gradient(to bottom, transparent 50%, var(--color-offwhite, #fafaf8) 50%);" data-agenda-widget>
+  <div class="agenda-floating-widget relative z-10  lg:bg-none" style="--split-bg: linear-gradient(to bottom, transparent 50%, var(--color-offwhite, var(--color-offwhite)) 50%);" data-agenda-widget>
     <div class="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto py-6 lg:py-0">
       <a
         href={getLocalizedPath('/agenda', lang)}
@@ -74,7 +74,7 @@ const displayEvents = upcomingEvents.map((event) => ({
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-4">
           {displayEvents.map((event) => (
             <div class="flex gap-3 items-start">
-              <div class="flex-shrink-0 text-center rounded-xl p-2.5 w-14 border border-gray-200/60" style="background-color: #fafaf8;">
+              <div class="flex-shrink-0 text-center rounded-xl p-2.5 w-14 border border-gray-200/60" style="background-color: var(--color-offwhite);">
                 <span class="block text-lg font-bold text-brun-terre leading-none">
                   {formatDay(event.date)}
                 </span>

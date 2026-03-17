@@ -20,7 +20,7 @@ const { tagline, subtitle, pole = null, image, class: className } = Astro.props;
 const accentColors: Record<string, string> = {
   restaurant: 'from-restaurant/80',
   aventure: 'from-aventure/80',
-  salle: 'from-bleu-ardoise/80',
+  salle: 'from-salle/80',
 };
 
 const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-brun-terre/80';

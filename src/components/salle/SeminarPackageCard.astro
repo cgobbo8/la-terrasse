@@ -1,11 +1,12 @@
 ---
 /**
  * SeminarPackageCard — Mobile card for seminar package display
- * Bleu ardoise (#3d4969) accent, consistent with événements pole DA
+ * Bleu ardoise accent via poleConfigs, consistent with salle pole DA
  * Pure Astro component — no JS shipped
  */
 import { Icon } from 'astro-icon/components';
 import { useTranslations } from '@/i18n/utils';
+import { poleConfigs } from '@/lib/pole-config';
 import type { Lang } from '@/i18n/translations';
 
 interface Props {
@@ -21,7 +22,7 @@ interface Props {
 
 const { title, subtitle, description, inclusions, price, ctaHref, highlighted = false, lang = 'fr' } = Astro.props;
 const t = useTranslations(lang);
-const accent = '#3d4969';
+const accent = poleConfigs.salle.accent;
 ---
 
 <div

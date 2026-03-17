@@ -123,7 +123,7 @@
   };
 </script>
 
-<div class="weather-card rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden" style="background: linear-gradient(135deg, #e0f2fe 0%, #bae6fd 50%, #7dd3fc 100%);">
+<div class="weather-card rounded-2xl p-7 flex flex-col justify-between relative overflow-hidden" style="background: linear-gradient(135deg, var(--color-salle-light) 0%, color-mix(in srgb, var(--color-salle) 20%, white) 50%, color-mix(in srgb, var(--color-salle) 35%, white) 100%);">
   <!-- Header -->
   <div class="flex items-center justify-between mb-5">
     <div class="flex items-center gap-2">

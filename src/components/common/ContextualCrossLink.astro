@@ -17,13 +17,9 @@ interface Props {
 
 const { text, href, pole } = Astro.props;
 
-const accentColors = {
-  restaurant: '#2D2B1B',
-  aventure: '#537b47',
-  salle: '#3d4969',
-} as const;
+import { poleConfigs } from '@/lib/pole-config';
 
-const accent = accentColors[pole];
+const accent = poleConfigs[pole].accent;
 ---
 
 <aside class="py-10 lg:py-16">

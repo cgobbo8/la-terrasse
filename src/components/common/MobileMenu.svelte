@@ -51,6 +51,14 @@
     labelSubmenu?: string;
   } = $props();
 
+  function isLightColor(hex: string): boolean {
+    const r = parseInt(hex.slice(1, 3), 16);
+    const g = parseInt(hex.slice(3, 5), 16);
+    const b = parseInt(hex.slice(5, 7), 16);
+    return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6;
+  }
+  const ctaTextColor = isLightColor(ctaColor) ? 'var(--color-brun-terre)' : 'white';
+
   let isOpen = $state(false);
   let expandedPole = $state<string | null>(null);
   let portalEl = $state<HTMLDivElement | null>(null);
@@ -58,11 +66,10 @@
   let hamburgerBtn = $state<HTMLButtonElement | null>(null);
   let closeBtn = $state<HTMLButtonElement | null>(null);
 
-  const poleColors: Record<string, string> = {
-    restaurant: '#2D2B1B',
-    aventure: '#537b47',
-    salle: '#3d4969',
-  };
+  /** Pole colors via CSS variables — no hardcoded hex */
+  function poleColor(poleId: string): string {
+    return `var(--color-${poleId}, var(--color-brun-terre))`;
+  }
 
   // Portal: move overlay + panel to document.body
   // to escape header's backdrop-blur containing block
@@ -198,7 +205,7 @@
               href={pole.href}
               onclick={close}
               class="flex-1 py-3 font-semibold text-[0.9375rem]"
-              style="color: {poleColors[pole.id] ?? '#3a3a38'}"
+              style="color: {poleColor(pole.id)}"
             >
               {pole.label}
             </a>
@@ -244,8 +251,8 @@
         <a
           href={ctaHref}
           onclick={close}
-          class="flex items-center justify-center gap-2 w-full text-center text-white min-h-12 px-4 py-3.5 rounded-full font-semibold text-[0.9375rem] transition-all duration-200 hover:shadow-md hover:brightness-95"
-          style="background-color: {ctaColor}"
+          class="flex items-center justify-center gap-2 w-full text-center min-h-12 px-4 py-3.5 rounded-full font-semibold text-[0.9375rem] transition-all duration-200 hover:shadow-md hover:brightness-95"
+          style="background-color: {ctaColor}; color: {ctaTextColor}"
         >
           {#if ctaIcon}<Phone class="w-4 h-4" strokeWidth={1.5} />{/if}
           {ctaLabel}

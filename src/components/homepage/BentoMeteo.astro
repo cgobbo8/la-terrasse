@@ -3,6 +3,7 @@ import { Icon } from 'astro-icon/components';
 import type { Lang } from '@/i18n/translations';
 import { useTranslations, getLocalizedField, getLocalizedPath } from '@/i18n/utils';
 import WeatherTimeCard from './WeatherTimeCard.svelte';
+import { poleConfigs, brandColors } from '@/lib/pole-config';
 
 interface Props {
   settings: Record<string, unknown>;
@@ -19,10 +20,10 @@ const phone = (settings.phone as string) ?? '';
 const currentSeason = (settings.currentSeason as string) ?? 'printemps';
 
 const seasonConfig: Record<string, { label: string; icon: string; gradient: string; accent: string }> = {
-  printemps: { label: 'Printemps', icon: 'lucide:flower-2', gradient: 'from-emerald-50 via-green-50 to-lime-50', accent: '#537b47' },
-  ete: { label: 'Été', icon: 'lucide:sun', gradient: 'from-amber-50 via-yellow-50 to-orange-50', accent: '#e8a520' },
-  automne: { label: 'Automne', icon: 'lucide:leaf', gradient: 'from-orange-50 via-amber-50 to-yellow-50', accent: '#b5651d' },
-  hiver: { label: 'Hiver', icon: 'lucide:snowflake', gradient: 'from-slate-50 via-blue-50 to-indigo-50', accent: '#3d4969' },
+  printemps: { label: 'Printemps', icon: 'lucide:flower-2', gradient: 'from-emerald-50 via-green-50 to-lime-50', accent: poleConfigs.aventure.accent },
+  ete: { label: 'Été', icon: 'lucide:sun', gradient: 'from-amber-50 via-yellow-50 to-orange-50', accent: brandColors.soleilDark },
+  automne: { label: 'Automne', icon: 'lucide:leaf', gradient: 'from-orange-50 via-amber-50 to-yellow-50', accent: poleConfigs.restaurant.accent },
+  hiver: { label: 'Hiver', icon: 'lucide:snowflake', gradient: 'from-slate-50 via-blue-50 to-indigo-50', accent: poleConfigs.salle.accent },
 };
 
 const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
@@ -39,33 +40,33 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 lg:gap-5" data-reveal-stagger>
 
-      {/* ── HORAIRES — dark accent card, row-span-2 ── */}
-      <div class="bento-cell rounded-2xl p-7 lg:p-8 flex flex-col md:row-span-2 relative overflow-hidden grain-overlay" style="background-color: #2D2B1B;">
-        <div class="relative z-10 flex flex-col h-full">
-          <div class="w-12 h-12 rounded-xl bg-white/10 flex items-center justify-center mb-6">
-            <Icon name="lucide:clock" class="w-6 h-6 text-white/80" />
+      {/* ── HORAIRES — soleil accent card, row-span-2 ── */}
+      <div class="bento-cell rounded-2xl p-7 lg:p-8 flex flex-col md:row-span-2 relative overflow-hidden bg-soleil">
+        <div class="flex flex-col h-full">
+          <div class="w-12 h-12 rounded-xl bg-brun-terre/10 flex items-center justify-center mb-6">
+            <Icon name="lucide:clock" class="w-6 h-6 text-brun-terre" />
           </div>
-          <h3 class="font-heading font-bold text-xl text-white mb-6">{t('common.openingHours')}</h3>
+          <h3 class="font-heading font-bold text-xl text-brun-terre mb-6">{t('common.openingHours')}</h3>
           <div class="flex-1 space-y-4">
             <div>
-              <p class="text-white/40 text-xs font-semibold uppercase tracking-wider mb-1.5">Période</p>
-              <p class="text-white/70 text-sm leading-relaxed">Mai & septembre : weekends et jours fériés</p>
-              <p class="text-white/70 text-sm leading-relaxed">Juin, juillet, août : tous les jours</p>
+              <p class="text-brun-terre/40 text-xs font-semibold uppercase tracking-wider mb-1.5">Période</p>
+              <p class="text-brun-terre/70 text-sm leading-relaxed">Mai & septembre : weekends et jours fériés</p>
+              <p class="text-brun-terre/70 text-sm leading-relaxed">Juin, juillet, août : tous les jours</p>
             </div>
-            <div class="border-t border-white/10 pt-4">
+            <div class="border-t border-brun-terre/10 pt-4">
               <div class="flex items-center justify-between mb-2">
-                <span class="text-white/50 text-xs font-semibold uppercase tracking-wider">Activités</span>
-                <span class="text-white font-heading font-bold text-sm">10h – 19h</span>
+                <span class="text-brun-terre/40 text-xs font-semibold uppercase tracking-wider">Activités</span>
+                <span class="text-brun-terre font-heading font-bold text-sm">10h – 19h</span>
               </div>
               <div class="flex items-center justify-between">
-                <span class="text-white/50 text-xs font-semibold uppercase tracking-wider">Restaurant</span>
-                <span class="text-white font-heading font-bold text-sm">9h – 22h</span>
+                <span class="text-brun-terre/40 text-xs font-semibold uppercase tracking-wider">Restaurant</span>
+                <span class="text-brun-terre font-heading font-bold text-sm">9h – 22h</span>
               </div>
             </div>
           </div>
         </div>
         {/* Decorative circle */}
-        <div class="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-white/[0.03]" aria-hidden="true"></div>
+        <div class="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-brun-terre/[0.04]" aria-hidden="true"></div>
       </div>
 
       {/* ── SAISON — colored gradient card ── */}
@@ -149,17 +150,17 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
         </div>
       </div>
 
-      {/* ── CTA — full-width banner ── */}
-      <div class="col-span-1 md:col-span-4 rounded-2xl px-8 py-6 flex flex-row items-center justify-between gap-4 relative overflow-hidden grain-overlay" style="background-color: #2D2B1B;">
-        <div class="relative z-10">
-          <h3 class="font-heading font-bold text-lg text-white mb-1">
+      {/* ── CTA — full-width banner (soleil yellow) ── */}
+      <div class="col-span-1 md:col-span-4 rounded-2xl px-8 py-6 flex flex-row items-center justify-between gap-4 relative overflow-hidden bg-soleil">
+        <div>
+          <h3 class="font-heading font-bold text-lg text-brun-terre mb-1">
             {t('home.bento.cta')}
           </h3>
-          <p class="text-white/40 text-sm hidden sm:block">Une question ? Écrivez-nous.</p>
+          <p class="text-brun-terre/50 text-sm hidden sm:block">Une question ? Écrivez-nous.</p>
         </div>
         <a
           href={getLocalizedPath('/contact', lang)}
-          class="relative z-10 inline-flex items-center gap-2 bg-white text-brun-terre px-6 py-3 rounded-full font-heading font-semibold text-sm card-hover shrink-0"
+          class="inline-flex items-center gap-2 bg-brun-terre text-white px-6 py-3 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all shrink-0"
         >
           {t('common.contact')}
           <Icon name="lucide:arrow-right" class="w-4 h-4" />

@@ -7,6 +7,7 @@
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import { getLangFromUrl, useTranslations, getLocalizedField } from '@/i18n/utils';
+import { poleConfigs, brandColors } from '@/lib/pole-config';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
 
@@ -63,11 +64,11 @@ function formatMonthYear(monthKey: string, locale: string) {
 }
 
 const categoryColors: Record<string, string> = {
-  concert: '#537b47',
-  'soiree-theme': '#2D2B1B',
-  festival: '#3d4969',
-  marche: '#c27a2a',
-  autre: '#6b7280',
+  concert: poleConfigs.aventure.accent,
+  'soiree-theme': poleConfigs.restaurant.accent,
+  festival: poleConfigs.salle.accent,
+  marche: brandColors.soleilDark,
+  autre: brandColors.gray400,
 };
 
 const categoryLabels: Record<string, string> = {

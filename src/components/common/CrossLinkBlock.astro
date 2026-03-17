@@ -5,10 +5,11 @@
  */
 import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { poleConfigs, type Pole } from '@/lib/pole-config';
 
 interface Props {
   /** Current pole to exclude from suggestions */
-  currentPole: 'restaurant' | 'aventure' | 'salle';
+  currentPole: Pole;
 }
 
 const { currentPole } = Astro.props;
@@ -21,7 +22,7 @@ const poles = [
     label: t('nav.restaurant'),
     description: t('crosslink.restaurant.description'),
     href: getLocalizedPath('/restaurant', lang),
-    accent: '#2D2B1B',
+    accent: poleConfigs.restaurant.accent,
     icon: 'lucide:utensils',
   },
   {
@@ -29,7 +30,7 @@ const poles = [
     label: t('nav.aventure'),
     description: t('crosslink.aventure.description'),
     href: getLocalizedPath('/aventure', lang),
-    accent: '#537b47',
+    accent: poleConfigs.aventure.accent,
     icon: 'lucide:mountain',
   },
   {
@@ -37,7 +38,7 @@ const poles = [
     label: t('nav.salle'),
     description: t('crosslink.salle.description'),
     href: getLocalizedPath('/la-salle', lang),
-    accent: '#3d4969',
+    accent: poleConfigs.salle.accent,
     icon: 'lucide:building-2',
   },
 ];

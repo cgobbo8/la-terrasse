@@ -14,8 +14,10 @@ import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
 import { generateEventVenueLD } from '@/lib/seo';
-import { buildQuoteMailto } from '@/lib/pole-config';
+import { buildQuoteMailto, poleConfigs } from '@/lib/pole-config';
 import { createReader } from '@keystatic/core/reader';
+
+const { accent: salleAccent, light: salleLight } = poleConfigs.salle;
 import keystaticConfig from '../../../keystatic.config';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
@@ -67,7 +69,7 @@ const jsonLd = generateEventVenueLD({
     image="/images/heroes/salle.webp"
   >
     <div class="flex flex-wrap gap-4">
-      <a href={getLocalizedPath('/la-salle/seminaires', lang)} class="inline-flex items-center gap-2 bg-white text-bleu-ardoise px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
+      <a href={getLocalizedPath('/la-salle/seminaires', lang)} class="inline-flex items-center gap-2 bg-white text-salle px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
         {t('salle.hub.seminairesCta')}
         <Icon name="lucide:arrow-right" class="w-4 h-4" />
       </a>
@@ -80,8 +82,8 @@ const jsonLd = generateEventVenueLD({
   <!-- L'ESPACE — Venue specs -->
   <div class="pt-(--spacing-section-mobile) lg:pt-(--spacing-section)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-      <p class="section-eyebrow mb-4" style="color: #3d496950;">L'espace</p>
-      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-2" style="color: #3d4969;">
+      <p class="section-eyebrow mb-4" style={`color: ${salleAccent}50;`}>L'espace</p>
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-2" style={`color: ${salleAccent};`}>
         {t('salle.venue.title')}
       </h2>
     </div>
@@ -113,11 +115,11 @@ const jsonLd = generateEventVenueLD({
             />
           </div>
           <div class="p-7">
-            <h3 class="font-heading text-xl font-bold mb-2" style="color: #3d4969;">
+            <h3 class="font-heading text-xl font-bold mb-2" style={`color: ${salleAccent};`}>
               {t('salle.hub.evenementielTitle')}
             </h3>
             <p class="text-gray-500 text-sm mb-4 leading-relaxed">Louez la salle pour vos concerts, foires, expositions, soirées privées — un espace modulable à votre disposition.</p>
-            <span class="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all" style="color: #3d4969;">
+            <span class="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all" style={`color: ${salleAccent};`}>
               {t('salle.hub.evenementielCta')}
               <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </span>
@@ -138,11 +140,11 @@ const jsonLd = generateEventVenueLD({
             />
           </div>
           <div class="p-7">
-            <h3 class="font-heading text-xl font-bold mb-2" style="color: #3d4969;">
+            <h3 class="font-heading text-xl font-bold mb-2" style={`color: ${salleAccent};`}>
               {t('salle.hub.seminairesTitle')}
             </h3>
             <p class="text-gray-500 text-sm mb-4 leading-relaxed">{t('salle.hub.seminairesDesc')}</p>
-            <span class="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all" style="color: #3d4969;">
+            <span class="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all" style={`color: ${salleAccent};`}>
               {t('salle.hub.seminairesCta')}
               <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </span>
@@ -153,7 +155,7 @@ const jsonLd = generateEventVenueLD({
   </section>
 
   <!-- Section contact -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) grain-overlay overflow-hidden" style="background-color: #3d4969;">
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) grain-overlay overflow-hidden" style={`background-color: ${salleAccent};`}>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-reveal>
       <p class="section-eyebrow text-white/30 mb-6">Contact</p>
       <h2 class="font-heading text-3xl font-bold text-white mb-4">Un projet en tête ?</h2>

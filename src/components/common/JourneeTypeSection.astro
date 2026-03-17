@@ -18,16 +18,12 @@ interface Props {
 
 const { title, steps, accentColor } = Astro.props;
 
-const poleColors: Record<string, string> = {
-  restaurant: '#2D2B1B',
-  aventure: '#537b47',
-  salle: '#3d4969',
-};
+import { poleConfigs, brandColors } from '@/lib/pole-config';
 
 function getStepColor(step: TimelineStep): string {
-  if (step.pole && poleColors[step.pole]) return poleColors[step.pole];
+  if (step.pole && poleConfigs[step.pole]) return poleConfigs[step.pole].accent;
   if (accentColor) return accentColor;
-  return '#2D2B1B';
+  return brandColors.brunTerre;
 }
 ---
 

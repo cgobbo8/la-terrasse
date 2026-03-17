@@ -1,11 +1,12 @@
 ---
 /**
  * PackComparator — Side-by-side comparison table (desktop) + stacked cards (mobile)
- * Bleu ardoise (#3d4969) accent, clean professional table
+ * Bleu ardoise accent via poleConfigs, clean professional table
  * Pure Astro component — no JS shipped
  */
 import { Icon } from 'astro-icon/components';
 import SeminarPackageCard from './SeminarPackageCard.astro';
+import { poleConfigs } from '@/lib/pole-config';
 import { useTranslations } from '@/i18n/utils';
 import type { Lang } from '@/i18n/translations';
 
@@ -40,7 +41,7 @@ interface Props {
 
 const { packages, lang = 'fr' } = Astro.props;
 const t = useTranslations(lang);
-const accent = '#3d4969';
+const accent = poleConfigs.salle.accent;
 
 const featureRows: { key: keyof Features; label: string }[] = [
   { key: 'salleEquipee', label: t('salle.feature.roomEquipped') },

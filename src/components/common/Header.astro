@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { languages, type Lang } from '@/i18n/translations';
-import { getCtaForPole } from '@/lib/pole-config';
+import { getCtaForPole, poleConfigs, brandColors } from '@/lib/pole-config';
 import MegaMenu from './MegaMenu.svelte';
 import MobileMenu from './MobileMenu.svelte';
 import LogoTerrasse from './LogoTerrasse.astro';
@@ -80,7 +80,7 @@ const megaMenuPoles = [
     id: 'salle',
     label: t('nav.salle'),
     href: getLocalizedPath('/la-salle', lang),
-    color: pole === 'salle' ? 'text-bleu-ardoise' : 'text-gray-600',
+    color: pole === 'salle' ? 'text-salle' : 'text-gray-600',
     accentColor: 'salle',
     subLinks: [
       { label: t('nav.salle.evenementiel'), href: getLocalizedPath('/la-salle/evenementiel', lang), description: t('nav.salle.evenementiel.desc'), icon: 'music' },
@@ -123,11 +123,13 @@ for (const code of Object.keys(languages)) {
 const accentColors: Record<string, string> = {
   restaurant: 'text-restaurant',
   aventure: 'text-aventure',
-  salle: 'text-bleu-ardoise',
+  salle: 'text-salle',
 };
+
+const logoAccent = pole ? poleConfigs[pole].accent : brandColors.soleil;
 ---
 
-<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300">
+<header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300" style={`--header-accent: ${logoAccent};`}>
   <nav class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="flex items-center justify-between h-16">
       <!-- Logo -->

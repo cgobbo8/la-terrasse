@@ -9,15 +9,15 @@ const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 ---
 
-<footer class="bg-brun-terre text-white/70 grain-overlay overflow-hidden">
+<footer class="bg-gray-100 text-gray-600 overflow-hidden">
   <!-- Decorative top border -->
-  <div class="h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" aria-hidden="true"></div>
+  <div class="h-px bg-gradient-to-r from-transparent via-gray-200 to-transparent" aria-hidden="true"></div>
 
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10 relative z-10">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-10">
     <!-- Top section: logo + tagline -->
     <div class="mb-16 text-center">
-      <LogoTerrasseFull color="#ffffff" class="mx-auto" />
-      <p class="mt-3 text-sm text-white/30 max-w-xs mx-auto">
+      <LogoTerrasseFull class="mx-auto" />
+      <p class="mt-3 text-sm text-gray-400 max-w-xs mx-auto">
         Base de loisirs au lac de Saint-Ferréol — Restaurant, aventure & événements.
       </p>
     </div>
@@ -26,47 +26,47 @@ const t = useTranslations(lang);
     <div class="grid grid-cols-2 md:grid-cols-4 gap-10 lg:gap-16">
       <!-- Restaurant -->
       <div>
-        <h3 class="font-heading font-bold text-white text-xs uppercase tracking-[0.15em] mb-5">
+        <h3 class="font-heading font-bold text-brun-terre text-xs uppercase tracking-[0.15em] mb-5">
           {t('nav.restaurant')}
         </h3>
         <ul class="space-y-3 text-sm">
-          <li><a href={getLocalizedPath('/restaurant', lang)} class="hover:text-white transition-colors">Le restaurant</a></li>
-          <li><a href={getLocalizedPath('/restaurant/carte', lang)} class="hover:text-white transition-colors">{t('nav.restaurant.carte')}</a></li>
-          <li><a href={getLocalizedPath('/restaurant/producteurs', lang)} class="hover:text-white transition-colors">{t('restaurant.producers.title')}</a></li>
+          <li><a href={getLocalizedPath('/restaurant', lang)} class="hover:text-brun-terre transition-colors">Le restaurant</a></li>
+          <li><a href={getLocalizedPath('/restaurant/carte', lang)} class="hover:text-brun-terre transition-colors">{t('nav.restaurant.carte')}</a></li>
+          <li><a href={getLocalizedPath('/restaurant/producteurs', lang)} class="hover:text-brun-terre transition-colors">{t('restaurant.producers.title')}</a></li>
         </ul>
       </div>
 
       <!-- Aventure -->
       <div>
-        <h3 class="font-heading font-bold text-white text-xs uppercase tracking-[0.15em] mb-5">
+        <h3 class="font-heading font-bold text-brun-terre text-xs uppercase tracking-[0.15em] mb-5">
           {t('nav.aventure')}
         </h3>
         <ul class="space-y-3 text-sm">
-          <li><a href={getLocalizedPath('/aventure', lang)} class="hover:text-white transition-colors">Les activités</a></li>
-          <li><a href={getLocalizedPath('/agenda', lang)} class="hover:text-white transition-colors">{t('nav.agenda')}</a></li>
+          <li><a href={getLocalizedPath('/aventure', lang)} class="hover:text-brun-terre transition-colors">Les activités</a></li>
+          <li><a href={getLocalizedPath('/agenda', lang)} class="hover:text-brun-terre transition-colors">{t('nav.agenda')}</a></li>
         </ul>
       </div>
 
       <!-- La Salle -->
       <div>
-        <h3 class="font-heading font-bold text-white text-xs uppercase tracking-[0.15em] mb-5">
+        <h3 class="font-heading font-bold text-brun-terre text-xs uppercase tracking-[0.15em] mb-5">
           {t('nav.salle')}
         </h3>
         <ul class="space-y-3 text-sm">
-          <li><a href={getLocalizedPath('/la-salle', lang)} class="hover:text-white transition-colors">La salle</a></li>
-          <li><a href={getLocalizedPath('/la-salle/seminaires', lang)} class="hover:text-white transition-colors">{t('nav.salle.seminairesPro')}</a></li>
-          <li><a href={getLocalizedPath('/la-salle/evenementiel', lang)} class="hover:text-white transition-colors">{t('nav.salle.evenementiel')}</a></li>
+          <li><a href={getLocalizedPath('/la-salle', lang)} class="hover:text-brun-terre transition-colors">La salle</a></li>
+          <li><a href={getLocalizedPath('/la-salle/seminaires', lang)} class="hover:text-brun-terre transition-colors">{t('nav.salle.seminairesPro')}</a></li>
+          <li><a href={getLocalizedPath('/la-salle/evenementiel', lang)} class="hover:text-brun-terre transition-colors">{t('nav.salle.evenementiel')}</a></li>
         </ul>
       </div>
 
       <!-- Contact -->
       <div>
-        <h3 class="font-heading font-bold text-white text-xs uppercase tracking-[0.15em] mb-5">
+        <h3 class="font-heading font-bold text-brun-terre text-xs uppercase tracking-[0.15em] mb-5">
           {t('common.contact')}
         </h3>
         <div class="text-sm space-y-3">
           <p>Base de loisirs<br />de Saint-Ferréol</p>
-          <p class="text-white/40">31250 Revel</p>
+          <p class="text-gray-400">31250 Revel</p>
           <div class="pt-1">
             <ContactLinks phone={PHONE_NUMBER} email={EMAIL_ADDRESS} variant="footer" />
           </div>
@@ -75,15 +75,15 @@ const t = useTranslations(lang);
     </div>
 
     <!-- Bottom bar: copyright + legal links -->
-    <div class="mt-16 pt-8 border-t border-white/8 flex flex-col items-center gap-4 text-xs text-white/25">
-      <p class="italic text-white/20">Certaines photos et vidéos sont issues de banques d'images libres de droits et seront remplacées par des visuels propres à l'établissement.</p>
+    <div class="mt-16 pt-8 border-t border-gray-200 flex flex-col items-center gap-4 text-xs text-gray-400">
+      <p class="italic text-gray-400/60">Certaines photos et vidéos sont issues de banques d'images libres de droits et seront remplacées par des visuels propres à l'établissement.</p>
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
       <p>&copy; {new Date().getFullYear()} La Terrasse — Base de loisirs de Saint-Ferréol</p>
       <nav class="flex items-center gap-6" aria-label="Legal">
-        <a href={getLocalizedPath('/mentions-legales', lang)} class="hover:text-white/50 transition-colors">
+        <a href={getLocalizedPath('/mentions-legales', lang)} class="hover:text-brun-terre transition-colors">
           {t('footer.legalNotice')}
         </a>
-        <a href={getLocalizedPath('/confidentialite', lang)} class="hover:text-white/50 transition-colors">
+        <a href={getLocalizedPath('/confidentialite', lang)} class="hover:text-brun-terre transition-colors">
           {t('footer.privacy')}
         </a>
       </nav>

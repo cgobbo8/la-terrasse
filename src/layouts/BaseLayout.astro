@@ -1,4 +1,6 @@
 ---
+import '@fontsource-variable/dm-sans';
+import '@fontsource-variable/syne';
 import '@/styles/global.css';
 import Header from '@/components/common/Header.astro';
 import Footer from '@/components/common/Footer.astro';
@@ -45,7 +47,7 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="preload" href="/fonts/montserrat-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <!-- Fonts loaded via @fontsource-variable imports -->
     <SEOHead
       title={title}
       description={description}

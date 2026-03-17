@@ -1,7 +1,7 @@
 <script lang="ts">
   /**
    * SeminarConfigurator — Interactive seminar pricing configurator
-   * La Salle pole — bleu ardoise #3d4969
+   * La Salle pole — accent color passed via prop from poleConfigs
    * Svelte 5 runes, lucide-svelte icons, CSS transitions
    */
   import { untrack } from 'svelte';
@@ -24,7 +24,7 @@
   }
 
   let {
-    accentColor = '#3d4969',
+    accentColor = '', // Always passed by parent from poleConfigs.salle.accent
     quoteMailto = 'mailto:contact@baseloisirs-saintferreol.fr',
   }: Props = $props();
 
@@ -198,7 +198,7 @@
       <!-- Base incluse -->
       <div
         class="base-card relative flex items-start gap-4 p-5 rounded-2xl border-2"
-        style="border-color: {accentColor}; background: linear-gradient(135deg, {accentLight} 0%, #ffffff 60%);"
+        style="border-color: {accentColor}; background: linear-gradient(135deg, {accentLight} 0%, white 60%);"
       >
         <!-- Included badge -->
         <span
@@ -329,7 +329,7 @@
               class="option-card relative text-left p-4 rounded-2xl border-2 transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-2xl"
               style="
                 border-color: {isSelected ? accentSelected : accentBorder};
-                background-color: {isSelected ? accentLight : '#ffffff'};
+                background-color: {isSelected ? accentLight : 'white'};
                 outline-color: {accentColor};
                 box-shadow: {isSelected ? `0 0 0 1px ${accentColor}25, 0 4px 20px ${accentColor}15` : '0 1px 3px rgba(0,0,0,0.04)'};
               "
@@ -364,7 +364,7 @@
               </div>
 
               <!-- Price + toggle -->
-              <div class="flex items-center justify-between mt-3 pt-3" style="border-top: 1px solid {isSelected ? accentBorder : '#f0f0ee'};">
+              <div class="flex items-center justify-between mt-3 pt-3" style="border-top: 1px solid {isSelected ? accentBorder : 'var(--color-gray-200)'};">
                 <div>
                   <span class="font-heading font-bold text-sm" style="color: {accentColor};">
                     {option.pricePerPerson}&nbsp;€
@@ -382,7 +382,7 @@
                   class="toggle-indicator w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300"
                   style="
                     background-color: {isSelected ? accentColor : accentLight};
-                    color: {isSelected ? '#ffffff' : accentColor};
+                    color: {isSelected ? 'white' : accentColor};
                   "
                 >
                   {#if isSelected}
@@ -407,7 +407,7 @@
         <!-- Summary header -->
         <div
           class="summary-header px-6 py-5"
-          style="background: linear-gradient(135deg, {accentColor} 0%, #2a3450 100%);"
+          style="background: linear-gradient(135deg, {accentColor} 0%, var(--color-brun-terre) 100%);"
         >
           <p class="text-white/60 text-xs font-semibold uppercase tracking-widest mb-1">Votre estimation</p>
           <div class="flex items-baseline gap-2">
@@ -476,7 +476,7 @@
           <a
             href={mailtoHref}
             class="cta-btn group relative overflow-hidden flex items-center justify-center gap-2 w-full px-6 py-3.5 rounded-full font-heading font-bold text-sm text-white transition-all duration-200 hover:shadow-md hover:brightness-95 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-full mt-2"
-            style="background: linear-gradient(135deg, {accentColor} 0%, #2a3450 100%); outline-color: {accentColor};"
+            style="background: linear-gradient(135deg, {accentColor} 0%, var(--color-brun-terre) 100%); outline-color: {accentColor};"
           >
             <!-- Shimmer -->
             <span class="cta-shimmer absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%);"></span>
@@ -559,7 +559,7 @@
     cursor: not-allowed;
   }
   .stepper-btn:not(:disabled):hover {
-    background-color: color-mix(in srgb, var(--accent, #3d4969) 8%, white);
+    background-color: color-mix(in srgb, var(--accent, var(--color-salle)) 8%, white);
   }
 
   /* ── Option card hover (non-selected) ───────────────────────────────────── */

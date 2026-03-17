@@ -120,7 +120,7 @@
     position: fixed;
     inset: 0;
     z-index: 9999;
-    background: #2D2B1B;
+    background: var(--color-brun-terre);
 
     /* Two mask layers: logo (hole) XOR full coverage */
     -webkit-mask-image: var(--logo-mask), linear-gradient(white, white);

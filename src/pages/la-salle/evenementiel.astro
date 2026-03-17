@@ -11,8 +11,10 @@ import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
-import { buildEventContactMailto } from '@/lib/pole-config';
+import { buildEventContactMailto, poleConfigs } from '@/lib/pole-config';
 import { createReader } from '@keystatic/core/reader';
+
+const { accent: salleAccent, light: salleLight } = poleConfigs.salle;
 import keystaticConfig from '../../../keystatic.config';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
@@ -76,7 +78,7 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
     pole="salle"
     image="/images/heroes/evenementiel.webp"
   >
-    <a href={buildEventContactMailto()} class="bg-white text-bleu-ardoise px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all inline-flex items-center gap-2">
+    <a href={buildEventContactMailto()} class="bg-white text-salle px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all inline-flex items-center gap-2">
       {t('salle.evenementiel.cta')}
     </a>
   </SectionHero>
@@ -84,8 +86,8 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
   <!-- Intro (what this page is about) -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
-      <p class="section-eyebrow mb-3" style="color: #3d496980;">La Salle</p>
-      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4" style="color: #3d4969;">
+      <p class="section-eyebrow mb-3" style={`color: ${salleAccent}80;`}>La Salle</p>
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4" style={`color: ${salleAccent};`}>
         {t('salle.evenementiel.intro.title')}
       </h2>
       <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
@@ -98,8 +100,8 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12" data-reveal>
-        <p class="section-eyebrow mb-3" style="color: #3d496980;">Événementiel</p>
-        <h2 class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
+        <p class="section-eyebrow mb-3" style={`color: ${salleAccent}80;`}>Événementiel</p>
+        <h2 class="font-heading text-2xl lg:text-3xl font-bold" style={`color: ${salleAccent};`}>
           {t('salle.evenementiel.types.title')}
         </h2>
       </div>
@@ -118,11 +120,11 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
               <div class="flex items-center gap-3 mb-3">
                 <span
                   class="shrink-0 w-11 h-11 rounded-xl flex items-center justify-center"
-                  style="background-color: #edf0f5; color: #3d4969;"
+                  style={`background-color: ${salleLight}; color: ${salleAccent};`}
                 >
                   <Icon name={type.icon} class="w-5 h-5" />
                 </span>
-                <h3 class="font-heading text-lg font-bold" style="color: #3d4969;">
+                <h3 class="font-heading text-lg font-bold" style={`color: ${salleAccent};`}>
                   {type.title}
                 </h3>
               </div>
@@ -137,8 +139,8 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
   <!-- L'ESPACE — Venue specs (detailed proof) -->
   <div class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-      <p class="section-eyebrow mb-4" style="color: #3d496980;">L'espace</p>
-      <h2 class="font-heading text-2xl font-bold mb-2" style="color: #3d4969;">
+      <p class="section-eyebrow mb-4" style={`color: ${salleAccent}80;`}>L'espace</p>
+      <h2 class="font-heading text-2xl font-bold mb-2" style={`color: ${salleAccent};`}>
         {t('salle.venue.title')}
       </h2>
     </div>
@@ -153,7 +155,7 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
   </div>
 
   <!-- CTA -->
-  <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style="background-color: #3d4969;">
+  <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style={`background-color: ${salleAccent};`}>
     <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);"></div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
       <p class="section-eyebrow text-white/40 mb-3">Contact</p>
@@ -164,7 +166,7 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
         {t('salle.evenementiel.intro.desc')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href={buildEventContactMailto()} class="bg-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px inline-flex items-center gap-2" style="color: #3d4969;">
+        <a href={buildEventContactMailto()} class="bg-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px inline-flex items-center gap-2" style={`color: ${salleAccent};`}>
           <Icon name="lucide:mail" class="w-4 h-4" />
           {t('salle.evenementiel.cta')}
         </a>

@@ -21,6 +21,7 @@ const { tagline, subtitle } = Astro.props;
   <!-- Video — hidden when prefers-reduced-motion: reduce -->
   <video
     class="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
+    style="filter: saturate(2) brightness(1.1) hue-rotate(10deg);"
     autoplay
     muted
     loop
@@ -49,7 +50,7 @@ const { tagline, subtitle } = Astro.props;
   <!-- Text content centered in visible area -->
   <div class="relative z-10 flex-1 flex items-center justify-center">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-      <h1 class="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold text-white max-w-4xl mx-auto leading-[1.05]" data-vh-heading>
+      <h1 class="font-heading text-4xl sm:text-5xl lg:text-7xl font-black!  text-soleil max-w-4xl mx-auto leading-[.8]" data-vh-heading>
         {tagline}
       </h1>
       {subtitle && (

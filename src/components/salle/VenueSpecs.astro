@@ -1,12 +1,13 @@
 ---
 /**
  * VenueSpecs — Scannable spec sheet for corporate planners
- * Bleu ardoise (#3d4969) accent, icon + label + value grid
+ * Salle accent from poleConfigs, icon + label + value grid
  * Pure Astro component, no Svelte island needed
  */
 import { Icon } from 'astro-icon/components';
 import { useTranslations } from '@/i18n/utils';
 import type { Lang } from '@/i18n/translations';
+import { poleConfigs } from '@/lib/pole-config';
 
 interface LayoutOption {
   name: string;
@@ -24,6 +25,7 @@ interface Props {
 
 const { capacitySeated, capacityStanding, surfaceM2, equipment, layoutOptions, lang = 'fr' } = Astro.props;
 const t = useTranslations(lang);
+const { accent, light } = poleConfigs.salle;
 ---
 
 <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
@@ -40,20 +42,20 @@ const t = useTranslations(lang);
 
         <!-- Key figures row -->
         <div class="grid grid-cols-3 gap-4">
-          <div class="text-center rounded-xl p-4" style="background-color: #edf0f5;">
-            <div class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
+          <div class="text-center rounded-xl p-4" style={`background-color: ${light};`}>
+            <div class="font-heading text-2xl lg:text-3xl font-bold" style={`color: ${accent};`}>
               {capacitySeated}
             </div>
             <div class="text-sm text-gray-600 mt-1">{t('salle.venue.seatedLabel')}</div>
           </div>
-          <div class="text-center rounded-xl p-4" style="background-color: #edf0f5;">
-            <div class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
+          <div class="text-center rounded-xl p-4" style={`background-color: ${light};`}>
+            <div class="font-heading text-2xl lg:text-3xl font-bold" style={`color: ${accent};`}>
               {capacityStanding}
             </div>
             <div class="text-sm text-gray-600 mt-1">{t('salle.venue.standingLabel')}</div>
           </div>
-          <div class="text-center rounded-xl p-4" style="background-color: #edf0f5;">
-            <div class="font-heading text-2xl lg:text-3xl font-bold" style="color: #3d4969;">
+          <div class="text-center rounded-xl p-4" style={`background-color: ${light};`}>
+            <div class="font-heading text-2xl lg:text-3xl font-bold" style={`color: ${accent};`}>
               {surfaceM2}<span class="text-base font-normal"> m²</span>
             </div>
             <div class="text-sm text-gray-600 mt-1">{t('salle.venue.surfaceLabel')}</div>
@@ -65,14 +67,14 @@ const t = useTranslations(lang);
       <div class="space-y-8">
         <!-- Equipment -->
         <div>
-          <h3 class="font-heading text-lg font-bold mb-4" style="color: #3d4969;">
+          <h3 class="font-heading text-lg font-bold mb-4" style={`color: ${accent};`}>
             {t('salle.venue.equipmentTitle')}
           </h3>
           <div class="flex flex-wrap gap-2">
             {equipment.map((item) => (
               <span
                 class="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium"
-                style="background-color: #edf0f5; color: #3d4969;"
+                style={`background-color: ${light}; color: ${accent};`}
               >
                 <Icon name="lucide:check" class="w-4 h-4 shrink-0" aria-hidden="true" />
                 {item}
@@ -83,14 +85,14 @@ const t = useTranslations(lang);
 
         <!-- Layout configurations -->
         <div>
-          <h3 class="font-heading text-lg font-bold mb-4" style="color: #3d4969;">
+          <h3 class="font-heading text-lg font-bold mb-4" style={`color: ${accent};`}>
             {t('salle.venue.configurationsTitle')}
           </h3>
           <div class="grid grid-cols-2 gap-3">
             {layoutOptions.map((layout) => (
               <div class="flex items-center justify-between rounded-xl border border-gray-200/60 px-4 py-3 bg-white">
                 <span class="font-medium text-gray-800">{layout.name}</span>
-                <span class="text-sm font-bold" style="color: #3d4969;">
+                <span class="text-sm font-bold" style={`color: ${accent};`}>
                   {layout.capacity} {t('common.personsShort')}
                 </span>
               </div>
