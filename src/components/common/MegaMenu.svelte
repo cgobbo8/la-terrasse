@@ -1,6 +1,6 @@
 <script lang="ts">
   import { tick } from 'svelte';
-  import { ChevronDown, ArrowRight, CornerUpRight, Leaf, Users, Sailboat, Waves, Flag, Compass, Building, Briefcase, UtensilsCrossed, Trophy, Menu, Music, Store, Sparkles, ShoppingBag, Presentation, GraduationCap, Sun } from 'lucide-svelte';
+  import { ChevronDown, ArrowRight, CornerUpRight, Leaf, Users, Sailboat, Waves, Flag, Compass, Building, Briefcase, UtensilsCrossed, Trophy, Menu, Music, Store, Sparkles, ShoppingBag, Presentation, GraduationCap, Sun, Phone } from 'lucide-svelte';
   import type { Component } from 'svelte';
 
   const iconMap: Record<string, Component> = {
@@ -37,6 +37,7 @@
     description: string;
     href: string;
     cta: string;
+    image?: string;
   }
 
   interface PoleNav {
@@ -61,6 +62,7 @@
     ctaLabel,
     ctaHref,
     ctaColor,
+    ctaIcon = false,
     currentPole = null,
     languages,
     currentLang,
@@ -72,6 +74,7 @@
     ctaLabel: string;
     ctaHref: string;
     ctaColor: string;
+    ctaIcon?: boolean;
     currentPole: string | null;
     languages: Record<string, string>;
     currentLang: string;
@@ -275,17 +278,28 @@
                 <a
                   href={pole.featured.href}
                   role="menuitem"
-                  class="flex flex-col rounded-xl overflow-hidden h-full transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+                  class="group flex flex-col rounded-xl overflow-hidden h-full transition-transform duration-200 hover:-translate-y-0.5 hover:shadow-lg focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
                   style="background-color: {bgLight[pole.accentColor]}; outline-color: {accent[pole.accentColor]}"
                   onkeydown={(e) => handleMenuItemKeydown(e, pole.id)}
                 >
-                  <div
-                    class="aspect-[16/10] flex items-center justify-center"
-                    style="background-color: {accent[pole.accentColor]}20"
-                  >
-                    <span class="text-[0.6875rem] text-center px-2" style="color: {accent[pole.accentColor]}40">
-                      {pole.id === 'restaurant' ? 'Photo restaurant' : pole.id === 'aventure' ? 'Photo activités' : 'Photo salle'}
-                    </span>
+                  <div class="aspect-[16/10] overflow-hidden">
+                    {#if pole.featured.image}
+                      <img
+                        src={pole.featured.image}
+                        alt=""
+                        class="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    {:else}
+                      <div
+                        class="w-full h-full flex items-center justify-center"
+                        style="background-color: {accent[pole.accentColor]}20"
+                      >
+                        <span class="text-[0.6875rem] text-center px-2" style="color: {accent[pole.accentColor]}40">
+                          {pole.id === 'restaurant' ? 'Photo restaurant' : pole.id === 'aventure' ? 'Photo activités' : 'Photo salle'}
+                        </span>
+                      </div>
+                    {/if}
                   </div>
                   <div class="p-3 flex flex-col gap-1 flex-1">
                     <span class="text-[0.8125rem] font-bold text-gray-800 leading-tight">{pole.featured.title}</span>
@@ -351,9 +365,10 @@
   <!-- CTA -->
   <a
     href={ctaHref}
-    class="ml-2 text-white min-h-11 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:shadow-md hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-full inline-flex items-center"
+    class="ml-2 text-white min-h-11 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:shadow-md hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-full inline-flex items-center gap-2"
     style="background-color: {ctaColor}; outline-color: {ctaColor}"
   >
+    {#if ctaIcon}<Phone class="w-4 h-4" strokeWidth={1.5} />{/if}
     {ctaLabel}
   </a>
 </div>

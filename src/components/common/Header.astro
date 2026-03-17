@@ -11,9 +11,10 @@ interface Props {
   pole?: 'restaurant' | 'aventure' | 'salle' | null;
   ctaLabel?: string;
   ctaHref?: string;
+  ctaIcon?: boolean;
 }
 
-const { pole = null, ctaLabel: ctaLabelOverride, ctaHref: ctaHrefOverride } = Astro.props;
+const { pole = null, ctaLabel: ctaLabelOverride, ctaHref: ctaHrefOverride, ctaIcon = false } = Astro.props;
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 const cta = getCtaForPole(pole);
@@ -43,6 +44,7 @@ const megaMenuPoles = [
       description: t('nav.restaurant.featured.desc'),
       href: getLocalizedPath('/restaurant', lang),
       cta: t('nav.restaurant.featured.cta'),
+      image: 'https://images.unsplash.com/photo-1756680967373-c3205a8a8b31?w=480&q=75&fit=crop&fm=webp',
     },
     crossSell: {
       text: t('nav.restaurant.crossSell'),
@@ -66,6 +68,7 @@ const megaMenuPoles = [
       description: t('nav.aventure.featured.desc'),
       href: getLocalizedPath('/aventure', lang),
       cta: t('nav.aventure.featured.cta'),
+      image: 'https://images.unsplash.com/photo-1557151498-af2467d6f7f4?w=480&q=75&fit=crop&fm=webp',
     },
     crossSell: {
       text: t('nav.aventure.crossSell'),
@@ -88,6 +91,7 @@ const megaMenuPoles = [
       description: t('nav.salle.featured.desc'),
       href: getLocalizedPath('/la-salle', lang),
       cta: t('nav.salle.featured.cta'),
+      image: 'https://images.unsplash.com/photo-1571645163064-77faa9676a46?w=480&q=75&fit=crop&fm=webp',
     },
     crossSell: {
       text: t('nav.salle.crossSell'),
@@ -146,6 +150,7 @@ const accentColors: Record<string, string> = {
         ctaLabel={ctaLabelLocalized}
         ctaHref={contactHref}
         ctaColor={cta.accent}
+        ctaIcon={ctaIcon}
         currentPole={pole}
         languages={languages}
         currentLang={lang}
@@ -161,6 +166,7 @@ const accentColors: Record<string, string> = {
         ctaLabel={ctaLabelLocalized}
         ctaHref={contactHref}
         ctaColor={cta.accent}
+        ctaIcon={ctaIcon}
         languages={languages}
         currentLang={lang}
         langPaths={langPaths}
