@@ -57,6 +57,7 @@ const displayEvents = upcomingEvents.map((event) => ({
         href={getLocalizedPath('/agenda', lang)}
         class="agenda-widget-card block rounded-2xl p-5 lg:p-6 card-hover"
       >
+        <div data-agenda-content>
         <div class="flex items-center justify-between mb-4">
           <div class="flex items-center gap-3">
             <div class="w-8 h-8 rounded-lg bg-brun-terre/8 flex items-center justify-center">
@@ -95,6 +96,7 @@ const displayEvents = upcomingEvents.map((event) => ({
             </div>
           ))}
         </div>
+        </div>
       </a>
     </div>
   </div>
@@ -102,10 +104,14 @@ const displayEvents = upcomingEvents.map((event) => ({
 
 <style>
   [data-agenda-widget] {
+    visibility: hidden;
+  }
+  [data-agenda-content] {
     opacity: 0;
   }
   @media (prefers-reduced-motion: reduce) {
-    [data-agenda-widget] { opacity: 1 !important; }
+    [data-agenda-widget] { visibility: visible !important; }
+    [data-agenda-content] { opacity: 1 !important; }
   }
 
   .agenda-widget-card {
@@ -127,12 +133,19 @@ const displayEvents = upcomingEvents.map((event) => ({
   const widget = document.querySelector<HTMLElement>('[data-agenda-widget]');
   if (widget && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     import('gsap').then(({ gsap }) => {
-      // Slide up after hero text sequence completes
-      // No blur: parent filter breaks child backdrop-filter (glassmorphism)
+      const content = widget.querySelector<HTMLElement>('[data-agenda-content]');
+      // Card slides up — visibility only, no opacity/filter to preserve glassmorphism
       gsap.fromTo(widget,
-        { opacity: 0, y: 24 },
-        { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.85 }
+        { visibility: 'hidden', y: 24 },
+        { visibility: 'visible', y: 0, duration: 0.9, ease: 'power3.out', delay: 0.85 }
       );
+      // Content blur-in like hero title — inside the card, doesn't affect backdrop-filter
+      if (content) {
+        gsap.fromTo(content,
+          { opacity: 0, filter: 'blur(10px)' },
+          { opacity: 1, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out', delay: 0.85 }
+        );
+      }
     });
   }
 </script>
