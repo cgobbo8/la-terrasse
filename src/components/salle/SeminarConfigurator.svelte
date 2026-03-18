@@ -8,6 +8,8 @@
    * + Prominent callout for custom/unusual requests
    */
   import { untrack } from 'svelte';
+  import { translations, defaultLang } from '@/i18n/translations';
+  import type { Lang } from '@/i18n/translations';
   import Sun from 'lucide-svelte/icons/sun';
   import UtensilsCrossed from 'lucide-svelte/icons/utensils-crossed';
   import Wine from 'lucide-svelte/icons/wine';
@@ -24,12 +26,18 @@
   interface Props {
     accentColor?: string;
     quoteMailto?: string;
+    lang?: Lang;
   }
 
   let {
     accentColor = '',
     quoteMailto = 'mailto:',
+    lang = defaultLang,
   }: Props = $props();
+
+  function t(key: keyof typeof translations[typeof defaultLang]): string {
+    return translations[lang]?.[key] ?? translations[defaultLang][key] ?? key;
+  }
 
   // ── Light tints ──────────────────────────────────────────────────────────
   const accentLight = `${accentColor}12`;
@@ -40,14 +48,14 @@
   type TimeSlot = 'journee' | 'soiree';
   type MealFormat = 'repas-complet' | 'apero-dinatoire';
 
-  const TIME_SLOTS: { id: TimeSlot; icon: any; label: string; hours: string; basePrice: number }[] = [
-    { id: 'journee', icon: Sun,  label: 'Journée',  hours: '8h – 18h',  basePrice: 600 },
-    { id: 'soiree',  icon: Moon, label: 'Soirée',   hours: '17h – 23h', basePrice: 500 },
+  const TIME_SLOTS: { id: TimeSlot; icon: any; labelKey: 'salle.seminaires.cfg.journee' | 'salle.seminaires.cfg.soiree'; hoursKey: 'salle.seminaires.cfg.journeeHours' | 'salle.seminaires.cfg.soireeHours'; basePrice: number }[] = [
+    { id: 'journee', icon: Sun,  labelKey: 'salle.seminaires.cfg.journee',  hoursKey: 'salle.seminaires.cfg.journeeHours',  basePrice: 600 },
+    { id: 'soiree',  icon: Moon, labelKey: 'salle.seminaires.cfg.soiree',   hoursKey: 'salle.seminaires.cfg.soireeHours', basePrice: 500 },
   ];
 
-  const MEAL_FORMATS: { id: MealFormat; label: string; price: number }[] = [
-    { id: 'repas-complet',    label: 'Repas complet',    price: 45 },
-    { id: 'apero-dinatoire',  label: 'Apéro dînatoire',  price: 35 },
+  const MEAL_FORMATS: { id: MealFormat; labelKey: 'salle.seminaires.cfg.mealFull' | 'salle.seminaires.cfg.mealAperitif'; price: number }[] = [
+    { id: 'repas-complet',    labelKey: 'salle.seminaires.cfg.mealFull',    price: 45 },
+    { id: 'apero-dinatoire',  labelKey: 'salle.seminaires.cfg.mealAperitif',  price: 35 },
   ];
 
   const TEAM_BUILDING_PRICE = 60;
@@ -153,33 +161,35 @@
 
   // ── Mailto ────────────────────────────────────────────────────────────────
   const mailtoHref = $derived.by(() => {
-    const slotLabel = isJournee ? 'Salle journée (8h-18h)' : 'Salle soirée (17h-23h)';
+    const slotLabel = isJournee ? t('salle.seminaires.cfg.mailto.slotJournee') : t('salle.seminaires.cfg.mailto.slotSoiree');
     const lines = [
-      'Bonjour,',
+      t('salle.seminaires.cfg.mailto.greeting'),
       '',
-      'Je souhaite obtenir un devis pour :',
+      t('salle.seminaires.cfg.mailto.intro'),
       '',
-      `Créneau : ${slotLabel} — ${currentSlot.basePrice} € HT`,
+      `${t('salle.seminaires.cfg.mailto.slot')} : ${slotLabel} — ${currentSlot.basePrice} € HT`,
     ];
     if (isJournee) {
-      lines.push(`Participants : ${participants}`);
+      lines.push(`${t('salle.seminaires.cfg.mailto.participants')} : ${participants}`);
       if (hasRestauration) {
-        lines.push(`Restauration : ${currentMeal.label} (${currentMeal.price} € HT/pers.)`);
+        lines.push(`${t('salle.seminaires.cfg.mailto.restauration')} : ${t(currentMeal.labelKey)} (${currentMeal.price} € HT/pers.)`);
       }
       if (hasTeamBuilding) {
-        lines.push(`Team Building (${TEAM_BUILDING_PRICE} € HT/pers.)`);
-        if (hasCoaching) lines.push(`+ Coaching professionnel (~${COACHING_PRICE} € HT/pers.)`);
+        lines.push(`${t('salle.seminaires.cfg.mailto.teamBuilding')} (${TEAM_BUILDING_PRICE} € HT/pers.)`);
+        if (hasCoaching) lines.push(`${t('salle.seminaires.cfg.mailto.coaching')} (~${COACHING_PRICE} € HT/pers.)`);
       }
     } else if (extraHours > 0) {
-      lines.push(`Heures supplémentaires : ${extraHours}h (+${extraHours * 50} € HT)`);
+      lines.push(`${t('salle.seminaires.cfg.mailto.extraHours')} : ${extraHours}h (+${extraHours * 50} € HT)`);
     }
-    lines.push('', `Estimation : ${total} € HT`, '', 'Merci de me recontacter.');
+    lines.push('', `${t('salle.seminaires.cfg.mailto.estimate')} : ${total} € HT`, '', t('salle.seminaires.cfg.mailto.closing'));
     const body = lines.join('\n');
     const base = quoteMailto.replace(/^mailto:/, '');
-    return `mailto:${base}?subject=${encodeURIComponent(`Devis séminaire — ${slotLabel}`)}&body=${encodeURIComponent(body)}`;
+    return `mailto:${base}?subject=${encodeURIComponent(`${t('salle.seminaires.cfg.mailto.subject')} — ${slotLabel}`)}&body=${encodeURIComponent(body)}`;
   });
 
   // ── Helpers ───────────────────────────────────────────────────────────────
+  const localeMap: Record<string, string> = { fr: 'fr-FR', en: 'en-GB', es: 'es-ES' };
+
   function clampParticipants(val: number) {
     participants = Math.max(minParticipants, Math.min(80, val));
   }
@@ -189,7 +199,7 @@
   }
 
   function formatPrice(n: number) {
-    return n.toLocaleString('fr-FR') + '\u202f€';
+    return n.toLocaleString(localeMap[lang] ?? 'fr-FR') + '\u202f€';
   }
 </script>
 
@@ -225,8 +235,8 @@
             >
               <svelte:component this={slot.icon} class="w-5 h-5" strokeWidth={1.5} />
               <div class="text-left">
-                <p class="font-heading font-bold text-sm leading-tight">{slot.label}</p>
-                <p class="text-xs mt-0.5" style="opacity: {isActive ? 0.7 : 0.5};">{slot.hours}</p>
+                <p class="font-heading font-bold text-sm leading-tight">{t(slot.labelKey)}</p>
+                <p class="text-xs mt-0.5" style="opacity: {isActive ? 0.7 : 0.5};">{t(slot.hoursKey)}</p>
               </div>
               <div class="ml-auto text-right">
                 <p class="font-heading font-bold text-lg leading-tight">{slot.basePrice}&nbsp;€</p>
@@ -253,8 +263,8 @@
               <Users class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
             </span>
             <div>
-              <p class="text-sm font-semibold text-gray-800">Nombre de participants</p>
-              <p class="text-xs text-gray-400">Entre {minParticipants} et 80 personnes</p>
+              <p class="text-sm font-semibold text-gray-800">{t('salle.seminaires.cfg.participants')}</p>
+              <p class="text-xs text-gray-400">{t('salle.seminaires.cfg.participantsRange').replace('{min}', String(minParticipants))}</p>
             </div>
           </div>
 
@@ -264,7 +274,7 @@
               onclick={() => clampParticipants(participants - 1)}
               class="stepper-btn w-10 h-10 rounded-l-xl flex items-center justify-center border border-r-0 transition-colors"
               style="border-color: {accentBorder}; color: {accentColor};"
-              aria-label="Moins un participant"
+              aria-label="-1"
               disabled={participants <= minParticipants}
             >
               <Minus class="w-4 h-4" strokeWidth={2} />
@@ -277,14 +287,14 @@
               oninput={(e) => clampParticipants(parseInt((e.target as HTMLInputElement).value) || minParticipants)}
               class="stepper-input w-16 h-10 text-center font-heading font-bold text-base border border-x-0 focus:outline-none"
               style="border-color: {accentBorder}; color: {accentColor};"
-              aria-label="Nombre de participants"
+              aria-label={t('salle.seminaires.cfg.participants')}
             />
             <button
               type="button"
               onclick={() => clampParticipants(participants + 1)}
               class="stepper-btn w-10 h-10 rounded-r-xl flex items-center justify-center border border-l-0 transition-colors"
               style="border-color: {accentBorder}; color: {accentColor};"
-              aria-label="Plus un participant"
+              aria-label="+1"
               disabled={participants >= 80}
             >
               <Plus class="w-4 h-4" strokeWidth={2} />
@@ -303,7 +313,7 @@
                 --track-color: {accentBorder};
                 background: linear-gradient(to right, {accentColor} 0%, {accentColor} {((participants - minParticipants) / (80 - minParticipants)) * 100}%, {accentBorder} {((participants - minParticipants) / (80 - minParticipants)) * 100}%, {accentBorder} 100%);
               "
-              aria-label="Curseur participants"
+              aria-label={t('salle.seminaires.cfg.participants')}
             />
             <div class="flex justify-between text-xs text-gray-400 mt-1">
               <span>{minParticipants}</span>
@@ -314,7 +324,7 @@
 
         <!-- Options header -->
         <h3 class="font-heading font-bold text-sm uppercase tracking-wider" style="color: {accentColor}; opacity: 0.7;">
-          Options à la carte
+          {t('salle.seminaires.cfg.optionsTitle')}
         </h3>
 
         <!-- ─── OPTION: Restauration ──────────────────────────────────── -->
@@ -521,8 +531,8 @@
               <Users class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
             </span>
             <div>
-              <p class="text-sm font-semibold text-gray-800">Nombre de participants</p>
-              <p class="text-xs text-gray-400">Entre {minParticipants} et 80 personnes</p>
+              <p class="text-sm font-semibold text-gray-800">{t('salle.seminaires.cfg.participants')}</p>
+              <p class="text-xs text-gray-400">{t('salle.seminaires.cfg.participantsRange').replace('{min}', String(minParticipants))}</p>
             </div>
           </div>
 
@@ -532,7 +542,7 @@
               onclick={() => clampParticipants(participants - 1)}
               class="stepper-btn w-10 h-10 rounded-l-xl flex items-center justify-center border border-r-0 transition-colors"
               style="border-color: {accentBorder}; color: {accentColor};"
-              aria-label="Moins un participant"
+              aria-label="-1"
               disabled={participants <= minParticipants}
             >
               <Minus class="w-4 h-4" strokeWidth={2} />
@@ -545,14 +555,14 @@
               oninput={(e) => clampParticipants(parseInt((e.target as HTMLInputElement).value) || minParticipants)}
               class="stepper-input w-16 h-10 text-center font-heading font-bold text-base border border-x-0 focus:outline-none"
               style="border-color: {accentBorder}; color: {accentColor};"
-              aria-label="Nombre de participants"
+              aria-label={t('salle.seminaires.cfg.participants')}
             />
             <button
               type="button"
               onclick={() => clampParticipants(participants + 1)}
               class="stepper-btn w-10 h-10 rounded-r-xl flex items-center justify-center border border-l-0 transition-colors"
               style="border-color: {accentBorder}; color: {accentColor};"
-              aria-label="Plus un participant"
+              aria-label="+1"
               disabled={participants >= 80}
             >
               <Plus class="w-4 h-4" strokeWidth={2} />
@@ -571,7 +581,7 @@
                 --track-color: {accentBorder};
                 background: linear-gradient(to right, {accentColor} 0%, {accentColor} {((participants - minParticipants) / (80 - minParticipants)) * 100}%, {accentBorder} {((participants - minParticipants) / (80 - minParticipants)) * 100}%, {accentBorder} 100%);
               "
-              aria-label="Curseur participants"
+              aria-label={t('salle.seminaires.cfg.participants')}
             />
             <div class="flex justify-between text-xs text-gray-400 mt-1">
               <span>{minParticipants}</span>
