@@ -46,15 +46,19 @@ Import alias: `@/` maps to `src/`.
 
 All public pages are **pre-rendered static HTML**. Only Keystatic admin routes (`/keystatic`, `/api/keystatic/*`) use SSR. This means no server-side logic in page components — data is loaded at build time via `Astro.glob` or content collections.
 
-### Multi-pole design system
+### Color system — "L'Été au Lac" palette
 
-Each pole has a fixed visual identity resolved via `src/lib/pole-config.ts`:
+The foundation color is **Soleil** (`#FFFF80`) — a warm, luminous yellow that carries the summer/guinguette identity of the brand. It is the transversal accent used across the site (CTAs on dark backgrounds, highlights, brand signature).
 
-| Pole | Accent color | Background |
-|---|---|---|
-| restaurant | `#2D2B1B` (brun terre) | `#f5f0e8` |
-| aventure | `#537b47` (vert végétal) | `#eef5ec` |
-| salle | `#3d4969` (bleu ardoise) | `#edf0f5` |
+Each pole has its own accent color resolved via `src/lib/pole-config.ts`:
+
+| Pole | Accent | Dark variant | Light bg |
+|---|---|---|---|
+| restaurant | `#E8603C` (terracotta) | `#C4452A` | `#FFF3ED` |
+| aventure | `#7CB342` (vert végétal) | `#5A8A2E` | `#F0F7E6` |
+| salle | `#5B8DEF` (bleu ardoise) | `#3D6FD1` | `#EDF4FF` |
+
+**Brun Terre** (`#36342F`) is the primary text/neutral dark color, not a pole accent.
 
 Pole-aware components accept a `pole` prop. Colors are applied via **inline `style` attributes**, never via dynamic Tailwind class interpolation. CTAs also change per pole (tel: for restaurant/aventure, mailto: for la salle).
 

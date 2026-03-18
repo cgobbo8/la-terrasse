@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Direction Artistique — L'Été au Lac</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Syne:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --soleil: #FFFF80;
+      --soleil-dark: #FACC15;
+      --terracotta: #E8603C;
+      --terracotta-dark: #C4452A;
+      --vert: #7CB342;
+      --vert-dark: #5A8A2E;
+      --bleu: #5B8DEF;
+      --bleu-dark: #3D6FD1;
+      --brun: #36342F;
+      --offwhite: #FFFBF5;
+      --black: #1F1D1B;
+      --gray-200: #EAE7E3;
+      --gray-400: #B0ACA6;
+      --gray-600: #736F69;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      color: var(--black);
+      background: var(--offwhite);
+      -webkit-font-smoothing: antialiased;
+      line-height: 1.65;
+    }
+
+    h1, h2, h3, h4 {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
+    }
+
+    /* ============ COVER ============ */
+    .cover {
+      min-height: 100vh;
+      background: var(--brun);
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      padding: 4rem 2rem;
+    }
+
+    .cover-sunburst {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      color: rgba(255, 255, 128, 0.06);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+
+    .cover-eyebrow {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--soleil);
+      margin-bottom: 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover h1 {
+      font-size: clamp(3rem, 8vw, 6rem);
+      letter-spacing: -0.05em;
+      margin-bottom: 1rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover h1 span {
+      color: var(--soleil);
+    }
+
+    .cover-sub {
+      font-size: 1.15rem;
+      color: rgba(255,255,255,0.55);
+      max-width: 500px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cover-brand {
+      position: absolute;
+      bottom: 3rem;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.25);
+      z-index: 1;
+    }
+
+    /* ============ SECTIONS ============ */
+    section {
+      padding: 6rem 2rem;
+      max-width: 960px;
+      margin: 0 auto;
+    }
+
+    .section-number {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1rem;
+    }
+
+    section h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      margin-bottom: 1.5rem;
+      color: var(--brun);
+    }
+
+    section h2 span {
+      color: var(--terracotta);
+    }
+
+    .section-intro {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+      max-width: 640px;
+      margin-bottom: 3rem;
+    }
+
+    /* ============ PALETTE GRID ============ */
+    .palette-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+      margin-bottom: 4rem;
+    }
+
+    .palette-card {
+      border-radius: 16px;
+      overflow: hidden;
+      background: white;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .palette-swatch {
+      height: 180px;
+      display: flex;
+      align-items: flex-end;
+      padding: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .palette-swatch .sunburst-deco {
+      position: absolute;
+      width: 140px;
+      height: 140px;
+      top: -30px;
+      right: -30px;
+      opacity: 0.15;
+    }
+
+    .palette-swatch-label {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.03em;
+    }
+
+    .palette-info {
+      padding: 1.5rem;
+    }
+
+    .palette-hex {
+      font-family: 'DM Sans', monospace;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--gray-600);
+      margin-bottom: 0.25rem;
+    }
+
+    .palette-role {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 0.75rem;
+    }
+
+    .palette-desc {
+      font-size: 0.95rem;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    /* ============ FULL-WIDTH COLOR SECTIONS ============ */
+    .color-deep {
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .color-deep-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .color-deep h3 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      margin-bottom: 0.75rem;
+    }
+
+    .color-deep .subtitle {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-bottom: 2rem;
+      opacity: 0.5;
+    }
+
+    .color-deep p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      max-width: 600px;
+    }
+
+    .color-deep .vibe {
+      margin-top: 1.5rem;
+      font-style: italic;
+      opacity: 0.7;
+      font-size: 0.95rem;
+    }
+
+    .color-deep .sunburst-bg {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .color-deep .sunburst-bg.right {
+      right: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    .color-deep .sunburst-bg.left {
+      left: -100px;
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    /* Soleil */
+    .deep-soleil {
+      background: var(--brun);
+      color: white;
+    }
+    .deep-soleil h3 { color: var(--soleil); }
+    .deep-soleil .sunburst-bg { color: var(--soleil); }
+
+    /* Terracotta */
+    .deep-terracotta {
+      background: #FFF3ED;
+      color: var(--brun);
+    }
+    .deep-terracotta h3 { color: var(--terracotta); }
+    .deep-terracotta .sunburst-bg { color: var(--terracotta); }
+
+    /* Vert */
+    .deep-vert {
+      background: #F0F7E6;
+      color: var(--brun);
+    }
+    .deep-vert h3 { color: var(--vert-dark); }
+    .deep-vert .sunburst-bg { color: var(--vert); }
+
+    /* Bleu */
+    .deep-bleu {
+      background: #EDF4FF;
+      color: var(--brun);
+    }
+    .deep-bleu h3 { color: var(--bleu-dark); }
+    .deep-bleu .sunburst-bg { color: var(--bleu); }
+
+    /* ============ TYPO SECTION ============ */
+    .typo-showcase {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      margin-top: 3rem;
+    }
+
+    .typo-card {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .typo-card-label {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      margin-bottom: 1.5rem;
+    }
+
+    .typo-specimen-syne {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 3.5rem;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      color: var(--brun);
+      margin-bottom: 1.5rem;
+    }
+
+    .typo-specimen-dm {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 2.5rem;
+      font-weight: 400;
+      letter-spacing: -0.01em;
+      line-height: 1.15;
+      color: var(--brun);
+      margin-bottom: 1.5rem;
+    }
+
+    .typo-meta {
+      font-size: 0.85rem;
+      color: var(--gray-600);
+      line-height: 1.6;
+    }
+
+    .typo-meta strong {
+      color: var(--brun);
+    }
+
+    .typo-example {
+      margin-top: 3rem;
+      background: var(--brun);
+      border-radius: 16px;
+      padding: 3rem;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .typo-example h4 {
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+      color: var(--soleil);
+      position: relative;
+      z-index: 1;
+    }
+
+    .typo-example p {
+      font-size: 1.05rem;
+      line-height: 1.7;
+      color: rgba(255,255,255,0.7);
+      max-width: 500px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .typo-example .sunburst-deco {
+      position: absolute;
+      width: 200px;
+      height: 200px;
+      right: 2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255,255,128,0.06);
+    }
+
+    /* ============ SUNBURST SECTION ============ */
+    .sunburst-gallery {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 3rem 0;
+    }
+
+    .sunburst-item {
+      width: 120px;
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .sunburst-item svg {
+      width: 80px;
+      height: 80px;
+    }
+
+    .sunburst-item span {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: var(--gray-400);
+    }
+
+    .sunburst-demo-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .sunburst-demo-card {
+      border-radius: 12px;
+      padding: 2rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+      height: 140px;
+    }
+
+    .sunburst-demo-card svg {
+      width: 80px;
+      height: 80px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ============ PHOTO SECTION ============ */
+    .photo-treatment {
+      background: var(--brun);
+      color: white;
+      padding: 5rem 2rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .photo-treatment-inner {
+      max-width: 960px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .photo-treatment .section-number {
+      color: rgba(255,255,255,0.3);
+    }
+
+    .photo-treatment h2 {
+      color: white;
+    }
+
+    .photo-treatment .section-intro {
+      color: rgba(255,255,255,0.55);
+    }
+
+    .photo-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-top: 2rem;
+    }
+
+    .photo-sample {
+      border-radius: 12px;
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      position: relative;
+    }
+
+    .photo-sample-inner {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .photo-sample-before .photo-sample-inner {
+      background: linear-gradient(135deg, #9e9a93, #c4bfb7);
+      color: rgba(0,0,0,0.3);
+    }
+
+    .photo-sample-after .photo-sample-inner {
+      background: linear-gradient(135deg, #E8956C, #F5C67A, #A8D47A);
+      color: rgba(0,0,0,0.4);
+      filter: saturate(1.3) brightness(1.1);
+    }
+
+    .photo-filter-specs {
+      margin-top: 2rem;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+
+    .filter-spec {
+      background: rgba(255,255,255,0.06);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .filter-spec-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: var(--soleil);
+      margin-bottom: 0.25rem;
+    }
+
+    .filter-spec-label {
+      font-size: 0.75rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ============ RECAP TABLE ============ */
+    .recap-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+    }
+
+    .recap-table th {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--gray-400);
+      text-align: left;
+      padding: 0.75rem 1rem;
+      border-bottom: 2px solid var(--gray-200);
+    }
+
+    .recap-table td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 0.95rem;
+      vertical-align: middle;
+    }
+
+    .recap-swatch {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 0.75rem;
+    }
+
+    .recap-hex {
+      font-family: monospace;
+      font-size: 0.85rem;
+      color: var(--gray-600);
+    }
+
+    /* ============ FOOTER ============ */
+    .da-footer {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--gray-400);
+      font-size: 0.85rem;
+    }
+
+    .da-footer strong {
+      color: var(--brun);
+    }
+
+    /* ============ SEPARATOR ============ */
+    .section-sep {
+      border: none;
+      height: 1px;
+      background: var(--gray-200);
+      margin: 0 auto;
+      max-width: 960px;
+    }
+
+    /* ============ PRINT / PDF ============ */
+    @media print {
+      .cover { min-height: auto; padding: 3rem 2rem; }
+      section { padding: 3rem 2rem; }
+      .color-deep { padding: 3rem 2rem; }
+      .photo-treatment { padding: 3rem 2rem; }
+      body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    }
+
+    @media (max-width: 640px) {
+      .typo-showcase { grid-template-columns: 1fr; }
+      .photo-grid { grid-template-columns: 1fr; }
+      .photo-filter-specs { grid-template-columns: 1fr; }
+      .sunburst-demo-row { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ======== COVER ======== -->
+  <div class="cover">
+    <svg class="cover-sunburst" viewBox="0 0 200 200" fill="currentColor">
+      <path d="M 85.0 74.0 C 77.3 55.4 81.0 29.0 110.2 2.5 C 124.2 25.4 121.5 60.5 115.0 74.0 C 127.2 58.1 152.0 48.0 189.5 60.1 C 176.7 83.7 145.0 98.8 130.0 100.0 C 149.9 102.6 171.0 119.0 179.3 157.6 C 152.5 158.3 123.5 138.4 115.0 126.0 C 122.7 144.6 119.0 171.0 89.8 197.5 C 75.8 174.6 78.5 139.5 85.0 126.0 C 72.8 141.9 48.0 152.0 10.5 139.9 C 23.3 116.3 55.0 101.2 70.0 100.0 C 50.1 97.4 29.0 81.0 20.7 42.4 C 47.5 41.7 76.5 61.6 85.0 74.0 Z" />
+    </svg>
+    <p class="cover-eyebrow">Direction Artistique</p>
+    <h1>L'Été<br><span>au Lac</span></h1>
+    <p class="cover-sub">Nouvelle identité visuelle pour La Terrasse Saint-Ferréol — couleurs vibrantes, typographie affirmée, esprit guinguette estivale.</p>
+    <p class="cover-brand">La Terrasse Saint-Ferréol — 2026</p>
+  </div>
+
+  <!-- ======== 01 — PALETTE ======== -->
+  <section>
+    <p class="section-number">01 — Palette</p>
+    <h2>Quatre couleurs,<br>un <span>été</span></h2>
+    <p class="section-intro">
+      La palette "L'Été au Lac" est vibrante, saturée, solaire.
+      Elle raconte un lieu où l'on vient pour le plaisir — manger, jouer, se retrouver.
+      Chaque couleur porte l'énergie d'une journée d'été au bord du lac de Saint-Ferréol.
+    </p>
+  </section>
+
+  <!-- Soleil deep -->
+  <div class="color-deep deep-soleil">
+    <svg class="sunburst-bg right" viewBox="0 0 200 200" fill="currentColor">
+      <polygon points="100.0,5.0 106.1,65.5 132.5,10.7 117.5,69.7 161.1,27.2 126.8,77.5 182.3,52.5 132.9,88.0 193.6,83.5 135.0,100.0 193.6,116.5 132.9,112.0 182.3,147.5 126.8,122.5 161.1,172.8 117.5,130.3 132.5,189.3 106.1,134.5 100.0,195.0 93.9,134.5 67.5,189.3 82.5,130.3 38.9,172.8 73.2,122.5 17.7,147.5 67.1,112.0 6.4,116.5 65.0,100.0 6.4,83.5 67.1,88.0 17.7,52.5 73.2,77.5 38.9,27.2 82.5,69.7 67.5,10.7 93.9,65.5" />
+    </svg>
+    <div class="color-deep-inner">
+      <p class="subtitle">Couleur Fondation</p>
+      <h3>Soleil — #FFFF80</h3>
+      <p>
+        Un jaune vif, lumineux, presque fluo. C'est la signature de la marque,
+        le fil conducteur qui traverse tout le site. Sur fond sombre, il claque.
+        Sur fond clair, il réchauffe. Il dit <strong>été, guinguette, bonne humeur</strong>.
+      </p>
+      <p>
+        C'est la couleur des guirlandes lumineuses, d'une nappe à carreaux,
+        d'un après-midi qui refuse de finir. Le Soleil est la couleur transversale —
+        elle n'appartient à aucun pôle, elle les unit tous.
+      </p>
+      <p class="vibe">"Lumière dorée de fin de journée, une bière fraîche à la main, les pieds dans l'herbe."</p>
+    </div>
+  </div>
+
+  <!-- Terracotta deep -->
+  <div class="color-deep deep-terracotta">
+    <svg class="sunburst-bg right" viewBox="0 0 200 200" fill="currentColor">
+      <path d="M 90.1 69.6 C 83.2 45.5 90.9 17.2 107.7 2.3 C 121.0 12.3 116.9 53.0 109.9 69.6 C 118.5 46.1 141.3 27.6 163.6 25.5 C 168.6 41.4 141.4 71.9 125.9 81.2 C 146.6 67.2 175.9 65.7 195.3 77.1 C 189.9 92.9 150.0 101.6 132.0 100.0 C 157.0 100.9 181.6 116.9 190.5 137.5 C 176.9 147.1 139.5 130.6 125.9 118.8 C 145.6 134.2 156.1 161.6 151.2 183.6 C 134.5 183.3 113.9 148.0 109.9 130.4 C 116.8 154.5 109.1 182.8 92.3 197.7 C 79.0 187.7 83.1 147.0 90.1 130.4 C 81.5 153.9 58.7 172.4 36.4 174.5 C 31.4 158.6 58.6 128.1 74.1 118.8 C 53.4 132.8 24.1 134.3 4.7 122.9 C 10.1 107.1 50.0 98.4 68.0 100.0 C 43.0 99.1 18.4 83.1 9.5 62.5 C 23.1 52.9 60.5 69.4 74.1 81.2 C 54.4 65.8 43.9 38.4 48.8 16.4 C 65.5 16.7 86.1 52.0 90.1 69.6 Z" />
+    </svg>
+    <div class="color-deep-inner">
+      <p class="subtitle">Pôle Restaurant</p>
+      <h3>Terracotta — #E8603C</h3>
+      <p>
+        Un orange-rouge chaud et vibrant. La couleur d'une braise, d'un plat qui sort du four,
+        d'une tomate gorgée de soleil. Elle porte l'énergie méditerranéenne du restaurant —
+        on est au Sud-Ouest, pas dans un gastro feutré.
+      </p>
+      <p style="margin-top: 0.75rem;">
+        Appétit, chaleur, convivialité. Assez vive pour un CTA "Réserver ma table"
+        sans être agressive. C'est la couleur de la tablée, du partage, de la cuisine vivante.
+      </p>
+      <p class="vibe">"Tablée entre amis sur la terrasse, odeur de grillades, soleil couchant sur le lac."</p>
+    </div>
+  </div>
+
+  <!-- Vert deep -->
+  <div class="color-deep deep-vert">
+    <svg class="sunburst-bg left" viewBox="0 0 200 200" fill="currentColor">
+      <polygon points="100.0,5.0 109.8,57.1 139.9,17.1 126.8,66.4 172.7,42.0 141.4,80.0 191.6,79.1 145.0,100.0 188.7,120.2 139.6,119.1 172.7,158.0 126.8,133.6 139.9,182.9 110.0,143.9 100.0,195.0 90.9,140.0 57.9,187.4 75.1,131.3 22.6,161.7 64.9,116.9 6.4,121.4 62.0,100.0 5.4,78.4 62.2,81.8 26.5,41.4 71.9,64.8 59.6,16.2 90.4,58.1" />
+    </svg>
+    <div class="color-deep-inner">
+      <p class="subtitle">Pôle Aventure</p>
+      <h3>Vert Végétal — #7CB342</h3>
+      <p>
+        Un vert franc et lumineux, type feuillage au soleil de midi.
+        Pas un vert forêt sérieux, pas un vert "écolo militant" — un vert qui dit
+        <strong>"allez, on y va !"</strong>. C'est le mouvement, le plein air, l'énergie.
+      </p>
+      <p style="margin-top: 0.75rem;">
+        Il porte les activités outdoor du lac — pédalos, accrobranche, jeux en plein air.
+        Fraîcheur et vitalité, la nature accessible à tous.
+      </p>
+      <p class="vibe">"Course pieds nus dans l'herbe, éclaboussures au bord de l'eau, rires d'enfants."</p>
+    </div>
+  </div>
+
+  <!-- Bleu deep -->
+  <div class="color-deep deep-bleu">
+    <svg class="sunburst-bg right" viewBox="0 0 200 200" fill="currentColor">
+      <polygon points="100.0,2.0 109.6,64.3 135.0,39.4 120.5,79.5 182.3,52.5 135.7,90.4 165.0,100.0 128.0,107.5 179.7,146.0 126.2,126.2 136.0,162.4 107.5,128.0 100.0,197.0 90.4,135.7 66.0,158.9 79.5,120.5 22.1,145.0 64.3,109.6 25.0,100.0 72.0,92.5 16.9,52.0 73.8,73.8 67.0,42.8 92.5,72.0" />
+    </svg>
+    <div class="color-deep-inner">
+      <p class="subtitle">Pôle La Salle</p>
+      <h3>Bleu Ardoise — #5B8DEF</h3>
+      <p>
+        Un bleu moyen-vif, lumineux et confiant. Pas un bleu marine corporate,
+        pas un bleu ciel naïf — un bleu <strong>optimiste et polyvalent</strong>.
+        Il reflète la surface du lac sous un ciel d'été.
+      </p>
+      <p style="margin-top: 0.75rem;">
+        La salle accueille des séminaires d'entreprise comme des concerts et des mariages.
+        Ce bleu fait le pont : assez sérieux pour le pro, assez chaleureux pour le festif.
+      </p>
+      <p class="vibe">"La surface du lac qui miroite au soleil, vue depuis la baie vitrée de la salle."</p>
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ======== 02 — TYPOGRAPHIE ======== -->
+  <section>
+    <p class="section-number">02 — Typographie</p>
+    <h2>Syne + DM Sans</h2>
+    <p class="section-intro">
+      Deux polices complémentaires qui posent le ton : géométrique et affirmée pour les titres,
+      lisible et chaleureuse pour le corps de texte.
+    </p>
+
+    <div class="typo-showcase">
+      <div class="typo-card">
+        <p class="typo-card-label">Titres & Display</p>
+        <p class="typo-specimen-syne">Syne</p>
+        <p class="typo-meta">
+          <strong>Syne Bold / Extra-Bold</strong><br>
+          Police géométrique avec du caractère. Ses formes angulaires et son espacement serré
+          (<code>letter-spacing: -0.04em</code>) donnent un côté <strong>moderne et affirmé</strong>
+          — ni corporate, ni trop "fun". Parfaite pour des titres qui accrochent.
+        </p>
+      </div>
+      <div class="typo-card">
+        <p class="typo-card-label">Corps de texte</p>
+        <p class="typo-specimen-dm">DM Sans</p>
+        <p class="typo-meta">
+          <strong>DM Sans Regular / Medium / Bold</strong><br>
+          Sans-serif humaniste, ronde et accueillante. Excellente lisibilité à toutes les tailles.
+          Elle apporte la <strong>douceur et la clarté</strong> qui équilibrent le côté tranchant de Syne.
+        </p>
+      </div>
+    </div>
+
+    <div class="typo-example">
+      <svg class="sunburst-deco" viewBox="0 0 200 200" fill="currentColor">
+        <path d="M 85.0 74.0 C 77.3 55.4 81.0 29.0 110.2 2.5 C 124.2 25.4 121.5 60.5 115.0 74.0 C 127.2 58.1 152.0 48.0 189.5 60.1 C 176.7 83.7 145.0 98.8 130.0 100.0 C 149.9 102.6 171.0 119.0 179.3 157.6 C 152.5 158.3 123.5 138.4 115.0 126.0 C 122.7 144.6 119.0 171.0 89.8 197.5 C 75.8 174.6 78.5 139.5 85.0 126.0 C 72.8 141.9 48.0 152.0 10.5 139.9 C 23.3 116.3 55.0 101.2 70.0 100.0 C 50.1 97.4 29.0 81.0 20.7 42.4 C 47.5 41.7 76.5 61.6 85.0 74.0 Z" />
+      </svg>
+      <h4>Votre été commence ici</h4>
+      <p>Restaurant au bord du lac, activités en plein air et salle de réception — La Terrasse Saint-Ferréol réunit tout ce qu'il faut pour une journée parfaite.</p>
+    </div>
+  </section>
+
+  <hr class="section-sep">
+
+  <!-- ======== 03 — SUNBURSTS ======== -->
+  <section>
+    <p class="section-number">03 — Motif Sunburst</p>
+    <h2>L'éclat du soleil<br>comme signature</h2>
+    <p class="section-intro">
+      Les sunbursts sont le motif décoratif récurrent du site. Cinq variantes — des rayons fins
+      et géométriques aux formes organiques et courbes — parsemées en arrière-plan des sections.
+      Elles évoquent le soleil qui rayonne sur le lac, l'énergie estivale, la chaleur du lieu.
+    </p>
+
+    <div class="sunburst-gallery">
+      <div class="sunburst-item">
+        <svg viewBox="0 0 200 200" fill="currentColor" style="color: var(--brun)">
+          <polygon points="100.0,5.0 106.1,65.5 132.5,10.7 117.5,69.7 161.1,27.2 126.8,77.5 182.3,52.5 132.9,88.0 193.6,83.5 135.0,100.0 193.6,116.5 132.9,112.0 182.3,147.5 126.8,122.5 161.1,172.8 117.5,130.3 132.5,189.3 106.1,134.5 100.0,195.0 93.9,134.5 67.5,189.3 82.5,130.3 38.9,172.8 73.2,122.5 17.7,147.5 67.1,112.0 6.4,116.5 65.0,100.0 6.4,83.5 67.1,88.0 17.7,52.5 73.2,77.5 38.9,27.2 82.5,69.7 67.5,10.7 93.9,65.5" />
+        </svg>
+        <span>Variant 1</span>
+      </div>
+      <div class="sunburst-item">
+        <svg viewBox="0 0 200 200" fill="currentColor" style="color: var(--terracotta)">
+          <path d="M 90.1 69.6 C 83.2 45.5 90.9 17.2 107.7 2.3 C 121.0 12.3 116.9 53.0 109.9 69.6 C 118.5 46.1 141.3 27.6 163.6 25.5 C 168.6 41.4 141.4 71.9 125.9 81.2 C 146.6 67.2 175.9 65.7 195.3 77.1 C 189.9 92.9 150.0 101.6 132.0 100.0 C 157.0 100.9 181.6 116.9 190.5 137.5 C 176.9 147.1 139.5 130.6 125.9 118.8 C 145.6 134.2 156.1 161.6 151.2 183.6 C 134.5 183.3 113.9 148.0 109.9 130.4 C 116.8 154.5 109.1 182.8 92.3 197.7 C 79.0 187.7 83.1 147.0 90.1 130.4 C 81.5 153.9 58.7 172.4 36.4 174.5 C 31.4 158.6 58.6 128.1 74.1 118.8 C 53.4 132.8 24.1 134.3 4.7 122.9 C 10.1 107.1 50.0 98.4 68.0 100.0 C 43.0 99.1 18.4 83.1 9.5 62.5 C 23.1 52.9 60.5 69.4 74.1 81.2 C 54.4 65.8 43.9 38.4 48.8 16.4 C 65.5 16.7 86.1 52.0 90.1 69.6 Z" />
+        </svg>
+        <span>Variant 2</span>
+      </div>
+      <div class="sunburst-item">
+        <svg viewBox="0 0 200 200" fill="currentColor" style="color: var(--vert)">
+          <polygon points="100.0,5.0 109.8,57.1 139.9,17.1 126.8,66.4 172.7,42.0 141.4,80.0 191.6,79.1 145.0,100.0 188.7,120.2 139.6,119.1 172.7,158.0 126.8,133.6 139.9,182.9 110.0,143.9 100.0,195.0 90.9,140.0 57.9,187.4 75.1,131.3 22.6,161.7 64.9,116.9 6.4,121.4 62.0,100.0 5.4,78.4 62.2,81.8 26.5,41.4 71.9,64.8 59.6,16.2 90.4,58.1" />
+        </svg>
+        <span>Variant 3</span>
+      </div>
+      <div class="sunburst-item">
+        <svg viewBox="0 0 200 200" fill="currentColor" style="color: var(--bleu)">
+          <path d="M 85.0 74.0 C 77.3 55.4 81.0 29.0 110.2 2.5 C 124.2 25.4 121.5 60.5 115.0 74.0 C 127.2 58.1 152.0 48.0 189.5 60.1 C 176.7 83.7 145.0 98.8 130.0 100.0 C 149.9 102.6 171.0 119.0 179.3 157.6 C 152.5 158.3 123.5 138.4 115.0 126.0 C 122.7 144.6 119.0 171.0 89.8 197.5 C 75.8 174.6 78.5 139.5 85.0 126.0 C 72.8 141.9 48.0 152.0 10.5 139.9 C 23.3 116.3 55.0 101.2 70.0 100.0 C 50.1 97.4 29.0 81.0 20.7 42.4 C 47.5 41.7 76.5 61.6 85.0 74.0 Z" />
+        </svg>
+        <span>Variant 4</span>
+      </div>
+      <div class="sunburst-item">
+        <svg viewBox="0 0 200 200" fill="currentColor" style="color: var(--soleil-dark)">
+          <polygon points="100.0,2.0 109.6,64.3 135.0,39.4 120.5,79.5 182.3,52.5 135.7,90.4 165.0,100.0 128.0,107.5 179.7,146.0 126.2,126.2 136.0,162.4 107.5,128.0 100.0,197.0 90.4,135.7 66.0,158.9 79.5,120.5 22.1,145.0 64.3,109.6 25.0,100.0 72.0,92.5 16.9,52.0 73.8,73.8 67.0,42.8 92.5,72.0" />
+        </svg>
+        <span>Variant 5</span>
+      </div>
+    </div>
+
+    <p style="color: var(--gray-600); font-size: 0.95rem; max-width: 640px;">
+      Utilisés en <strong>très basse opacité</strong> (5-10%) comme texture d'arrière-plan,
+      ou en couleur pleine à petite taille comme ponctuation décorative.
+      Animés via GSAP avec une rotation lente et continue pour un effet vivant et solaire.
+    </p>
+
+    <div class="sunburst-demo-row">
+      <div class="sunburst-demo-card" style="background: var(--brun);">
+        <svg viewBox="0 0 200 200" fill="currentColor" style="color: var(--soleil); opacity: 0.12;">
+          <polygon points="100.0,5.0 106.1,65.5 132.5,10.7 117.5,69.7 161.1,27.2 126.8,77.5 182.3,52.5 132.9,88.0 193.6,83.5 135.0,100.0 193.6,116.5 132.9,112.0 182.3,147.5 126.8,122.5 161.1,172.8 117.5,130.3 132.5,189.3 106.1,134.5 100.0,195.0 93.9,134.5 67.5,189.3 82.5,130.3 38.9,172.8 73.2,122.5 17.7,147.5 67.1,112.0 6.4,116.5 65.0,100.0 6.4,83.5 67.1,88.0 17.7,52.5 73.2,77.5 38.9,27.2 82.5,69.7 67.5,10.7 93.9,65.5" />
+        </svg>
+      </div>
+      <div class="sunburst-demo-card" style="background: #FFF3ED;">
+        <svg viewBox="0 0 200 200" fill="currentColor" style="color: var(--terracotta); opacity: 0.12;">
+          <path d="M 90.1 69.6 C 83.2 45.5 90.9 17.2 107.7 2.3 C 121.0 12.3 116.9 53.0 109.9 69.6 C 118.5 46.1 141.3 27.6 163.6 25.5 C 168.6 41.4 141.4 71.9 125.9 81.2 C 146.6 67.2 175.9 65.7 195.3 77.1 C 189.9 92.9 150.0 101.6 132.0 100.0 C 157.0 100.9 181.6 116.9 190.5 137.5 C 176.9 147.1 139.5 130.6 125.9 118.8 C 145.6 134.2 156.1 161.6 151.2 183.6 C 134.5 183.3 113.9 148.0 109.9 130.4 C 116.8 154.5 109.1 182.8 92.3 197.7 C 79.0 187.7 83.1 147.0 90.1 130.4 C 81.5 153.9 58.7 172.4 36.4 174.5 C 31.4 158.6 58.6 128.1 74.1 118.8 C 53.4 132.8 24.1 134.3 4.7 122.9 C 10.1 107.1 50.0 98.4 68.0 100.0 C 43.0 99.1 18.4 83.1 9.5 62.5 C 23.1 52.9 60.5 69.4 74.1 81.2 C 54.4 65.8 43.9 38.4 48.8 16.4 C 65.5 16.7 86.1 52.0 90.1 69.6 Z" />
+        </svg>
+      </div>
+      <div class="sunburst-demo-card" style="background: #F0F7E6;">
+        <svg viewBox="0 0 200 200" fill="currentColor" style="color: var(--vert); opacity: 0.12;">
+          <polygon points="100.0,5.0 109.8,57.1 139.9,17.1 126.8,66.4 172.7,42.0 141.4,80.0 191.6,79.1 145.0,100.0 188.7,120.2 139.6,119.1 172.7,158.0 126.8,133.6 139.9,182.9 110.0,143.9 100.0,195.0 90.9,140.0 57.9,187.4 75.1,131.3 22.6,161.7 64.9,116.9 6.4,121.4 62.0,100.0 5.4,78.4 62.2,81.8 26.5,41.4 71.9,64.8 59.6,16.2 90.4,58.1" />
+        </svg>
+      </div>
+      <div class="sunburst-demo-card" style="background: #EDF4FF;">
+        <svg viewBox="0 0 200 200" fill="currentColor" style="color: var(--bleu); opacity: 0.12;">
+          <path d="M 85.0 74.0 C 77.3 55.4 81.0 29.0 110.2 2.5 C 124.2 25.4 121.5 60.5 115.0 74.0 C 127.2 58.1 152.0 48.0 189.5 60.1 C 176.7 83.7 145.0 98.8 130.0 100.0 C 149.9 102.6 171.0 119.0 179.3 157.6 C 152.5 158.3 123.5 138.4 115.0 126.0 C 122.7 144.6 119.0 171.0 89.8 197.5 C 75.8 174.6 78.5 139.5 85.0 126.0 C 72.8 141.9 48.0 152.0 10.5 139.9 C 23.3 116.3 55.0 101.2 70.0 100.0 C 50.1 97.4 29.0 81.0 20.7 42.4 C 47.5 41.7 76.5 61.6 85.0 74.0 Z" />
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== 04 — PHOTO TREATMENT ======== -->
+  <div class="photo-treatment">
+    <div class="photo-treatment-inner">
+      <p class="section-number">04 — Traitement Photo</p>
+      <h2>Saturées, lumineuses,<br>nostalgiques</h2>
+      <p class="section-intro">
+        Les photos du site sont traitées pour évoquer une esthétique estivale nostalgique —
+        couleurs plus saturées, luminosité poussée, une chaleur qui rappelle les photos
+        de vacances sur pellicule. Le but : que chaque image donne envie d'y être.
+      </p>
+
+      <div class="photo-filter-specs">
+        <div class="filter-spec">
+          <p class="filter-spec-value">+30%</p>
+          <p class="filter-spec-label">Saturation</p>
+        </div>
+        <div class="filter-spec">
+          <p class="filter-spec-value">+10%</p>
+          <p class="filter-spec-label">Luminosité</p>
+        </div>
+        <div class="filter-spec">
+          <p class="filter-spec-value">Chaud</p>
+          <p class="filter-spec-label">Balance</p>
+        </div>
+      </div>
+
+      <p style="margin-top: 2.5rem; color: rgba(255,255,255,0.5); font-size: 0.95rem; max-width: 640px; line-height: 1.7;">
+        Le traitement est appliqué à la source (export WebP) et non via des filtres CSS,
+        pour éviter la surcharge GPU côté navigateur. L'objectif est un rendu
+        <strong style="color: rgba(255,255,255,0.75);">film analog, été des années 70</strong> —
+        des couleurs chaudes et vibrantes, des ombres douces, une lumière dorée omniprésente.
+      </p>
+    </div>
+  </div>
+
+  <hr class="section-sep">
+
+  <!-- ======== 05 — RECAP ======== -->
+  <section>
+    <p class="section-number">05 — Récapitulatif</p>
+    <h2>La palette complète</h2>
+
+    <table class="recap-table">
+      <thead>
+        <tr>
+          <th>Couleur</th>
+          <th>Hex</th>
+          <th>Rôle</th>
+          <th>Mot-clé</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><span class="recap-swatch" style="background: #FFFF80; border: 1px solid #e5e5d0;"></span>Soleil</td>
+          <td class="recap-hex">#FFFF80</td>
+          <td>Couleur fondation / marque</td>
+          <td>Été, guinguette, joie</td>
+        </tr>
+        <tr>
+          <td><span class="recap-swatch" style="background: #E8603C;"></span>Terracotta</td>
+          <td class="recap-hex">#E8603C</td>
+          <td>Pôle Restaurant</td>
+          <td>Appétit, feu, Sud</td>
+        </tr>
+        <tr>
+          <td><span class="recap-swatch" style="background: #7CB342;"></span>Vert Végétal</td>
+          <td class="recap-hex">#7CB342</td>
+          <td>Pôle Aventure</td>
+          <td>Nature, énergie, fun</td>
+        </tr>
+        <tr>
+          <td><span class="recap-swatch" style="background: #5B8DEF;"></span>Bleu Ardoise</td>
+          <td class="recap-hex">#5B8DEF</td>
+          <td>Pôle La Salle</td>
+          <td>Confiance, lac, polyvalence</td>
+        </tr>
+        <tr>
+          <td><span class="recap-swatch" style="background: #36342F;"></span>Brun Terre</td>
+          <td class="recap-hex">#36342F</td>
+          <td>Texte / neutre sombre</td>
+          <td>Ancrage, terroir</td>
+        </tr>
+        <tr>
+          <td><span class="recap-swatch" style="background: #FFFBF5; border: 1px solid #e5e5d0;"></span>Offwhite</td>
+          <td class="recap-hex">#FFFBF5</td>
+          <td>Fond de page</td>
+          <td>Chaleur, douceur</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 3rem; padding: 2rem; background: white; border-radius: 16px; box-shadow: 0 1px 3px rgba(0,0,0,0.06);">
+      <h3 style="font-size: 1.3rem; margin-bottom: 1rem; color: var(--brun);">Ce qui unit la palette</h3>
+      <p style="color: var(--gray-600); font-size: 0.95rem; line-height: 1.7;">
+        Toutes les couleurs sont <strong style="color: var(--brun);">vibrantes, saturées, estivales</strong>.
+        La palette "L'Été au Lac" dit clairement : <em>on est dehors, il fait beau, venez</em>.
+        Le brun terre ancre le tout sans voler la vedette au soleil et aux accents de pôle.
+        L'offwhite chaud enveloppe l'ensemble dans une lumière de fin d'après-midi.
+      </p>
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <div class="da-footer">
+    <p><strong>La Terrasse Saint-Ferréol</strong> — Direction Artistique "L'Été au Lac" — 2026</p>
+  </div>
+
+</body>
+</html>

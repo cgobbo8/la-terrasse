@@ -6,8 +6,6 @@
  * Plays a muted, looping video of Lac de Saint-Ferréol with a dark gradient overlay.
  * Falls back to a static image when prefers-reduced-motion is active.
  */
-import Sunburst from '@/components/common/Sunburst.astro';
-
 interface Props {
   tagline: string;
   subtitle?: string;
@@ -66,14 +64,6 @@ const { tagline, subtitle } = Astro.props;
     </div>
   </div>
 
-  <!-- Sunburst decoration — top left -->
-  <div
-    class="absolute -top-[15%] -left-[10%] w-[clamp(280px,35vw,500px)] aspect-square pointer-events-none z-[1] vh-sunburst-spin"
-    data-vh-sunburst
-  >
-    <Sunburst variant={1} size="100%" />
-  </div>
-
   <!-- Scroll indicator -->
   <div class="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/40 z-10" aria-hidden="true" data-vh-scroll>
     <span class="text-[0.625rem] font-semibold uppercase tracking-[0.25em]">Scroll</span>
@@ -90,22 +80,12 @@ const { tagline, subtitle } = Astro.props;
   [data-vh-scroll] {
     opacity: 0;
   }
-  @keyframes vh-sunburst-idle {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  .vh-sunburst-spin {
-    animation: vh-sunburst-idle 20s linear infinite;
-  }
   @media (prefers-reduced-motion: reduce) {
     [data-vh-heading],
     [data-vh-sub],
     [data-vh-cta],
     [data-vh-scroll] {
       opacity: 1 !important;
-    }
-    .vh-sunburst-spin {
-      animation: none;
     }
   }
 </style>
@@ -117,8 +97,6 @@ const { tagline, subtitle } = Astro.props;
       const sub = document.querySelector<HTMLElement>('[data-vh-sub]');
       const cta = document.querySelector<HTMLElement>('[data-vh-cta]');
       const scroll = document.querySelector<HTMLElement>('[data-vh-scroll]');
-      const sunburst = document.querySelector<HTMLElement>('[data-vh-sunburst]');
-
       if (heading) {
         gsap.fromTo(heading,
           { opacity: 0, y: 40, filter: 'blur(18px)', scale: 0.95 },
@@ -144,22 +122,6 @@ const { tagline, subtitle } = Astro.props;
         );
       }
 
-      // Sunburst: scroll-accelerated spin only (CSS handles idle rotation)
-      if (sunburst) {
-        import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
-          gsap.registerPlugin(ScrollTrigger);
-          gsap.to(sunburst, {
-            rotation: '+=180',
-            ease: 'none',
-            scrollTrigger: {
-              trigger: '.video-hero',
-              start: 'top top',
-              end: 'bottom top',
-              scrub: 1.5,
-            },
-          });
-        });
-      }
     });
   }
 </script>

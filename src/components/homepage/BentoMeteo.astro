@@ -4,8 +4,6 @@ import type { Lang } from '@/i18n/translations';
 import { useTranslations, getLocalizedField, getLocalizedPath } from '@/i18n/utils';
 import WeatherTimeCard from './WeatherTimeCard.svelte';
 import { poleConfigs, brandColors } from '@/lib/pole-config';
-import Sunburst from '@/components/common/Sunburst.astro';
-
 interface Props {
   settings: Record<string, unknown>;
   lang: Lang;
@@ -100,10 +98,6 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
           class="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
         />
-        <!-- Sunburst decoration — top right -->
-        <div class="absolute -top-[18%] -right-[25%] w-[clamp(160px,65%,280px)] aspect-square pointer-events-none z-10 bento-sunburst" aria-hidden="true">
-          <Sunburst variant={1} size="100%" />
-        </div>
       </div>
 
       {/* ── NOUS TROUVER — wide location + contact card ── */}
@@ -175,15 +169,3 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
   </div>
 </section>
 
-<style>
-  @keyframes bento-sunburst-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  .bento-sunburst {
-    animation: bento-sunburst-spin 30s linear infinite;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .bento-sunburst { animation: none; }
-  }
-</style>
