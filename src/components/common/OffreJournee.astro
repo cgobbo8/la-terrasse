@@ -2,7 +2,7 @@
 /**
  * OffreJournee — "Pass Journée" promotional section
  *
- * Premium offer card: 1 grande activité + 2 petites activités = -10% au restaurant.
+ * Premium offer card: 1 grande activité + 2 petites activités = -20% au restaurant.
  * Used on: homepage, /aventure, /restaurant
  *
  * Zero JS — pure Astro + CSS. Hover effects via CSS transitions.
@@ -58,7 +58,7 @@ const steps = [
     icon: 'lucide:utensils',
     color: restaurantAccent,
     bgLight: restaurantLight,
-    label: '−10% au restaurant',
+    label: '−20% au restaurant',
     detail: 'Sur toute votre commande',
   },
 ];
@@ -154,7 +154,7 @@ const steps = [
             <!-- Header: discount badge — SOLEIL YELLOW for maximum impact -->
             <div class="discount-badge flex flex-col items-center justify-center rounded-2xl py-7 px-6 text-center bg-soleil">
               <span class="font-heading font-bold leading-none text-brun-terre" style="font-size: clamp(3.5rem, 10vw, 5rem); line-height: 1;">
-                −10%
+                −20%
               </span>
               <span class="mt-1.5 text-sm font-medium text-brun-terre/70">
                 sur votre repas
