@@ -216,7 +216,7 @@
         class="p-1.5 rounded-2xl"
         style="background-color: {accentLight}; border: 1.5px solid {accentBorder};"
       >
-        <div class="grid grid-cols-2 gap-1.5" role="radiogroup" aria-label="Créneau horaire">
+        <div class="grid grid-cols-2 gap-1.5" role="radiogroup" aria-label={t('salle.seminaires.cfg.journee') + ' / ' + t('salle.seminaires.cfg.soiree')}>
           {#each TIME_SLOTS as slot (slot.id)}
             {@const isActive = timeSlot === slot.id}
 
@@ -348,15 +348,15 @@
               <UtensilsCrossed class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
             </span>
             <div class="flex-1 min-w-0">
-              <p class="font-semibold text-sm text-gray-800 leading-tight">Restauration</p>
+              <p class="font-semibold text-sm text-gray-800 leading-tight">{t('salle.seminaires.cfg.restauration')}</p>
               <p class="text-xs text-gray-400 mt-0.5 leading-relaxed">
-                Accueil petit déjeuner, repas, pause café
+                {t('salle.seminaires.cfg.restauration.desc')}
               </p>
             </div>
             <div class="flex items-center gap-3 flex-shrink-0">
               <span class="font-heading font-bold text-sm" style="color: {accentColor};">
-                dès 35&nbsp;€
-                <span class="font-normal text-gray-400 text-xs">HT /pers.</span>
+                {t('salle.seminaires.cfg.from')} 35&nbsp;€
+                <span class="font-normal text-gray-400 text-xs">{t('salle.seminaires.cfg.htPers')}</span>
               </span>
               <span
                 class="w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300"
@@ -378,8 +378,8 @@
             class="meal-format-row -mt-3 ml-6 p-3 rounded-xl border transition-all duration-300"
             style="border-color: {accentBorder}; background-color: white;"
           >
-            <p class="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-2">Format du repas</p>
-            <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Format du repas">
+            <p class="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-2">{t('salle.seminaires.cfg.mealFormat')}</p>
+            <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label={t('salle.seminaires.cfg.mealFormat')}>
               {#each MEAL_FORMATS as format (format.id)}
                 {@const isActive = mealFormat === format.id}
                 <button
@@ -395,7 +395,7 @@
                 >
                   <div class="flex items-center gap-2 min-w-0">
                     <svelte:component this={format.id === 'repas-complet' ? UtensilsCrossed : Wine} class="w-3.5 h-3.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
-                    <span class="text-xs font-medium text-gray-700 truncate">{format.label}</span>
+                    <span class="text-xs font-medium text-gray-700 truncate">{t(format.labelKey)}</span>
                   </div>
                   <span class="font-heading font-bold text-xs flex-shrink-0" style="color: {accentColor};">{format.price}&nbsp;€</span>
                 </button>
@@ -404,21 +404,21 @@
             <div class="flex flex-wrap gap-x-3 gap-y-1 mt-2.5 pl-0.5">
               <span class="inline-flex items-center gap-1 text-[11px] text-gray-400">
                 <Check class="w-2.5 h-2.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={2.5} />
-                Accueil petit déjeuner
+                {t('salle.seminaires.cfg.breakfast')}
               </span>
               <span class="inline-flex items-center gap-1 text-[11px] text-gray-400">
                 <Check class="w-2.5 h-2.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={2.5} />
-                {mealFormat === 'repas-complet' ? 'Repas midi complet' : 'Apéro dînatoire'}
+                {mealFormat === 'repas-complet' ? t('salle.seminaires.cfg.lunchFull') : t('salle.seminaires.cfg.mealAperitif')}
               </span>
               <span class="inline-flex items-center gap-1 text-[11px] text-gray-400">
                 <Check class="w-2.5 h-2.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={2.5} />
-                Pause café
+                {t('salle.seminaires.cfg.coffeeBreak')}
               </span>
             </div>
             {#if mealFormat === 'repas-complet'}
-              <p class="text-[10px] text-gray-400 mt-1.5 pl-0.5">12 personnes minimum</p>
+              <p class="text-[10px] text-gray-400 mt-1.5 pl-0.5">{t('salle.seminaires.cfg.min12')}</p>
             {:else}
-              <p class="text-[10px] text-gray-400 mt-1.5 pl-0.5">15 personnes minimum</p>
+              <p class="text-[10px] text-gray-400 mt-1.5 pl-0.5">{t('salle.seminaires.cfg.min15')}</p>
             {/if}
           </div>
         {/if}
@@ -444,15 +444,15 @@
               <Trees class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
             </span>
             <div class="flex-1 min-w-0">
-              <p class="font-semibold text-sm text-gray-800 leading-tight">Demi-journée Team Building</p>
+              <p class="font-semibold text-sm text-gray-800 leading-tight">{t('salle.seminaires.cfg.teamBuilding')}</p>
               <p class="text-xs text-gray-400 mt-0.5 leading-relaxed">
-                Activités de cohésion encadrées sur le site
+                {t('salle.seminaires.cfg.teamBuilding.desc')}
               </p>
             </div>
             <div class="flex items-center gap-3 flex-shrink-0">
               <span class="font-heading font-bold text-sm" style="color: {accentColor};">
                 {TEAM_BUILDING_PRICE}&nbsp;€
-                <span class="font-normal text-gray-400 text-xs">HT /pers.</span>
+                <span class="font-normal text-gray-400 text-xs">{t('salle.seminaires.cfg.htPers')}</span>
               </span>
               <span
                 class="w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300"
@@ -489,9 +489,9 @@
                 <Trophy class="w-3.5 h-3.5" strokeWidth={1.5} />
               </span>
               <div class="flex-1 min-w-0">
-                <p class="font-semibold text-xs text-gray-800 leading-tight">Coaching professionnel</p>
+                <p class="font-semibold text-xs text-gray-800 leading-tight">{t('salle.seminaires.cfg.coaching')}</p>
                 <p class="text-[11px] text-gray-400 mt-0.5">
-                  Koh-Lanta, cohésion d'équipe, défis — coach dédié
+                  {t('salle.seminaires.cfg.coaching.desc')}
                 </p>
               </div>
               <div class="flex items-center gap-2 flex-shrink-0">
@@ -511,7 +511,7 @@
                 </span>
               </div>
             </div>
-            <p class="text-[9px] uppercase tracking-wide font-semibold mt-1.5 ml-11" style="color: {accentColor}; opacity: 0.5;">Prix indicatif</p>
+            <p class="text-[9px] uppercase tracking-wide font-semibold mt-1.5 ml-11" style="color: {accentColor}; opacity: 0.5;">{t('salle.seminaires.cfg.indicativePrice')}</p>
           </button>
         {/if}
 
@@ -591,7 +591,7 @@
         </div>
 
         <h3 class="font-heading font-bold text-sm uppercase tracking-wider" style="color: {accentColor}; opacity: 0.7;">
-          Options
+          {t('salle.seminaires.cfg.optionsShort')}
         </h3>
 
         <!-- Extra hours stepper -->
@@ -607,8 +607,8 @@
               <Clock class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
             </span>
             <div>
-              <p class="text-sm font-semibold text-gray-800">Heures supplémentaires</p>
-              <p class="text-xs text-gray-400">Après 23h · 50 € HT / heure</p>
+              <p class="text-sm font-semibold text-gray-800">{t('salle.seminaires.cfg.extraHours')}</p>
+              <p class="text-xs text-gray-400">{t('salle.seminaires.cfg.extraHours.desc')}</p>
             </div>
           </div>
 
@@ -618,7 +618,7 @@
               onclick={() => clampExtraHours(extraHours - 1)}
               class="stepper-btn w-10 h-10 rounded-l-xl flex items-center justify-center border border-r-0 transition-colors"
               style="border-color: {accentBorder}; color: {accentColor};"
-              aria-label="Moins une heure"
+              aria-label="-1h"
               disabled={extraHours <= 0}
             >
               <Minus class="w-4 h-4" strokeWidth={2} />
@@ -632,7 +632,7 @@
               onclick={() => clampExtraHours(extraHours + 1)}
               class="stepper-btn w-10 h-10 rounded-r-xl flex items-center justify-center border border-l-0 transition-colors"
               style="border-color: {accentBorder}; color: {accentColor};"
-              aria-label="Plus une heure"
+              aria-label="+1h"
               disabled={extraHours >= 6}
             >
               <Plus class="w-4 h-4" strokeWidth={2} />
@@ -641,10 +641,10 @@
 
           {#if extraHours > 0}
             <p class="text-xs text-gray-400">
-              Fin à <strong class="text-gray-600">{(23 + extraHours) % 24}h</strong> · +{formatPrice(extraHours * 50)} HT
+              {t('salle.seminaires.cfg.endAt')} <strong class="text-gray-600">{(23 + extraHours) % 24}h</strong> · +{formatPrice(extraHours * 50)} HT
             </p>
           {:else}
-            <p class="text-xs text-gray-400">Inclus : 17h – 23h (6 heures)</p>
+            <p class="text-xs text-gray-400">{t('salle.seminaires.cfg.includedHours')}</p>
           {/if}
         </div>
 
@@ -669,15 +669,15 @@
               <UtensilsCrossed class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
             </span>
             <div class="flex-1 min-w-0">
-              <p class="font-semibold text-sm text-gray-800 leading-tight">Restauration</p>
+              <p class="font-semibold text-sm text-gray-800 leading-tight">{t('salle.seminaires.cfg.restauration')}</p>
               <p class="text-xs text-gray-400 mt-0.5 leading-relaxed">
-                Repas complet ou apéro dînatoire
+                {t('salle.seminaires.cfg.soireeRestauration')}
               </p>
             </div>
             <div class="flex items-center gap-3 flex-shrink-0">
               <span class="font-heading font-bold text-sm" style="color: {accentColor};">
-                dès 35&nbsp;€
-                <span class="font-normal text-gray-400 text-xs">HT /pers.</span>
+                {t('salle.seminaires.cfg.from')} 35&nbsp;€
+                <span class="font-normal text-gray-400 text-xs">{t('salle.seminaires.cfg.htPers')}</span>
               </span>
               <span
                 class="w-6 h-6 rounded-full flex items-center justify-center transition-all duration-300"
@@ -699,8 +699,8 @@
             class="meal-format-row -mt-3 ml-6 p-3 rounded-xl border transition-all duration-300"
             style="border-color: {accentBorder}; background-color: white;"
           >
-            <p class="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-2">Format du repas</p>
-            <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label="Format du repas">
+            <p class="text-[10px] font-semibold uppercase tracking-wider text-gray-400 mb-2">{t('salle.seminaires.cfg.mealFormat')}</p>
+            <div class="grid grid-cols-2 gap-2" role="radiogroup" aria-label={t('salle.seminaires.cfg.mealFormat')}>
               {#each MEAL_FORMATS as format (format.id)}
                 {@const isActive = mealFormat === format.id}
                 <button
@@ -716,16 +716,16 @@
                 >
                   <div class="flex items-center gap-2 min-w-0">
                     <svelte:component this={format.id === 'repas-complet' ? UtensilsCrossed : Wine} class="w-3.5 h-3.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
-                    <span class="text-xs font-medium text-gray-700 truncate">{format.label}</span>
+                    <span class="text-xs font-medium text-gray-700 truncate">{t(format.labelKey)}</span>
                   </div>
                   <span class="font-heading font-bold text-xs flex-shrink-0" style="color: {accentColor};">{format.price}&nbsp;€</span>
                 </button>
               {/each}
             </div>
             {#if mealFormat === 'repas-complet'}
-              <p class="text-[10px] text-gray-400 mt-1.5 pl-0.5">12 personnes minimum</p>
+              <p class="text-[10px] text-gray-400 mt-1.5 pl-0.5">{t('salle.seminaires.cfg.min12')}</p>
             {:else}
-              <p class="text-[10px] text-gray-400 mt-1.5 pl-0.5">15 personnes minimum</p>
+              <p class="text-[10px] text-gray-400 mt-1.5 pl-0.5">{t('salle.seminaires.cfg.min15')}</p>
             {/if}
           </div>
         {/if}
@@ -745,15 +745,15 @@
           class="px-6 py-5"
           style="background: linear-gradient(135deg, {accentColor} 0%, var(--color-brun-terre) 100%);"
         >
-          <p class="text-white/60 text-xs font-semibold uppercase tracking-widest mb-1">Votre estimation</p>
+          <p class="text-white/60 text-xs font-semibold uppercase tracking-widest mb-1">{t('salle.seminaires.cfg.estimate')}</p>
           <div class="flex items-baseline gap-2">
             <span class="font-heading font-bold text-3xl text-white tabular-nums" aria-live="polite">
-              {displayedTotal.toLocaleString('fr-FR')}
+              {displayedTotal.toLocaleString(localeMap[lang] ?? 'fr-FR')}
             </span>
             <span class="text-white/70 text-lg font-medium">&nbsp;€ <span class="text-sm">HT</span></span>
           </div>
           {#if isJournee || hasRestauration}
-            <p class="text-white/50 text-xs mt-1">pour {participants} participant{participants > 1 ? 's' : ''}</p>
+            <p class="text-white/50 text-xs mt-1">{t('salle.seminaires.cfg.forParticipants').replace('{n}', String(participants))}</p>
           {/if}
         </div>
 
@@ -764,8 +764,8 @@
           <div class="flex items-center justify-between text-sm">
             <span class="text-gray-600 flex items-center gap-2">
               <svelte:component this={currentSlot.icon} class="w-3.5 h-3.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
-              Salle {currentSlot.label.toLowerCase()}
-              <span class="text-gray-400 text-xs">({currentSlot.hours})</span>
+              {t('salle.seminaires.cfg.roomLabel')} {t(currentSlot.labelKey).toLowerCase()}
+              <span class="text-gray-400 text-xs">({t(currentSlot.hoursKey)})</span>
             </span>
             <span class="font-semibold text-gray-800 tabular-nums">{currentSlot.basePrice}&nbsp;€</span>
           </div>
@@ -780,7 +780,7 @@
                   {:else}
                     <Wine class="w-3.5 h-3.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
                   {/if}
-                  <span class="truncate">{currentMeal.label}</span>
+                  <span class="truncate">{t(currentMeal.labelKey)}</span>
                   <span class="text-gray-400 flex-shrink-0">× {participants}</span>
                 </span>
                 <span class="font-medium text-gray-700 flex-shrink-0 ml-2 tabular-nums">
@@ -796,7 +796,7 @@
               <div class="flex items-center justify-between text-sm option-row-enter">
                 <span class="text-gray-500 flex items-center gap-2 min-w-0">
                   <Trees class="w-3.5 h-3.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
-                  <span class="truncate">Team Building</span>
+                  <span class="truncate">{t('salle.seminaires.cfg.tbLine')}</span>
                   <span class="text-gray-400 flex-shrink-0">× {participants}</span>
                 </span>
                 <span class="font-medium text-gray-700 flex-shrink-0 ml-2 tabular-nums">
@@ -807,7 +807,7 @@
                 <div class="flex items-center justify-between text-sm mt-1.5 option-row-enter">
                   <span class="text-gray-500 flex items-center gap-2 min-w-0 pl-5">
                     <Trophy class="w-3 h-3 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
-                    <span class="truncate">Coaching pro</span>
+                    <span class="truncate">{t('salle.seminaires.cfg.coachingLine')}</span>
                     <span class="text-gray-400 flex-shrink-0">× {participants}</span>
                   </span>
                   <span class="font-medium text-gray-700 flex-shrink-0 ml-2 tabular-nums">
@@ -824,7 +824,7 @@
               <div class="flex items-center justify-between text-sm">
                 <span class="text-gray-500 flex items-center gap-2">
                   <Clock class="w-3.5 h-3.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
-                  {extraHours}h supp.
+                  {extraHours}{t('salle.seminaires.cfg.extraHoursLine')}
                 </span>
                 <span class="font-medium text-gray-700 tabular-nums">{formatPrice(extraHoursSubtotal)}</span>
               </div>
@@ -834,18 +834,18 @@
           <!-- Divider + Total -->
           <div class="pt-3 mt-1" style="border-top: 2px solid {accentBorder};">
             <div class="flex items-center justify-between">
-              <span class="font-heading font-bold text-sm text-gray-800">Total estimé HT</span>
+              <span class="font-heading font-bold text-sm text-gray-800">{t('salle.seminaires.cfg.totalHT')}</span>
               <span class="font-heading font-bold text-xl tabular-nums" style="color: {accentColor};">
                 {formatPrice(total)}
               </span>
             </div>
             <p class="text-xs text-gray-400 mt-1">
               {#if hasRestauration || hasTeamBuilding}
-                Soit {formatPrice(Math.round((total / participants) * 10) / 10)} HT /pers.
+                {t('salle.seminaires.cfg.perPerson').replace('{price}', formatPrice(Math.round((total / participants) * 10) / 10))}
               {:else if isJournee}
-                Hors options — ajoutez vos souhaits ci-contre
+                {t('salle.seminaires.cfg.noOptionsJournee')}
               {:else}
-                Ajoutez des options ci-contre
+                {t('salle.seminaires.cfg.noOptionsSoiree')}
               {/if}
             </p>
           </div>
@@ -855,7 +855,7 @@
             class="mt-2 rounded-xl px-4 py-3 text-xs text-center leading-relaxed"
             style="background-color: {accentLight}; color: {accentColor};"
           >
-            Estimation indicative HT. Le tarif exact est confirmé par devis personnalisé.
+            {t('salle.seminaires.cfg.disclaimer')}
           </div>
 
           <!-- CTA -->
@@ -865,7 +865,7 @@
             style="background: linear-gradient(135deg, {accentColor} 0%, var(--color-brun-terre) 100%); outline-color: {accentColor};"
           >
             <span class="cta-shimmer absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300" style="background: linear-gradient(105deg, transparent 30%, rgba(255,255,255,0.12) 50%, transparent 70%);"></span>
-            Demander un devis
+            {t('salle.seminaires.cfg.ctaLabel')}
             <ArrowRight class="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2} />
           </a>
 
@@ -873,18 +873,18 @@
           <div class="flex items-center justify-center gap-4 pt-1">
             <span class="flex items-center gap-1 text-xs text-gray-400">
               <Check class="w-3 h-3" style="color: {accentColor};" strokeWidth={2.5} />
-              Réponse sous 24h
+              {t('salle.seminaires.cfg.response24h')}
             </span>
             <span class="flex items-center gap-1 text-xs text-gray-400">
               <Check class="w-3 h-3" style="color: {accentColor};" strokeWidth={2.5} />
-              Devis gratuit
+              {t('salle.seminaires.cfg.freeQuote')}
             </span>
           </div>
         </div>
       </div>
 
       <p class="lg:hidden text-xs text-center text-gray-400 mt-3">
-        Sélectionnez vos options ci-dessus pour affiner l'estimation.
+        {t('salle.seminaires.cfg.mobileHint')}
       </p>
     </div>
 

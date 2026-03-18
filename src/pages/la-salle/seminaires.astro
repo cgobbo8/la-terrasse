@@ -84,17 +84,18 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
     <!-- Configurateur -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10" data-reveal>
-        <p class="section-eyebrow mb-3" style={`color: ${salleAccent}80;`}>Configurateur</p>
+        <p class="section-eyebrow mb-3" style={`color: ${salleAccent}80;`}>{t('salle.seminaires.config.eyebrow')}</p>
         <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-3 text-gray-900">
-          Composez votre séminaire
+          {t('salle.seminaires.config.title')}
         </h2>
         <p class="text-gray-500 max-w-xl mx-auto text-sm leading-relaxed">
-          Sélectionnez vos options et obtenez une estimation instantanée. Nous vous envoyons votre devis sous 24h.
+          {t('salle.seminaires.config.desc')}
         </p>
       </div>
       <SeminarConfigurator
         accentColor={salleAccent}
         quoteMailto={buildQuoteMailto(siteEmail, 'Séminaire')}
+        lang={lang}
         client:visible
       />
     </div>
@@ -105,7 +106,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
       <div class="relative flex items-center gap-4 my-10">
         <div class="flex-1 h-px bg-gray-300/60"></div>
         <span class="font-heading font-bold text-xs uppercase tracking-widest text-gray-400">
-          ou votre projet est unique ?
+          {t('salle.seminaires.separator')}
         </span>
         <div class="flex-1 h-px bg-gray-300/60"></div>
       </div>
@@ -122,10 +123,10 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
           </span>
           <div class="flex-1 min-w-0">
             <p class="font-heading font-bold text-base text-brun-terre leading-tight">
-              Un projet qui sort de l'ordinaire ?
+              {t('salle.seminaires.callout.title')}
             </p>
             <p class="text-sm text-brun-terre/70 mt-1.5 leading-relaxed max-w-2xl">
-              Journée sportive, format atypique, groupe scolaire, événement sur-mesure… Chaque demande est unique. Contactez-nous directement pour un devis 100% adapté.
+              {t('salle.seminaires.callout.desc')}
             </p>
             <div class="flex flex-wrap items-center gap-3 mt-4">
               <a
@@ -133,13 +134,13 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
                 class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-brun-terre text-white text-sm font-bold hover:bg-brun-terre/90 transition-colors"
               >
                 <Icon name="lucide:phone" class="w-4 h-4" />
-                Appelez-nous
+                {t('salle.seminaires.callout.phone')}
               </a>
               <a
                 href={buildQuoteMailto(siteEmail, 'Demande particulière')}
                 class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white/60 text-brun-terre text-sm font-bold hover:bg-white/80 transition-colors"
               >
-                Envoyer un mail
+                {t('salle.seminaires.callout.email')}
                 <Icon name="lucide:arrow-right" class="w-4 h-4" />
               </a>
             </div>
@@ -154,12 +155,12 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12" data-reveal>
-        <p class="section-eyebrow mb-3" style={`color: ${salleAccent}80;`}>Cohésion</p>
+        <p class="section-eyebrow mb-3" style={`color: ${salleAccent}80;`}>{t('salle.seminaires.tb.eyebrow')}</p>
         <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4 text-gray-900">
-          Team building
+          {t('salle.seminaires.tb.title')}
         </h2>
         <p class="text-gray-600 max-w-2xl mx-auto">
-          Renforcez la cohésion de votre équipe avec nos activités sur site et nos programmes encadrés par un coach professionnel.
+          {t('salle.seminaires.tb.desc')}
         </p>
       </div>
 
@@ -171,17 +172,17 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
               <Icon name="lucide:trees" class="w-6 h-6 text-aventure" />
             </span>
             <div>
-              <h3 class="font-heading text-lg font-bold text-gray-900">Activités plein air</h3>
-              <p class="text-sm text-gray-500">En autonomie, sur le site</p>
+              <h3 class="font-heading text-lg font-bold text-gray-900">{t('salle.seminaires.tb.outdoor.title')}</h3>
+              <p class="text-sm text-gray-500">{t('salle.seminaires.tb.outdoor.subtitle')}</p>
             </div>
           </div>
           <ul class="space-y-3">
             {[
-              { icon: 'lucide:target', label: 'Archery Tag', desc: 'Stratégie et esprit d\'équipe' },
-              { icon: 'lucide:waves', label: 'Paddle & Canoë', desc: 'Cohésion sur le lac' },
-              { icon: 'lucide:bike', label: 'VTT', desc: 'Exploration nature en groupe' },
-              { icon: 'lucide:compass', label: 'Course d\'orientation', desc: 'Logique et communication' },
-              { icon: 'lucide:anchor', label: 'Pédalo', desc: 'Détente et convivialité' },
+              { icon: 'lucide:target', label: t('salle.seminaires.tb.outdoor.archery'), desc: t('salle.seminaires.tb.outdoor.archery.desc') },
+              { icon: 'lucide:waves', label: t('salle.seminaires.tb.outdoor.paddle'), desc: t('salle.seminaires.tb.outdoor.paddle.desc') },
+              { icon: 'lucide:bike', label: t('salle.seminaires.tb.outdoor.vtt'), desc: t('salle.seminaires.tb.outdoor.vtt.desc') },
+              { icon: 'lucide:compass', label: t('salle.seminaires.tb.outdoor.orientation'), desc: t('salle.seminaires.tb.outdoor.orientation.desc') },
+              { icon: 'lucide:anchor', label: t('salle.seminaires.tb.outdoor.pedalo'), desc: t('salle.seminaires.tb.outdoor.pedalo.desc') },
             ].map((item) => (
               <li class="flex items-center gap-3 text-sm">
                 <Icon name={item.icon} class="w-4 h-4 text-aventure flex-shrink-0" />
@@ -195,7 +196,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
             href={getLocalizedPath('/aventure', lang)}
             class="inline-flex items-center gap-1 mt-6 text-sm font-medium text-aventure hover:underline"
           >
-            Voir toutes les activités
+            {t('salle.seminaires.tb.outdoor.cta')}
             <Icon name="lucide:arrow-right" class="w-4 h-4" />
           </a>
         </div>
@@ -205,7 +206,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
           <div class="absolute top-4 right-4">
             <span class="inline-flex items-center gap-1 text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full text-white" style={`background-color: ${salleAccent};`}>
               <Icon name="lucide:sparkles" class="w-3 h-3" />
-              Premium
+              {t('salle.seminaires.tb.premium')}
             </span>
           </div>
           <div class="flex items-center gap-3 mb-6">
@@ -213,17 +214,17 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
               <Icon name="lucide:trophy" class="w-6 h-6" style={`color: ${salleAccent};`} />
             </span>
             <div>
-              <h3 class="font-heading text-lg font-bold text-gray-900">Coaching professionnel</h3>
-              <p class="text-sm text-gray-500">Encadré par un coach spécialisé</p>
+              <h3 class="font-heading text-lg font-bold text-gray-900">{t('salle.seminaires.tb.coaching.title')}</h3>
+              <p class="text-sm text-gray-500">{t('salle.seminaires.tb.coaching.subtitle')}</p>
             </div>
           </div>
           <ul class="space-y-3">
             {[
-              { icon: 'lucide:flame', label: 'Épreuves type Koh-Lanta', desc: 'Dépassement de soi' },
-              { icon: 'lucide:brain', label: 'Préparation mentale', desc: 'Gestion du stress et focus' },
-              { icon: 'lucide:users', label: 'Cohésion d\'équipe', desc: 'Exercices de confiance et communication' },
-              { icon: 'lucide:puzzle', label: 'Épreuves de logique', desc: 'Résolution de problèmes en équipe' },
-              { icon: 'lucide:medal', label: 'Défis sportifs', desc: 'Parcours et épreuves physiques' },
+              { icon: 'lucide:flame', label: t('salle.seminaires.tb.coaching.kohlanta'), desc: t('salle.seminaires.tb.coaching.kohlanta.desc') },
+              { icon: 'lucide:brain', label: t('salle.seminaires.tb.coaching.mental'), desc: t('salle.seminaires.tb.coaching.mental.desc') },
+              { icon: 'lucide:users', label: t('salle.seminaires.tb.coaching.cohesion'), desc: t('salle.seminaires.tb.coaching.cohesion.desc') },
+              { icon: 'lucide:puzzle', label: t('salle.seminaires.tb.coaching.logic'), desc: t('salle.seminaires.tb.coaching.logic.desc') },
+              { icon: 'lucide:medal', label: t('salle.seminaires.tb.coaching.sport'), desc: t('salle.seminaires.tb.coaching.sport.desc') },
             ].map((item) => (
               <li class="flex items-center gap-3 text-sm">
                 <Icon name={item.icon} class="w-4 h-4 flex-shrink-0" style={`color: ${salleAccent};`} />
@@ -238,7 +239,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
             class="inline-flex items-center gap-2 mt-6 font-heading font-semibold text-sm text-white px-7 py-3.5 rounded-full transition-all hover:shadow-lg hover:-translate-y-px"
             style={`background-color: ${salleAccent};`}
           >
-            Demander un devis
+            {t('salle.seminaires.tb.coaching.cta')}
             <Icon name="lucide:arrow-right" class="w-4 h-4" />
           </a>
         </div>
@@ -249,7 +250,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
   <!-- L'ESPACE — Venue specs (proof/details) -->
   <div class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-      <p class="section-eyebrow mb-4" style={`color: ${salleAccent}80;`}>L'espace</p>
+      <p class="section-eyebrow mb-4" style={`color: ${salleAccent}80;`}>{t('salle.seminaires.venue.eyebrow')}</p>
       <h2 class="font-heading text-2xl font-bold mb-2 text-gray-900">
         {t('salle.venue.title')}
       </h2>
@@ -268,7 +269,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
   <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style={`background-color: ${salleAccent};`}>
     <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 70% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);"></div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
-      <p class="section-eyebrow text-white/40 mb-3">Devis</p>
+      <p class="section-eyebrow text-white/40 mb-3">{t('salle.seminaires.contact.eyebrow')}</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4">
         {t('common.requestQuoteDesc')}
       </h2>
