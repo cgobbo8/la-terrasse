@@ -74,11 +74,6 @@
   let hamburgerBtn = $state<HTMLButtonElement | null>(null);
   let closeBtn = $state<HTMLButtonElement | null>(null);
 
-  /** Pole colors via CSS variables — no hardcoded hex */
-  function poleColor(poleId: string): string {
-    return `var(--color-${poleId}, var(--color-brun-terre))`;
-  }
-
   // Portal: move overlay + panel to document.body
   // to escape header's backdrop-blur containing block
   $effect(() => {
@@ -212,8 +207,7 @@
             <a
               href={pole.href}
               onclick={close}
-              class="flex-1 py-3 font-semibold text-[0.9375rem]"
-              style="color: {poleColor(pole.id)}"
+              class="flex-1 py-3 font-heading font-semibold text-[0.9375rem] text-brun-terre"
             >
               {pole.label}
             </a>
@@ -249,14 +243,14 @@
 
       <!-- Agenda + Directions links -->
       <div class="mt-5 mb-2 border-b border-gray-100 pb-3">
-        <a href={agendaLink.href} onclick={close} class="block py-3 font-semibold text-[0.9375rem] text-brun-terre hover:text-brun-terre/80 transition-colors">
+        <a href={agendaLink.href} onclick={close} class="block py-3 font-heading font-semibold text-[0.9375rem] text-brun-terre hover:text-brun-terre/80 transition-colors">
           {agendaLink.label}
         </a>
         <a
           href={directionsLink.href}
           target="_blank"
           rel="noopener noreferrer"
-          class="flex items-center gap-2 py-3 font-semibold text-[0.9375rem] text-brun-terre hover:text-brun-terre/80 transition-colors"
+          class="flex items-center gap-2 py-3 font-heading font-semibold text-[0.9375rem] text-brun-terre hover:text-brun-terre/80 transition-colors"
         >
           <MapPin class="w-4 h-4" strokeWidth={1.5} />
           {directionsLink.label}
@@ -268,7 +262,7 @@
         <a
           href={ctaHref}
           onclick={close}
-          class="flex items-center justify-center gap-2 w-full text-center min-h-12 px-4 py-3.5 rounded-full font-semibold text-[0.9375rem] transition-all duration-200 hover:shadow-md hover:brightness-95"
+          class="flex items-center justify-center gap-2 w-full text-center min-h-12 px-4 py-3.5 rounded-full font-heading font-semibold text-[0.9375rem] transition-all duration-200 hover:shadow-md hover:brightness-95"
           style="background-color: {ctaColor}; color: {ctaTextColor}"
         >
           {#if ctaIcon}<Phone class="w-4 h-4" strokeWidth={1.5} />{/if}

@@ -124,7 +124,7 @@
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 lg:mb-24" bind:this={introEl} style="opacity: 0;">
-      <p class="section-eyebrow text-brun-terre/40 mb-4" style="display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">Votre journée</p>
+      <p class="section-eyebrow text-brun-terre/40 mb-4">Votre journée</p>
       <h2 class="font-heading text-3xl lg:text-5xl font-bold text-brun-terre">
         {sectionTitle}
       </h2>

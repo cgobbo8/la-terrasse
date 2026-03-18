@@ -4,9 +4,9 @@
 @source "../components/**/*.svelte";
 
 /* ========================================
-   Syne — Google Fonts (variable, SIL OFL)
-   Bold geometric display font
-   Loaded via @fontsource-variable/syne
+   Syne — Bold geometric display font (headings, nav, buttons)
+   Montserrat — Clean geometric body font
+   Both loaded via @fontsource-variable
    ======================================== */
 
 /* ========================================
@@ -67,7 +67,7 @@
 
   /* Typography */
   --font-heading: 'Syne Variable', 'Syne', sans-serif;
-  --font-body: 'DM Sans Variable', 'DM Sans', sans-serif;
+  --font-body: 'Montserrat Variable', 'Montserrat', sans-serif;
 
   /* Spacing scale */
   --spacing-section: 7rem;

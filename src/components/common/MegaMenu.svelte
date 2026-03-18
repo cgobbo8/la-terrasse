@@ -216,7 +216,7 @@
       <a
         bind:this={triggerElements[pole.id]}
         href={pole.href}
-        class="inline-flex items-center gap-1 px-3 py-5 text-sm font-medium transition-colors hover:text-brun-terre focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+        class="inline-flex items-center gap-1 px-3 py-5 text-sm font-heading font-medium transition-colors hover:text-brun-terre focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
         style="{currentPole === pole.id ? `color: ${poleVar(pole.accentColor)}` : 'color: var(--color-gray-600)'}; outline-color: {poleVar(pole.accentColor)}"
         aria-haspopup="true"
         aria-expanded={activeMenu === pole.id}
@@ -252,7 +252,7 @@
               <!-- Multi-column: grouped by category -->
               {#each [...grouped.entries()] as [category, links]}
                 <div>
-                  <p class="text-[0.8125rem] font-bold uppercase tracking-wider mb-3" style="color: {poleVar(pole.accentColor)}">{category}</p>
+                  <p class="text-[0.8125rem] font-heading font-bold uppercase tracking-wider mb-3" style="color: {poleVar(pole.accentColor)}">{category}</p>
                   {#each links as link}
                     <a
                       href={link.href}
@@ -268,7 +268,7 @@
                         <svelte:component this={iconMap[link.icon ?? 'compass']} class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
                       </span>
                       <span class="flex flex-col min-w-0">
-                        <span class="text-sm font-semibold text-gray-800 leading-tight">{link.label}</span>
+                        <span class="text-sm font-heading font-semibold text-gray-800 leading-tight">{link.label}</span>
                         {#if link.description}
                           <span class="text-xs text-gray-400 mt-0.5 leading-tight">{link.description}</span>
                         {/if}
@@ -280,7 +280,7 @@
             {:else}
               <!-- Single column: flat list -->
               <div>
-                <p class="text-[0.6875rem] font-semibold uppercase tracking-wider text-gray-400 mb-3">{labelExplore}</p>
+                <p class="text-[0.6875rem] font-heading font-semibold uppercase tracking-wider text-gray-400 mb-3">{labelExplore}</p>
                 {#each pole.subLinks as link}
                   <a
                     href={link.href}
@@ -296,7 +296,7 @@
                       <svelte:component this={iconMap[link.icon ?? 'compass']} class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
                     </span>
                     <span class="flex flex-col min-w-0">
-                      <span class="text-sm font-semibold text-gray-800 leading-tight">{link.label}</span>
+                      <span class="text-sm font-heading font-semibold text-gray-800 leading-tight">{link.label}</span>
                       {#if link.description}
                         <span class="text-xs text-gray-400 mt-0.5 leading-tight">{link.description}</span>
                       {/if}
@@ -336,7 +336,7 @@
                     {/if}
                   </div>
                   <div class="p-3 flex flex-col gap-1 flex-1">
-                    <span class="text-[0.8125rem] font-bold text-gray-800 leading-tight">{pole.featured.title}</span>
+                    <span class="text-[0.8125rem] font-heading font-bold text-gray-800 leading-tight">{pole.featured.title}</span>
                     <span class="text-[0.6875rem] text-gray-600 leading-snug">{pole.featured.description}</span>
                     <span
                       class="inline-flex items-center gap-1 text-xs font-semibold mt-auto pt-1.5"
@@ -374,7 +374,7 @@
   <!-- Agenda link -->
   <a
     href={agendaLink.href}
-    class="inline-flex items-center px-3 py-5 text-sm font-medium text-gray-400 hover:text-brun-terre transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+    class="inline-flex items-center px-3 py-5 text-sm font-heading font-medium text-gray-400 hover:text-brun-terre transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
     style="outline-color: var(--color-brun-terre)"
     data-nav-trigger
   >
@@ -386,7 +386,7 @@
     href={directionsLink.href}
     target="_blank"
     rel="noopener noreferrer"
-    class="inline-flex items-center gap-1.5 px-3 py-5 text-sm font-medium text-gray-400 hover:text-brun-terre transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+    class="inline-flex items-center gap-1.5 px-3 py-5 text-sm font-heading font-medium text-gray-400 hover:text-brun-terre transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
     style="outline-color: var(--color-brun-terre)"
     data-nav-trigger
   >
@@ -412,7 +412,7 @@
   <!-- CTA -->
   <a
     href={ctaHref}
-    class="ml-2 min-h-11 px-6 py-2.5 rounded-full text-sm font-semibold transition-all duration-200 hover:shadow-md hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-full inline-flex items-center gap-2"
+    class="ml-2 min-h-11 px-6 py-2.5 rounded-full text-sm font-heading font-semibold transition-all duration-200 hover:shadow-md hover:-translate-y-px focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-full inline-flex items-center gap-2"
     style="background-color: {ctaColor}; color: {ctaTextColor}; outline-color: {ctaColor}"
   >
     {#if ctaIcon}<Phone class="w-4 h-4" strokeWidth={1.5} />{/if}
