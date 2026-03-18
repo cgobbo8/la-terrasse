@@ -27,20 +27,28 @@ menuSections:
           cerises confites, oignons frits, Tomme de vache, salade
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Le Chef Burger (fries)
+        name_es: Le Chef (patatas fritas)
+        description_en: >-
+          Brioche bun, 150g beef patty, homemade aïoli, confit cherry tomatoes,
+          fried onions, Tomme cheese, salad
+        description_es: >-
+          Pan brioche, hamburguesa de ternera 150g, alioli casero, tomates
+          cherry confitados, cebollas fritas, queso Tomme, ensalada
       - name: Le gourmand (frites)
         description: >-
           Pain burger croissant, steak haché de bœuf 150g, tomates cerises
           confites, oignons frits, cheddar, sauce mayo épicée, salade
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Le Gourmand Burger (fries)
+        name_es: Le Gourmand (patatas fritas)
+        description_en: >-
+          Croissant burger bun, 150g beef patty, confit cherry tomatoes,
+          fried onions, cheddar, spicy mayo sauce, salad
+        description_es: >-
+          Pan croissant, hamburguesa de ternera 150g, tomates cherry
+          confitados, cebollas fritas, cheddar, salsa mayo picante, ensalada
 
   # ============================
   # MIDI — Plats
@@ -56,28 +64,36 @@ menuSections:
           tomates cerises confites, oignons frits
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Bagel (fries / salad)
+        name_es: Bagel (patatas fritas / ensalada)
+        description_en: >-
+          Smoked salmon, lemon chive cream, salad, grated carrots, radishes,
+          confit cherry tomatoes, fried onions
+        description_es: >-
+          Salmón ahumado, crema de limón y cebollino, ensalada, zanahoria
+          rallada, rábanos, tomates cherry confitados, cebollas fritas
       - name: Croque-monsieur feuilleté de canard confit (frites / salade)
-        description: ''
+        description: Feuilleté croustillant garni de canard confit fondant
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Duck confit puff pastry croque-monsieur (fries / salad)
+        name_es: Croque-monsieur de hojaldre con pato confitado (patatas fritas / ensalada)
+        description_en: Crispy puff pastry filled with tender duck confit
+        description_es: Hojaldre crujiente relleno de pato confitado tierno
       - name: Poke Bowl
         description: >-
           Riz vinaigré, poulet, avocat, fêta, sésame noir et crudités de
           saison. Sauce : huile d'olive, citron, gingembre ou sauce mayo épicée
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Poke Bowl
+        name_es: Poke Bowl
+        description_en: >-
+          Seasoned rice, chicken, avocado, feta, black sesame and seasonal raw
+          vegetables. Sauce: olive oil, lemon, ginger or spicy mayo
+        description_es: >-
+          Arroz avinagrado, pollo, aguacate, feta, sésamo negro y crudités de
+          temporada. Salsa: aceite de oliva, limón, jengibre o mayo picante
       - name: Poke Bowl végétarien (sans poulet)
         description: >-
           Riz vinaigré, avocat, fêta, sésame noir et crudités de saison.
@@ -85,10 +101,14 @@ menuSections:
         price: ''
         tags:
           - végétarien
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Vegetarian Poke Bowl (no chicken)
+        name_es: Poke Bowl vegetariano (sin pollo)
+        description_en: >-
+          Seasoned rice, avocado, feta, black sesame and seasonal raw
+          vegetables. Sauce: olive oil, lemon, ginger or spicy mayo
+        description_es: >-
+          Arroz avinagrado, aguacate, feta, sésamo negro y crudités de
+          temporada. Salsa: aceite de oliva, limón, jengibre o mayo picante
 
   # ============================
   # MIDI — Salades
@@ -103,10 +123,10 @@ menuSections:
         price: ''
         tags:
           - végétarien
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: La Cabriole
+        name_es: La Cabriole
+        description_en: 'Salad, warm goat cheese toasts with honey, walnuts, raw vegetables'
+        description_es: 'Ensalada, tostas de queso de cabra caliente con miel, nueces, crudités'
       - name: L'estivale
         description: >-
           Salade, fêta, tomates, poivrons grillés, concombre, avocat, oignons
@@ -114,20 +134,24 @@ menuSections:
         price: ''
         tags:
           - végétarien
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: L'Estivale
+        name_es: L'Estivale
+        description_en: >-
+          Salad, feta, tomatoes, grilled peppers, cucumber, avocado,
+          fried onions
+        description_es: >-
+          Ensalada, feta, tomates, pimientos asados, pepino, aguacate,
+          cebollas fritas
       - name: L'italienne
         description: >-
           Tomates, Burrata 120g, huile d'olive, oignon rouge, basilic frais
         price: ''
         tags:
           - végétarien
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: L'Italienne
+        name_es: L'Italienne
+        description_en: 'Tomatoes, 120g Burrata, olive oil, red onion, fresh basil'
+        description_es: 'Tomates, Burrata 120g, aceite de oliva, cebolla roja, albahaca fresca'
 
   # ============================
   # MIDI — À la carte
@@ -138,21 +162,21 @@ menuSections:
     title_es: A la carta
     dishes:
       - name: Bol de frites
-        description: ''
+        description: Frites maison croustillantes
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Bowl of Fries
+        name_es: Bol de patatas fritas
+        description_en: Crispy homemade fries
+        description_es: Patatas fritas caseras crujientes
       - name: Assiette de fromages
-        description: ''
+        description: Sélection de fromages de la région
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Cheese Plate
+        name_es: Tabla de quesos
+        description_en: Selection of regional cheeses
+        description_es: Selección de quesos de la región
 
   # ============================
   # DESSERTS
@@ -163,45 +187,45 @@ menuSections:
     title_es: Postres
     dishes:
       - name: Salade de fruits
-        description: ''
+        description: Fruits frais de saison
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Fruit Salad
+        name_es: Ensalada de frutas
+        description_en: Fresh seasonal fruits
+        description_es: Frutas frescas de temporada
       - name: Tiramisu café
-        description: ''
+        description: Tiramisu classique au café
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Coffee Tiramisu
+        name_es: Tiramisú de café
+        description_en: Classic coffee tiramisu
+        description_es: Tiramisú clásico de café
       - name: Moelleux au chocolat
-        description: ''
+        description: Cœur coulant au chocolat noir
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Chocolate Lava Cake
+        name_es: Coulant de chocolate
+        description_en: Dark chocolate molten cake
+        description_es: Bizcocho fundente de chocolate negro
       - name: Crêpes
         description: 'Sucre, Nutella, caramel beurre salé'
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Crêpes
+        name_es: Crêpes
+        description_en: 'Sugar, Nutella, or salted caramel'
+        description_es: 'Azúcar, Nutella o caramelo con mantequilla salada'
       - name: Glaces
-        description: ''
+        description: Choix de parfums artisanaux
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Ice Cream
+        name_es: Helados
+        description_en: Choice of artisanal flavours
+        description_es: Selección de sabores artesanales
 
   # ============================
   # TAPAS DU SOIR
@@ -212,71 +236,71 @@ menuSections:
     title_es: Tapas de noche
     dishes:
       - name: Croque-monsieur de canard
-        description: ''
+        description: Croque-monsieur garni de canard confit
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Duck Croque-Monsieur
+        name_es: Croque-monsieur de pato
+        description_en: Croque-monsieur filled with duck confit
+        description_es: Croque-monsieur relleno de pato confitado
       - name: Navette alsacienne
         description: 'Par 2, 4 ou 6'
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Alsatian Navette
+        name_es: Navette alsaciana
+        description_en: 'Serves 2, 4 or 6'
+        description_es: 'Por 2, 4 o 6'
       - name: Planche charcuterie
         description: 'Taille M ou L'
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Charcuterie Board
+        name_es: Tabla de embutidos
+        description_en: 'Size M or L'
+        description_es: 'Tamaño M o L'
       - name: Planche mixte charcuterie fromages
         description: 'Taille M ou L'
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Mixed Charcuterie & Cheese Board
+        name_es: Tabla mixta de embutidos y quesos
+        description_en: 'Size M or L'
+        description_es: 'Tamaño M o L'
       - name: Assiette de fromages
-        description: ''
+        description: Sélection de fromages de la région
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Cheese Plate
+        name_es: Tabla de quesos
+        description_en: Selection of regional cheeses
+        description_es: Selección de quesos de la región
       - name: Toasts grillés et ses tartinables
         description: 'Houmous, tapenade olive noire et caviar d''aubergines'
         price: ''
         tags:
           - végétarien
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Grilled Toasts with Spreads
+        name_es: Tostas a la parrilla con untables
+        description_en: 'Hummus, black olive tapenade and eggplant caviar'
+        description_es: 'Hummus, tapenade de aceituna negra y caviar de berenjena'
       - name: Burrata 120g et ses toasts grillés
         description: 'Huile d''olive et basilic frais'
         price: ''
         tags:
           - végétarien
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: 120g Burrata with Grilled Toasts
+        name_es: Burrata 120g con tostas a la parrilla
+        description_en: 'Olive oil and fresh basil'
+        description_es: 'Aceite de oliva y albahaca fresca'
       - name: Bol de frites
-        description: ''
+        description: Frites maison croustillantes
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Bowl of Fries
+        name_es: Bol de patatas fritas
+        description_en: Crispy homemade fries
+        description_es: Patatas fritas caseras crujientes
 
   # ============================
   # MENU ENFANT
@@ -287,34 +311,34 @@ menuSections:
     title_es: Menú infantil
     dishes:
       - name: 1 sirop
-        description: ''
+        description: Sirop au choix
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: 1 Syrup Drink
+        name_es: 1 Sirope
+        description_en: Choice of syrup
+        description_es: Sirope a elegir
       - name: Nuggets frites ou petit poke bowl
-        description: ''
+        description: Au choix de l'enfant
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: Nuggets & Fries or Small Poke Bowl
+        name_es: Nuggets con patatas fritas o mini poke bowl
+        description_en: Child's choice
+        description_es: A elección del niño
       - name: 1 glace
-        description: ''
+        description: Parfum au choix
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: 1 Ice Cream
+        name_es: 1 Helado
+        description_en: Choice of flavour
+        description_es: Sabor a elegir
       - name: 1 cadeau
-        description: ''
+        description: Petit cadeau surprise
         price: ''
         tags: []
-        name_en: ''
-        name_es: ''
-        description_en: ''
-        description_es: ''
+        name_en: 1 Gift
+        name_es: 1 Regalo
+        description_en: A little surprise gift
+        description_es: Un pequeño regalo sorpresa
