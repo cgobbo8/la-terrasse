@@ -12,6 +12,10 @@ import icon from 'astro-icon';
 export default defineConfig({
   site: process.env.SITE_URL || 'https://baseloisirs-saintferreol.fr',
   adapter: node({ mode: 'standalone' }),
+  server: {
+    host: true,
+    port: 4321,
+  },
   integrations: [svelte(), react(), mdx(), keystatic(), sitemap({
     i18n: {
       defaultLocale: 'fr',
