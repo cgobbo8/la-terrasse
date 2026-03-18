@@ -51,7 +51,11 @@
       if (!overlayEl) return;
 
       const displayLogo = overlayEl.querySelector('.display-logo');
-      const maskState = { size: 0 };
+      const LOGO_SIZE = 120;
+      const maskState = { size: LOGO_SIZE };
+
+      // Start mask at display logo size so the hole hides behind it
+      updateMaskSize(LOGO_SIZE);
 
       tl = gsap.timeline({
         onComplete: () => {
@@ -60,27 +64,21 @@
         },
       });
 
-      // Phase 1 (0–0.5s): logo at rest on brun-terre
-      // Phase 2 (0.5–1.0s): display logo fades + mask opens to ~200px
-      // Phase 3 (0.5–2.5s): mask scales to 5000px (hero fully revealed)
-      // Phase 4 (2.2–2.5s): overlay fades out
+      // Phase 1 (0–0.5s): logo at rest, mask hole hidden behind display logo
+      // Phase 2 (0.5–1.1s): display logo fades, revealing perfectly-aligned mask hole
+      // Phase 3 (0.8–2.3s): mask scales to 5000px (hero fully revealed)
+      // Phase 4 (2.0–2.3s): overlay fades out
       tl.to(displayLogo, {
         opacity: 0,
         duration: 0.6,
         ease: 'power1.in',
       }, 0.5)
         .to(maskState, {
-          size: 200,
-          duration: 0.6,
-          ease: 'power1.in',
-          onUpdate: () => updateMaskSize(maskState.size),
-        }, 0.5)
-        .to(maskState, {
           size: 5000,
           duration: 1.5,
           ease: 'power2.in',
           onUpdate: () => updateMaskSize(maskState.size),
-        })
+        }, 0.8)
         .to(overlayEl, {
           opacity: 0,
           duration: 0.3,
@@ -104,7 +102,6 @@
     <div class="display-logo">
       <svg
         width="120"
-        height="114"
         viewBox="0 0 112 107"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
