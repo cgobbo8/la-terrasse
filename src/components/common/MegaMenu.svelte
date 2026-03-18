@@ -22,6 +22,7 @@
   import GraduationCap from 'lucide-svelte/icons/graduation-cap';
   import Sun from 'lucide-svelte/icons/sun';
   import Phone from 'lucide-svelte/icons/phone';
+  import MapPin from 'lucide-svelte/icons/map-pin';
   import type { Component } from 'svelte';
 
   const iconMap: Record<string, Component> = {
@@ -77,9 +78,15 @@
     href: string;
   }
 
+  interface DirectionsLink {
+    label: string;
+    href: string;
+  }
+
   let {
     poles,
     agendaLink,
+    directionsLink,
     ctaLabel,
     ctaHref,
     ctaColor,
@@ -92,6 +99,7 @@
   }: {
     poles: PoleNav[];
     agendaLink: AgendaLink;
+    directionsLink: DirectionsLink;
     ctaLabel: string;
     ctaHref: string;
     ctaColor: string;
@@ -371,6 +379,19 @@
     data-nav-trigger
   >
     {agendaLink.label}
+  </a>
+
+  <!-- Directions link -->
+  <a
+    href={directionsLink.href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="inline-flex items-center gap-1.5 px-3 py-5 text-sm font-medium text-gray-400 hover:text-brun-terre transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded"
+    style="outline-color: var(--color-brun-terre)"
+    data-nav-trigger
+  >
+    <MapPin class="w-3.5 h-3.5" strokeWidth={1.5} />
+    {directionsLink.label}
   </a>
 
   <!-- Language switcher (pill) -->

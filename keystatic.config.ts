@@ -30,6 +30,9 @@ export default config({
           directory: 'public/images/producers',
           publicPath: '/images/producers/',
         }),
+        location: fields.text({ label: 'Lieu (ex: Saint-Félix de Lauragais)' }),
+        distance: fields.integer({ label: 'Distance depuis Saint-Ferréol (km)' }),
+        website: fields.url({ label: 'Site web du producteur' }),
         // i18n
         product_en: fields.text({ label: 'Product (EN)' }),
         product_es: fields.text({ label: 'Producto (ES)' }),
@@ -202,7 +205,17 @@ export default config({
         philosophy_es: fields.text({ label: 'Filosofía (ES)', multiline: true }),
         menuSections: fields.array(
           fields.object({
-            title: fields.text({ label: 'Titre de section (ex: Entrées)' }),
+            group: fields.select({
+              label: 'Moment',
+              defaultValue: 'midi',
+              options: [
+                { label: 'Midi', value: 'midi' },
+                { label: 'Desserts', value: 'desserts' },
+                { label: 'Soir', value: 'soir' },
+                { label: 'Menu enfant', value: 'enfant' },
+              ],
+            }),
+            title: fields.text({ label: 'Titre de section (ex: Burgers, Salades)' }),
             title_en: fields.text({ label: 'Section title (EN)' }),
             title_es: fields.text({ label: 'Título de sección (ES)' }),
             dishes: fields.array(

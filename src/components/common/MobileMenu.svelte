@@ -4,6 +4,7 @@
   import X from 'lucide-svelte/icons/x';
   import ChevronDown from 'lucide-svelte/icons/chevron-down';
   import Phone from 'lucide-svelte/icons/phone';
+  import MapPin from 'lucide-svelte/icons/map-pin';
 
   interface SubLink {
     label: string;
@@ -23,9 +24,15 @@
     href: string;
   }
 
+  interface DirectionsLink {
+    label: string;
+    href: string;
+  }
+
   let {
     poles,
     agendaLink,
+    directionsLink,
     ctaLabel,
     ctaHref,
     ctaColor,
@@ -39,6 +46,7 @@
   }: {
     poles: PoleNav[];
     agendaLink: AgendaLink;
+    directionsLink: DirectionsLink;
     ctaLabel: string;
     ctaHref: string;
     ctaColor: string;
@@ -239,10 +247,19 @@
         </div>
       {/each}
 
-      <!-- Agenda link -->
+      <!-- Agenda + Directions links -->
       <div class="mt-5 mb-2 border-b border-gray-100 pb-3">
         <a href={agendaLink.href} onclick={close} class="block py-3 font-semibold text-[0.9375rem] text-brun-terre hover:text-brun-terre/80 transition-colors">
           {agendaLink.label}
+        </a>
+        <a
+          href={directionsLink.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 py-3 font-semibold text-[0.9375rem] text-brun-terre hover:text-brun-terre/80 transition-colors"
+        >
+          <MapPin class="w-4 h-4" strokeWidth={1.5} />
+          {directionsLink.label}
         </a>
       </div>
 

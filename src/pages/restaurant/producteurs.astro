@@ -81,6 +81,9 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
               photo={producer.entry.photo ?? '/images/placeholders/daniel-jacob.webp'}
               product={getLocalizedField(producer.entry, 'product', lang)}
               story={getLocalizedField(producer.entry, 'story', lang)}
+              location={producer.entry.location}
+              distance={producer.entry.distance}
+              website={producer.entry.website}
             />
           ))}
         </div>

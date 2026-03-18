@@ -102,6 +102,7 @@ const megaMenuPoles = [
 ];
 
 const agendaLink = { label: t('nav.agenda'), href: getLocalizedPath('/agenda', lang) };
+const directionsLink = { label: t('nav.directions'), href: 'https://maps.app.goo.gl/5PVLyYcRyFGBVCG87' };
 
 const mobilePoles = megaMenuPoles.map(p => ({
   id: p.id,
@@ -149,6 +150,7 @@ const logoAccent = pole ? poleConfigs[pole].accent : brandColors.soleil;
         client:only="svelte"
         poles={megaMenuPoles}
         agendaLink={agendaLink}
+        directionsLink={directionsLink}
         ctaLabel={ctaLabelLocalized}
         ctaHref={contactHref}
         ctaColor={cta.accent}
@@ -165,6 +167,7 @@ const logoAccent = pole ? poleConfigs[pole].accent : brandColors.soleil;
         client:only="svelte"
         poles={mobilePoles}
         agendaLink={agendaLink}
+        directionsLink={directionsLink}
         ctaLabel={ctaLabelLocalized}
         ctaHref={contactHref}
         ctaColor={cta.accent}
