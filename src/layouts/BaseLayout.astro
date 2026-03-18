@@ -71,8 +71,6 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
     <!-- Using IO instead of ScrollTrigger: immune to pin-spacer position shifts
          from client:only Svelte islands (JourneeTypeTimeline) -->
     <script>
-      import gsap from 'gsap';
-
       if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         const isHidden = (el: Element) =>
           window.getComputedStyle(el).display === 'none';
@@ -82,6 +80,13 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
           threshold: 0,
         };
 
+        // GSAP loaded lazily on first intersection
+        let gsapPromise: Promise<{ gsap: typeof import('gsap').gsap }> | null = null;
+        function getGsap() {
+          if (!gsapPromise) gsapPromise = import('gsap');
+          return gsapPromise;
+        }
+
         // ── [data-reveal] ──
         const revealObserver = new IntersectionObserver((entries) => {
           entries.forEach((entry) => {
@@ -89,16 +94,16 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
             revealObserver.unobserve(entry.target);
             const el = entry.target as HTMLElement;
 
-            if (el.querySelector('[data-reveal-stagger]')) {
-              // Container wrapping a stagger group — clear CSS opacity:0 immediately.
-              // Animating the parent AND children creates compound opacity that looks jerky.
-              gsap.set(el, { opacity: 1 });
-            } else {
-              gsap.fromTo(el,
-                { opacity: 0, y: 28, filter: 'blur(8px)' },
-                { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: 'power3.out' }
-              );
-            }
+            getGsap().then(({ gsap }) => {
+              if (el.querySelector('[data-reveal-stagger]')) {
+                gsap.set(el, { opacity: 1 });
+              } else {
+                gsap.fromTo(el,
+                  { opacity: 0, y: 28, filter: 'blur(8px)' },
+                  { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: 'power3.out' }
+                );
+              }
+            });
           });
         }, ioOpts);
 
@@ -111,14 +116,13 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
             const children = Array.from(el.children).filter((c) => !isHidden(c));
             if (!children.length) return;
 
-            // Parent [data-reveal] is set to opacity:1 immediately — no delay needed
-            const delay = 0;
-
-            gsap.fromTo(
-              children,
-              { opacity: 0, y: 20, filter: 'blur(4px)' },
-              { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.08, duration: 0.8, ease: 'power3.out', delay }
-            );
+            getGsap().then(({ gsap }) => {
+              gsap.fromTo(
+                children,
+                { opacity: 0, y: 20, filter: 'blur(4px)' },
+                { opacity: 1, y: 0, filter: 'blur(0px)', stagger: 0.08, duration: 0.8, ease: 'power3.out' }
+              );
+            });
           });
         }, ioOpts);
 

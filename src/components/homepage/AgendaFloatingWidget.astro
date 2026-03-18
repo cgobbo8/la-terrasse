@@ -124,15 +124,15 @@ const displayEvents = upcomingEvents.map((event) => ({
 </style>
 
 <script>
-  import gsap from 'gsap';
-
   const widget = document.querySelector<HTMLElement>('[data-agenda-widget]');
   if (widget && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    // Slide up after hero text sequence completes
-    // No blur: parent filter breaks child backdrop-filter (glassmorphism)
-    gsap.fromTo(widget,
-      { opacity: 0, y: 24 },
-      { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.85 }
-    );
+    import('gsap').then(({ gsap }) => {
+      // Slide up after hero text sequence completes
+      // No blur: parent filter breaks child backdrop-filter (glassmorphism)
+      gsap.fromTo(widget,
+        { opacity: 0, y: 24 },
+        { opacity: 1, y: 0, duration: 0.9, ease: 'power3.out', delay: 0.85 }
+      );
+    });
   }
 </script>

@@ -130,7 +130,6 @@ const allCards = [...leftCards, ...rightCards];
     transform: rotate(var(--cr, 0deg)) translateX(var(--cx, 0px));
     transition: transform 0.45s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
     cursor: default;
-    will-change: transform;
   }
 
   .soiree-card:hover {
@@ -140,10 +139,6 @@ const allCards = [...leftCards, ...rightCards];
 </style>
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
-
   const wrapper = document.querySelector<HTMLElement>('[data-soirees-explode]');
 
   if (
@@ -155,29 +150,30 @@ const allCards = [...leftCards, ...rightCards];
     const leftOuters = wrapper.querySelectorAll<HTMLElement>('.soiree-outer-left');
     const rightOuters = wrapper.querySelectorAll<HTMLElement>('.soiree-outer-right');
 
-    // Use IntersectionObserver instead of ScrollTrigger — unaffected by pin spacers
-    // from client:only Svelte islands (JourneeTypeTimeline) that load asynchronously
+    // Use IntersectionObserver — unaffected by pin spacers
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
           observer.unobserve(entry.target);
 
-          gsap.fromTo(center,
-            { opacity: 0, y: 16, filter: 'blur(8px)' },
-            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' }
-          );
-          leftOuters.forEach((el, i) => {
-            gsap.fromTo(el,
-              { x: 390, opacity: 0 },
-              { x: 0, opacity: 1, duration: 0.8, ease: 'power4.out', delay: 0.1 + i * 0.1 }
+          import('gsap').then(({ gsap }) => {
+            gsap.fromTo(center,
+              { opacity: 0, y: 16, filter: 'blur(8px)' },
+              { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.7, ease: 'power3.out' }
             );
-          });
-          rightOuters.forEach((el, i) => {
-            gsap.fromTo(el,
-              { x: -390, opacity: 0 },
-              { x: 0, opacity: 1, duration: 0.8, ease: 'power4.out', delay: 0.15 + i * 0.1 }
-            );
+            leftOuters.forEach((el, i) => {
+              gsap.fromTo(el,
+                { x: 390, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.8, ease: 'power4.out', delay: 0.1 + i * 0.1 }
+              );
+            });
+            rightOuters.forEach((el, i) => {
+              gsap.fromTo(el,
+                { x: -390, opacity: 0 },
+                { x: 0, opacity: 1, duration: 0.8, ease: 'power4.out', delay: 0.15 + i * 0.1 }
+              );
+            });
           });
         });
       },

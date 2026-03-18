@@ -115,9 +115,9 @@ h1 { letter-spacing: -0.03em; }
    Vibrant photo treatment — warm, saturated (summer feel)
    ======================================== */
 
-img:not([data-raw]) {
-  filter: saturate(1.2) brightness(1.03);
-}
+/* Removed: global filter on all images was forcing GPU layer promotion
+   for every <img> on the page — major compositing overhead.
+   Images should be color-graded at source (WebP export). */
 
 /* ========================================
    Card hover lift — reliable translate + shadow transition

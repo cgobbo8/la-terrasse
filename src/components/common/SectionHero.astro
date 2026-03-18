@@ -39,7 +39,7 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
       alt=""
       width={1920}
       height={1080}
-      class="absolute inset-0 w-full h-full object-cover scale-[1.15] will-change-transform"
+      class="absolute inset-0 w-full h-full object-cover scale-[1.15]"
       loading="eager"
       fetchpriority="high"
       decoding="sync"
@@ -94,59 +94,56 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
 </style>
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
-
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    document.querySelectorAll<HTMLElement>('[data-hero-parallax]').forEach((section) => {
-      // ── Parallax on image ──
-      const image = section.querySelector<HTMLElement>('[data-hero-image]');
-      if (image) {
-        gsap.to(image, {
-          y: '20%',
-          ease: 'none',
-          scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: true },
-        });
-      }
+    import('gsap').then(({ gsap }) => {
+      document.querySelectorAll<HTMLElement>('[data-hero-parallax]').forEach((section) => {
+        const heading = section.querySelector<HTMLElement>('[data-hero-heading]');
+        const sub = section.querySelector<HTMLElement>('[data-hero-sub]');
+        const cta = section.querySelector<HTMLElement>('[data-hero-cta]');
 
-      const heading = section.querySelector<HTMLElement>('[data-hero-heading]');
-      const sub = section.querySelector<HTMLElement>('[data-hero-sub]');
-      const cta = section.querySelector<HTMLElement>('[data-hero-cta]');
+        if (heading) {
+          gsap.fromTo(heading,
+            { opacity: 0, y: 36, filter: 'blur(16px)', scale: 0.96 },
+            { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1, duration: 1.1, ease: 'power3.out', delay: 0.1 }
+          );
+        }
+        if (sub) {
+          gsap.fromTo(sub,
+            { opacity: 0, y: 22, filter: 'blur(10px)' },
+            { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: 'power3.out', delay: 0.35 }
+          );
+        }
+        if (cta) {
+          gsap.fromTo(cta,
+            { opacity: 0, y: 16 },
+            { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.55 }
+          );
+        }
 
-      // ── h1: blur + scale + y ──
-      if (heading) {
-        gsap.fromTo(heading,
-          { opacity: 0, y: 36, filter: 'blur(16px)', scale: 0.96 },
-          { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1, duration: 1.1, ease: 'power3.out', delay: 0.1 }
-        );
-      }
+        // Parallax + sunburst need ScrollTrigger
+        const image = section.querySelector<HTMLElement>('[data-hero-image]');
+        const heroSunburst = section.querySelector<HTMLElement>('[data-hero-sunburst]');
 
-      // ── subtitle: lighter blur, offset delay ──
-      if (sub) {
-        gsap.fromTo(sub,
-          { opacity: 0, y: 22, filter: 'blur(10px)' },
-          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 0.95, ease: 'power3.out', delay: 0.35 }
-        );
-      }
-
-      // ── CTA slot: simple fade-up, last ──
-      if (cta) {
-        gsap.fromTo(cta,
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.55 }
-        );
-      }
-
-      // ── Sunburst: slow rotation on scroll ──
-      const heroSunburst = section.querySelector<HTMLElement>('[data-hero-sunburst]');
-      if (heroSunburst) {
-        gsap.to(heroSunburst, {
-          rotation: 60,
-          ease: 'none',
-          scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: 1.5 },
-        });
-      }
+        if (image || heroSunburst) {
+          import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+            gsap.registerPlugin(ScrollTrigger);
+            if (image) {
+              gsap.to(image, {
+                y: '20%',
+                ease: 'none',
+                scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: true },
+              });
+            }
+            if (heroSunburst) {
+              gsap.to(heroSunburst, {
+                rotation: 60,
+                ease: 'none',
+                scrollTrigger: { trigger: section, start: 'top top', end: 'bottom top', scrub: 1.5 },
+              });
+            }
+          });
+        }
+      });
     });
   }
 </script>

@@ -68,7 +68,7 @@ const { tagline, subtitle } = Astro.props;
 
   <!-- Sunburst decoration — top left -->
   <div
-    class="absolute -top-[15%] -left-[10%] w-[clamp(280px,35vw,500px)] aspect-square pointer-events-none z-[1]"
+    class="absolute -top-[15%] -left-[10%] w-[clamp(280px,35vw,500px)] aspect-square pointer-events-none z-[1] vh-sunburst-spin"
     data-vh-sunburst
   >
     <Sunburst variant={1} size="100%" />
@@ -90,6 +90,13 @@ const { tagline, subtitle } = Astro.props;
   [data-vh-scroll] {
     opacity: 0;
   }
+  @keyframes vh-sunburst-idle {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+  }
+  .vh-sunburst-spin {
+    animation: vh-sunburst-idle 20s linear infinite;
+  }
   @media (prefers-reduced-motion: reduce) {
     [data-vh-heading],
     [data-vh-sub],
@@ -97,67 +104,62 @@ const { tagline, subtitle } = Astro.props;
     [data-vh-scroll] {
       opacity: 1 !important;
     }
+    .vh-sunburst-spin {
+      animation: none;
+    }
   }
 </style>
 
 <script>
-  import gsap from 'gsap';
-  import { ScrollTrigger } from 'gsap/ScrollTrigger';
-  gsap.registerPlugin(ScrollTrigger);
-
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const heading = document.querySelector<HTMLElement>('[data-vh-heading]');
-    const sub = document.querySelector<HTMLElement>('[data-vh-sub]');
-    const cta = document.querySelector<HTMLElement>('[data-vh-cta]');
-    const scroll = document.querySelector<HTMLElement>('[data-vh-scroll]');
-    const sunburst = document.querySelector<HTMLElement>('[data-vh-sunburst]');
+    import('gsap').then(({ gsap }) => {
+      const heading = document.querySelector<HTMLElement>('[data-vh-heading]');
+      const sub = document.querySelector<HTMLElement>('[data-vh-sub]');
+      const cta = document.querySelector<HTMLElement>('[data-vh-cta]');
+      const scroll = document.querySelector<HTMLElement>('[data-vh-scroll]');
+      const sunburst = document.querySelector<HTMLElement>('[data-vh-sunburst]');
 
-    if (heading) {
-      gsap.fromTo(heading,
-        { opacity: 0, y: 40, filter: 'blur(18px)', scale: 0.95 },
-        { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1, duration: 1.2, ease: 'power3.out', delay: 0.15 }
-      );
-    }
-    if (sub) {
-      gsap.fromTo(sub,
-        { opacity: 0, y: 24, filter: 'blur(10px)' },
-        { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out', delay: 0.4 }
-      );
-    }
-    if (cta) {
-      gsap.fromTo(cta,
-        { opacity: 0, y: 18 },
-        { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.65 }
-      );
-    }
-    if (scroll) {
-      gsap.fromTo(scroll,
-        { opacity: 0 },
-        { opacity: 1, duration: 0.6, ease: 'power2.out', delay: 1.1 }
-      );
-    }
+      if (heading) {
+        gsap.fromTo(heading,
+          { opacity: 0, y: 40, filter: 'blur(18px)', scale: 0.95 },
+          { opacity: 1, y: 0, filter: 'blur(0px)', scale: 1, duration: 1.2, ease: 'power3.out', delay: 0.15 }
+        );
+      }
+      if (sub) {
+        gsap.fromTo(sub,
+          { opacity: 0, y: 24, filter: 'blur(10px)' },
+          { opacity: 1, y: 0, filter: 'blur(0px)', duration: 1.0, ease: 'power3.out', delay: 0.4 }
+        );
+      }
+      if (cta) {
+        gsap.fromTo(cta,
+          { opacity: 0, y: 18 },
+          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 0.65 }
+        );
+      }
+      if (scroll) {
+        gsap.fromTo(scroll,
+          { opacity: 0 },
+          { opacity: 1, duration: 0.6, ease: 'power2.out', delay: 1.1 }
+        );
+      }
 
-    // Sunburst: slow idle rotation + scroll-accelerated spin
-    if (sunburst) {
-      // Slow continuous rotation (20s per full turn)
-      const idleSpin = gsap.to(sunburst, {
-        rotation: 360,
-        duration: 20,
-        ease: 'none',
-        repeat: -1,
-      });
-
-      // Scroll adds extra rotation on top (smooth scrub)
-      gsap.to(sunburst, {
-        rotation: '+=180',
-        ease: 'none',
-        scrollTrigger: {
-          trigger: '.video-hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1.5,
-        },
-      });
-    }
+      // Sunburst: scroll-accelerated spin only (CSS handles idle rotation)
+      if (sunburst) {
+        import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+          gsap.registerPlugin(ScrollTrigger);
+          gsap.to(sunburst, {
+            rotation: '+=180',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: '.video-hero',
+              start: 'top top',
+              end: 'bottom top',
+              scrub: 1.5,
+            },
+          });
+        });
+      }
+    });
   }
 </script>

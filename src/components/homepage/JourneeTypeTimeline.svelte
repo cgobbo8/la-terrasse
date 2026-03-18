@@ -137,7 +137,6 @@
       {#each timeBlocks as block, i}
         <article
           class="timeline-card min-w-[80vw] md:min-w-[50vw] lg:min-w-[33vw] max-w-md flex-shrink-0 rounded-2xl overflow-hidden border border-gray-200/60 bg-white"
-          style="will-change: transform, opacity;"
         >
           <div class="aspect-[16/9] overflow-hidden relative">
             <img
