@@ -1,12 +1,12 @@
 ---
 /**
- * MenuSection — renders a course section (Entrées, Plats, etc.)
- * Pure Astro, zero JS. Brun terre pole accent.
+ * MenuSection — A single category within the menu (e.g. Burgers, Salads).
+ * Airy editorial design with generous spacing and elegant typography.
  */
 interface Dish {
   name: string;
   description?: string;
-  price: string;
+  price?: string;
   tags?: string[];
 }
 
@@ -14,9 +14,10 @@ interface Props {
   title: string;
   dishes: Dish[];
   accent: string;
+  hideTitle?: boolean;
 }
 
-const { title, dishes, accent } = Astro.props;
+const { title, dishes, accent, hideTitle = false } = Astro.props;
 
 function formatPrice(raw: string): string {
   const num = parseFloat(raw);
@@ -25,24 +26,32 @@ function formatPrice(raw: string): string {
 }
 ---
 
-<div class="mb-14 lg:mb-18" data-reveal>
-  <h3
-    class="font-heading text-xl lg:text-2xl font-bold mb-8 pb-3 flex items-center gap-4 text-gray-900"
-  >
-    <span>{title}</span>
-    <span class="flex-1 h-[2px]" style={`background-color: ${accent}30`}></span>
-  </h3>
+<div class="menu-category" data-reveal>
+  {!hideTitle && (
+    <div class="flex items-center gap-4 mb-6">
+      <span class="h-px flex-1" style={`background: ${accent}20`}></span>
+      <h3
+        class="font-heading text-xs sm:text-sm uppercase tracking-[0.2em] font-bold shrink-0"
+        style={`color: ${accent}`}
+      >
+        {title}
+      </h3>
+      <span class="h-px flex-1" style={`background: ${accent}20`}></span>
+    </div>
+  )}
 
-  <ul class="space-y-1">
+  <ul class="space-y-5">
     {dishes.map((dish) => (
-      <li class="flex flex-wrap items-baseline gap-x-4 py-3 border-b border-gray-100/80 last:border-b-0">
-        <div class="flex-1 min-w-0">
-          <span class="font-bold text-base lg:text-lg text-gray-900">{dish.name}</span>
+      <li>
+        <div class="flex items-baseline gap-2">
+          <span class="font-heading text-base lg:text-lg font-semibold text-gray-800 shrink-0">
+            {dish.name}
+          </span>
           {dish.tags && dish.tags.length > 0 && (
-            <span class="inline-flex gap-1 ml-2">
+            <span class="inline-flex gap-1 shrink-0">
               {dish.tags.map((tag) => (
                 <span
-                  class="inline-block text-[0.6875rem] font-semibold px-2 py-0.5 rounded-full"
+                  class="text-[0.65rem] font-semibold px-2 py-0.5 rounded-full"
                   style={`background-color: ${accent}12; color: ${accent}`}
                 >
                   {tag}
@@ -50,17 +59,28 @@ function formatPrice(raw: string): string {
               ))}
             </span>
           )}
-          {dish.description && (
-            <p class="text-sm text-gray-500 mt-1 leading-relaxed">{dish.description}</p>
+          {dish.price && dish.price.trim() !== '' && (
+            <>
+              <span class="flex-1 border-b border-dotted min-w-[2rem]" style={`border-color: ${accent}25`}></span>
+              <span
+                class="font-heading font-bold text-base shrink-0"
+                style={`color: ${accent}; font-variant-numeric: tabular-nums`}
+              >
+                {formatPrice(dish.price)}
+              </span>
+            </>
           )}
         </div>
-        <span
-          class="font-bold text-base lg:text-lg flex-none"
-          style={`color: ${accent}; font-variant-numeric: tabular-nums`}
-        >
-          {formatPrice(dish.price)}
-        </span>
+        {dish.description && (
+          <p class="text-sm text-gray-500 mt-1 leading-relaxed max-w-xl">{dish.description}</p>
+        )}
       </li>
     ))}
   </ul>
 </div>
+
+<style>
+  .menu-category + .menu-category {
+    margin-top: 2.5rem;
+  }
+</style>

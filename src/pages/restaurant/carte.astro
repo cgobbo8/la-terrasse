@@ -1,7 +1,8 @@
 ---
 /**
  * LA CARTE — Restaurant menu page
- * Brun terre identity, Keystatic-powered menu sections
+ * Editorial layout: each service period as a full-width section,
+ * generous whitespace, elegant typographic hierarchy.
  */
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
@@ -18,14 +19,44 @@ const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const restaurant = poleConfigs.restaurant;
+const accent = restaurant.accent;
 
 // Load menu data from Keystatic
 const reader = createReader(process.cwd(), keystaticConfig);
 const restaurantData = await reader.singletons.restaurant.read();
 const menuSections = restaurantData?.menuSections ?? [];
 
+// Group sections by period
+const midiSections = menuSections.filter((s) => s.group === 'midi');
+const soirSections = menuSections.filter((s) => s.group === 'soir');
+const dessertsSections = menuSections.filter((s) => s.group === 'desserts');
+const enfantSections = menuSections.filter((s) => s.group === 'enfant');
+
+// Helper to localize dishes
+function localizeDishes(dishes: typeof menuSections[0]['dishes']) {
+  return dishes.map((dish) => ({
+    name: getLocalizedField(dish, 'name', lang),
+    description: getLocalizedField(dish, 'description', lang) || undefined,
+    price: dish.price || undefined,
+    tags: dish.tags ?? [],
+  }));
+}
+
 const seoTitle = 'La Carte — Restaurant | La Terrasse Saint-Ferréol';
-const seoDescription = 'Découvrez la carte du restaurant La Terrasse : entrées, plats, desserts et boissons. Cuisine locale et de saison au lac de Saint-Ferréol.';
+const seoDescription = 'Découvrez la carte du restaurant La Terrasse : burgers, salades, tapas du soir et menu enfant. Cuisine locale et de saison au lac de Saint-Ferréol.';
+
+// i18n labels
+const i18n: Record<string, Record<string, string>> = {
+  midi: { fr: 'Le Midi', en: 'Lunch', es: 'Mediodía' },
+  midiSub: { fr: 'Servi du lundi au dimanche', en: 'Served Monday to Sunday', es: 'Servido de lunes a domingo' },
+  soir: { fr: 'Le Soir', en: 'Evening', es: 'Noche' },
+  soirSub: { fr: 'Tapas, planches & partage', en: 'Tapas, boards & sharing', es: 'Tapas, tablas y platos para compartir' },
+  desserts: { fr: 'Les Desserts', en: 'Desserts', es: 'Postres' },
+  enfant: { fr: 'Menu Enfant', en: "Kids' Menu", es: 'Menú Infantil' },
+};
+function label(key: string) {
+  return i18n[key]?.[lang] ?? i18n[key]?.fr ?? key;
+}
 ---
 
 <BaseLayout
@@ -34,7 +65,7 @@ const seoDescription = 'Découvrez la carte du restaurant La Terrasse : entrées
   pole="restaurant"
   pagePath="/restaurant/carte"
 >
-  <!-- Hero — Brun terre with food image -->
+  <!-- Hero -->
   <SectionHero
     tagline={t('restaurant.menu.heroTitle')}
     subtitle={t('restaurant.menu.heroSubtitle')}
@@ -42,54 +73,217 @@ const seoDescription = 'Découvrez la carte du restaurant La Terrasse : entrées
     image="/images/heroes/carte.webp"
   />
 
-  <!-- Breadcrumb + Menu content -->
-  <section class="py-12 lg:py-24">
-    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Breadcrumb -->
-      <nav class="mb-8" aria-label="Breadcrumb">
-        <ol class="flex items-center gap-2 text-sm">
-          <li>
-            <a
-              href={getLocalizedPath('/restaurant', lang)}
-              class="font-medium uppercase tracking-wider hover:underline"
-              style={`color: ${restaurant.accent}; font-variant: small-caps`}
-            >
-              Restaurant
-            </a>
-          </li>
-          <li class="text-gray-400" aria-hidden="true">/</li>
-          <li class="text-gray-500">{t('restaurant.menu.breadcrumb')}</li>
-        </ol>
+  {menuSections.length > 0 ? (
+    <>
+      <!-- Navigation rapide -->
+      <nav class="sticky top-16 z-30 border-b" style={`background: rgba(255,251,245,0.95); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); border-color: ${accent}15`} data-menu-nav data-accent={accent}>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6">
+          <div class="flex items-center justify-center gap-6 sm:gap-10 py-3">
+            {midiSections.length > 0 && (
+              <a href="#midi" class="menu-nav-link font-heading text-xs sm:text-sm font-bold uppercase tracking-[0.15em] transition-colors" style={`color: ${accent}70`} data-nav-target="midi">
+                {label('midi')}
+              </a>
+            )}
+            {soirSections.length > 0 && (
+              <a href="#soir" class="menu-nav-link font-heading text-xs sm:text-sm font-bold uppercase tracking-[0.15em] transition-colors" style={`color: ${accent}70`} data-nav-target="soir">
+                {label('soir')}
+              </a>
+            )}
+            {dessertsSections.length > 0 && (
+              <a href="#desserts" class="menu-nav-link font-heading text-xs sm:text-sm font-bold uppercase tracking-[0.15em] transition-colors" style={`color: ${accent}70`} data-nav-target="desserts">
+                {label('desserts')}
+              </a>
+            )}
+            {enfantSections.length > 0 && (
+              <a href="#enfant" class="menu-nav-link font-heading text-xs sm:text-sm font-bold uppercase tracking-[0.15em] transition-colors" style={`color: ${accent}70`} data-nav-target="enfant">
+                {label('enfant')}
+              </a>
+            )}
+          </div>
+        </div>
       </nav>
 
-      <!-- Menu sections -->
-      {menuSections.length > 0 ? (
-        menuSections.map((section) => {
-          const sectionTitle = getLocalizedField(section, 'title', lang);
-          const localizedDishes = section.dishes.map((dish) => ({
-            name: getLocalizedField(dish, 'name', lang),
-            description: getLocalizedField(dish, 'description', lang) || undefined,
-            price: dish.price ?? '0',
-            tags: dish.tags ?? [],
-          }));
-          return (
-            <MenuSection
-              title={sectionTitle}
-              dishes={localizedDishes}
-              accent={restaurant.accent}
-            />
-          );
-        })
-      ) : (
+      {/* ═══════════════════════════════════════════
+          MIDI
+          ═══════════════════════════════════════════ */}
+      {midiSections.length > 0 && (
+        <section id="midi" class="py-16 lg:py-24 scroll-mt-20">
+          <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Period header */}
+            <div class="text-center mb-14" data-reveal>
+              <p class="section-eyebrow mb-3" style={`color: ${accent}80`}>
+                {label('midiSub')}
+              </p>
+              <h2
+                class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight"
+                style={`color: ${accent}`}
+              >
+                {label('midi')}
+              </h2>
+              <div class="flex items-center justify-center gap-3 mt-5">
+                <span class="w-10 h-px" style={`background: ${accent}30`}></span>
+                <Icon name="lucide:utensils" class="w-4 h-4" style={`color: ${accent}40`} />
+                <span class="w-10 h-px" style={`background: ${accent}30`}></span>
+              </div>
+            </div>
+
+            {/* Menu categories */}
+            <div class="space-y-0">
+              {midiSections.map((section) => (
+                <MenuSection
+                  title={getLocalizedField(section, 'title', lang)}
+                  dishes={localizeDishes(section.dishes)}
+                  accent={accent}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════════════════════════════════════
+          LE SOIR
+          ═══════════════════════════════════════════ */}
+      {soirSections.length > 0 && (
+        <section id="soir" class="py-16 lg:py-24 scroll-mt-20" style="background: #FFFBF5">
+          <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Period header */}
+            <div class="text-center mb-14" data-reveal>
+              <p class="section-eyebrow mb-3" style={`color: ${accent}80`}>
+                {label('soirSub')}
+              </p>
+              <h2
+                class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight"
+                style={`color: ${accent}`}
+              >
+                {label('soir')}
+              </h2>
+              <div class="flex items-center justify-center gap-3 mt-5">
+                <span class="w-10 h-px" style={`background: ${accent}30`}></span>
+                <Icon name="lucide:wine" class="w-4 h-4" style={`color: ${accent}40`} />
+                <span class="w-10 h-px" style={`background: ${accent}30`}></span>
+              </div>
+            </div>
+
+            {/* Menu categories */}
+            <div class="space-y-0">
+              {soirSections.map((section) => (
+                <MenuSection
+                  title={getLocalizedField(section, 'title', lang)}
+                  dishes={localizeDishes(section.dishes)}
+                  accent={accent}
+                  hideTitle={soirSections.length === 1}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════════════════════════════════════
+          DESSERTS
+          ═══════════════════════════════════════════ */}
+      {dessertsSections.length > 0 && (
+        <section id="desserts" class="py-16 lg:py-24 scroll-mt-20">
+          <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            {/* Period header */}
+            <div class="text-center mb-14" data-reveal>
+              <h2
+                class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight"
+                style={`color: ${accent}`}
+              >
+                {label('desserts')}
+              </h2>
+              <div class="flex items-center justify-center gap-3 mt-5">
+                <span class="w-10 h-px" style={`background: ${accent}30`}></span>
+                <Icon name="lucide:cake-slice" class="w-4 h-4" style={`color: ${accent}40`} />
+                <span class="w-10 h-px" style={`background: ${accent}30`}></span>
+              </div>
+            </div>
+
+            <div class="space-y-0">
+              {dessertsSections.map((section) => (
+                <MenuSection
+                  title={getLocalizedField(section, 'title', lang)}
+                  dishes={localizeDishes(section.dishes)}
+                  accent={accent}
+                  hideTitle={dessertsSections.length === 1}
+                />
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* ═══════════════════════════════════════════
+          MENU ENFANT — Warm card, distinct feel
+          ═══════════════════════════════════════════ */}
+      {enfantSections.length > 0 && (
+        <section id="enfant" class="py-16 lg:py-24 scroll-mt-20" style="background: #FFFBF5">
+          <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            {enfantSections.map((section) => {
+              const dishes = localizeDishes(section.dishes);
+              const price = dishes.find(d => d.price)?.price;
+              const formattedPrice = (() => {
+                if (!price) return '';
+                const num = parseFloat(price);
+                if (isNaN(num)) return price;
+                return num.toFixed(2).replace('.', ',') + ' \u20AC';
+              })();
+              return (
+                <div
+                  class="relative rounded-2xl overflow-hidden grain-overlay"
+                  style={`background-color: ${accent}`}
+                  data-reveal
+                >
+                  {/* Subtle radial glow */}
+                  <div class="absolute inset-0 opacity-[0.08]" style="background-image: radial-gradient(circle at 80% 30%, rgba(255,255,255,0.4) 0%, transparent 60%);"></div>
+
+                  <div class="relative flex flex-col sm:flex-row items-center gap-6 sm:gap-0 py-8 px-8 sm:px-0">
+                    {/* Left — Title block */}
+                    <div class="text-center sm:text-center sm:w-1/3 sm:px-8 shrink-0">
+                      <h2 class="font-heading text-2xl sm:text-3xl font-bold text-white">
+                        {label('enfant')}
+                      </h2>
+                      {formattedPrice && (
+                        <p class="font-heading font-bold text-lg mt-2 text-white/70">
+                          {formattedPrice}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Separator */}
+                    <div class="hidden sm:block w-px self-stretch bg-white/15"></div>
+                    <div class="sm:hidden w-16 h-px bg-white/15"></div>
+
+                    {/* Right — Items as pills */}
+                    <div class="flex-1 flex flex-wrap items-center justify-center gap-2.5 sm:px-8">
+                      {dishes.map((dish) => (
+                        <span class="inline-block px-4 py-1.5 rounded-full text-sm font-medium bg-white/15 text-white backdrop-blur-xs">
+                          {dish.name}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </section>
+      )}
+    </>
+  ) : (
+    <section class="py-16 lg:py-24">
+      <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="bg-gray-50 rounded-2xl p-12 text-center">
           <p class="text-gray-400">{t('restaurant.menu.empty')}</p>
         </div>
-      )}
-    </div>
-  </section>
+      </div>
+    </section>
+  )}
 
   <!-- CTA — Réserver votre table -->
-  <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style={`background-color: ${restaurant.accent}`}>
+  <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style={`background-color: ${accent}`}>
     <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);"></div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
       <p class="section-eyebrow text-white/40 mb-3">Réservation</p>
@@ -110,7 +304,7 @@ const seoDescription = 'Découvrez la carte du restaurant La Terrasse : entrées
         <a
           href={restaurant.ctaHref}
           class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px"
-          style={`background-color: white; color: ${restaurant.accent}`}
+          style={`background-color: white; color: ${accent}`}
         >
           {restaurant.ctaLabel}
           <Icon name="lucide:arrow-right" class="w-4 h-4" />
@@ -128,3 +322,60 @@ const seoDescription = 'Découvrez la carte du restaurant La Terrasse : entrées
 
   <CrossLinkBlock currentPole="restaurant" />
 </BaseLayout>
+
+<style>
+  .menu-nav-link {
+    position: relative;
+    padding-bottom: 0.375rem;
+  }
+
+  .menu-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    border-radius: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.33, 1, 0.68, 1);
+  }
+
+  .menu-nav-link.active::after {
+    transform: scaleX(1);
+  }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-menu-nav]');
+  if (nav) {
+    const accent = nav.dataset.accent!;
+    const links = nav.querySelectorAll<HTMLAnchorElement>('[data-nav-target]');
+    const sectionIds = Array.from(links).map((l) => l.dataset.navTarget!);
+    const sections = sectionIds
+      .map((id) => document.getElementById(id))
+      .filter(Boolean) as HTMLElement[];
+
+    function setActive(id: string) {
+      links.forEach((link) => {
+        const isActive = link.dataset.navTarget === id;
+        link.classList.toggle('active', isActive);
+        link.style.color = isActive ? accent : `${accent}70`;
+      });
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            setActive(entry.target.id);
+          }
+        }
+      },
+      { rootMargin: '-20% 0px -60% 0px' }
+    );
+
+    sections.forEach((s) => observer.observe(s));
+  }
+</script>
