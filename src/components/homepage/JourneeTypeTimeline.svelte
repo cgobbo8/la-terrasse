@@ -81,17 +81,26 @@
           });
         }
 
+        // Extra scroll so last card reaches center before unpin
+        const EXTRA_SCROLL = window.innerWidth * 0.5;
+
         // onUpdate on the TWEEN (not ScrollTrigger) — stays in sync with scrub
         scrollTween = gsap.to(trackEl, {
-          x: () => -(trackEl.scrollWidth - window.innerWidth),
+          x: () => -(trackEl.scrollWidth - window.innerWidth + EXTRA_SCROLL),
           ease: 'none',
           onUpdate: updateCurve,
           scrollTrigger: {
             trigger: sectionEl,
             pin: true,
             scrub: 1,
-            end: () => `+=${trackEl.scrollWidth - window.innerWidth}`,
+            end: () => `+=${trackEl.scrollWidth - window.innerWidth + EXTRA_SCROLL}`,
             invalidateOnRefresh: true,
+            onRefresh: (self) => {
+              // Style pin-spacer background to avoid white gap
+              if (self.spacer) {
+                self.spacer.style.backgroundColor = '#FFFBF5';
+              }
+            },
           },
         });
 
@@ -109,18 +118,12 @@
 
 <section
   bind:this={sectionEl}
-  class="journee-section relative pt-16 lg:pt-20 bg-offwhite overflow-hidden"
+  class={`journee-section relative bg-offwhite overflow-hidden ${useAnimation ? 'min-h-screen flex flex-col justify-center' : 'pt-16 lg:pt-20'}`}
   role="region"
   aria-label={sectionTitle}
 >
-  <!-- Sunburst decoration — left center, variant 4 -->
-  <div class="absolute top-[10%] -left-[6%] w-[clamp(180px,22vw,320px)] aspect-square pointer-events-none sunburst-journee" aria-hidden="true">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" fill="#FFFF80" class="w-full h-full">
-      <path d="M 85.0 74.0 C 77.3 55.4 81.0 29.0 110.2 2.5 C 124.2 25.4 121.5 60.5 115.0 74.0 C 127.2 58.1 152.0 48.0 189.5 60.1 C 176.7 83.7 145.0 98.8 130.0 100.0 C 149.9 102.6 171.0 119.0 179.3 157.6 C 152.5 158.3 123.5 138.4 115.0 126.0 C 122.7 144.6 119.0 171.0 89.8 197.5 C 75.8 174.6 78.5 139.5 85.0 126.0 C 72.8 141.9 48.0 152.0 10.5 139.9 C 23.3 116.3 55.0 101.2 70.0 100.0 C 50.1 97.4 29.0 81.0 20.7 42.4 C 47.5 41.7 76.5 61.6 85.0 74.0 Z" />
-    </svg>
-  </div>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="text-center mb-8 lg:mb-10" bind:this={introEl} style="opacity: 0;">
+    <div class="text-center mb-16 lg:mb-24" bind:this={introEl} style="opacity: 0;">
       <p class="section-eyebrow text-brun-terre/40 mb-4" style="display: inline-block; font-family: 'Montserrat', sans-serif; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase;">Votre journée</p>
       <h2 class="font-heading text-3xl lg:text-5xl font-bold text-brun-terre">
         {sectionTitle}
@@ -136,7 +139,7 @@
     >
       {#each timeBlocks as block, i}
         <article
-          class="timeline-card min-w-[80vw] md:min-w-[50vw] lg:min-w-[33vw] max-w-md flex-shrink-0 rounded-2xl overflow-hidden border border-gray-200/60 bg-white"
+          class="timeline-card min-w-[80vw] md:min-w-[min(50vw,520px)] lg:min-w-[min(33vw,520px)] max-w-[520px] flex-shrink-0 rounded-2xl overflow-hidden border border-gray-200/60 bg-white"
         >
           <div class="aspect-[16/9] overflow-hidden relative">
             <img
@@ -215,17 +218,3 @@
   {/if}
 </section>
 
-<style>
-  @keyframes sunburst-slow-spin {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-  .sunburst-journee {
-    animation: sunburst-slow-spin 35s linear infinite;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .sunburst-journee {
-      animation: none;
-    }
-  }
-</style>
