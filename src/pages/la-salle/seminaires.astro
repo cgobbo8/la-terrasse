@@ -13,6 +13,7 @@ import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
 import { buildQuoteMailto, poleConfigs } from '@/lib/pole-config';
+import { getSiteSettings, toTelHref } from '@/lib/site-settings';
 import { createReader } from '@keystatic/core/reader';
 
 const { accent: salleAccent, light: salleLight } = poleConfigs.salle;
@@ -22,7 +23,10 @@ import keystaticConfig from '../../../keystatic.config';
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
-// Load seminar packages + venue data from Keystatic
+// Load settings + seminar packages + venue data from Keystatic
+const siteSettings = await getSiteSettings();
+const siteEmail = siteSettings?.email ?? '';
+const telHref = toTelHref(siteSettings?.phone ?? '');
 const reader = createReader(process.cwd(), keystaticConfig);
 const allSeminars = await reader.collections.seminars.all();
 const venueData = await reader.singletons.venue.read();
@@ -48,7 +52,7 @@ const packages = seminars.map((s) => ({
   includes: [...(s.entry.includes ?? [])],
   priceFrom: s.entry.priceFrom ?? 'Sur devis',
   features: s.entry.features,
-  ctaHref: buildQuoteMailto(s.entry.title),
+  ctaHref: buildQuoteMailto(siteEmail, s.entry.title),
   highlighted: false,
 }));
 
@@ -74,8 +78,10 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
     </a>
   </SectionHero>
 
-  <!-- CONFIGURATEUR — Interactive pricing builder (primary action) -->
+  <!-- DEVIS — Configurateur + Callout custom -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+
+    <!-- Configurateur -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-10" data-reveal>
         <p class="section-eyebrow mb-3" style={`color: ${salleAccent}80;`}>Configurateur</p>
@@ -88,9 +94,59 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
       </div>
       <SeminarConfigurator
         accentColor={salleAccent}
-        quoteMailto={buildQuoteMailto('Séminaire')}
+        quoteMailto={buildQuoteMailto(siteEmail, 'Séminaire')}
         client:visible
       />
+    </div>
+
+    <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+
+      <!-- Séparateur "ou" -->
+      <div class="relative flex items-center gap-4 my-10">
+        <div class="flex-1 h-px bg-gray-300/60"></div>
+        <span class="font-heading font-bold text-xs uppercase tracking-widest text-gray-400">
+          ou votre projet est unique ?
+        </span>
+        <div class="flex-1 h-px bg-gray-300/60"></div>
+      </div>
+
+      <!-- Callout: demande particulière -->
+      <div
+        class="relative rounded-2xl p-6 overflow-hidden"
+        style="background: linear-gradient(135deg, var(--color-soleil) 0%, #FFE066 100%); border: 1.5px solid #E6D45C;"
+        data-reveal
+      >
+        <div class="flex flex-col sm:flex-row items-start gap-5">
+          <span class="w-12 h-12 rounded-xl bg-white/50 flex items-center justify-center flex-shrink-0">
+            <Icon name="lucide:message-circle" class="w-6 h-6 text-brun-terre" />
+          </span>
+          <div class="flex-1 min-w-0">
+            <p class="font-heading font-bold text-base text-brun-terre leading-tight">
+              Un projet qui sort de l'ordinaire ?
+            </p>
+            <p class="text-sm text-brun-terre/70 mt-1.5 leading-relaxed max-w-2xl">
+              Journée sportive, format atypique, groupe scolaire, événement sur-mesure… Chaque demande est unique. Contactez-nous directement pour un devis 100% adapté.
+            </p>
+            <div class="flex flex-wrap items-center gap-3 mt-4">
+              <a
+                href={telHref}
+                class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-brun-terre text-white text-sm font-bold hover:bg-brun-terre/90 transition-colors"
+              >
+                <Icon name="lucide:phone" class="w-4 h-4" />
+                Appelez-nous
+              </a>
+              <a
+                href={buildQuoteMailto(siteEmail, 'Demande particulière')}
+                class="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-white/60 text-brun-terre text-sm font-bold hover:bg-white/80 transition-colors"
+              >
+                Envoyer un mail
+                <Icon name="lucide:arrow-right" class="w-4 h-4" />
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </section>
 

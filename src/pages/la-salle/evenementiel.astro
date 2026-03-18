@@ -12,6 +12,7 @@ import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
 import { buildEventContactMailto, poleConfigs } from '@/lib/pole-config';
+import { getSiteSettings } from '@/lib/site-settings';
 import { createReader } from '@keystatic/core/reader';
 
 const { accent: salleAccent, light: salleLight } = poleConfigs.salle;
@@ -19,6 +20,9 @@ import keystaticConfig from '../../../keystatic.config';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
+
+const siteSettings = await getSiteSettings();
+const siteEmail = siteSettings?.email ?? '';
 
 // Load venue data
 const reader = createReader(process.cwd(), keystaticConfig);
@@ -78,7 +82,7 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
     pole="salle"
     image="/images/heroes/evenementiel.webp"
   >
-    <a href={buildEventContactMailto()} class="bg-white text-salle px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all inline-flex items-center gap-2">
+    <a href={buildEventContactMailto(siteEmail)} class="bg-white text-salle px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all inline-flex items-center gap-2">
       {t('salle.evenementiel.cta')}
     </a>
   </SectionHero>
@@ -166,7 +170,7 @@ const seoDescription = 'Louez notre salle au lac de Saint-Ferréol pour vos év�
         {t('salle.evenementiel.intro.desc')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
-        <a href={buildEventContactMailto()} class="bg-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px inline-flex items-center gap-2" style={`color: ${salleAccent};`}>
+        <a href={buildEventContactMailto(siteEmail)} class="bg-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px inline-flex items-center gap-2" style={`color: ${salleAccent};`}>
           <Icon name="lucide:mail" class="w-4 h-4" />
           {t('salle.evenementiel.cta')}
         </a>

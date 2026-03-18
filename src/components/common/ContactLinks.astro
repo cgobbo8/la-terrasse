@@ -1,6 +1,5 @@
 ---
 import { Icon } from 'astro-icon/components';
-import { PHONE_NUMBER, EMAIL_ADDRESS } from '@/lib/pole-config';
 
 interface Props {
   phone?: string;
@@ -8,7 +7,7 @@ interface Props {
   variant?: 'header' | 'footer';
 }
 
-const { phone = PHONE_NUMBER, email = EMAIL_ADDRESS, variant = 'header' } = Astro.props;
+const { phone = '', email = '', variant = 'header' } = Astro.props;
 
 function formatPhone(raw: string): string {
   const digits = raw.replace(/\D/g, '');

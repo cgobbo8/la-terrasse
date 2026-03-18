@@ -8,15 +8,20 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { generateLocalBusinessLD } from '@/lib/seo';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
-const phone = '05 61 83 XX XX';
-const phoneTel = '+33561830000';
-const email = 'contact@baseloisirs-saintferreol.fr';
+const reader = createReader(process.cwd(), keystaticConfig);
+const siteSettings = await reader.singletons.settings.read();
+
+const phone = siteSettings?.phone ?? '';
+const phoneTel = phone.replace(/\s/g, '').replace(/^0/, '+33');
+const email = siteSettings?.email ?? '';
+const googleMapsUrl = siteSettings?.googleMapsUrl ?? '';
 const googleMapsEmbedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5780.5!2d2.0505!3d43.4504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDI3JzAxLjQiTiAywrAwMycwMS44IkU!5e0!3m2!1sfr!2sfr!4v1';
-const googleMapsUrl = 'https://maps.app.goo.gl/5PVLyYcRyFGBVCG87';
 
 const jsonLd = generateLocalBusinessLD();
 ---
@@ -104,35 +109,35 @@ const jsonLd = generateLocalBusinessLD();
             <div class="space-y-4">
               <!-- Seasons -->
               <div class="rounded-xl p-6 border border-gray-200/60 bg-white">
-                <h3 class="section-eyebrow text-gray-400 mb-4">Saison</h3>
+                <h3 class="section-eyebrow text-gray-400 mb-4">{t('contact.hours.season')}</h3>
                 <div class="space-y-2">
                   <div class="flex justify-between items-center py-2.5 border-b border-gray-100">
-                    <span class="text-gray-800 font-medium">Mai & septembre</span>
-                    <span class="text-brun-terre font-bold text-sm">Weekends & jours fériés</span>
+                    <span class="text-gray-800 font-medium">{t('contact.hours.maySep')}</span>
+                    <span class="text-brun-terre font-bold text-sm">{t('contact.hours.maySepPeriod')}</span>
                   </div>
                   <div class="flex justify-between items-center py-2.5">
-                    <span class="text-gray-800 font-medium">Juin, juillet, août</span>
-                    <span class="text-brun-terre font-bold text-sm">Tous les jours</span>
+                    <span class="text-gray-800 font-medium">{t('contact.hours.summer')}</span>
+                    <span class="text-brun-terre font-bold text-sm">{t('contact.hours.summerPeriod')}</span>
                   </div>
                 </div>
               </div>
               <!-- Horaires -->
               <div class="rounded-xl p-6 border border-gray-200/60 bg-white">
-                <h3 class="section-eyebrow text-gray-400 mb-4">Horaires</h3>
+                <h3 class="section-eyebrow text-gray-400 mb-4">{t('contact.hours.schedule')}</h3>
                 <div class="space-y-2">
                   <div class="flex justify-between items-center py-2.5 border-b border-gray-100">
                     <span class="text-gray-800 font-medium flex items-center gap-2">
                       <Icon name="lucide:mountain" class="w-4 h-4 text-aventure" />
-                      Activités
+                      {t('contact.hours.activitiesLabel')}
                     </span>
-                    <span class="text-brun-terre font-bold">10h – 19h</span>
+                    <span class="text-brun-terre font-bold">{t('contact.hours.activitiesTime')}</span>
                   </div>
                   <div class="flex justify-between items-center py-2.5">
                     <span class="text-gray-800 font-medium flex items-center gap-2">
                       <Icon name="lucide:utensils" class="w-4 h-4 text-restaurant" />
-                      Restaurant
+                      {t('nav.restaurant')}
                     </span>
-                    <span class="text-brun-terre font-bold">9h – 22h</span>
+                    <span class="text-brun-terre font-bold">{t('contact.hours.restaurantTime')}</span>
                   </div>
                 </div>
               </div>
@@ -175,7 +180,7 @@ const jsonLd = generateLocalBusinessLD();
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12" data-reveal>
-        <p class="section-eyebrow text-brun-terre/60 mb-3">Accès</p>
+        <p class="section-eyebrow text-brun-terre/60 mb-3">{t('contact.directions.eyebrow')}</p>
         <h2 class="font-heading text-3xl font-bold text-brun-terre">
           {t('contact.directions.title')}
         </h2>

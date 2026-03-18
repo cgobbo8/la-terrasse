@@ -5,8 +5,6 @@ export interface PoleConfig {
   accent: string;
   accentDark: string;
   light: string;
-  ctaLabel: string;
-  ctaHref: string;
 }
 
 /** Centralized brand colors — single source of truth */
@@ -23,27 +21,25 @@ export const brandColors = {
   white: '#ffffff',
 } as const;
 
-/** Replace with actual phone number when provided by the client */
-export const PHONE_NUMBER = '+33000000000';
-export const EMAIL_ADDRESS = 'contact@baseloisirs-saintferreol.fr';
-
 /**
  * Build a mailto: link for quote requests.
+ * @param email — Contact email from site settings (site.yaml)
  * @param packageName — Optional seminar package name for subject specificity
  */
-export function buildQuoteMailto(packageName?: string): string {
+export function buildQuoteMailto(email: string, packageName?: string): string {
   const subject = packageName
     ? `Demande de devis — ${packageName}`
     : 'Demande de devis — Séminaire';
-  return `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(subject)}`;
+  return `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 }
 
 /**
  * Build a mailto: link for event inquiries (non-seminar).
+ * @param email — Contact email from site settings (site.yaml)
  */
-export function buildEventContactMailto(): string {
+export function buildEventContactMailto(email: string): string {
   const subject = 'Renseignements — Location de salle';
-  return `mailto:${EMAIL_ADDRESS}?subject=${encodeURIComponent(subject)}`;
+  return `mailto:${email}?subject=${encodeURIComponent(subject)}`;
 }
 
 export const poleConfigs: Record<Pole, PoleConfig> = {
@@ -52,35 +48,22 @@ export const poleConfigs: Record<Pole, PoleConfig> = {
     accent: '#E8603C',
     accentDark: '#C4452A',
     light: '#FFF3ED',
-    ctaLabel: 'Réserver ma table',
-    ctaHref: `tel:${PHONE_NUMBER}`,
   },
   aventure: {
     name: 'Aventure',
     accent: '#7CB342',
     accentDark: '#5A8A2E',
     light: '#F0F7E6',
-    ctaLabel: 'Réserver mon aventure',
-    ctaHref: `tel:${PHONE_NUMBER}`,
   },
   salle: {
     name: 'La Salle',
     accent: '#5B8DEF',
     accentDark: '#3D6FD1',
     light: '#EDF4FF',
-    ctaLabel: 'Nous contacter',
-    ctaHref: buildQuoteMailto(),
   },
 };
 
-export const defaultCta = {
-  label: 'Nous contacter',
-  href: `tel:${PHONE_NUMBER}`,
-  accent: brandColors.soleil,
-} as const;
-
-export function getCtaForPole(pole: Pole | null): { label: string; href: string; accent: string } {
-  if (!pole) return { ...defaultCta };
-  const config = poleConfigs[pole];
-  return { label: config.ctaLabel, href: config.ctaHref, accent: config.accent };
+export function getCtaAccent(pole: Pole | null): string {
+  if (!pole) return brandColors.soleil;
+  return poleConfigs[pole].accent;
 }

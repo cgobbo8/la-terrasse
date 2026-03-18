@@ -10,6 +10,7 @@ import ProducerCard from '@/components/restaurant/ProducerCard.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import { poleConfigs } from '@/lib/pole-config';
+import { getSiteSettings, toTelHref } from '@/lib/site-settings';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
 
@@ -17,6 +18,8 @@ const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const restaurant = poleConfigs.restaurant;
+const siteSettings = await getSiteSettings();
+const telHref = toTelHref(siteSettings?.phone ?? '');
 
 // Load producers from Keystatic
 const reader = createReader(process.cwd(), keystaticConfig);
@@ -106,11 +109,11 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
         {t('restaurant.producers.ctaSubtitle')}
       </p>
       <a
-        href={restaurant.ctaHref}
+        href={telHref}
         class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-heading font-semibold text-sm text-white transition-all hover:shadow-lg hover:-translate-y-px"
         style={`background-color: ${restaurant.accent}`}
       >
-        {restaurant.ctaLabel}
+        {t('restaurant.cta.label')}
         <Icon name="lucide:arrow-right" class="w-4 h-4" />
       </a>
     </div>

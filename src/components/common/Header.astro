@@ -1,7 +1,7 @@
 ---
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { languages, type Lang } from '@/i18n/translations';
-import { getCtaForPole, poleConfigs, brandColors } from '@/lib/pole-config';
+import { getCtaAccent, poleConfigs, brandColors } from '@/lib/pole-config';
 import MegaMenu from './MegaMenu.svelte';
 import MobileMenu from './MobileMenu.svelte';
 import LogoTerrasse from './LogoTerrasse.astro';
@@ -12,12 +12,13 @@ interface Props {
   ctaLabel?: string;
   ctaHref?: string;
   ctaIcon?: boolean;
+  googleMapsUrl?: string;
 }
 
-const { pole = null, ctaLabel: ctaLabelOverride, ctaHref: ctaHrefOverride, ctaIcon = false } = Astro.props;
+const { pole = null, ctaLabel: ctaLabelOverride, ctaHref: ctaHrefOverride, ctaIcon = false, googleMapsUrl } = Astro.props;
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
-const cta = getCtaForPole(pole);
+const ctaAccent = getCtaAccent(pole);
 
 const ctaLabelLocalized = ctaLabelOverride ?? (pole === 'aventure'
   ? t('aventure.cta.label')
@@ -102,7 +103,7 @@ const megaMenuPoles = [
 ];
 
 const agendaLink = { label: t('nav.agenda'), href: getLocalizedPath('/agenda', lang) };
-const directionsLink = { label: t('nav.directions'), href: 'https://maps.app.goo.gl/5PVLyYcRyFGBVCG87' };
+const directionsLink = { label: t('nav.directions'), href: googleMapsUrl ?? 'https://maps.app.goo.gl/5PVLyYcRyFGBVCG87' };
 
 const mobilePoles = megaMenuPoles.map(p => ({
   id: p.id,
@@ -128,6 +129,7 @@ const accentColors: Record<string, string> = {
 };
 
 const logoAccent = pole ? poleConfigs[pole].accent : brandColors.soleil;
+
 ---
 
 <header id="site-header" class="fixed top-0 left-0 right-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300" style={`--header-accent: ${logoAccent};`}>
@@ -153,7 +155,7 @@ const logoAccent = pole ? poleConfigs[pole].accent : brandColors.soleil;
         directionsLink={directionsLink}
         ctaLabel={ctaLabelLocalized}
         ctaHref={contactHref}
-        ctaColor={cta.accent}
+        ctaColor={ctaAccent}
         ctaIcon={ctaIcon}
         currentPole={pole}
         languages={languages}
@@ -170,7 +172,7 @@ const logoAccent = pole ? poleConfigs[pole].accent : brandColors.soleil;
         directionsLink={directionsLink}
         ctaLabel={ctaLabelLocalized}
         ctaHref={contactHref}
-        ctaColor={cta.accent}
+        ctaColor={ctaAccent}
         ctaIcon={ctaIcon}
         languages={languages}
         currentLang={lang}

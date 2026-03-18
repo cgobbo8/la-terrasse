@@ -8,6 +8,7 @@ import SEOHead from '@/components/common/SEOHead.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
 import { poleConfigs, type Pole } from '@/lib/pole-config';
+import { getSiteSettings } from '@/lib/site-settings';
 
 interface Props {
   title: string;
@@ -40,6 +41,11 @@ const t = useTranslations(lang);
 
 const poleConfig = pole ? poleConfigs[pole] : null;
 const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
+
+const siteSettings = await getSiteSettings();
+const sitePhone = siteSettings?.phone ?? '';
+const siteEmail = siteSettings?.email ?? '';
+const siteGoogleMapsUrl = siteSettings?.googleMapsUrl ?? '';
 ---
 
 <!doctype html>
@@ -61,11 +67,11 @@ const bgStyle = poleConfig ? `background-color: ${poleConfig.light};` : '';
     )}
   </head>
   <body class="min-h-screen flex flex-col" style={bgStyle}>
-    <Header pole={pole} ctaLabel={ctaLabel} ctaHref={ctaHref} ctaIcon={ctaIcon} />
+    <Header pole={pole} ctaLabel={ctaLabel} ctaHref={ctaHref} ctaIcon={ctaIcon} googleMapsUrl={siteGoogleMapsUrl} />
     <main class="flex-1 pt-16">
       <slot />
     </main>
-    <Footer />
+    <Footer phone={sitePhone} email={siteEmail} />
 
     <!-- Scroll-triggered reveal animations — IntersectionObserver + GSAP -->
     <!-- Using IO instead of ScrollTrigger: immune to pin-spacer position shifts

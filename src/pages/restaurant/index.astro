@@ -13,13 +13,17 @@ import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import SoireesSection from '@/components/homepage/SoireesSection.astro';
 import OffreJournee from '@/components/common/OffreJournee.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
-import { poleConfigs, PHONE_NUMBER } from '@/lib/pole-config';
+import { poleConfigs } from '@/lib/pole-config';
+import { getSiteSettings, toTelHref } from '@/lib/site-settings';
 import { generateRestaurantLD } from '@/lib/seo';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const restaurant = poleConfigs.restaurant;
+const siteSettings = await getSiteSettings();
+const phone = siteSettings?.phone ?? '';
+const telHref = toTelHref(phone);
 const jsonLd = generateRestaurantLD();
 
 const seoTitle = 'Restaurant & Soirées au lac de Saint-Ferréol — La Terrasse';
@@ -47,7 +51,7 @@ const subPages = [
   pole="restaurant"
   jsonLd={jsonLd}
   pagePath="/restaurant"
-  ctaHref={`tel:${PHONE_NUMBER}`}
+  ctaHref={telHref}
   ctaIcon={true}
 >
   <!-- Hero — Atmosphère, le moment vécu -->
@@ -132,15 +136,15 @@ const subPages = [
         {t('restaurant.hub.reserveSubtitle')}
       </p>
       <a
-        href={`tel:${PHONE_NUMBER}`}
+        href={telHref}
         class="inline-flex items-center gap-3 text-white text-2xl lg:text-3xl font-bold mb-10 hover:text-white/80 transition-colors"
       >
         <Icon name="lucide:phone" class="w-7 h-7" />
-        {PHONE_NUMBER.replace('+33', '0 ').replace(/(\d{1})(\d{2})(\d{2})(\d{2})(\d{2})/, '$1 $2 $3 $4 $5')}
+        {phone}
       </a>
       <div class="block">
         <a
-          href={restaurant.ctaHref}
+          href={telHref}
           class="inline-flex items-center gap-2 px-8 py-4 rounded-full font-heading font-semibold text-base transition-all hover:shadow-lg hover:-translate-y-px"
           style={`background-color: white; color: ${restaurant.accent}`}
         >

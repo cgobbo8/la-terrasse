@@ -1,10 +1,15 @@
 ---
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
-import { PHONE_NUMBER, EMAIL_ADDRESS } from '@/lib/pole-config';
 import ContactLinks from './ContactLinks.astro';
 import LogoTerrasseFull from './LogoTerrasseFull.astro';
 import { Icon } from 'astro-icon/components';
 
+interface Props {
+  phone: string;
+  email: string;
+}
+
+const { phone, email } = Astro.props;
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 ---
@@ -18,7 +23,7 @@ const t = useTranslations(lang);
     <div class="mb-16 text-center">
       <LogoTerrasseFull class="mx-auto" />
       <p class="mt-3 text-sm text-gray-400 max-w-xs mx-auto">
-        Base de loisirs au lac de Saint-Ferréol — Restaurant, aventure & événements.
+        {t('footer.tagline')}
       </p>
     </div>
 
@@ -30,7 +35,7 @@ const t = useTranslations(lang);
           {t('nav.restaurant')}
         </h3>
         <ul class="space-y-3 text-sm">
-          <li><a href={getLocalizedPath('/restaurant', lang)} class="hover:text-brun-terre transition-colors">Le restaurant</a></li>
+          <li><a href={getLocalizedPath('/restaurant', lang)} class="hover:text-brun-terre transition-colors">{t('footer.restaurantLink')}</a></li>
           <li><a href={getLocalizedPath('/restaurant/carte', lang)} class="hover:text-brun-terre transition-colors">{t('nav.restaurant.carte')}</a></li>
           <li><a href={getLocalizedPath('/restaurant/producteurs', lang)} class="hover:text-brun-terre transition-colors">{t('restaurant.producers.title')}</a></li>
         </ul>
@@ -42,7 +47,7 @@ const t = useTranslations(lang);
           {t('nav.aventure')}
         </h3>
         <ul class="space-y-3 text-sm">
-          <li><a href={getLocalizedPath('/aventure', lang)} class="hover:text-brun-terre transition-colors">Les activités</a></li>
+          <li><a href={getLocalizedPath('/aventure', lang)} class="hover:text-brun-terre transition-colors">{t('footer.activitiesLink')}</a></li>
           <li><a href={getLocalizedPath('/agenda', lang)} class="hover:text-brun-terre transition-colors">{t('nav.agenda')}</a></li>
         </ul>
       </div>
@@ -53,7 +58,7 @@ const t = useTranslations(lang);
           {t('nav.salle')}
         </h3>
         <ul class="space-y-3 text-sm">
-          <li><a href={getLocalizedPath('/la-salle', lang)} class="hover:text-brun-terre transition-colors">La salle</a></li>
+          <li><a href={getLocalizedPath('/la-salle', lang)} class="hover:text-brun-terre transition-colors">{t('footer.salleLink')}</a></li>
           <li><a href={getLocalizedPath('/la-salle/seminaires', lang)} class="hover:text-brun-terre transition-colors">{t('nav.salle.seminairesPro')}</a></li>
           <li><a href={getLocalizedPath('/la-salle/evenementiel', lang)} class="hover:text-brun-terre transition-colors">{t('nav.salle.evenementiel')}</a></li>
         </ul>
@@ -65,10 +70,10 @@ const t = useTranslations(lang);
           {t('common.contact')}
         </h3>
         <div class="text-sm space-y-3">
-          <p>Base de loisirs<br />de Saint-Ferréol</p>
-          <p class="text-gray-400">31250 Revel</p>
+          <p>{t('contact.info.address')}</p>
+          <p class="text-gray-400">{t('contact.info.city')}</p>
           <div class="pt-1">
-            <ContactLinks phone={PHONE_NUMBER} email={EMAIL_ADDRESS} variant="footer" />
+            <ContactLinks phone={phone} email={email} variant="footer" />
           </div>
         </div>
       </div>
@@ -76,7 +81,7 @@ const t = useTranslations(lang);
 
     <!-- Bottom bar: copyright + legal links -->
     <div class="mt-16 pt-8 border-t border-gray-200 flex flex-col items-center gap-4 text-xs text-gray-400">
-      <p class="italic text-gray-400/60">Certaines photos et vidéos sont issues de banques d'images libres de droits et seront remplacées par des visuels propres à l'établissement.</p>
+      <p class="italic text-gray-400/60">{t('footer.photoDisclaimer')}</p>
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
       <p>&copy; {new Date().getFullYear()} La Terrasse — Base de loisirs de Saint-Ferréol</p>
       <nav class="flex items-center gap-6" aria-label="Legal">

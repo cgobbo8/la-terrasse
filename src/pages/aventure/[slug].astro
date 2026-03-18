@@ -11,6 +11,7 @@ import ActivityPrevNext from '@/components/aventure/ActivityPrevNext.astro';
 import AlternativeSuggestions from '@/components/aventure/AlternativeSuggestions.astro';
 import { getLangFromUrl, useTranslations, getLocalizedField, getLocalizedPath } from '@/i18n/utils';
 import { poleConfigs } from '@/lib/pole-config';
+import { getSiteSettings, toTelHref } from '@/lib/site-settings';
 import { generateSportsActivityLD } from '@/lib/seo';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
@@ -56,6 +57,8 @@ const { activity, allActivities } = Astro.props;
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 const pole = poleConfigs.aventure;
+const siteSettings = await getSiteSettings();
+const telHref = toTelHref(siteSettings?.phone ?? '');
 
 const localizedTitle = getLocalizedField(activity, 'title', lang);
 const localizedDescription = getLocalizedField(activity, 'description', lang);
@@ -283,7 +286,7 @@ const jsonLd = generateSportsActivityLD({
                 </p>
               )}
               <a
-                href={pole.ctaHref}
+                href={telHref}
                 class="block w-full py-3.5 px-7 rounded-full text-white font-heading font-semibold text-sm text-center transition-all hover:shadow-lg hover:-translate-y-px"
                 style={`background-color: ${pole.accent};`}
               >
@@ -321,11 +324,11 @@ const jsonLd = generateSportsActivityLD({
   <!-- Mobile Sticky Bottom CTA -->
   <div class="lg:hidden fixed bottom-0 left-0 right-0 z-40 bg-white border-t border-gray-200 px-4 py-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)]">
     <a
-      href={pole.ctaHref}
+      href={telHref}
       class="block w-full py-3.5 rounded-full text-white font-heading font-semibold text-sm text-center transition-all hover:shadow-lg hover:-translate-y-px"
       style={`background-color: ${pole.accent};`}
     >
-      {pole.ctaLabel}
+      {t('aventure.cta.label')}
     </a>
   </div>
 
