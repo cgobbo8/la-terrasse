@@ -5,7 +5,7 @@ export default config({
     ? { kind: 'local' }
     : {
         kind: 'github',
-        repo: `${import.meta.env.PUBLIC_KEYSTATIC_GITHUB_REPO_OWNER}/${import.meta.env.PUBLIC_KEYSTATIC_GITHUB_REPO_NAME}`,
+        repo: 'cgobbo8/la-terrasse',
       },
   ui: {
     brand: { name: 'La Terrasse — CMS' },
