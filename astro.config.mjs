@@ -10,7 +10,7 @@ import keystatic from '@keystatic/astro';
 import icon from 'astro-icon';
 
 export default defineConfig({
-  site: 'https://laterrasse-saintferreol.fr',
+  site: process.env.SITE_URL || 'https://baseloisirs-saintferreol.fr',
   adapter: node({ mode: 'standalone' }),
   integrations: [svelte(), react(), mdx(), keystatic(), sitemap({
     i18n: {
