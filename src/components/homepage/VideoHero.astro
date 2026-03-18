@@ -18,17 +18,24 @@ const { tagline, subtitle } = Astro.props;
   class="video-hero relative min-h-[80vh] lg:min-h-[85vh] overflow-hidden bg-brun-terre -mt-16 flex flex-col"
   aria-label="Vue aérienne du lac de Saint-Ferréol"
 >
-  <!-- Video — hidden when prefers-reduced-motion: reduce -->
+  <!-- Video ping-pong: two videos swap to create seamless forward/reverse loop -->
   <video
     class="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
-    style="filter: saturate(2) brightness(1.1) hue-rotate(10deg);"
     autoplay
     muted
-    loop
     playsinline
     poster="/images/hero-lac-fallback.webp"
+    data-vh-video="forward"
   >
     <source src="/videos/hero-lac.mp4" type="video/mp4" />
+  </video>
+  <video
+    class="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
+    muted
+    playsinline
+    data-vh-video="reverse"
+  >
+    <source src="/videos/hero-lac-reverse.mp4" type="video/mp4" />
   </video>
 
   <!-- Static fallback image — shown only when prefers-reduced-motion: reduce -->
@@ -123,5 +130,23 @@ const { tagline, subtitle } = Astro.props;
       }
 
     });
+  }
+
+  // Ping-pong video: alternate forward and reverse videos
+  const fwd = document.querySelector<HTMLVideoElement>('[data-vh-video="forward"]');
+  const rev = document.querySelector<HTMLVideoElement>('[data-vh-video="reverse"]');
+
+  if (fwd && rev) {
+    const swap = (from: HTMLVideoElement, to: HTMLVideoElement) => {
+      to.currentTime = 0;
+      to.play();
+      from.style.visibility = 'hidden';
+      to.style.visibility = 'visible';
+    };
+
+    fwd.addEventListener('ended', () => swap(fwd, rev));
+    rev.addEventListener('ended', () => swap(rev, fwd));
+
+    rev.style.visibility = 'hidden';
   }
 </script>
