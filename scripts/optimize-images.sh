@@ -1,49 +1,96 @@
-#!/bin/bash
-# Convert all jpg/jpeg/png images under public/images/ to optimized WebP
-# Uses ffmpeg with libwebp encoder
-# - Quality 80 (good balance size/quality)
-# - Max width 1920px (preserves aspect ratio)
-# - Removes original files after successful conversion
+#!/usr/bin/env bash
+# Convert all jpg/jpeg/png images under public/images/ to optimized WebP,
+# update all references in source files, and remove originals.
+#
+# Requirements: cwebp (brew install webp)
+# Usage: ./scripts/optimize-images.sh [quality]
+#   quality: WebP quality 0-100 (default: 80)
 
 set -euo pipefail
 
+QUALITY="${1:-80}"
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 IMG_DIR="$ROOT/public/images"
-COUNT=0
-SAVED=0
+SRC_DIR="$ROOT/src"
+PUBLIC_DIR="$ROOT/public"
 
-echo "🔄 Converting images to WebP..."
+# Files to skip (favicons, OG images must stay in original format)
+SKIP_PATTERNS=("apple-touch-icon" "favicon" "og-image")
 
-find "$IMG_DIR" -type f \( -name "*.jpg" -o -name "*.jpeg" -o -name "*.png" \) | while read -r src; do
-  dst="${src%.*}.webp"
+should_skip() {
+  local file="$1"
+  for pattern in "${SKIP_PATTERNS[@]}"; do
+    [[ "$file" == *"$pattern"* ]] && return 0
+  done
+  return 1
+}
 
-  # Get original size
-  orig_size=$(stat -f%z "$src" 2>/dev/null || stat -c%s "$src" 2>/dev/null)
+if ! command -v cwebp &>/dev/null; then
+  echo "Error: cwebp not found. Install with: brew install webp"
+  exit 1
+fi
 
-  # Convert: scale down to max 1920px wide, quality 80
-  ffmpeg -y -i "$src" \
-    -vf "scale='min(1920,iw)':'min(1920,ih)':force_original_aspect_ratio=decrease" \
-    -quality 80 \
-    -lossless 0 \
-    "$dst" 2>/dev/null
+echo "Image optimization (quality: $QUALITY)"
+echo "Scanning $IMG_DIR for PNG/JPG files..."
+echo ""
 
-  if [ -f "$dst" ]; then
-    new_size=$(stat -f%z "$dst" 2>/dev/null || stat -c%s "$dst" 2>/dev/null)
-    saving=$(( orig_size - new_size ))
-    pct=$(( saving * 100 / orig_size ))
-    printf "  ✅ %-50s %6s → %6s (%d%% smaller)\n" \
-      "$(basename "$src")" \
-      "$(numfmt --to=iec "$orig_size" 2>/dev/null || echo "${orig_size}B")" \
-      "$(numfmt --to=iec "$new_size" 2>/dev/null || echo "${new_size}B")" \
-      "$pct"
+converted=0
+skipped=0
+total_before=0
+total_after=0
 
-    # Remove original
-    rm "$src"
-  else
-    echo "  ❌ Failed: $(basename "$src")"
+while IFS= read -r -d '' file; do
+  if should_skip "$file"; then
+    echo "  skip: $(basename "$file")"
+    ((skipped++))
+    continue
   fi
-done
+
+  dir=$(dirname "$file")
+  name="${file%.*}"
+  webp_file="$name.webp"
+
+  # Skip if webp already exists (already converted)
+  if [ -f "$webp_file" ]; then
+    echo "  skip (webp exists): $(basename "$file")"
+    rm "$file"
+    ((skipped++))
+    continue
+  fi
+
+  orig_size=$(stat -f%z "$file" 2>/dev/null || stat -c%s "$file" 2>/dev/null)
+  total_before=$((total_before + orig_size))
+
+  if cwebp -q "$QUALITY" "$file" -o "$webp_file" -quiet; then
+    new_size=$(stat -f%z "$webp_file" 2>/dev/null || stat -c%s "$webp_file" 2>/dev/null)
+    total_after=$((total_after + new_size))
+    savings=$(( (orig_size - new_size) * 100 / orig_size ))
+
+    printf "  ok: %-45s %7d → %7d B  (-%d%%)\n" "$(basename "$file")" "$orig_size" "$new_size" "$savings"
+
+    # Update references in source files
+    rel_path="${file#$PUBLIC_DIR}"
+    rel_path_webp="${rel_path%.*}.webp"
+
+    grep -rl "$rel_path" "$SRC_DIR" \
+      --include="*.yaml" --include="*.astro" --include="*.svelte" \
+      --include="*.ts" --include="*.tsx" --include="*.js" --include="*.mdx" \
+      2>/dev/null | while read -r ref_file; do
+        sed -i '' "s|$rel_path|$rel_path_webp|g" "$ref_file"
+        echo "      ref: $(basename "$ref_file")"
+      done
+
+    rm "$file"
+    ((converted++))
+  else
+    echo "  FAIL: $(basename "$file")"
+  fi
+done < <(find "$IMG_DIR" -type f \( -name "*.png" -o -name "*.jpg" -o -name "*.jpeg" \) -print0)
 
 echo ""
-echo "✅ Done! All images converted to WebP."
-echo "⚠️  Remember to update all image references in source files (.astro, .svelte, .ts, .yaml, .mdx)"
+echo "---"
+echo "Converted: $converted  |  Skipped: $skipped"
+if [ "$converted" -gt 0 ]; then
+  total_savings=$(( (total_before - total_after) * 100 / total_before ))
+  echo "Before: $((total_before / 1024)) KB  |  After: $((total_after / 1024)) KB  |  Saved: $(( (total_before - total_after) / 1024 )) KB (-${total_savings}%)"
+fi
