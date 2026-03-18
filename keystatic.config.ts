@@ -117,6 +117,19 @@ export default config({
           { label: 'Ce qui est inclus', itemLabel: (props) => props.value || 'Élément' },
         ),
         priceFrom: fields.text({ label: 'À partir de (prix indicatif)' }),
+        // i18n — subtitle, includes, priceFrom
+        subtitle_en: fields.text({ label: 'Subtitle (EN)' }),
+        subtitle_es: fields.text({ label: 'Subtítulo (ES)' }),
+        includes_en: fields.array(
+          fields.text({ label: 'Included item (EN)' }),
+          { label: 'What\'s included (EN)', itemLabel: (props) => props.value || 'Item' },
+        ),
+        includes_es: fields.array(
+          fields.text({ label: 'Elemento incluido (ES)' }),
+          { label: 'Qué incluye (ES)', itemLabel: (props) => props.value || 'Elemento' },
+        ),
+        priceFrom_en: fields.text({ label: 'Price from (EN)' }),
+        priceFrom_es: fields.text({ label: 'Precio desde (ES)' }),
         features: fields.object({
           salleEquipee: fields.checkbox({ label: 'Salle équipée', defaultValue: true }),
           videoprojecteur: fields.checkbox({ label: 'Vidéoprojecteur', defaultValue: true }),
@@ -200,6 +213,8 @@ export default config({
         philosophy: fields.text({ label: 'Philosophie / pitch', multiline: true }),
         menuUrl: fields.text({ label: 'Lien vers le menu (PDF ou page)' }),
         openingHours: fields.text({ label: 'Horaires d\'ouverture', multiline: true }),
+        openingHours_en: fields.text({ label: 'Opening hours (EN)', multiline: true }),
+        openingHours_es: fields.text({ label: 'Horarios de apertura (ES)', multiline: true }),
         reservationPhone: fields.text({ label: 'Téléphone réservation' }),
         philosophy_en: fields.text({ label: 'Philosophy (EN)', multiline: true }),
         philosophy_es: fields.text({ label: 'Filosofía (ES)', multiline: true }),
@@ -326,6 +341,8 @@ export default config({
         instagram: fields.text({ label: 'Instagram URL' }),
         // Seasonal info fields
         openingHours: fields.text({ label: 'Horaires d\'ouverture', multiline: true }),
+        openingHours_en: fields.text({ label: 'Opening hours (EN)', multiline: true }),
+        openingHours_es: fields.text({ label: 'Horarios de apertura (ES)', multiline: true }),
         seasonalMessage: fields.text({ label: 'Message saisonnier', multiline: true }),
         seasonalMessage_en: fields.text({ label: 'Seasonal message (EN)', multiline: true }),
         seasonalMessage_es: fields.text({ label: 'Mensaje estacional (ES)', multiline: true }),

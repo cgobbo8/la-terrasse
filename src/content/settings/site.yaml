@@ -12,6 +12,16 @@ openingHours: |-
   Juin, juillet, août : tous les jours
   Activités : 10h – 19h
   Restaurant : 9h – 22h
+openingHours_en: |-
+  May & September: weekends and public holidays
+  June, July, August: every day
+  Activities: 10am – 7pm
+  Restaurant: 9am – 10pm
+openingHours_es: |-
+  Mayo y septiembre: fines de semana y festivos
+  Junio, julio, agosto: todos los días
+  Actividades: 10h – 19h
+  Restaurante: 9h – 22h
 seasonalMessage: >-
   Le printemps est là ! Profitez des activités nautiques dès le mois de mai
   avec des conditions idéales sur le lac.
