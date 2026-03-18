@@ -12,9 +12,11 @@ interface Props {
   image?: string;
   /** Extra CSS classes on the outer section (e.g. min-height) */
   class?: string;
+  /** Optional breadcrumb — displayed above the title in the hero */
+  breadcrumb?: { parentLabel: string; parentHref: string; currentLabel: string };
 }
 
-const { tagline, subtitle, pole = null, image, class: className } = Astro.props;
+const { tagline, subtitle, pole = null, image, class: className, breadcrumb } = Astro.props;
 
 const accentColors: Record<string, string> = {
   restaurant: 'from-restaurant/80',
@@ -49,6 +51,18 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
 
   <div class="relative flex-1 flex items-end pb-16 lg:pb-24">
     <div class="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {breadcrumb && (
+        <nav aria-label="Fil d'Ariane" class="mb-4" data-hero-breadcrumb>
+          <a
+            href={breadcrumb.parentHref}
+            class="section-eyebrow text-white/60 hover:text-white transition-colors"
+          >
+            {breadcrumb.parentLabel}
+          </a>
+          <span class="text-white/30 mx-2">›</span>
+          <span class="section-eyebrow text-white/80">{breadcrumb.currentLabel}</span>
+        </nav>
+      )}
       <h1
         class="font-heading text-4xl sm:text-5xl lg:text-7xl font-bold text-white max-w-3xl leading-[1.05]"
         data-hero-heading
@@ -70,12 +84,14 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
 
 <style>
   /* Hidden until GSAP reveals them — prevents flash */
+  [data-hero-breadcrumb],
   [data-hero-heading],
   [data-hero-sub],
   [data-hero-cta] {
     opacity: 0;
   }
   @media (prefers-reduced-motion: reduce) {
+    [data-hero-breadcrumb],
     [data-hero-heading],
     [data-hero-sub],
     [data-hero-cta] {
@@ -88,10 +104,17 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
   if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     import('gsap').then(({ gsap }) => {
       document.querySelectorAll<HTMLElement>('[data-hero-parallax]').forEach((section) => {
+        const breadcrumb = section.querySelector<HTMLElement>('[data-hero-breadcrumb]');
         const heading = section.querySelector<HTMLElement>('[data-hero-heading]');
         const sub = section.querySelector<HTMLElement>('[data-hero-sub]');
         const cta = section.querySelector<HTMLElement>('[data-hero-cta]');
 
+        if (breadcrumb) {
+          gsap.fromTo(breadcrumb,
+            { opacity: 0, y: 12 },
+            { opacity: 1, y: 0, duration: 0.7, ease: 'power3.out', delay: 0.05 }
+          );
+        }
         if (heading) {
           gsap.fromTo(heading,
             { opacity: 0, y: 36, filter: 'blur(16px)', scale: 0.96 },

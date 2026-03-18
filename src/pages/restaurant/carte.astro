@@ -75,6 +75,7 @@ function label(key: keyof typeof periodLabels) {
     subtitle={t('restaurant.menu.heroSubtitle')}
     pole="restaurant"
     image="/images/heroes/carte.webp"
+    breadcrumb={{ parentLabel: t('nav.restaurant'), parentHref: getLocalizedPath('/restaurant', lang), currentLabel: t('restaurant.menu.breadcrumb') }}
   />
 
   {menuSections.length > 0 ? (

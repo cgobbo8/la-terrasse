@@ -72,6 +72,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
     subtitle={t('salle.seminaires.hero.subtitle')}
     pole="salle"
     image="/images/heroes/seminaires.webp"
+    breadcrumb={{ parentLabel: t('nav.salle'), parentHref: getLocalizedPath('/la-salle', lang), currentLabel: t('nav.salle.seminairesPro') }}
   >
     <a href={buildQuoteMailto()} class="bg-white text-salle px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all inline-flex items-center gap-2">
       {t('common.requestQuote')}

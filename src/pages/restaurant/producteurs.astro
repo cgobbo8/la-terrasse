@@ -44,29 +44,12 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
     subtitle={t('restaurant.producers.heroSubtitle')}
     pole="restaurant"
     image="/images/heroes/producteurs.webp"
+    breadcrumb={{ parentLabel: t('nav.restaurant'), parentHref: getLocalizedPath('/restaurant', lang), currentLabel: t('restaurant.producers.breadcrumb') }}
   />
 
-  <!-- Breadcrumb + Intro -->
+  <!-- Intro -->
   <section class="pt-12 lg:pt-24 pb-8 lg:pb-12">
     <div class="max-w-[768px] mx-auto px-4 sm:px-6 lg:px-8">
-      <!-- Breadcrumb -->
-      <nav class="mb-8" aria-label="Breadcrumb">
-        <ol class="flex items-center gap-2 text-sm">
-          <li>
-            <a
-              href={getLocalizedPath('/restaurant', lang)}
-              class="font-medium uppercase tracking-wider hover:underline"
-              style={`color: ${restaurant.accent}; font-variant: small-caps`}
-            >
-              Restaurant
-            </a>
-          </li>
-          <li class="text-gray-400" aria-hidden="true">/</li>
-          <li class="text-gray-500">{t('restaurant.producers.breadcrumb')}</li>
-        </ol>
-      </nav>
-
-      <!-- Intro text -->
       <p class="text-lg lg:text-xl text-gray-600 leading-relaxed text-center">
         {t('restaurant.producers.intro')}
       </p>
