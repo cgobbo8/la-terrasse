@@ -30,6 +30,7 @@ const telHref = toTelHref(siteSettings?.phone ?? '');
 const reader = createReader(process.cwd(), keystaticConfig);
 const allSeminars = await reader.collections.seminars.all();
 const venueData = await reader.singletons.venue.read();
+const pricingData = await reader.singletons.seminarsPricing.read();
 const capacitySeated = venueData?.capacitySeated ?? 0;
 const capacityStanding = venueData?.capacityStanding ?? 0;
 const surfaceM2 = venueData?.surfaceM2 ?? 0;
@@ -97,6 +98,15 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
         accentColor={salleAccent}
         quoteMailto={buildQuoteMailto(siteEmail, 'Séminaire')}
         lang={lang}
+        flatJournee={pricingData?.flatJournee ?? 600}
+        flatSoiree={pricingData?.flatSoiree ?? 500}
+        priceMealFull={pricingData?.priceMealFull ?? 45}
+        priceMealApero={pricingData?.priceMealApero ?? 35}
+        priceTeamBuilding={pricingData?.priceTeamBuilding ?? 25}
+        priceExtraHour={pricingData?.priceExtraHour ?? 50}
+        minRepasComplet={pricingData?.minRepasComplet ?? 12}
+        minApero={pricingData?.minApero ?? 15}
+        maxParticipants={pricingData?.maxParticipants ?? 80}
         client:visible
       />
     </div>

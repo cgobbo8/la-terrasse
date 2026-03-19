@@ -325,6 +325,67 @@ export default config({
     }),
 
     // ========================================
+    // Seminars pricing (configurator)
+    // Stored as: src/content/seminars-pricing/info.yaml
+    // ========================================
+    seminarsPricing: singleton({
+      label: 'Tarifs Séminaires',
+      path: 'src/content/seminars-pricing/info',
+      format: { data: 'yaml' },
+      schema: {
+        flatJournee: fields.integer({
+          label: 'Forfait Salle sèche — Journée (€ HT)',
+          description: 'Location de salle uniquement, sans restauration',
+          defaultValue: 600,
+          validation: { isRequired: true },
+        }),
+        flatSoiree: fields.integer({
+          label: 'Forfait Salle sèche — Soirée (€ HT)',
+          description: 'Location de salle soirée sans restauration',
+          defaultValue: 500,
+          validation: { isRequired: true },
+        }),
+        priceMealFull: fields.integer({
+          label: 'Repas complet (€ HT / pers.)',
+          defaultValue: 45,
+          validation: { isRequired: true },
+        }),
+        priceMealApero: fields.integer({
+          label: 'Apéro dînatoire (€ HT / pers.)',
+          defaultValue: 35,
+          validation: { isRequired: true },
+        }),
+        priceTeamBuilding: fields.integer({
+          label: 'Supplément Team Building (€ HT / pers.)',
+          description: 'Demi-journée activités de cohésion',
+          defaultValue: 25,
+          validation: { isRequired: true },
+        }),
+        priceExtraHour: fields.integer({
+          label: 'Heure supplémentaire soirée (€ HT / h)',
+          description: 'Après 23h',
+          defaultValue: 50,
+          validation: { isRequired: true },
+        }),
+        minRepasComplet: fields.integer({
+          label: 'Minimum personnes — Repas complet',
+          defaultValue: 12,
+          validation: { isRequired: true },
+        }),
+        minApero: fields.integer({
+          label: 'Minimum personnes — Apéro dînatoire',
+          defaultValue: 15,
+          validation: { isRequired: true },
+        }),
+        maxParticipants: fields.integer({
+          label: 'Maximum de participants',
+          defaultValue: 80,
+          validation: { isRequired: true },
+        }),
+      },
+    }),
+
+    // ========================================
     // Site settings
     // Stored as: src/content/settings/site.yaml
     // ========================================

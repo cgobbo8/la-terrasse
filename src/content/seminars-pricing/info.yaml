@@ -1,0 +1,9 @@
+flatJournee: 600
+flatSoiree: 500
+priceMealFull: 45
+priceMealApero: 35
+priceTeamBuilding: 25
+priceExtraHour: 50
+minRepasComplet: 12
+minApero: 15
+maxParticipants: 80

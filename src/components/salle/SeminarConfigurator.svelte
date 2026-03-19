@@ -34,12 +34,30 @@
     accentColor?: string;
     quoteMailto?: string;
     lang?: Lang;
+    flatJournee?: number;
+    flatSoiree?: number;
+    priceMealFull?: number;
+    priceMealApero?: number;
+    priceTeamBuilding?: number;
+    priceExtraHour?: number;
+    minRepasComplet?: number;
+    minApero?: number;
+    maxParticipants?: number;
   }
 
   let {
     accentColor = '',
     quoteMailto = 'mailto:',
     lang = defaultLang,
+    flatJournee = 600,
+    flatSoiree = 500,
+    priceMealFull = 45,
+    priceMealApero = 35,
+    priceTeamBuilding = 25,
+    priceExtraHour = 50,
+    minRepasComplet = 12,
+    minApero = 15,
+    maxParticipants = 80,
   }: Props = $props();
 
   type TKey = keyof typeof translations[typeof defaultLang];
@@ -59,13 +77,14 @@
   type MealFormat = 'repas-complet' | 'apero';
   type SoireeMeal = 'none' | 'apero' | 'repas-complet';
 
-  // ── Constants ────────────────────────────────────────────────────────
-  const FLAT_JOURNEE = 600;
-  const FLAT_SOIREE = 500;
-  const PRICE_MEAL_FULL = 45;
-  const PRICE_MEAL_APERO = 35;
-  const PRICE_TB = 25;
-  const PRICE_EXTRA_HOUR = 50;
+  // ── Constants (from CMS props, with fallback defaults) ─────────────
+  const FLAT_JOURNEE = flatJournee;
+  const FLAT_SOIREE = flatSoiree;
+  const PRICE_MEAL_FULL = priceMealFull;
+  const PRICE_MEAL_APERO = priceMealApero;
+  const PRICE_TB = priceTeamBuilding;
+  const PRICE_EXTRA_HOUR = priceExtraHour;
+  const MAX_PARTICIPANTS = maxParticipants;
 
   const TIME_SLOTS = [
     {
@@ -127,7 +146,7 @@
       labelKey: 'salle.seminaires.cfg.mealAperitif' as TKey,
       descKey: 'salle.seminaires.cfg.mealApero.cardDesc' as TKey,
       pricePerPerson: PRICE_MEAL_APERO,
-      min: 15,
+      min: minApero,
     },
     {
       id: 'repas-complet',
@@ -135,7 +154,7 @@
       labelKey: 'salle.seminaires.cfg.mealFull' as TKey,
       descKey: 'salle.seminaires.cfg.mealFull.cardDesc' as TKey,
       pricePerPerson: PRICE_MEAL_FULL,
-      min: 12,
+      min: minRepasComplet,
     },
   ];
 
@@ -173,8 +192,8 @@
   });
 
   const minParticipants = $derived.by(() => {
-    if (isJourneeEtude) return journeeMeal === 'repas-complet' ? 12 : 15;
-    if (hasSoireeMeal) return soireeMeal === 'repas-complet' ? 12 : 15;
+    if (isJourneeEtude) return journeeMeal === 'repas-complet' ? minRepasComplet : minApero;
+    if (hasSoireeMeal) return soireeMeal === 'repas-complet' ? minRepasComplet : minApero;
     return 8;
   });
 
@@ -310,7 +329,7 @@
   const localeMap: Record<string, string> = { fr: 'fr-FR', en: 'en-GB', es: 'es-ES' };
 
   function clampParticipants(val: number) {
-    participants = Math.max(minParticipants, Math.min(80, val));
+    participants = Math.max(minParticipants, Math.min(MAX_PARTICIPANTS, val));
   }
 
   function clampExtraHours(val: number) {
@@ -513,7 +532,7 @@
               <input
                 type="number"
                 min={minParticipants}
-                max="80"
+                max={MAX_PARTICIPANTS}
                 value={participants}
                 oninput={(e) => clampParticipants(parseInt((e.target as HTMLInputElement).value) || minParticipants)}
                 class="stepper-input w-16 h-10 text-center font-heading font-bold text-base border border-x-0 focus:outline-none"
@@ -526,7 +545,7 @@
                 class="stepper-btn w-10 h-10 rounded-r-xl flex items-center justify-center border border-l-0 transition-colors"
                 style="border-color: {accentBorder}; color: {accentColor};"
                 aria-label="+1"
-                disabled={participants >= 80}
+                disabled={participants >= MAX_PARTICIPANTS}
               >
                 <Plus class="w-4 h-4" strokeWidth={2} />
               </button>
@@ -536,19 +555,19 @@
               <input
                 type="range"
                 min={minParticipants}
-                max="80"
+                max={MAX_PARTICIPANTS}
                 bind:value={participants}
                 class="participants-slider w-full h-1.5 rounded-full appearance-none cursor-pointer"
                 style="
                   --thumb-color: {accentColor};
                   --track-color: {accentBorder};
-                  background: linear-gradient(to right, {accentColor} 0%, {accentColor} {((participants - minParticipants) / (80 - minParticipants)) * 100}%, {accentBorder} {((participants - minParticipants) / (80 - minParticipants)) * 100}%, {accentBorder} 100%);
+                  background: linear-gradient(to right, {accentColor} 0%, {accentColor} {((participants - minParticipants) / (MAX_PARTICIPANTS - minParticipants)) * 100}%, {accentBorder} {((participants - minParticipants) / (MAX_PARTICIPANTS - minParticipants)) * 100}%, {accentBorder} 100%);
                 "
                 aria-label={t('salle.seminaires.cfg.participants')}
               />
               <div class="flex justify-between text-xs text-gray-400 mt-1">
                 <span>{minParticipants}</span>
-                <span>80</span>
+                <span>{MAX_PARTICIPANTS}</span>
               </div>
             </div>
           </div>
@@ -819,7 +838,7 @@
               <input
                 type="number"
                 min={minParticipants}
-                max="80"
+                max={MAX_PARTICIPANTS}
                 value={participants}
                 oninput={(e) => clampParticipants(parseInt((e.target as HTMLInputElement).value) || minParticipants)}
                 class="stepper-input w-16 h-10 text-center font-heading font-bold text-base border border-x-0 focus:outline-none"
@@ -832,7 +851,7 @@
                 class="stepper-btn w-10 h-10 rounded-r-xl flex items-center justify-center border border-l-0 transition-colors"
                 style="border-color: {accentBorder}; color: {accentColor};"
                 aria-label="+1"
-                disabled={participants >= 80}
+                disabled={participants >= MAX_PARTICIPANTS}
               >
                 <Plus class="w-4 h-4" strokeWidth={2} />
               </button>
@@ -842,19 +861,19 @@
               <input
                 type="range"
                 min={minParticipants}
-                max="80"
+                max={MAX_PARTICIPANTS}
                 bind:value={participants}
                 class="participants-slider w-full h-1.5 rounded-full appearance-none cursor-pointer"
                 style="
                   --thumb-color: {accentColor};
                   --track-color: {accentBorder};
-                  background: linear-gradient(to right, {accentColor} 0%, {accentColor} {((participants - minParticipants) / (80 - minParticipants)) * 100}%, {accentBorder} {((participants - minParticipants) / (80 - minParticipants)) * 100}%, {accentBorder} 100%);
+                  background: linear-gradient(to right, {accentColor} 0%, {accentColor} {((participants - minParticipants) / (MAX_PARTICIPANTS - minParticipants)) * 100}%, {accentBorder} {((participants - minParticipants) / (MAX_PARTICIPANTS - minParticipants)) * 100}%, {accentBorder} 100%);
                 "
                 aria-label={t('salle.seminaires.cfg.participants')}
               />
               <div class="flex justify-between text-xs text-gray-400 mt-1">
                 <span>{minParticipants}</span>
-                <span>80</span>
+                <span>{MAX_PARTICIPANTS}</span>
               </div>
             </div>
           </div>
