@@ -356,6 +356,11 @@ export default config({
           ],
           defaultValue: 'printemps',
         }),
+        passJourneeDiscount: fields.integer({
+          label: 'Réduction Pass Journée (%)',
+          description: 'Pourcentage de réduction au restaurant avec le Pass Journée (ex: 20 pour −20%)',
+          defaultValue: 20,
+        }),
         promotionText: fields.text({ label: 'Promotion en cours' }),
         promotionText_en: fields.text({ label: 'Current promotion (EN)' }),
         promotionText_es: fields.text({ label: 'Promoción actual (ES)' }),

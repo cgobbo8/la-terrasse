@@ -176,7 +176,7 @@ const jsonLd = generateSportsActivityLD({
           <div>
             <span class="text-sm font-bold text-amber-800">Activité phare</span>
             <span class="text-sm text-amber-700 ml-1">— éligible à l'offre Journée à La Terrasse </span>
-            <a href={getLocalizedPath('/restaurant', lang) + '#offre'} target="_blank" rel="noopener" class="text-sm font-medium text-amber-800 underline hover:text-amber-900">(-10% restaurant)</a>
+            <a href={getLocalizedPath('/restaurant', lang) + '#offre'} target="_blank" rel="noopener" class="text-sm font-medium text-amber-800 underline hover:text-amber-900">(−{siteSettings?.passJourneeDiscount ?? 20}% restaurant)</a>
           </div>
         </div>
       )}

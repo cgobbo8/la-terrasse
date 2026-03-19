@@ -2,6 +2,7 @@
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { languages, type Lang } from '@/i18n/translations';
 import { getCtaAccent, poleConfigs, brandColors } from '@/lib/pole-config';
+import { getSiteSettings } from '@/lib/site-settings';
 import MegaMenu from './MegaMenu.svelte';
 import MobileMenu from './MobileMenu.svelte';
 import LogoTerrasse from './LogoTerrasse.astro';
@@ -19,6 +20,15 @@ const { pole = null, ctaLabel: ctaLabelOverride, ctaHref: ctaHrefOverride, ctaIc
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 const ctaAccent = getCtaAccent(pole);
+
+const settings = await getSiteSettings();
+const discount = settings?.passJourneeDiscount ?? 20;
+
+const passJourneeDescriptions: Record<Lang, string> = {
+  fr: `Activités + −${discount}% au restaurant`,
+  en: `Activities + −${discount}% at the restaurant`,
+  es: `Actividades + −${discount}% en el restaurante`,
+};
 
 const ctaLabelLocalized = ctaLabelOverride ?? (pole === 'aventure'
   ? t('aventure.cta.label')
@@ -62,7 +72,7 @@ const megaMenuPoles = [
     subLinks: [
       { label: t('nav.aventure.aquatiques'), href: getLocalizedPath('/aventure', lang) + '#activites', description: t('nav.aventure.aquatiques.desc'), icon: 'waves' },
       { label: t('nav.aventure.terrestres'), href: getLocalizedPath('/aventure', lang) + '#terrestres', description: t('nav.aventure.terrestres.desc'), icon: 'flag' },
-      { label: t('nav.aventure.passJournee'), href: getLocalizedPath('/aventure', lang) + '#offre', description: t('nav.aventure.passJournee.desc'), icon: 'sun' },
+      { label: t('nav.aventure.passJournee'), href: getLocalizedPath('/aventure', lang) + '#offre', description: passJourneeDescriptions[lang], icon: 'sun' },
     ],
     featured: {
       title: t('nav.aventure.featured.title'),

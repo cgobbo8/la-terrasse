@@ -11,12 +11,16 @@ import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, getLocalizedPath } from '@/i18n/utils';
 import type { Lang } from '@/i18n/translations';
 import { poleConfigs, brandColors } from '@/lib/pole-config';
+import { getSiteSettings } from '@/lib/site-settings';
 interface Props {
   lang?: Lang;
 }
 
 const { lang: langProp } = Astro.props;
 const lang: Lang = langProp ?? getLangFromUrl(Astro.url, Astro.currentLocale);
+
+const settings = await getSiteSettings();
+const discount = settings?.passJourneeDiscount ?? 20;
 
 const aventurePath = getLocalizedPath('/aventure', lang);
 const cartePath = getLocalizedPath('/restaurant/carte', lang);
@@ -58,7 +62,7 @@ const steps = [
     icon: 'lucide:utensils',
     color: restaurantAccent,
     bgLight: restaurantLight,
-    label: '−20% au restaurant',
+    label: `−${discount}% au restaurant`,
     detail: 'Sur toute votre commande',
   },
 ];
@@ -154,7 +158,7 @@ const steps = [
             <!-- Header: discount badge — SOLEIL YELLOW for maximum impact -->
             <div class="discount-badge flex flex-col items-center justify-center rounded-2xl py-7 px-6 text-center bg-soleil">
               <span class="font-heading font-bold leading-none text-brun-terre" style="font-size: clamp(3.5rem, 10vw, 5rem); line-height: 1;">
-                −20%
+                −{discount}%
               </span>
               <span class="mt-1.5 text-sm font-medium text-brun-terre/70">
                 sur votre repas
