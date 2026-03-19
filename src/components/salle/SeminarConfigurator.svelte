@@ -233,9 +233,8 @@
   const total = $derived.by(() => {
     if (isSalleSeche) return FLAT_JOURNEE;
     if (isJourneeEtude) return perPersonPrice * participants;
-    let base = FLAT_SOIREE + extraHours * PRICE_EXTRA_HOUR;
-    if (hasSoireeMeal) base += mealPrice * participants;
-    return base;
+    if (hasSoireeMeal) return mealPrice * participants + extraHours * PRICE_EXTRA_HOUR;
+    return FLAT_SOIREE + extraHours * PRICE_EXTRA_HOUR;
   });
 
   // ── Price animation ──────────────────────────────────────────────────
@@ -988,24 +987,9 @@
           {:else}
             <!-- Per-person breakdown -->
 
-            <!-- Soirée base rate -->
-            {#if isSoiree}
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-gray-600 flex items-center gap-2">
-                  <Moon class="w-3.5 h-3.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
-                  {t('salle.seminaires.cfg.roomLabel')} — {t('salle.seminaires.cfg.soiree').toLowerCase()}
-                  <span class="text-gray-400 text-xs">({t('salle.seminaires.cfg.soireeHours')})</span>
-                </span>
-                <span class="font-semibold text-gray-800 tabular-nums">{FLAT_SOIREE}&nbsp;€</span>
-              </div>
-            {/if}
-
             <!-- Meal line -->
             {#if activeMealDef}
-              <div
-                class="flex items-center justify-between text-sm"
-                style={isSoiree ? `padding-top: 0.25rem; border-top: 1px solid ${accentBorder}` : ''}
-              >
+              <div class="flex items-center justify-between text-sm">
                 <span class="text-gray-600 flex items-center gap-2 min-w-0">
                   <svelte:component this={activeMealDef.icon} class="w-3.5 h-3.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
                   <span class="truncate">{t(activeMealDef.labelKey)}</span>
