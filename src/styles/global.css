@@ -318,6 +318,19 @@ body::after {
 }
 
 /* ========================================
+   Bento weather fallback — if WeatherTimeCard
+   fails to hydrate, expand the season card
+   ======================================== */
+
+.bento-weather-wrapper:not(:has(.weather-card)) .bento-season {
+  grid-column: 1 / -1;
+}
+
+.bento-weather-wrapper:not(:has(.weather-card)) astro-island {
+  display: none;
+}
+
+/* ========================================
    Selection / highlight styles
    ======================================== */
 

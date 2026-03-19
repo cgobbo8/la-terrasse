@@ -68,27 +68,30 @@ const season = seasonConfig[currentSeason] ?? seasonConfig.printemps;
         <div class="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-brun-terre/[0.04]" aria-hidden="true"></div>
       </div>
 
-      {/* ── SAISON — colored gradient card ── */}
-      <div class={`bento-cell rounded-2xl p-7 flex flex-col relative overflow-hidden bg-gradient-to-br ${season.gradient}`}>
-        <div class="flex items-center justify-between mb-5">
-          <div class="w-11 h-11 rounded-xl flex items-center justify-center" style={`background-color: ${season.accent}15;`}>
-            <Icon name={season.icon} class="w-5 h-5" style={`color: ${season.accent};`} />
+      {/* ── SAISON + MÉTÉO — wrapper with fallback ── */}
+      <div class="md:col-span-2 grid grid-cols-1 md:grid-cols-2 gap-4 lg:gap-5 bento-weather-wrapper">
+        {/* ── SAISON — colored gradient card ── */}
+        <div class={`bento-season bento-cell rounded-2xl p-7 flex flex-col relative overflow-hidden bg-gradient-to-br ${season.gradient}`}>
+          <div class="flex items-center justify-between mb-5">
+            <div class="w-11 h-11 rounded-xl flex items-center justify-center" style={`background-color: ${season.accent}15;`}>
+              <Icon name={season.icon} class="w-5 h-5" style={`color: ${season.accent};`} />
+            </div>
+            <span class="text-xs font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full" style={`background-color: ${season.accent}12; color: ${season.accent};`}>
+              {season.label}
+            </span>
           </div>
-          <span class="text-xs font-bold uppercase tracking-[0.2em] px-3 py-1.5 rounded-full" style={`background-color: ${season.accent}12; color: ${season.accent};`}>
-            {season.label}
-          </span>
+          <p class="text-gray-700 text-sm leading-relaxed flex-1">
+            {seasonalMessage}
+          </p>
+          {/* Large decorative icon */}
+          <div class="absolute -bottom-4 -right-4 opacity-[0.04] pointer-events-none" aria-hidden="true">
+            <Icon name={season.icon} class="w-32 h-32" style={`color: ${season.accent};`} />
+          </div>
         </div>
-        <p class="text-gray-700 text-sm leading-relaxed flex-1">
-          {seasonalMessage}
-        </p>
-        {/* Large decorative icon */}
-        <div class="absolute -bottom-4 -right-4 opacity-[0.04] pointer-events-none" aria-hidden="true">
-          <Icon name={season.icon} class="w-32 h-32" style={`color: ${season.accent};`} />
-        </div>
-      </div>
 
-      {/* ── MÉTÉO — live weather (Svelte island) ── */}
-      <WeatherTimeCard client:only="svelte" {lang} />
+        {/* ── MÉTÉO — live weather (Svelte island) ── */}
+        <WeatherTimeCard client:only="svelte" {lang} />
+      </div>
 
       {/* ── LAC ÉTÉ — photo ambiance, row-span-2 ── */}
       <div class="hidden md:block bento-cell rounded-2xl md:row-span-2 overflow-hidden relative">
