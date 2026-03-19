@@ -136,56 +136,57 @@ const timeBlocks = [
   <!-- 7. OFFRE JOURNÉE — Pass Journée promo (conversion) -->
   <OffreJournee lang={lang} />
 
-  <!-- 8. À PROXIMITÉ — Nearby places of interest -->
-  <NearbySection lang={lang} />
-
-  <!-- 9. HISTOIRE — Le lieu comme 4ème personnage (storytelling) -->
-  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite overflow-hidden">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-        <!-- Image -->
-        <div class="order-2 lg:order-1" data-reveal>
-          <div class="relative group cursor-pointer" data-riquet-container>
-            <img
-              src="/images/heroes/riquet.webp"
-              alt="Portrait de Pierre-Paul Riquet, créateur du Canal du Midi et du lac de Saint-Ferréol"
-              class="aspect-[4/5] w-full rounded-2xl object-cover"
-              loading="lazy"
-              data-raw
-            />
-            <img
-              src="/images/heroes/riquet-wink.webp"
-              alt="Pierre-Paul Riquet fait un clin d'œil"
-              class="absolute inset-0 aspect-[4/5] w-full rounded-2xl object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-              data-raw
-            />
-            <!-- Sunburst decoration — top left -->
-            <div class="absolute -top-[12%] -left-[12%] w-[clamp(120px,30%,200px)] aspect-square z-20" data-riquet-sunburst>
-              <Sunburst variant={2} size="100%" />
+    <!-- 8. HISTOIRE — Le lieu comme 4ème personnage (storytelling) -->
+    <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite overflow-hidden">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+                <!-- Image -->
+                <div class="order-2 lg:order-1" data-reveal>
+                    <div class="relative group cursor-pointer" data-riquet-container>
+                        <img
+                                src="/images/heroes/riquet.webp"
+                                alt="Portrait de Pierre-Paul Riquet, créateur du Canal du Midi et du lac de Saint-Ferréol"
+                                class="aspect-[4/5] w-full rounded-2xl object-cover"
+                                loading="lazy"
+                                data-raw
+                        />
+                        <img
+                                src="/images/heroes/riquet-wink.webp"
+                                alt="Pierre-Paul Riquet fait un clin d'œil"
+                                class="absolute inset-0 aspect-[4/5] w-full rounded-2xl object-cover opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                                data-raw
+                        />
+                        <!-- Sunburst decoration — top left -->
+                        <div class="absolute -top-[12%] -left-[12%] w-[clamp(120px,30%,200px)] aspect-square z-20" data-riquet-sunburst>
+                            <Sunburst variant={2} size="100%" />
+                        </div>
+                        <!-- Decorative frame offset -->
+                        <div class="absolute -inset-3 border border-brun-terre/8 rounded-3xl -z-10" aria-hidden="true"></div>
+                    </div>
+                </div>
+                <!-- Text -->
+                <div class="order-1 lg:order-2" data-reveal>
+                    <p class="section-eyebrow text-brun-terre/30 mb-6">Notre histoire</p>
+                    <h2 class="font-heading text-3xl lg:text-5xl font-bold mb-8 leading-tight text-brun-terre">
+                        {t('home.history.title')}
+                    </h2>
+                    <p class="text-xl text-brun-terre/80 font-medium mb-6 leading-relaxed">
+                        {t('home.history.intro')}
+                    </p>
+                    <p class="text-gray-600 leading-relaxed mb-8">
+                        {t('home.history.body')}
+                    </p>
+                    <p class="text-gray-500 leading-relaxed italic border-l-2 border-aventure/30 pl-6">
+                        {t('home.history.closing')}
+                    </p>
+                </div>
             </div>
-            <!-- Decorative frame offset -->
-            <div class="absolute -inset-3 border border-brun-terre/8 rounded-3xl -z-10" aria-hidden="true"></div>
-          </div>
         </div>
-        <!-- Text -->
-        <div class="order-1 lg:order-2" data-reveal>
-          <p class="section-eyebrow text-brun-terre/30 mb-6">Notre histoire</p>
-          <h2 class="font-heading text-3xl lg:text-5xl font-bold mb-8 leading-tight text-brun-terre">
-            {t('home.history.title')}
-          </h2>
-          <p class="text-xl text-brun-terre/80 font-medium mb-6 leading-relaxed">
-            {t('home.history.intro')}
-          </p>
-          <p class="text-gray-600 leading-relaxed mb-8">
-            {t('home.history.body')}
-          </p>
-          <p class="text-gray-500 leading-relaxed italic border-l-2 border-aventure/30 pl-6">
-            {t('home.history.closing')}
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
+
+  <!-- 9. À PROXIMITÉ — Nearby places of interest -->
+    <NearbySection lang={lang} />
+
 
   <!-- Riquet sunburst: rotate on hover -->
   <script>
