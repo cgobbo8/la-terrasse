@@ -1,12 +1,10 @@
 siteName: La Terrasse — Base de loisirs de Saint-Ferréol
-phone: '05 61 83 XX XX'
+phone: 05 61 83 XX XX
 email: contact@baseloisirs-saintferreol.fr
 address: |-
   Base de loisirs de Saint-Ferréol
   31250 Revel
-googleMapsUrl: 'https://maps.app.goo.gl/5PVLyYcRyFGBVCG87'
-facebook: ''
-instagram: ''
+googleMapsUrl: https://maps.app.goo.gl/5PVLyYcRyFGBVCG87
 openingHours: |-
   Mai & septembre : weekends et jours fériés
   Juin, juillet, août : tous les jours
@@ -23,8 +21,8 @@ openingHours_es: |-
   Actividades: 10h – 19h
   Restaurante: 9h – 22h
 seasonalMessage: >-
-  Le printemps est là ! Profitez des activités nautiques dès le mois de mai
-  avec des conditions idéales sur le lac.
+  Le printemps est là ! Profitez des activités nautiques dès le mois de mai avec
+  des conditions idéales sur le lac.
 seasonalMessage_en: >-
   Spring is here! Enjoy water activities from May with ideal conditions on the
   lake.
@@ -33,6 +31,3 @@ seasonalMessage_es: >-
   condiciones ideales en el lago.
 currentSeason: printemps
 passJourneeDiscount: 20
-promotionText: '-10% sur les activités en semaine jusqu''au 30 avril'
-promotionText_en: '-10% on weekday activities until April 30'
-promotionText_es: '-10% en actividades entre semana hasta el 30 de abril'
