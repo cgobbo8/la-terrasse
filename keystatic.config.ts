@@ -163,6 +163,46 @@ export default config({
     // Events / Agenda
     // Stored as: src/content/events/soiree-tapas.mdx
     // ========================================
+    // ========================================
+    // Nearby places (À proximité)
+    // Stored as: src/content/nearby/abbaye-soreze.yaml
+    // ========================================
+    nearby: collection({
+      label: 'À proximité',
+      slugField: 'name',
+      path: 'src/content/nearby/*',
+      format: { data: 'yaml' },
+      schema: {
+        name: fields.slug({ name: { label: 'Nom du lieu', validation: { isRequired: true } } }),
+        categories: fields.multiselect({
+          label: 'Catégories',
+          options: [
+            { label: 'Culture', value: 'culture' },
+            { label: 'Patrimoine', value: 'patrimoine' },
+            { label: 'Nature', value: 'nature' },
+            { label: 'Gastronomie', value: 'gastronomie' },
+            { label: 'Activités', value: 'activites' },
+            { label: 'Hébergement', value: 'hebergement' },
+          ],
+          defaultValue: ['culture'],
+        }),
+        description: fields.text({ label: 'Description courte (1-2 phrases)', multiline: true, validation: { isRequired: true } }),
+        image: fields.image({
+          label: 'Photo',
+          directory: 'public/images/nearby',
+          publicPath: '/images/nearby/',
+        }),
+        url: fields.url({ label: 'Site web du lieu' }),
+        // i18n
+        name_en: fields.text({ label: 'Name (EN)' }),
+        name_es: fields.text({ label: 'Nombre (ES)' }),
+        description_en: fields.text({ label: 'Description (EN)', multiline: true }),
+        description_es: fields.text({ label: 'Descripción (ES)', multiline: true }),
+        order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
+        visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+      },
+    }),
+
     events: collection({
       label: 'Événements / Agenda',
       slugField: 'title',

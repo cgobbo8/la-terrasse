@@ -1,0 +1,85 @@
+---
+import type { Lang } from '@/i18n/translations';
+import { useTranslations } from '@/i18n/utils';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
+import NearbyCarousel from './NearbyCarousel.svelte';
+
+interface Props {
+  lang: Lang;
+}
+
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+// Category value → label mapping (i18n)
+const categoryMap: Record<string, Record<string, string>> = {
+  fr: {
+    culture: 'Culture',
+    patrimoine: 'Patrimoine',
+    nature: 'Nature',
+    gastronomie: 'Gastronomie',
+    activites: 'Activités',
+    hebergement: 'Hébergement',
+  },
+  en: {
+    culture: 'Culture',
+    patrimoine: 'Heritage',
+    nature: 'Nature',
+    gastronomie: 'Food & Drink',
+    activites: 'Activities',
+    hebergement: 'Accommodation',
+  },
+  es: {
+    culture: 'Cultura',
+    patrimoine: 'Patrimonio',
+    nature: 'Naturaleza',
+    gastronomie: 'Gastronomía',
+    activites: 'Actividades',
+    hebergement: 'Alojamiento',
+  },
+};
+
+const catLabels = categoryMap[lang] || categoryMap.fr;
+
+// Load nearby places from Keystatic CMS
+const reader = createReader(process.cwd(), keystaticConfig);
+const allNearby = await reader.collections.nearby.all();
+
+const places = allNearby
+  .filter((entry) => entry.entry.visible)
+  .sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0))
+  .map((entry) => {
+    const d = entry.entry;
+    const localName = lang === 'en' && d.name_en ? d.name_en : lang === 'es' && d.name_es ? d.name_es : d.name;
+    const localDesc = lang === 'en' && d.description_en ? d.description_en : lang === 'es' && d.description_es ? d.description_es : d.description;
+    const cats = d.categories ?? ['culture'];
+
+    return {
+      name: localName,
+      categories: cats,
+      categoryLabels: cats.map((c: string) => catLabels[c] || c),
+      description: localDesc,
+      image: d.image || '',
+      url: d.url || '#',
+    };
+  });
+
+const allLabel: Record<string, string> = {
+  fr: 'Tout',
+  en: 'All',
+  es: 'Todo',
+};
+---
+
+{places.length > 0 && (
+  <NearbyCarousel
+    client:visible
+    places={places}
+    eyebrow={t('home.nearby.eyebrow')}
+    title={t('home.nearby.title')}
+    visitLabel={t('home.nearby.visit')}
+    allLabel={allLabel[lang] || allLabel.fr}
+    categoryMap={catLabels}
+  />
+)}

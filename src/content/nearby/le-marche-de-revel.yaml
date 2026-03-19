@@ -1,0 +1,19 @@
+name: Le Marché de Revel
+categories:
+  - gastronomie
+  - culture
+description: >-
+  L'un des plus beaux marchés de France, sous la halle médiévale de Revel —
+  producteurs locaux, artisanat et convivialité.
+image: /images/nearby/marche-revel.webp
+url: https://www.auxsourcesducanaldumidi.com/decouvrir-vadrouiller-explorer/visiter/le-marche-de-revel/
+name_en: Revel Market
+name_es: El Mercado de Revel
+description_en: >-
+  One of the most beautiful markets in France, under the medieval hall of Revel —
+  local producers, crafts and conviviality.
+description_es: >-
+  Uno de los mercados más bonitos de Francia, bajo la lonja medieval de Revel —
+  productores locales, artesanía y convivencia.
+order: 3
+visible: true

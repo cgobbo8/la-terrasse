@@ -55,6 +55,10 @@ export const translations = {
     'home.soirees.body': 'Concerts en terrasse, soirées karaoké, blind test, tapas & drinks — toute la saison, La Terrasse s\'anime pour des moments de convivialité face au lac.',
     'home.soirees.ctaAgenda': 'Voir l\'agenda',
     'home.soirees.ctaRestaurant': 'Découvrir le restaurant',
+    'home.nearby.eyebrow': 'Que faire ?',
+    'home.nearby.title': 'À découvrir à proximité',
+    'home.nearby.visit': 'Visiter le site',
+
     'home.history.title': 'Un lieu chargé d\'histoire',
     'home.history.intro': 'Le lac de Saint-Ferréol n\'est pas un lac comme les autres.',
     'home.history.body': 'Construit au XVIIe siècle par Pierre-Paul Riquet pour alimenter le Canal du Midi — chef-d\'œuvre classé au patrimoine mondial de l\'UNESCO — ce lac artificiel est le plus grand réservoir d\'eau du canal. Depuis plus de 350 ans, il fait vivre le territoire, attire les promeneurs et incarne l\'ingéniosité humaine au service de la nature.',
@@ -556,6 +560,10 @@ export const translations = {
     'home.soirees.body': 'Live concerts on the terrace, karaoke nights, blind tests, tapas & drinks — all season long, La Terrasse comes alive with convivial moments overlooking the lake.',
     'home.soirees.ctaAgenda': 'See what\'s on',
     'home.soirees.ctaRestaurant': 'Discover the restaurant',
+    'home.nearby.eyebrow': 'What to do?',
+    'home.nearby.title': 'Discover nearby',
+    'home.nearby.visit': 'Visit website',
+
     'home.history.title': 'A place steeped in history',
     'home.history.intro': 'Lake Saint-Ferréol is no ordinary lake.',
     'home.history.body': 'Built in the 17th century by Pierre-Paul Riquet to feed the Canal du Midi — a masterpiece listed as a UNESCO World Heritage Site — this artificial lake is the canal\'s largest water reservoir. For over 350 years, it has sustained the region, drawn visitors, and embodied human ingenuity in harmony with nature.',
@@ -1051,6 +1059,10 @@ export const translations = {
     'home.soirees.body': 'Conciertos en la terraza, noches de karaoke, blind test, tapas & drinks — toda la temporada, La Terrasse se anima con momentos de convivialidad frente al lago.',
     'home.soirees.ctaAgenda': 'Ver la agenda',
     'home.soirees.ctaRestaurant': 'Descubrir el restaurante',
+    'home.nearby.eyebrow': '¿Qué hacer?',
+    'home.nearby.title': 'Descubrir cerca',
+    'home.nearby.visit': 'Visitar el sitio',
+
     'home.history.title': 'Un lugar cargado de historia',
     'home.history.intro': 'El lago de Saint-Ferréol no es un lago cualquiera.',
     'home.history.body': 'Construido en el siglo XVII por Pierre-Paul Riquet para alimentar el Canal du Midi — obra maestra declarada Patrimonio de la Humanidad por la UNESCO — este lago artificial es el mayor embalse del canal. Desde hace más de 350 años, ha dado vida a la región, atraído visitantes y encarnado la ingeniosidad humana al servicio de la naturaleza.',

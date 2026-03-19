@@ -1,0 +1,19 @@
+name: Château de Saint-Félix
+categories:
+  - patrimoine
+  - culture
+description: >-
+  Château avec une vue imprenable sur le Lauragais, chargé d'histoire cathare et
+  de légendes occitanes.
+image: /images/nearby/chateau-saint-felix.webp
+url: https://www.auxsourcesducanaldumidi.com/decouvrir-vadrouiller-explorer/visiter/chateau-de-saint-felix/
+name_en: Château de Saint-Félix
+name_es: Castillo de Saint-Félix
+description_en: >-
+  A castle with breathtaking views over the Lauragais, steeped in Cathar history
+  and Occitan legends.
+description_es: >-
+  Castillo con vistas impresionantes sobre el Lauragais, cargado de historia
+  cátara y leyendas occitanas.
+order: 5
+visible: true
