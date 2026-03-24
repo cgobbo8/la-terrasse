@@ -168,13 +168,13 @@ menuSections:
     title_es: A la carta
     dishes:
       - name: Bol de frites
-        description: Frites maison croustillantes
+        description: Frites maison
         price: ''
         tags: []
         name_en: Bowl of Fries
         name_es: Bol de patatas fritas
-        description_en: Crispy homemade fries
-        description_es: Patatas fritas caseras crujientes
+        description_en: Homemade fries
+        description_es: Patatas fritas caseras
       - name: Assiette de fromages
         description: Sélection de fromages de la région
         price: ''
@@ -300,13 +300,13 @@ menuSections:
         description_en: 'Olive oil and fresh basil'
         description_es: 'Aceite de oliva y albahaca fresca'
       - name: Bol de frites
-        description: Frites maison croustillantes
+        description: Frites maison
         price: ''
         tags: []
         name_en: Bowl of Fries
         name_es: Bol de patatas fritas
-        description_en: Crispy homemade fries
-        description_es: Patatas fritas caseras crujientes
+        description_en: Homemade fries
+        description_es: Patatas fritas caseras
 
   # ============================
   # MENU ENFANT
