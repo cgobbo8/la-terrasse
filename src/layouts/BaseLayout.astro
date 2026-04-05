@@ -63,7 +63,11 @@ const siteGoogleMapsUrl = siteSettings?.googleMapsUrl ?? '';
       noindex={noindex}
     />
     {import.meta.env.PLAUSIBLE_DOMAIN && (
-      <script defer data-domain={import.meta.env.PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>
+      <Fragment>
+        <link rel="dns-prefetch" href="https://plausible.io" />
+        <link rel="preconnect" href="https://plausible.io" crossorigin />
+        <script defer data-domain={import.meta.env.PLAUSIBLE_DOMAIN} src="https://plausible.io/js/script.js"></script>
+      </Fragment>
     )}
   </head>
   <body class="min-h-screen flex flex-col" style={bgStyle}>

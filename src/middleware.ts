@@ -1,6 +1,13 @@
 import { defineMiddleware } from 'astro:middleware';
 
 export const onRequest = defineMiddleware((context, next) => {
+  // Only rewrite URLs for SSR routes (Keystatic admin) — prerendered pages
+  // don't have real request headers and trigger build warnings.
+  const pathname = new URL(context.request.url).pathname;
+  if (!pathname.startsWith('/keystatic') && !pathname.startsWith('/api/keystatic')) {
+    return next();
+  }
+
   const forwardedHost = context.request.headers.get('x-forwarded-host');
   const forwardedProto = context.request.headers.get('x-forwarded-proto') || 'https';
 

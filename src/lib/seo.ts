@@ -60,6 +60,7 @@ export function generateRestaurantLD(): string {
     telephone: BUSINESS_INFO.telephone,
     image: BUSINESS_INFO.image,
     servesCuisine: 'Tapas, burgers, cuisine conviviale',
+    priceRange: '€€',
     address: {
       '@type': 'PostalAddress',
       ...BUSINESS_INFO.address,
@@ -68,6 +69,32 @@ export function generateRestaurantLD(): string {
       '@type': 'GeoCoordinates',
       ...BUSINESS_INFO.geo,
     },
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '12:00',
+        closes: '14:00',
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
+        opens: '19:00',
+        closes: '21:00',
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Saturday', 'Sunday'],
+        opens: '12:00',
+        closes: '14:30',
+      },
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Saturday', 'Sunday'],
+        opens: '19:00',
+        closes: '21:30',
+      },
+    ],
   });
 }
 

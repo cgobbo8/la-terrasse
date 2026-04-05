@@ -22,6 +22,7 @@ import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { poleConfigs } from '@/lib/pole-config';
+import { generateLocalBusinessLD } from '@/lib/seo';
 import Sunburst from '@/components/common/Sunburst.astro';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
@@ -84,7 +85,7 @@ const timeBlocks = [
 ];
 ---
 
-<BaseLayout title={t('home.page.title')} description={t('home.page.description')} pagePath="/">
+<BaseLayout title={t('home.page.title')} description={t('home.page.description')} pagePath="/" jsonLd={generateLocalBusinessLD()}>
   <!-- 0. INTRO — Logo mask reveal (first visit only) -->
   <script is:inline>
     // Prevent flash: hide overlay immediately for return visitors (before Svelte hydrates)

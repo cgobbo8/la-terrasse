@@ -119,7 +119,6 @@
 <section
   bind:this={sectionEl}
   class={`journee-section relative bg-offwhite overflow-hidden ${useAnimation ? 'min-h-screen flex flex-col justify-center' : 'pt-16 lg:pt-20'}`}
-  role="region"
   aria-label={sectionTitle}
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

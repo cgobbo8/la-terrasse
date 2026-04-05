@@ -118,7 +118,7 @@
     const b = parseInt(hex.slice(5, 7), 16);
     return (0.299 * r + 0.587 * g + 0.114 * b) / 255 > 0.6;
   }
-  const ctaTextColor = isLightColor(ctaColor) ? 'var(--color-brun-terre)' : 'white';
+  let ctaTextColor = $derived(isLightColor(ctaColor) ? 'var(--color-brun-terre)' : 'white');
 
   let activeMenu = $state<string | null>(null);
   let closeTimeout = $state<ReturnType<typeof setTimeout> | null>(null);
@@ -254,6 +254,7 @@
                 <div>
                   <p class="text-[0.8125rem] font-heading font-bold uppercase tracking-wider mb-3" style="color: {poleVar(pole.accentColor)}">{category}</p>
                   {#each links as link}
+                    {@const CatIcon = iconMap[link.icon ?? 'compass']}
                     <a
                       href={link.href}
                       role="menuitem"
@@ -265,7 +266,7 @@
                         class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
                         style="background-color: {poleLightVar(pole.accentColor)}; color: {poleVar(pole.accentColor)}"
                       >
-                        <svelte:component this={iconMap[link.icon ?? 'compass']} class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
+                        <CatIcon class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
                       </span>
                       <span class="flex flex-col min-w-0">
                         <span class="text-sm font-heading font-semibold text-gray-800 leading-tight">{link.label}</span>
@@ -282,6 +283,7 @@
               <div>
                 <p class="text-[0.6875rem] font-heading font-semibold uppercase tracking-wider text-gray-400 mb-3">{labelExplore}</p>
                 {#each pole.subLinks as link}
+                  {@const LinkIcon = iconMap[link.icon ?? 'compass']}
                   <a
                     href={link.href}
                     role="menuitem"
@@ -293,7 +295,7 @@
                       class="shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
                       style="background-color: {poleLightVar(pole.accentColor)}; color: {poleVar(pole.accentColor)}"
                     >
-                      <svelte:component this={iconMap[link.icon ?? 'compass']} class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
+                      <LinkIcon class="w-[1.125rem] h-[1.125rem]" strokeWidth={1.5} />
                     </span>
                     <span class="flex flex-col min-w-0">
                       <span class="text-sm font-heading font-semibold text-gray-800 leading-tight">{link.label}</span>
