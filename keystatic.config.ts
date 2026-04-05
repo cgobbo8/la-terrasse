@@ -235,6 +235,7 @@ export default config({
         title_es: fields.text({ label: 'Título (ES)' }),
         description_en: fields.text({ label: 'Description (EN)', multiline: true }),
         description_es: fields.text({ label: 'Descripción (ES)', multiline: true }),
+        highlighted: fields.checkbox({ label: 'Mettre en avant (style doré)', defaultValue: false }),
         visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
         content: fields.mdx({
           label: 'Contenu',
