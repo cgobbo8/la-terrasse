@@ -1,28 +1,28 @@
 # =============================================================================
 # Nginx config — La Terrasse Saint-Ferreol
 #
-# Copy to /etc/nginx/sites-available/laterrasse-saintferreol
-# then: ln -s /etc/nginx/sites-available/laterrasse-saintferreol /etc/nginx/sites-enabled/
+# Copy to /etc/nginx/sites-available/baseloisirs-saintferreol
+# then: ln -s /etc/nginx/sites-available/baseloisirs-saintferreol /etc/nginx/sites-enabled/
 #       nginx -t && systemctl reload nginx
 #
 # HTTPS: run certbot after initial setup:
-#   certbot --nginx -d laterrasse-saintferreol.fr -d www.laterrasse-saintferreol.fr
+#   certbot --nginx -d baseloisirs-saintferreol.fr -d www.baseloisirs-saintferreol.fr
 # =============================================================================
 
 # Redirect www → root
 server {
     listen 80;
-    server_name www.laterrasse-saintferreol.fr;
-    return 301 https://laterrasse-saintferreol.fr$request_uri;
+    server_name www.baseloisirs-saintferreol.fr;
+    return 301 https://baseloisirs-saintferreol.fr$request_uri;
 }
 
 server {
     listen 80;
-    server_name laterrasse-saintferreol.fr;
+    server_name baseloisirs-saintferreol.fr;
 
     # Certbot will add HTTPS directives here automatically
 
-    root /var/www/laterrasse-saintferreol/dist/client;
+    root /var/www/baseloisirs-saintferreol/dist/client;
 
     # Gzip compression
     gzip on;

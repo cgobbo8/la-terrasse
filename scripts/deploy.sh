@@ -9,7 +9,7 @@
 # =============================================================================
 set -euo pipefail
 
-APP_DIR="${APP_DIR:-/var/www/laterrasse-saintferreol}"
+APP_DIR="${APP_DIR:-/var/www/baseloisirs-saintferreol}"
 LOG_FILE="${APP_DIR}/deploy.log"
 PM2_APP_NAME="laterrasse"
 

@@ -470,8 +470,8 @@ export const translations = {
     'nav.pole.salle': 'La Salle',
 
     // Homepage
-    'home.page.title': 'Accueil',
-    'home.page.description': 'La Terrasse — Restaurant, Aventure et La Salle au lac de Saint-Ferréol',
+    'home.page.title': 'Base de loisirs au lac de Saint-Ferréol',
+    'home.page.description': 'Base de loisirs au lac de Saint-Ferréol : restaurant en terrasse, activités nautiques et plein air, location de salle. La Terrasse, votre été au lac.',
 
     // Contact page
     'contact.page.title': 'Contact',
@@ -990,8 +990,8 @@ export const translations = {
     'nav.pole.salle': 'La Salle',
 
     // Homepage
-    'home.page.title': 'Home',
-    'home.page.description': 'La Terrasse — Restaurant, Adventure and La Salle at Lake Saint-Ferréol',
+    'home.page.title': 'Leisure base at Lake Saint-Ferréol',
+    'home.page.description': 'Leisure base at Lake Saint-Ferréol: lakeside restaurant, water sports & outdoor activities, venue hire. La Terrasse, your summer at the lake.',
 
     // Contact page
     'contact.page.title': 'Contact',
@@ -1510,8 +1510,8 @@ export const translations = {
     'nav.pole.salle': 'La Salle',
 
     // Homepage
-    'home.page.title': 'Inicio',
-    'home.page.description': 'La Terrasse — Restaurante, Aventura y La Salle en el lago de Saint-Ferréol',
+    'home.page.title': 'Base de ocio en el lago de Saint-Ferréol',
+    'home.page.description': 'Base de ocio en el lago de Saint-Ferréol: restaurante junto al lago, deportes acuáticos y actividades al aire libre, alquiler de sala. La Terrasse, tu verano en el lago.',
 
     // Contact page
     'contact.page.title': 'Contacto',

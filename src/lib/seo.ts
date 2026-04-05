@@ -1,6 +1,6 @@
 const BUSINESS_INFO = {
   name: 'La Terrasse — Base de loisirs de Saint-Ferréol',
-  url: 'https://laterrasse-saintferreol.fr',
+  url: 'https://baseloisirs-saintferreol.fr',
   telephone: '+33602438641',
   email: 'contact@baseloisirs-saintferreol.fr',
   address: {
@@ -14,7 +14,7 @@ const BUSINESS_INFO = {
     latitude: 43.4504,
     longitude: 2.0505,
   },
-  image: 'https://laterrasse-saintferreol.fr/og-image.jpg',
+  image: 'https://baseloisirs-saintferreol.fr/og-image.jpg',
 };
 
 export function generateLocalBusinessLD(): string {
@@ -22,6 +22,7 @@ export function generateLocalBusinessLD(): string {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
     name: BUSINESS_INFO.name,
+    alternateName: ['La Terrasse', 'La Terrasse Saint-Ferréol', 'Base de loisirs Saint-Ferréol', 'Base de loisirs de Saint-Ferréol'],
     url: BUSINESS_INFO.url,
     telephone: BUSINESS_INFO.telephone,
     email: BUSINESS_INFO.email,

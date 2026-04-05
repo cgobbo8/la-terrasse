@@ -24,7 +24,7 @@ const {
 } = Astro.props;
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
-const siteUrl = import.meta.env.SITE_URL ?? 'https://laterrasse-saintferreol.fr';
+const siteUrl = import.meta.env.SITE_URL ?? 'https://baseloisirs-saintferreol.fr';
 const fullTitle = `${title} — La Terrasse`;
 const pathForHreflang = pagePath ?? (Astro.url.pathname.replace(/^\/(en|es)/, '') || '/');
 const localizedPath = getLocalizedPath(pathForHreflang, lang);

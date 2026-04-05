@@ -4,7 +4,7 @@ module.exports = {
     {
       name: 'laterrasse',
       script: 'dist/server/entry.mjs',
-      cwd: '/var/www/laterrasse-saintferreol',
+      cwd: '/var/www/baseloisirs-saintferreol',
       instances: 1,
       exec_mode: 'fork',
       env: {
