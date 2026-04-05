@@ -227,7 +227,6 @@ body::after {
   z-index: 9999;
   opacity: 0.4;
   animation: grain 8s steps(10) infinite;
-  will-change: transform;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -33,6 +33,7 @@ const { tagline, subtitle } = Astro.props;
     class="absolute inset-0 w-full h-full object-cover motion-reduce:hidden"
     muted
     playsinline
+    preload="none"
     data-vh-video="reverse"
   >
     <source src="/videos/hero-lac-reverse.mp4" type="video/mp4" />
@@ -44,6 +45,7 @@ const { tagline, subtitle } = Astro.props;
     alt=""
     class="absolute inset-0 w-full h-full object-cover hidden motion-reduce:block"
     loading="eager"
+    fetchpriority="high"
     role="presentation"
   />
 
