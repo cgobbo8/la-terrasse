@@ -42,12 +42,24 @@ function formatMonth(dateStr: string, locale: string) {
   return new Intl.DateTimeFormat(locale, { month: 'short' }).format(new Date(dateStr));
 }
 
-const displayEvents = upcomingEvents.map((event) => ({
-  slug: event.slug,
-  date: event.entry.date!,
-  title: getLocalizedField(event.entry, 'title', lang) || event.slug,
-  description: getLocalizedField(event.entry, 'description', lang),
-}));
+const displayEvents = upcomingEvents.map((event) => {
+  const entryAny = event.entry as Record<string, unknown>;
+  return {
+    slug: event.slug,
+    date: event.entry.date!,
+    startTime: (entryAny.startTime as string) || '',
+    endTime: (entryAny.endTime as string) || '',
+    title: getLocalizedField(event.entry, 'title', lang) || event.slug,
+    description: getLocalizedField(event.entry, 'description', lang),
+  };
+});
+
+function formatTimeRange(start: string, end: string): string | null {
+  if (!start) return null;
+  const s = start.replace(':', 'h');
+  if (!end) return s;
+  return `${s} — ${end.replace(':', 'h')}`;
+}
 ---
 
 {hasEvents && (
@@ -87,6 +99,11 @@ const displayEvents = upcomingEvents.map((event) => ({
                 <h3 class="font-heading font-bold text-sm text-gray-900 leading-snug">
                   {event.title}
                 </h3>
+                {formatTimeRange(event.startTime, event.endTime) && (
+                  <p class="text-[0.6875rem] text-gray-400 font-medium mt-0.5">
+                    {formatTimeRange(event.startTime, event.endTime)}
+                  </p>
+                )}
                 {event.description && (
                   <p class="text-xs text-gray-400 mt-1 line-clamp-1">
                     {event.description}

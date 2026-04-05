@@ -9,21 +9,15 @@ import { useTranslations } from '@/i18n/utils';
 import type { Lang } from '@/i18n/translations';
 import { poleConfigs } from '@/lib/pole-config';
 
-interface LayoutOption {
-  name: string;
-  capacity: number;
-}
-
 interface Props {
-  capacitySeated: number;
-  capacityStanding: number;
+  capacityMax: number;
   surfaceM2: number;
   equipment: readonly string[];
-  layoutOptions: readonly LayoutOption[];
+  layoutSuggestions: readonly string[];
   lang?: Lang;
 }
 
-const { capacitySeated, capacityStanding, surfaceM2, equipment, layoutOptions, lang = 'fr' } = Astro.props;
+const { capacityMax, surfaceM2, equipment, layoutSuggestions, lang = 'fr' } = Astro.props;
 const t = useTranslations(lang);
 const { accent, light } = poleConfigs.salle;
 ---
@@ -41,29 +35,23 @@ const { accent, light } = poleConfigs.salle;
         />
 
         <!-- Key figures row -->
-        <div class="grid grid-cols-3 gap-4">
-          <div class="text-center rounded-xl p-4" style={`background-color: ${light};`}>
-            <div class="font-heading text-2xl lg:text-3xl font-bold" style={`color: ${accent};`}>
-              {capacitySeated}
+        <div class="grid grid-cols-2 gap-4">
+          <div class="text-center rounded-xl p-5" style={`background-color: ${light};`}>
+            <div class="font-heading text-3xl lg:text-4xl font-bold" style={`color: ${accent};`}>
+              {capacityMax}
             </div>
-            <div class="text-sm text-gray-600 mt-1">{t('salle.venue.seatedLabel')}</div>
+            <div class="text-sm text-gray-600 mt-1">{t('salle.venue.capacityLabel')}</div>
           </div>
-          <div class="text-center rounded-xl p-4" style={`background-color: ${light};`}>
-            <div class="font-heading text-2xl lg:text-3xl font-bold" style={`color: ${accent};`}>
-              {capacityStanding}
-            </div>
-            <div class="text-sm text-gray-600 mt-1">{t('salle.venue.standingLabel')}</div>
-          </div>
-          <div class="text-center rounded-xl p-4" style={`background-color: ${light};`}>
-            <div class="font-heading text-2xl lg:text-3xl font-bold" style={`color: ${accent};`}>
-              {surfaceM2}<span class="text-base font-normal"> m²</span>
+          <div class="text-center rounded-xl p-5" style={`background-color: ${light};`}>
+            <div class="font-heading text-3xl lg:text-4xl font-bold" style={`color: ${accent};`}>
+              {surfaceM2}<span class="text-lg font-normal"> m²</span>
             </div>
             <div class="text-sm text-gray-600 mt-1">{t('salle.venue.surfaceLabel')}</div>
           </div>
         </div>
       </div>
 
-      <!-- Right column: equipment + configurations -->
+      <!-- Right column: equipment + layout suggestions -->
       <div class="space-y-8">
         <!-- Equipment -->
         <div>
@@ -83,19 +71,17 @@ const { accent, light } = poleConfigs.salle;
           </div>
         </div>
 
-        <!-- Layout configurations -->
+        <!-- Layout suggestions -->
         <div>
           <h3 class="font-heading text-lg font-bold mb-4 text-gray-900">
-            {t('salle.venue.configurationsTitle')}
+            {t('salle.venue.layoutTitle')}
           </h3>
-          <div class="grid grid-cols-2 gap-3">
-            {layoutOptions.map((layout) => (
-              <div class="flex items-center justify-between rounded-xl border border-gray-200/60 px-4 py-3 bg-white">
-                <span class="font-medium text-gray-800">{layout.name}</span>
-                <span class="text-sm font-bold" style={`color: ${accent};`}>
-                  {layout.capacity} {t('common.personsShort')}
-                </span>
-              </div>
+          <div class="flex flex-wrap gap-2">
+            {layoutSuggestions.map((name) => (
+              <span class="inline-flex items-center gap-2 rounded-xl border border-gray-200/60 px-4 py-2.5 bg-white text-sm font-medium text-gray-800">
+                <Icon name="lucide:layout-grid" class="w-4 h-4 shrink-0" style={`color: ${accent};`} aria-hidden="true" />
+                {name}
+              </span>
             ))}
           </div>
         </div>

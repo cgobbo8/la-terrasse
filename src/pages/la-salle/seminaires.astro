@@ -31,16 +31,15 @@ const reader = createReader(process.cwd(), keystaticConfig);
 const allSeminars = await reader.collections.seminars.all();
 const venueData = await reader.singletons.venue.read();
 const pricingData = await reader.singletons.seminarsPricing.read();
-const capacitySeated = venueData?.capacitySeated ?? 0;
-const capacityStanding = venueData?.capacityStanding ?? 0;
+const capacityMax = venueData?.capacityMax ?? 0;
 const surfaceM2 = venueData?.surfaceM2 ?? 0;
 const venueAny = venueData as Record<string, unknown> | null;
 const equipment = venueData
   ? (lang !== defaultLang && venueAny?.[`equipment_${lang}`] as readonly string[]) || venueData.equipment || []
   : [] as readonly string[];
-const layoutOptions = venueData
-  ? (lang !== defaultLang && venueAny?.[`layoutOptions_${lang}`] as readonly { name: string; capacity: number }[]) || venueData.layoutOptions || []
-  : [] as readonly { name: string; capacity: number }[];
+const layoutSuggestions = venueData
+  ? (lang !== defaultLang && venueAny?.[`layoutSuggestions_${lang}`] as readonly string[]) || venueData.layoutSuggestions || []
+  : [] as readonly string[];
 const seminars = allSeminars
   .filter((s) => s.entry.visible)
   .sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0));
@@ -267,11 +266,10 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
       </h2>
     </div>
     <VenueSpecs
-      capacitySeated={capacitySeated}
-      capacityStanding={capacityStanding}
+      capacityMax={capacityMax}
       surfaceM2={surfaceM2}
       equipment={equipment}
-      layoutOptions={layoutOptions}
+      layoutSuggestions={layoutSuggestions}
       lang={lang}
     />
   </div>

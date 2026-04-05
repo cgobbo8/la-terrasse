@@ -1,12 +1,12 @@
 const BUSINESS_INFO = {
   name: 'La Terrasse — Base de loisirs de Saint-Ferréol',
   url: 'https://laterrasse-saintferreol.fr',
-  telephone: '+33000000000',
+  telephone: '+33602438641',
   email: 'contact@baseloisirs-saintferreol.fr',
   address: {
-    streetAddress: 'Lac de Saint-Ferréol',
-    addressLocality: 'Saint-Ferréol',
-    postalCode: '31250',
+    streetAddress: '144 avenue de Carcassonne',
+    addressLocality: 'Sorèze',
+    postalCode: '81540',
     addressRegion: 'Occitanie',
     addressCountry: 'FR',
   },
@@ -72,8 +72,7 @@ export function generateRestaurantLD(): string {
 }
 
 export function generateEventVenueLD(venue: {
-  capacitySeated: number;
-  capacityStanding: number;
+  capacityMax: number;
   amenities: readonly string[];
 }): string {
   return JSON.stringify({
@@ -84,7 +83,7 @@ export function generateEventVenueLD(venue: {
     telephone: BUSINESS_INFO.telephone,
     email: BUSINESS_INFO.email,
     image: BUSINESS_INFO.image,
-    maximumAttendeeCapacity: venue.capacityStanding,
+    maximumAttendeeCapacity: venue.capacityMax,
     amenityFeature: venue.amenities.map((a) => ({
       '@type': 'LocationFeatureSpecification',
       name: a,

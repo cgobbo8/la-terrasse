@@ -21,7 +21,7 @@ const phone = siteSettings?.phone ?? '';
 const phoneTel = phone.replace(/\s/g, '').replace(/^0/, '+33');
 const email = siteSettings?.email ?? '';
 const googleMapsUrl = siteSettings?.googleMapsUrl ?? '';
-const googleMapsEmbedUrl = 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5780.5!2d2.0505!3d43.4504!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDPCsDI3JzAxLjQiTiAywrAwMycwMS44IkU!5e0!3m2!1sfr!2sfr!4v1';
+const googleMapsEmbedUrl = 'https://maps.google.com/maps?q=144+avenue+de+Carcassonne+81540+Sor%C3%A8ze+France&t=&z=15&ie=UTF8&iwloc=&output=embed';
 
 const jsonLd = generateLocalBusinessLD();
 ---
@@ -196,7 +196,7 @@ const jsonLd = generateLocalBusinessLD();
         </div>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6" data-reveal-stagger>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-reveal-stagger>
         <!-- Car -->
         <div class="bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
           <div class="w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center mb-5">
@@ -206,22 +206,31 @@ const jsonLd = generateLocalBusinessLD();
           <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.carDesc')}</p>
         </div>
 
-        <!-- Parking -->
+        <!-- Bus -->
         <div class="bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
           <div class="w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center mb-5">
-            <Icon name="lucide:square-parking" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
+            <Icon name="lucide:bus" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
           </div>
-          <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{t('contact.directions.parking')}</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.parkingDesc')}</p>
+          <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{t('contact.directions.bus')}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.busDesc')}</p>
         </div>
 
-        <!-- Public transport -->
+        <!-- Bike -->
         <div class="bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
           <div class="w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center mb-5">
-            <Icon name="lucide:globe" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
+            <Icon name="lucide:bike" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
           </div>
-          <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{t('contact.directions.transport')}</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.transportDesc')}</p>
+          <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{t('contact.directions.bike')}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.bikeDesc')}</p>
+        </div>
+
+        <!-- On site -->
+        <div class="bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
+          <div class="w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center mb-5">
+            <Icon name="lucide:map-pin-check" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
+          </div>
+          <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{t('contact.directions.onsite')}</h3>
+          <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.onsiteDesc')}</p>
         </div>
       </div>
     </div>

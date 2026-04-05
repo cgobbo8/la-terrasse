@@ -1,48 +1,50 @@
-capacitySeated: 80
-capacityStanding: 120
-surfaceM2: 150
+capacityMax: 202
+surfaceM2: 195
 equipment:
-  - Vidéoprojecteur
-  - Wi-Fi haut débit
-  - Paperboard / Flipchart
-  - Sono
-  - Parking gratuit
-layoutOptions:
-  - name: Théâtre
-    capacity: 80
-  - name: U-shape
-    capacity: 30
-  - name: Table ronde
-    capacity: 40
-  - name: Îlots
-    capacity: 48
+  - Vidéoprojecteur laser
+  - Écran motorisé 3m × 4m
+  - Sono & micros sans fil
+  - Wi-Fi
+  - Bluetooth (sono)
+  - Climatisation & chauffage
+  - Traitement acoustique
+  - Espace divisible
+  - Parking à proximité
+layoutSuggestions:
+  - Théâtre
+  - U-shape
+  - Table ronde
+  - Îlots
+  - Cocktail / debout
 equipment_en:
-  - Projector
-  - High-speed Wi-Fi
-  - Flipchart
-  - Sound system
-  - Free parking
+  - Laser projector
+  - Motorized screen 3m × 4m
+  - Sound system & wireless mics
+  - Wi-Fi
+  - Bluetooth (sound system)
+  - Air conditioning & heating
+  - Acoustic treatment
+  - Dividable space
+  - Nearby parking
 equipment_es:
-  - Proyector
-  - Wi-Fi de alta velocidad
-  - Pizarra / Rotafolios
-  - Sistema de sonido
-  - Aparcamiento gratuito
-layoutOptions_en:
-  - name: Theatre
-    capacity: 80
-  - name: U-shape
-    capacity: 30
-  - name: Round table
-    capacity: 40
-  - name: Islands
-    capacity: 48
-layoutOptions_es:
-  - name: Teatro
-    capacity: 80
-  - name: U-shape
-    capacity: 30
-  - name: Mesa redonda
-    capacity: 40
-  - name: Islas
-    capacity: 48
+  - Proyector láser
+  - Pantalla motorizada 3m × 4m
+  - Sistema de sonido y micrófonos inalámbricos
+  - Wi-Fi
+  - Bluetooth (sonido)
+  - Climatización y calefacción
+  - Tratamiento acústico
+  - Espacio divisible
+  - Aparcamiento cercano
+layoutSuggestions_en:
+  - Theatre
+  - U-shape
+  - Round table
+  - Islands
+  - Cocktail / standing
+layoutSuggestions_es:
+  - Teatro
+  - U-shape
+  - Mesa redonda
+  - Islas
+  - Cóctel / de pie

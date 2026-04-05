@@ -33,11 +33,20 @@ const displayEvents = upcomingEvents.map((event) => {
   return {
     slug: event.slug,
     date: event.entry.date!,
+    startTime: (entryAny.startTime as string) || '',
+    endTime: (entryAny.endTime as string) || '',
     category: (entryAny.category as string) || 'autre',
     title: getLocalizedField(event.entry, 'title', lang) || event.slug,
     description: getLocalizedField(event.entry, 'description', lang),
   };
 });
+
+function formatTimeRange(start: string, end: string): string | null {
+  if (!start) return null;
+  const s = start.replace(':', 'h');
+  if (!end) return s;
+  return `${s} — ${end.replace(':', 'h')}`;
+}
 
 // Group by month
 type DisplayEvent = typeof displayEvents[number];
@@ -128,6 +137,11 @@ function getCategoryLabel(category: string): string {
                           {getCategoryLabel(event.category)}
                         </span>
                       </div>
+                      {formatTimeRange(event.startTime, event.endTime) && (
+                        <p class="text-sm text-gray-500 font-medium mb-1">
+                          {formatTimeRange(event.startTime, event.endTime)}
+                        </p>
+                      )}
                       {event.description && (
                         <p class="text-sm text-gray-600 leading-relaxed">
                           {event.description}

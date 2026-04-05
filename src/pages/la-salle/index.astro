@@ -9,6 +9,7 @@ import { Icon } from 'astro-icon/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import VenueSpecs from '@/components/salle/VenueSpecs.astro';
+import VenueSpaces from '@/components/salle/VenueSpaces.svelte';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
@@ -27,8 +28,7 @@ const t = useTranslations(lang);
 const reader = createReader(process.cwd(), keystaticConfig);
 const venueData = await reader.singletons.venue.read();
 
-const capacitySeated = venueData?.capacitySeated ?? 0;
-const capacityStanding = venueData?.capacityStanding ?? 0;
+const capacityMax = venueData?.capacityMax ?? 0;
 const surfaceM2 = venueData?.surfaceM2 ?? 0;
 
 // For array fields, check localized version first, fall back to FR
@@ -38,18 +38,17 @@ const equipment = venueData
     || venueData.equipment
     || []
   : [] as readonly string[];
-const layoutOptions = venueData
-  ? (lang !== defaultLang && venueAny?.[`layoutOptions_${lang}`] as readonly { name: string; capacity: number }[])
-    || venueData.layoutOptions
+const layoutSuggestions = venueData
+  ? (lang !== defaultLang && venueAny?.[`layoutSuggestions_${lang}`] as readonly string[])
+    || venueData.layoutSuggestions
     || []
-  : [] as readonly { name: string; capacity: number }[];
+  : [] as readonly string[];
 
 const seoTitle = 'La Salle — Location de salle pour pros & associations — La Terrasse Saint-Ferréol';
-const seoDescription = 'Salle modulable au lac de Saint-Ferréol : capacité jusqu\'à ' + capacityStanding + ' personnes. Location pour séminaires, concerts, foires, soirées. Sur réservation pour pros & associations.';
+const seoDescription = 'Salle modulable au lac de Saint-Ferréol : capacité jusqu\'à ' + capacityMax + ' personnes. Location pour séminaires, concerts, foires, soirées. Sur réservation pour pros & associations.';
 
 const jsonLd = generateEventVenueLD({
-  capacitySeated,
-  capacityStanding,
+  capacityMax,
   amenities: venueData?.equipment ?? [],
 });
 ---
@@ -88,14 +87,64 @@ const jsonLd = generateEventVenueLD({
       </h2>
     </div>
     <VenueSpecs
-      capacitySeated={capacitySeated}
-      capacityStanding={capacityStanding}
+      capacityMax={capacityMax}
       surfaceM2={surfaceM2}
       equipment={equipment}
-      layoutOptions={layoutOptions}
+      layoutSuggestions={layoutSuggestions}
       lang={lang}
     />
   </div>
+
+  <!-- LES ESPACES — 3 cards: salle, sanitaires, traiteur -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-10" data-reveal>
+        <p class="section-eyebrow mb-4" style={`color: ${salleAccent}50;`}>{t('salle.spaces.eyebrow')}</p>
+        <h2 class="font-heading text-2xl lg:text-3xl font-bold text-gray-900">
+          {t('salle.spaces.title')}
+        </h2>
+      </div>
+      <VenueSpaces
+        client:visible
+        accent={salleAccent}
+        light={salleLight}
+        detailsLabel={t('salle.spaces.details')}
+        hideLabel={t('salle.spaces.hideDetails')}
+        cards={[
+          {
+            icon: 'room',
+            title: t('salle.spaces.room.title'),
+            desc: t('salle.spaces.room.desc'),
+            details: [
+              t('salle.spaces.room.detail1'),
+              t('salle.spaces.room.detail2'),
+              t('salle.spaces.room.detail3'),
+              t('salle.spaces.room.detail4'),
+            ],
+          },
+          {
+            icon: 'sanitary',
+            title: t('salle.spaces.sanitary.title'),
+            desc: t('salle.spaces.sanitary.desc'),
+            details: [
+              t('salle.spaces.sanitary.detail1'),
+              t('salle.spaces.sanitary.detail2'),
+            ],
+          },
+          {
+            icon: 'catering',
+            title: t('salle.spaces.catering.title'),
+            desc: t('salle.spaces.catering.desc'),
+            details: [
+              t('salle.spaces.catering.detail1'),
+              t('salle.spaces.catering.detail2'),
+              t('salle.spaces.catering.detail3'),
+            ],
+          },
+        ]}
+      />
+    </div>
+  </section>
 
   <!-- DOUBLE DISPATCH: Événementiel + Séminaires -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
