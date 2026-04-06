@@ -12,10 +12,12 @@ import VenueSpecs from '@/components/salle/VenueSpecs.astro';
 import VenueSpaces from '@/components/salle/VenueSpaces.svelte';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
+import CollectivitesCallout from '@/components/salle/CollectivitesCallout.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
 import { generateEventVenueLD } from '@/lib/seo';
 import { buildQuoteMailto, poleConfigs } from '@/lib/pole-config';
+import { getSiteSettings } from '@/lib/site-settings';
 import { createReader } from '@keystatic/core/reader';
 
 const { accent: salleAccent, light: salleLight } = poleConfigs.salle;
@@ -24,7 +26,10 @@ import keystaticConfig from '../../../keystatic.config';
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
-// Load venue data from Keystatic
+// Load settings + venue data from Keystatic
+const siteSettings = await getSiteSettings();
+const siteEmail = siteSettings?.email ?? '';
+const sitePhone = siteSettings?.phone ?? '';
 const reader = createReader(process.cwd(), keystaticConfig);
 const venueData = await reader.singletons.venue.read();
 
@@ -146,6 +151,9 @@ const jsonLd = generateEventVenueLD({
     </div>
   </section>
 
+  <!-- Tarifs groupes & collectivités -->
+  <CollectivitesCallout />
+
   <!-- DOUBLE DISPATCH: Événementiel + Séminaires -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -211,7 +219,7 @@ const jsonLd = generateEventVenueLD({
       <p class="text-white/50 mb-10 max-w-lg mx-auto">
         {t('common.requestQuoteDesc')}
       </p>
-      <a href={buildQuoteMailto()} class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px text-white bg-white/15 border border-white/20 hover:bg-white/25">
+      <a href={buildQuoteMailto(siteEmail)} class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px text-white bg-white/15 border border-white/20 hover:bg-white/25">
         {t('common.requestQuote')}
         <Icon name="lucide:mail" class="w-4 h-4" />
       </a>

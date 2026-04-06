@@ -9,6 +9,7 @@ import SectionHero from '@/components/common/SectionHero.astro';
 import SeminarConfigurator from '@/components/salle/SeminarConfigurator.svelte';
 import VenueSpecs from '@/components/salle/VenueSpecs.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
+import CollectivitesCallout from '@/components/salle/CollectivitesCallout.astro';
 import { Icon } from 'astro-icon/components';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
@@ -274,6 +275,9 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
     />
   </div>
 
+  <!-- Tarifs groupes & collectivités -->
+  <CollectivitesCallout />
+
   <!-- Section contact -->
   <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style={`background-color: ${salleAccent};`}>
     <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 70% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);"></div>
@@ -282,7 +286,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4">
         {t('common.requestQuoteDesc')}
       </h2>
-      <a href={buildQuoteMailto()} class="inline-flex items-center gap-2 bg-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px" style={`color: ${salleAccent};`}>
+      <a href={buildQuoteMailto(siteEmail)} class="inline-flex items-center gap-2 bg-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px" style={`color: ${salleAccent};`}>
         <Icon name="lucide:mail" class="w-4 h-4" />
         {t('common.requestQuote')}
       </a>

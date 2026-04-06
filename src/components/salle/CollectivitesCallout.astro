@@ -1,0 +1,57 @@
+---
+/**
+ * CollectivitesCallout — Shared callout for special rates
+ * for schools, leisure centers and associations.
+ * Used on: /la-salle, /la-salle/seminaires
+ */
+import { Icon } from 'astro-icon/components';
+import { poleConfigs } from '@/lib/pole-config';
+import { buildQuoteMailto } from '@/lib/pole-config';
+import { getSiteSettings, toTelHref } from '@/lib/site-settings';
+
+const { accent: salleAccent, light: salleLight } = poleConfigs.salle;
+const settings = await getSiteSettings();
+const siteEmail = settings?.email ?? '';
+const telHref = toTelHref(settings?.phone ?? '');
+---
+
+<section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+    <div class="rounded-2xl border-2 p-8 sm:p-10 relative overflow-hidden" style={`border-color: ${salleAccent}30; background: linear-gradient(135deg, ${salleLight} 0%, white 100%);`}>
+      <div class="flex flex-col sm:flex-row items-start gap-5">
+        <span class="w-14 h-14 rounded-xl flex items-center justify-center flex-shrink-0" style={`background-color: ${salleAccent}15;`}>
+          <Icon name="lucide:users" class="w-7 h-7" style={`color: ${salleAccent};`} />
+        </span>
+        <div class="flex-1 min-w-0">
+          <h2 class="font-heading text-xl lg:text-2xl font-bold text-gray-900 mb-2">
+            Collectivités & associations
+          </h2>
+          <p class="text-gray-600 text-sm lg:text-base leading-relaxed mb-2">
+            Les établissements scolaires, centres de loisirs, centres aérés et associations bénéficient de <strong class="text-gray-900">tarifs spécifiques</strong> adaptés à leur structure et à leurs besoins.
+          </p>
+          <p class="text-gray-500 text-sm leading-relaxed mb-6">
+            Contactez-nous directement pour obtenir un devis personnalisé — nous vous proposerons une offre sur mesure.
+          </p>
+          <div class="flex flex-wrap items-center gap-3">
+            <a
+              href={buildQuoteMailto(siteEmail, 'Demande tarif collectivité')}
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-heading font-semibold text-sm text-white transition-all hover:shadow-lg hover:-translate-y-px"
+              style={`background-color: ${salleAccent};`}
+            >
+              <Icon name="lucide:mail" class="w-4 h-4" />
+              Demander un devis
+            </a>
+            <a
+              href={telHref}
+              class="inline-flex items-center gap-2 px-6 py-3 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-md hover:-translate-y-px"
+              style={`color: ${salleAccent}; border: 1.5px solid ${salleAccent}30; background-color: white;`}
+            >
+              <Icon name="lucide:phone" class="w-4 h-4" />
+              Nous appeler
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

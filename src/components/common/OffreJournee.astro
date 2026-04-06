@@ -2,7 +2,7 @@
 /**
  * OffreJournee — "Pass Journée" promotional section
  *
- * Premium offer card: 1 grande activité + 2 petites activités = -20% au restaurant.
+ * Premium offer card: 3 activités (1 grande min + 2 petites) = -20% sur le pack activités.
  * Used on: homepage, /aventure, /restaurant
  *
  * Zero JS — pure Astro + CSS. Hover effects via CSS transitions.
@@ -23,10 +23,8 @@ const settings = await getSiteSettings();
 const discount = settings?.passJourneeDiscount ?? 20;
 
 const aventurePath = getLocalizedPath('/aventure', lang);
-const cartePath = getLocalizedPath('/restaurant/carte', lang);
 
 const { accent: aventureAccent, accentDark: aventureDark, light: aventureLight } = poleConfigs.aventure;
-const { accent: restaurantAccent, light: restaurantLight } = poleConfigs.restaurant;
 
 /* ----------------------------------------------------------------
    Large activities — the "1 grande activité" anchor points
@@ -46,7 +44,7 @@ const steps = [
     icon: 'lucide:mountain-snow',
     color: aventureAccent,
     bgLight: aventureLight,
-    label: 'Grande activité',
+    label: '1 grande activité',
     detail: 'VTT, pédalo, archery tag…',
   },
   {
@@ -54,16 +52,16 @@ const steps = [
     icon: 'lucide:sparkles',
     color: aventureAccent,
     bgLight: aventureLight,
-    label: '2 petites activités',
+    label: '+ 2 petites activités',
     detail: 'Tir à l\'arc, accrobranche…',
   },
   {
     number: '03',
-    icon: 'lucide:utensils',
-    color: restaurantAccent,
-    bgLight: restaurantLight,
-    label: `−${discount}% au restaurant`,
-    detail: 'Sur toute votre commande',
+    icon: 'lucide:percent',
+    color: aventureAccent,
+    bgLight: aventureLight,
+    label: `= −${discount}% sur le pack`,
+    detail: 'Sur l\'ensemble de vos activités',
   },
 ];
 ---
@@ -107,8 +105,7 @@ const steps = [
               <em class="not-italic" style={`color: ${aventureAccent}`}>toute La Terrasse</em>
             </h2>
             <p class="mt-4 text-base lg:text-lg leading-relaxed max-w-prose text-gray-600">
-              Combinez vos aventures et profitez d'une belle réduction à table.
-              Une journée complète, un seul endroit, un tarif qui récompense les curieux.
+              Achetez 3 activités dont au moins 1 grande et bénéficiez de {discount}% de réduction sur l'ensemble de votre pack activités.
             </p>
           </div>
 
@@ -141,12 +138,12 @@ const steps = [
               <Icon name="lucide:arrow-right" class="w-4 h-4 flex-shrink-0 cta-arrow" />
             </a>
             <a
-              href={cartePath}
+              href={aventurePath + '#tarifs'}
               class="cta-restaurant inline-flex items-center gap-2.5 px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all"
-              style={`background-color: transparent; color: ${restaurantAccent}; border: 1.5px solid ${restaurantAccent}30;`}
+              style={`background-color: transparent; color: ${aventureDark}; border: 1.5px solid ${aventureAccent}30;`}
             >
-              <Icon name="lucide:utensils" class="w-4 h-4 flex-shrink-0" />
-              Voir la carte
+              <Icon name="lucide:tag" class="w-4 h-4 flex-shrink-0" />
+              Voir les tarifs
             </a>
           </div>
         </div>
@@ -161,7 +158,7 @@ const steps = [
                 −{discount}%
               </span>
               <span class="mt-1.5 text-sm font-medium text-brun-terre/70">
-                sur votre repas
+                sur votre pack activités
               </span>
               <!-- Subtle star decoration -->
               <div class="flex gap-1 mt-3 opacity-60" aria-hidden="true">
@@ -174,16 +171,22 @@ const steps = [
             <!-- Step-by-step formula -->
             <div class="formula-steps rounded-2xl overflow-hidden bg-offwhite" style="border: 1px solid var(--color-gray-200);">
               {steps.map((step, idx) => (
-                <div class:list={['formula-step flex items-start gap-3.5 px-5 py-4', idx > 0 ? 'formula-step--bordered' : '']}>
+                <div class:list={[
+                  'formula-step flex items-center gap-3.5 px-5 py-4 relative overflow-hidden',
+                  idx > 0 ? 'formula-step--bordered' : '',
+                  idx === steps.length - 1 ? 'formula-step--highlight' : '',
+                ]}>
+                  {/* Shine glint on last step */}
+                  {idx === steps.length - 1 && <div class="formula-glint" aria-hidden="true"></div>}
                   <!-- Step icon -->
                   <div
-                    class="step-icon flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center mt-0.5"
+                    class="step-icon flex-shrink-0 w-9 h-9 rounded-lg flex items-center justify-center"
                     style={`background-color: ${step.bgLight};`}
                   >
                     <Icon name={step.icon} class="w-4.5 h-4.5" style={`color: ${step.color};`} />
                   </div>
                   <!-- Step text -->
-                  <div class="min-w-0">
+                  <div class="min-w-0 flex-1">
                     <p class="font-heading font-bold text-sm leading-tight" style={`color: ${step.color};`}>
                       {step.label}
                     </p>
@@ -192,7 +195,7 @@ const steps = [
                     </p>
                   </div>
                   <!-- Step number -->
-                  <span class="flex-shrink-0 self-start font-heading font-bold text-xs mt-1 text-gray-400/60">
+                  <span class="flex-shrink-0 font-heading font-bold text-xs text-gray-400/60">
                     {step.number}
                   </span>
                 </div>
@@ -202,7 +205,7 @@ const steps = [
               <div class="px-5 py-3 bg-gray-100" style="border-top: 1px solid var(--color-gray-200);">
                 <p class="text-xs leading-snug text-gray-600">
                   <Icon name="lucide:info" class="inline w-3 h-3 mr-1 -mt-0.5" style={`color: ${aventureAccent};`} />
-                  Valable le jour même — sur présentation de vos tickets activités.
+                  Valable le jour même — réduction appliquée directement à l'achat.
                 </p>
               </div>
             </div>
@@ -222,8 +225,8 @@ const steps = [
   .offre-card {
     background: linear-gradient(
       135deg,
-      var(--color-restaurant-light) 0%,
-      var(--color-aventure-light) 45%,
+      var(--color-aventure-light) 0%,
+      var(--color-soleil-light, #FFFEF0) 50%,
       var(--color-aventure-light) 100%
     );
   }
@@ -333,6 +336,36 @@ const steps = [
     transform: scale(1.08);
   }
 
+  /* Highlight background on discount step */
+  .formula-step--highlight {
+    background-color: rgba(124, 179, 66, 0.06);
+  }
+
+  /* Glint sweep — inspired by AgendaFloatingWidget */
+  .formula-glint {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 60%;
+    height: 100%;
+    background: linear-gradient(
+      105deg,
+      transparent 20%,
+      rgba(124, 179, 66, 0.12) 40%,
+      rgba(255, 255, 255, 0.3) 50%,
+      rgba(124, 179, 66, 0.12) 60%,
+      transparent 80%
+    );
+    pointer-events: none;
+    animation: formula-glint 5s ease-in-out infinite;
+  }
+
+  @keyframes formula-glint {
+    0%, 80%, 100% { left: -100%; opacity: 0; }
+    10% { opacity: 1; }
+    40% { left: 150%; opacity: 0; }
+  }
+
   /* ================================================================
      RESPONSIVE — mobile tweaks
      ================================================================ */
@@ -359,5 +392,6 @@ const steps = [
       transition: none;
       transform: none !important;
     }
+    .formula-glint { animation: none; display: none; }
   }
 </style>

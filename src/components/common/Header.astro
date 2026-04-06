@@ -25,9 +25,9 @@ const settings = await getSiteSettings();
 const discount = settings?.passJourneeDiscount ?? 20;
 
 const passJourneeDescriptions: Record<Lang, string> = {
-  fr: `Activités + −${discount}% au restaurant`,
-  en: `Activities + −${discount}% at the restaurant`,
-  es: `Actividades + −${discount}% en el restaurante`,
+  fr: `3 activités = −${discount}% sur le pack`,
+  en: `3 activities = −${discount}% off the pack`,
+  es: `3 actividades = −${discount}% en el pack`,
 };
 
 const ctaLabelLocalized = ctaLabelOverride ?? (pole === 'aventure'
