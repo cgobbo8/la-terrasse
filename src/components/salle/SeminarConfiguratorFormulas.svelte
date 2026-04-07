@@ -72,9 +72,9 @@
       description: 'Location en soirée, prolongation possible',
       includes: [],
       pricingType: 'flat',
-      flatPrice: 500,
+      flatPrice: 450,
       extraHourRate: 50,
-      priceDisplay: '500 €',
+      priceDisplay: '450 €',
       priceSublabel: 'HT + 50 € / h supp.',
     },
   ];

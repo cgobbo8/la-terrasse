@@ -367,15 +367,21 @@ export default config({
       format: { data: 'yaml' },
       schema: {
         flatJournee: fields.integer({
-          label: 'Forfait Salle sèche — Journée (€ HT)',
-          description: 'Location de salle uniquement, sans restauration',
+          label: 'Forfait Salle sèche — Journée entière (€ HT)',
+          description: 'Location de salle uniquement, sans restauration (8h–18h)',
           defaultValue: 600,
+          validation: { isRequired: true },
+        }),
+        flatDemiJournee: fields.integer({
+          label: 'Forfait Salle sèche — Demi-journée (€ HT)',
+          description: 'Location de salle demi-journée (4h)',
+          defaultValue: 350,
           validation: { isRequired: true },
         }),
         flatSoiree: fields.integer({
           label: 'Forfait Salle sèche — Soirée (€ HT)',
           description: 'Location de salle soirée sans restauration',
-          defaultValue: 500,
+          defaultValue: 450,
           validation: { isRequired: true },
         }),
         priceMealFull: fields.integer({

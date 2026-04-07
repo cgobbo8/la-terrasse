@@ -35,6 +35,7 @@
     quoteMailto?: string;
     lang?: Lang;
     flatJournee?: number;
+    flatDemiJournee?: number;
     flatSoiree?: number;
     priceMealFull?: number;
     priceMealApero?: number;
@@ -50,7 +51,8 @@
     quoteMailto = 'mailto:',
     lang = defaultLang,
     flatJournee = 600,
-    flatSoiree = 500,
+    flatDemiJournee = 350,
+    flatSoiree = 450,
     priceMealFull = 45,
     priceMealApero = 35,
     priceTeamBuilding = 25,
@@ -74,11 +76,13 @@
   // ── Types ────────────────────────────────────────────────────────────
   type TimeSlot = 'journee' | 'soiree';
   type JourneeMode = 'salle-seche' | 'journee-etude';
+  type SalleSecheDuration = 'journee-entiere' | 'demi-journee';
   type MealFormat = 'repas-complet' | 'apero';
   type SoireeMeal = 'none' | 'apero' | 'repas-complet';
 
   // ── Constants (from CMS props, with fallback defaults) ─────────────
   const FLAT_JOURNEE = flatJournee;
+  const FLAT_DEMI_JOURNEE = flatDemiJournee;
   const FLAT_SOIREE = flatSoiree;
   const PRICE_MEAL_FULL = priceMealFull;
   const PRICE_MEAL_APERO = priceMealApero;
@@ -161,6 +165,7 @@
   // ── State ────────────────────────────────────────────────────────────
   let timeSlot = $state<TimeSlot>('journee');
   let journeeMode = $state<JourneeMode>('journee-etude');
+  let salleSecheDuration = $state<SalleSecheDuration>('journee-entiere');
   let journeeMeal = $state<MealFormat>('repas-complet');
   let soireeMeal = $state<SoireeMeal>('repas-complet');
   let hasTeamBuilding = $state(false);
@@ -176,6 +181,7 @@
   const isJourneeEtude = $derived(isJournee && journeeMode === 'journee-etude');
   const isSalleSeche = $derived(isJournee && journeeMode === 'salle-seche');
   const hasSoireeMeal = $derived(isSoiree && soireeMeal !== 'none');
+  const salleSechePrice = $derived(salleSecheDuration === 'journee-entiere' ? FLAT_JOURNEE : FLAT_DEMI_JOURNEE);
   const currentSlot = $derived(TIME_SLOTS.find(s => s.id === timeSlot)!);
   const needsParticipants = $derived(isJourneeEtude || hasSoireeMeal);
 
@@ -231,7 +237,7 @@
 
   // ── Total ────────────────────────────────────────────────────────────
   const total = $derived.by(() => {
-    if (isSalleSeche) return FLAT_JOURNEE;
+    if (isSalleSeche) return salleSechePrice;
     if (isJourneeEtude) return perPersonPrice * participants;
     if (hasSoireeMeal) return mealPrice * participants + extraHours * PRICE_EXTRA_HOUR;
     return FLAT_SOIREE + extraHours * PRICE_EXTRA_HOUR;
@@ -287,8 +293,9 @@
     lines.push(`${t('salle.seminaires.cfg.mailto.slot')} : ${slotLabel}`);
 
     if (isSalleSeche) {
-      lines.push(`${t('salle.seminaires.cfg.mailto.formula')} : ${t('salle.seminaires.cfg.mailto.pathDryHire')}`);
-      lines.push(`${t('salle.seminaires.cfg.mailto.flatPrice')} : ${FLAT_JOURNEE} € HT`);
+      const durationLabel = salleSecheDuration === 'journee-entiere' ? t('salle.seminaires.cfg.fullDay') : t('salle.seminaires.cfg.halfDay');
+      lines.push(`${t('salle.seminaires.cfg.mailto.formula')} : ${t('salle.seminaires.cfg.mailto.pathDryHire')} (${durationLabel})`);
+      lines.push(`${t('salle.seminaires.cfg.mailto.flatPrice')} : ${salleSechePrice} € HT`);
     } else if (isJourneeEtude) {
       const mealLabel = activeMealDef ? t(activeMealDef.labelKey) : '';
       lines.push(`${t('salle.seminaires.cfg.mailto.formula')} : ${t('salle.seminaires.cfg.mailto.pathStudyDay')} — ${mealLabel} (${mealPrice} € HT/pers.)`);
@@ -315,7 +322,8 @@
     const base = quoteMailto.replace(/^mailto:/, '');
     let subject: string;
     if (isSalleSeche) {
-      subject = `${t('salle.seminaires.cfg.mailto.subject')} — ${t('salle.seminaires.cfg.pathDryHire')}`;
+      const durLabel = salleSecheDuration === 'journee-entiere' ? t('salle.seminaires.cfg.fullDay') : t('salle.seminaires.cfg.halfDay');
+      subject = `${t('salle.seminaires.cfg.mailto.subject')} — ${t('salle.seminaires.cfg.pathDryHire')} (${durLabel})`;
     } else if (isJourneeEtude) {
       subject = `${t('salle.seminaires.cfg.mailto.subject')} — ${activeMealDef ? t(activeMealDef.labelKey) : ''} (${participants} pers.)`;
     } else {
@@ -434,7 +442,7 @@
               </div>
               <div class="text-right flex-shrink-0 hidden xs:block">
                 <p class="font-heading font-bold text-base" style="color: {isSalleSeche ? accentColor : '#9ca3af'};">
-                  {FLAT_JOURNEE}&nbsp;€
+                  {t('salle.seminaires.cfg.from')} {FLAT_DEMI_JOURNEE}&nbsp;€
                 </p>
                 <p class="text-[10px] text-gray-400 mt-0.5">{t('salle.seminaires.cfg.flatRate')}</p>
               </div>
@@ -495,6 +503,63 @@
             </div>
           </button>
         </div>
+
+        <!-- ═══ SALLE SÈCHE: Duration selector ══════════════════ -->
+        {#if isSalleSeche}
+          <div class="space-y-2">
+            <h4 class="font-heading font-bold text-xs uppercase tracking-wider" style="color: {accentColor}; opacity: 0.6;">
+              {t('salle.seminaires.cfg.durationChoice')}
+            </h4>
+            <div
+              class="p-1.5 rounded-2xl"
+              style="background-color: {accentLight}; border: 1.5px solid {accentBorder};"
+            >
+              <div class="grid grid-cols-2 gap-1.5" role="radiogroup" aria-label={t('salle.seminaires.cfg.durationChoice')}>
+                <!-- Journée entière -->
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={salleSecheDuration === 'journee-entiere'}
+                  onclick={() => (salleSecheDuration = 'journee-entiere')}
+                  class="slot-toggle relative flex items-center gap-2.5 px-4 py-3.5 rounded-xl transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-xl"
+                  style="
+                    background-color: {salleSecheDuration === 'journee-entiere' ? accentColor : 'transparent'};
+                    color: {salleSecheDuration === 'journee-entiere' ? 'white' : '#6b7280'};
+                    outline-color: {accentColor};
+                    box-shadow: {salleSecheDuration === 'journee-entiere' ? '0 4px 15px ' + accentColor + '40' : 'none'};
+                  "
+                >
+                  <Sun class="w-4 h-4 flex-shrink-0" strokeWidth={1.5} />
+                  <div class="text-left min-w-0">
+                    <p class="font-heading font-bold text-xs leading-tight truncate">{t('salle.seminaires.cfg.fullDay')}</p>
+                    <p class="text-[11px] mt-0.5" style="opacity: {salleSecheDuration === 'journee-entiere' ? 0.7 : 0.5};">{FLAT_JOURNEE}&nbsp;€ · {t('salle.seminaires.cfg.fullDayHours')}</p>
+                  </div>
+                </button>
+
+                <!-- Demi-journée -->
+                <button
+                  type="button"
+                  role="radio"
+                  aria-checked={salleSecheDuration === 'demi-journee'}
+                  onclick={() => (salleSecheDuration = 'demi-journee')}
+                  class="slot-toggle relative flex items-center gap-2.5 px-4 py-3.5 rounded-xl transition-all duration-300 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:rounded-xl"
+                  style="
+                    background-color: {salleSecheDuration === 'demi-journee' ? accentColor : 'transparent'};
+                    color: {salleSecheDuration === 'demi-journee' ? 'white' : '#6b7280'};
+                    outline-color: {accentColor};
+                    box-shadow: {salleSecheDuration === 'demi-journee' ? '0 4px 15px ' + accentColor + '40' : 'none'};
+                  "
+                >
+                  <Clock class="w-4 h-4 flex-shrink-0" strokeWidth={1.5} />
+                  <div class="text-left min-w-0">
+                    <p class="font-heading font-bold text-xs leading-tight truncate">{t('salle.seminaires.cfg.halfDay')}</p>
+                    <p class="text-[11px] mt-0.5" style="opacity: {salleSecheDuration === 'demi-journee' ? 0.7 : 0.5};">{FLAT_DEMI_JOURNEE}&nbsp;€ · {t('salle.seminaires.cfg.halfDayHours')}</p>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+        {/if}
 
         <!-- ═══ JOURNÉE D'ÉTUDE: Composition ═════════════════════ -->
         {#if isJourneeEtude}
@@ -963,14 +1028,14 @@
         <div class="bg-white px-6 py-5 space-y-3">
 
           {#if isSalleSeche}
-            <!-- Flat journée -->
+            <!-- Flat journée / demi-journée -->
             <div class="flex items-center justify-between text-sm">
               <span class="text-gray-600 flex items-center gap-2">
                 <Sun class="w-3.5 h-3.5 flex-shrink-0" style="color: {accentColor};" strokeWidth={1.5} />
-                {t('salle.seminaires.cfg.pathDryHire')} — {t('salle.seminaires.cfg.journee').toLowerCase()}
-                <span class="text-gray-400 text-xs">({t('salle.seminaires.cfg.journeeHours')})</span>
+                {t('salle.seminaires.cfg.pathDryHire')} — {salleSecheDuration === 'journee-entiere' ? t('salle.seminaires.cfg.fullDay').toLowerCase() : t('salle.seminaires.cfg.halfDay').toLowerCase()}
+                <span class="text-gray-400 text-xs">({salleSecheDuration === 'journee-entiere' ? t('salle.seminaires.cfg.fullDayHours') : t('salle.seminaires.cfg.halfDayHours')})</span>
               </span>
-              <span class="font-semibold text-gray-800 tabular-nums">{FLAT_JOURNEE}&nbsp;€</span>
+              <span class="font-semibold text-gray-800 tabular-nums">{salleSechePrice}&nbsp;€</span>
             </div>
 
           {:else if isSoiree && !hasSoireeMeal}

@@ -1,5 +1,6 @@
 flatJournee: 600
-flatSoiree: 500
+flatDemiJournee: 350
+flatSoiree: 450
 priceMealFull: 45
 priceMealApero: 35
 priceTeamBuilding: 25

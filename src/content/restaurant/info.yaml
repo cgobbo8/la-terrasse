@@ -27,34 +27,37 @@ menuSections:
     title_en: Burgers
     title_es: Hamburguesas
     dishes:
-      - name: Le chef (frites)
+      - name: Le Saint-Fé
         description: >-
           Pain bun brioché, steak haché de bœuf 150g, aïoli maison, tomates
-          cerises confites, oignons frits, Tomme de vache, salade
+          cerises confites, oignons frits, Tomme de vache de la ferme, salade +
+          frites
         price: ''
         tags: []
-        name_en: Le Chef Burger (fries)
-        name_es: Le Chef (patatas fritas)
+        name_en: Le Saint-Fé
+        name_es: Le Saint-Fé
         description_en: >-
           Brioche bun, 150g beef patty, homemade aïoli, confit cherry tomatoes,
-          fried onions, Tomme cheese, salad
+          fried onions, farmhouse Tomme cheese, salad + fries
         description_es: >-
           Pan brioche, hamburguesa de ternera 150g, alioli casero, tomates
-          cherry confitados, cebollas fritas, queso Tomme, ensalada
-      - name: Le gourmand (frites)
+          cherry confitados, cebollas fritas, queso Tomme de granja, ensalada +
+          patatas fritas
+      - name: Le Burger Gourmand
         description: >-
           Pain burger croissant, steak haché de bœuf 150g, tomates cerises
-          confites, oignons frits, cheddar, sauce mayo épicée, salade
+          confites, oignons frits, cheddar, sauce mayo épicée, salade + frites
         price: ''
         tags: []
-        name_en: Le Gourmand Burger (fries)
-        name_es: Le Gourmand (patatas fritas)
+        name_en: Le Burger Gourmand
+        name_es: Le Burger Gourmand
         description_en: >-
           Croissant burger bun, 150g beef patty, confit cherry tomatoes,
-          fried onions, cheddar, spicy mayo sauce, salad
+          fried onions, cheddar, spicy mayo sauce, salad + fries
         description_es: >-
           Pan croissant, hamburguesa de ternera 150g, tomates cherry
-          confitados, cebollas fritas, cheddar, salsa mayo picante, ensalada
+          confitados, cebollas fritas, cheddar, salsa mayo picante, ensalada +
+          patatas fritas
 
   # ============================
   # MIDI — Plats
@@ -64,57 +67,46 @@ menuSections:
     title_en: Mains
     title_es: Platos
     dishes:
-      - name: Bagel (frites / salade)
+      - name: Le Bagel
         description: >-
           Saumon fumé, crème citron ciboulette, salade, carottes râpées, radis,
-          tomates cerises confites, oignons frits
+          tomates cerises confites, oignons frits + frites et salade
         price: ''
         tags: []
-        name_en: Bagel (fries / salad)
-        name_es: Bagel (patatas fritas / ensalada)
+        name_en: Le Bagel
+        name_es: Le Bagel
         description_en: >-
           Smoked salmon, lemon chive cream, salad, grated carrots, radishes,
-          confit cherry tomatoes, fried onions
+          confit cherry tomatoes, fried onions + fries and salad
         description_es: >-
           Salmón ahumado, crema de limón y cebollino, ensalada, zanahoria
-          rallada, rábanos, tomates cherry confitados, cebollas fritas
-      - name: Croque-monsieur feuilleté de canard confit (frites / salade)
-        description: Feuilleté croustillant garni de canard confit fondant
+          rallada, rábanos, tomates cherry confitados, cebollas fritas +
+          patatas fritas y ensalada
+      - name: Le Croque-monsieur feuilleté
+        description: de canard confit + frites et salade
         price: ''
         tags: []
-        name_en: Duck confit puff pastry croque-monsieur (fries / salad)
-        name_es: Croque-monsieur de hojaldre con pato confitado (patatas fritas / ensalada)
-        description_en: Crispy puff pastry filled with tender duck confit
-        description_es: Hojaldre crujiente relleno de pato confitado tierno
-      - name: Poke Bowl
+        name_en: Le Croque-monsieur Feuilleté
+        name_es: Le Croque-monsieur Feuilleté
+        description_en: Duck confit + fries and salad
+        description_es: Pato confitado + patatas fritas y ensalada
+      - name: Le Poke Bowl
         description: >-
           Riz vinaigré, poulet, avocat, fêta, sésame noir et crudités de
-          saison. Sauce : huile d'olive, citron, gingembre ou sauce mayo épicée
+          saison. Sauce : huile d'olive, citron, gingembre ou sauce mayo
+          épicée. Option végé sans poulet
         price: ''
         tags: []
-        name_en: Poke Bowl
-        name_es: Poke Bowl
+        name_en: Le Poke Bowl
+        name_es: Le Poke Bowl
         description_en: >-
           Seasoned rice, chicken, avocado, feta, black sesame and seasonal raw
-          vegetables. Sauce: olive oil, lemon, ginger or spicy mayo
+          vegetables. Sauce: olive oil, lemon, ginger or spicy mayo. Veggie
+          option without chicken
         description_es: >-
           Arroz avinagrado, pollo, aguacate, feta, sésamo negro y crudités de
-          temporada. Salsa: aceite de oliva, limón, jengibre o mayo picante
-      - name: Poke Bowl végétarien (sans poulet)
-        description: >-
-          Riz vinaigré, avocat, fêta, sésame noir et crudités de saison.
-          Sauce : huile d'olive, citron, gingembre ou sauce mayo épicée
-        price: ''
-        tags:
-          - végétarien
-        name_en: Vegetarian Poke Bowl (no chicken)
-        name_es: Poke Bowl vegetariano (sin pollo)
-        description_en: >-
-          Seasoned rice, avocado, feta, black sesame and seasonal raw
-          vegetables. Sauce: olive oil, lemon, ginger or spicy mayo
-        description_es: >-
-          Arroz avinagrado, aguacate, feta, sésamo negro y crudités de
-          temporada. Salsa: aceite de oliva, limón, jengibre o mayo picante
+          temporada. Salsa: aceite de oliva, limón, jengibre o mayo picante.
+          Opción vegetariana sin pollo
 
   # ============================
   # MIDI — Salades
@@ -124,48 +116,49 @@ menuSections:
     title_en: Salads
     title_es: Ensaladas
     dishes:
-      - name: La cabriole
-        description: 'Salade, toasts de chèvre chaud au miel, noix, crudités'
+      - name: La Salade de La Cabriole
+        description: 'Salade, toasts de chèvre chaud de la ferme au miel, noix, crudités'
         price: ''
         tags:
           - végétarien
-        name_en: La Cabriole
-        name_es: La Cabriole
-        description_en: 'Salad, warm goat cheese toasts with honey, walnuts, raw vegetables'
-        description_es: 'Ensalada, tostas de queso de cabra caliente con miel, nueces, crudités'
-      - name: L'estivale
+        name_en: La Salade de La Cabriole
+        name_es: La Salade de La Cabriole
+        description_en: 'Salad, warm farmhouse goat cheese toasts with honey, walnuts, raw vegetables'
+        description_es: 'Ensalada, tostas de queso de cabra de granja caliente con miel, nueces, crudités'
+      - name: La Salade Estivale
         description: >-
-          Salade, fêta, tomates, poivrons grillés, concombre, avocat, oignons
-          frits
+          Salade, fêta, tomates, poivrons grillés, concombre, avocat, carottes
+          râpées, oignons frits
         price: ''
         tags:
           - végétarien
-        name_en: L'Estivale
-        name_es: L'Estivale
+        name_en: La Salade Estivale
+        name_es: La Salade Estivale
         description_en: >-
-          Salad, feta, tomatoes, grilled peppers, cucumber, avocado,
-          fried onions
+          Salad, feta, tomatoes, grilled peppers, cucumber, avocado, grated
+          carrots, fried onions
         description_es: >-
           Ensalada, feta, tomates, pimientos asados, pepino, aguacate,
-          cebollas fritas
-      - name: L'italienne
+          zanahorias ralladas, cebollas fritas
+      - name: La Salade Italienne
         description: >-
-          Tomates, Burrata 120g, huile d'olive, oignon rouge, basilic frais
+          Tomates, Burrata crémeuse 120g, huile d'olive, oignon rouge, basilic
+          frais
         price: ''
         tags:
           - végétarien
-        name_en: L'Italienne
-        name_es: L'Italienne
-        description_en: 'Tomatoes, 120g Burrata, olive oil, red onion, fresh basil'
-        description_es: 'Tomates, Burrata 120g, aceite de oliva, cebolla roja, albahaca fresca'
+        name_en: La Salade Italienne
+        name_es: La Salade Italienne
+        description_en: 'Tomatoes, creamy 120g Burrata, olive oil, red onion, fresh basil'
+        description_es: 'Tomates, Burrata cremosa 120g, aceite de oliva, cebolla roja, albahaca fresca'
 
   # ============================
-  # MIDI — À la carte
+  # MIDI — Les petits plus
   # ============================
   - group: midi
-    title: À la carte
-    title_en: Sides
-    title_es: A la carta
+    title: Les petits plus
+    title_en: Extras
+    title_es: Los extras
     dishes:
       - name: Bol de frites
         description: Frites maison
@@ -332,14 +325,14 @@ menuSections:
         name_es: Nuggets con patatas fritas o mini poke bowl
         description_en: Child's choice
         description_es: A elección del niño
-      - name: 1 glace
-        description: Parfum au choix
+      - name: 1 glace ou salade de fruits
+        description: Parfum au choix ou fruits frais
         price: ''
         tags: []
-        name_en: 1 Ice Cream
-        name_es: 1 Helado
-        description_en: Choice of flavour
-        description_es: Sabor a elegir
+        name_en: 1 Ice Cream or Fruit Salad
+        name_es: 1 Helado o ensalada de frutas
+        description_en: Choice of flavour or fresh fruits
+        description_es: Sabor a elegir o frutas frescas
       - name: 1 cadeau
         description: Petit cadeau surprise
         price: ''
