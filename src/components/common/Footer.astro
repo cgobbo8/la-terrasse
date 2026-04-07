@@ -75,6 +75,27 @@ const t = useTranslations(lang);
           <div class="pt-1">
             <ContactLinks phone={phone} email={email} variant="footer" />
           </div>
+          <div class="flex items-center gap-3 pt-3">
+            <span class="text-xs text-gray-400">{t('footer.followUs')}</span>
+            <a
+              href="https://www.facebook.com/profile.php?id=61574748330124"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              class="w-9 h-9 rounded-full bg-gray-200/60 flex items-center justify-center hover:bg-brun-terre hover:text-white transition-colors"
+            >
+              <Icon name="lucide:facebook" class="w-4 h-4" />
+            </a>
+            <a
+              href="https://www.instagram.com/basedeloisirssaintferreol/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              class="w-9 h-9 rounded-full bg-gray-200/60 flex items-center justify-center hover:bg-brun-terre hover:text-white transition-colors"
+            >
+              <Icon name="lucide:instagram" class="w-4 h-4" />
+            </a>
+          </div>
         </div>
       </div>
     </div>

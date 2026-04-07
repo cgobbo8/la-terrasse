@@ -321,6 +321,11 @@ export const translations = {
     'salle.seminaires.cfg.pathStudyDay': 'Journée d\'étude',
     'salle.seminaires.cfg.pathStudyDay.desc': 'Salle + restauration, tout compris',
     'salle.seminaires.cfg.orLabel': 'ou',
+    'salle.seminaires.cfg.durationChoice': 'Durée de location',
+    'salle.seminaires.cfg.fullDay': 'Journée entière',
+    'salle.seminaires.cfg.fullDayHours': '8h – 18h',
+    'salle.seminaires.cfg.halfDay': 'Demi-journée',
+    'salle.seminaires.cfg.halfDayHours': '4h',
     'salle.seminaires.cfg.chooseSlot': 'Choisissez votre créneau',
     'salle.seminaires.cfg.chooseFormula': 'Choisissez votre formule',
     'salle.seminaires.cfg.formulaFull.desc': 'Journée complète, restauration assise',
@@ -544,6 +549,8 @@ export const translations = {
     'footer.activitiesLink': 'Les activités',
     'footer.salleLink': 'La salle',
     'footer.photoDisclaimer': 'Certaines photos et vidéos sont issues de banques d\'images libres de droits et seront remplacées par des visuels propres à l\'établissement.',
+    'footer.followUs': 'Suivez-nous',
+    'contact.social.title': 'Réseaux sociaux',
 
     // Restaurant — Menu periods
     'restaurant.menu.period.midi': 'Le Midi',
@@ -869,6 +876,11 @@ export const translations = {
     'salle.seminaires.cfg.pathStudyDay': 'Study day',
     'salle.seminaires.cfg.pathStudyDay.desc': 'Venue + catering included',
     'salle.seminaires.cfg.orLabel': 'or',
+    'salle.seminaires.cfg.durationChoice': 'Hire duration',
+    'salle.seminaires.cfg.fullDay': 'Full day',
+    'salle.seminaires.cfg.fullDayHours': '8am – 6pm',
+    'salle.seminaires.cfg.halfDay': 'Half day',
+    'salle.seminaires.cfg.halfDayHours': '4h',
     'salle.seminaires.cfg.chooseSlot': 'Choose your time slot',
     'salle.seminaires.cfg.chooseFormula': 'Choose your formula',
     'salle.seminaires.cfg.formulaFull.desc': 'Full day with sit-down lunch',
@@ -1088,6 +1100,8 @@ export const translations = {
     'footer.activitiesLink': 'Activities',
     'footer.salleLink': 'The venue',
     'footer.photoDisclaimer': 'Some photos and videos are sourced from royalty-free stock libraries and will be replaced with the establishment\'s own visuals.',
+    'footer.followUs': 'Follow us',
+    'contact.social.title': 'Social media',
 
     // Restaurant — Menu periods
     'restaurant.menu.period.midi': 'Lunch',
@@ -1413,6 +1427,11 @@ export const translations = {
     'salle.seminaires.cfg.pathStudyDay': 'Jornada de estudio',
     'salle.seminaires.cfg.pathStudyDay.desc': 'Sala + restauración incluida',
     'salle.seminaires.cfg.orLabel': 'o',
+    'salle.seminaires.cfg.durationChoice': 'Duración del alquiler',
+    'salle.seminaires.cfg.fullDay': 'Jornada completa',
+    'salle.seminaires.cfg.fullDayHours': '8h – 18h',
+    'salle.seminaires.cfg.halfDay': 'Media jornada',
+    'salle.seminaires.cfg.halfDayHours': '4h',
     'salle.seminaires.cfg.chooseSlot': 'Elija su horario',
     'salle.seminaires.cfg.chooseFormula': 'Elija su fórmula',
     'salle.seminaires.cfg.formulaFull.desc': 'Jornada completa, comida sentada',
@@ -1632,6 +1651,8 @@ export const translations = {
     'footer.activitiesLink': 'Actividades',
     'footer.salleLink': 'La sala',
     'footer.photoDisclaimer': 'Algunas fotos y vídeos provienen de bancos de imágenes libres de derechos y serán reemplazados por visuales propios del establecimiento.',
+    'footer.followUs': 'Síguenos',
+    'contact.social.title': 'Redes sociales',
 
     // Restaurant — Menu periods
     'restaurant.menu.period.midi': 'Mediodía',
