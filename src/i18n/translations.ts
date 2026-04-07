@@ -67,7 +67,7 @@ export const translations = {
 
     // Restaurant
     'restaurant.hero.tagline': 'Tapas, burgers et bonne humeur face au lac',
-    'restaurant.hero.subtitle': 'Cuisine conviviale et de qualité, en terrasse au bord du lac',
+    'restaurant.hero.subtitle': 'Cuisine conviviale en terrasse, au bord du lac de Saint-Ferréol',
     'restaurant.producers.title': 'Nos producteurs locaux',
     'restaurant.producers.heroSubtitle': 'Les producteurs locaux derrière chaque assiette',
     'restaurant.producers.breadcrumb': 'Nos Producteurs',
@@ -85,7 +85,7 @@ export const translations = {
     'restaurant.menu.crossSellLink': 'Découvrir les activités →',
 
     // Aventure
-    'aventure.hero.tagline': 'Bouger, respirer et profiter de la nature',
+    'aventure.hero.tagline': 'Bouger, respirer, profiter — activités plein air au lac',
     'aventure.hero.subtitle': 'Activités terrestres et aquatiques au lac de Saint-Ferréol',
     'aventure.aquatique': 'Activités aquatiques',
     'aventure.terrestre': 'Activités terrestres',
@@ -102,6 +102,10 @@ export const translations = {
     'aventure.hub.viewActivities': 'Voir les activités',
     'aventure.hub.groupBody': 'Organisez une sortie de groupe — activités personnalisées pour entreprises, associations, écoles et groupes d\'amis.',
     'aventure.hub.groupCta': 'Sortie de groupe',
+    // Aventure — SEO prose section
+    'aventure.hub.introEyebrow': 'Le terrain de jeu',
+    'aventure.hub.introTitle': 'Activités nature au lac de Saint-Ferréol',
+    'aventure.hub.introBody': 'Au cœur du Tarn, entre Toulouse et Castres, le lac de Saint-Ferréol est un terrain de jeu naturel exceptionnel. Notre base de loisirs propose des activités aquatiques — paddle, canoë, pédalo — et terrestres — VTT, mini-golf, archery tag, course d\'orientation — accessibles à tous : familles, groupes d\'amis, sorties scolaires ou team building d\'entreprise. À 45 minutes de Toulouse et 30 minutes de Castres, au pied de la Montagne Noire, venez profiter d\'une journée plein air dans un cadre classé au patrimoine mondial de l\'UNESCO.',
 
     // Restaurant hub
     'restaurant.hub.viewMenu': 'Voir la carte',
@@ -117,9 +121,13 @@ export const translations = {
     'restaurant.soirees.cta': 'Voir l\'agenda des soirées',
     'restaurant.subpage.producteurs.title': 'Nos Producteurs',
     'restaurant.subpage.producteurs.desc': 'Les artisans derrière nos assiettes',
+    // Restaurant — SEO prose section
+    'restaurant.hub.locationEyebrow': 'Le cadre',
+    'restaurant.hub.locationTitle': 'Un restaurant au bord du lac de Saint-Ferréol',
+    'restaurant.hub.locationBody': 'À Sorèze, au pied de la Montagne Noire et à 45 minutes de Toulouse, La Terrasse vous accueille dans un cadre naturel d\'exception. Installé à quelques pas du lac de Saint-Ferréol — plus grand réservoir du Canal du Midi classé UNESCO — le restaurant propose une cuisine faite maison avec des produits locaux du Tarn et du Lauragais. L\'été, la terrasse face au lac est l\'endroit idéal pour un déjeuner entre amis, un dîner en famille ou un apéro au coucher du soleil. Entre Castres et Revel, c\'est une adresse que les Toulousains adoptent vite.',
 
     // La Salle — Hub
-    'salle.hero.tagline': 'Un lieu, mille possibilités',
+    'salle.hero.tagline': 'Votre salle au bord du lac, mille possibilités',
     'salle.hero.subtitle': 'Séminaires, concerts, congrès, foires — une salle modulable au cœur du lac de Saint-Ferréol',
     'salle.venue.title': 'L\'espace',
     'salle.packs.title': 'Nos formules séminaire',
@@ -181,8 +189,8 @@ export const translations = {
     'salle.evenementiel.marches.desc': 'Accueil d\'exposants, espace intérieur et extérieur combinables.',
     'salle.evenementiel.cta': 'Nous contacter',
     // La Salle — Séminaires
-    'salle.seminaires.hero.tagline': 'Travailler autrement, dans un cadre qui inspire',
-    'salle.seminaires.hero.subtitle': 'Séminaires, réunions et événements d\'entreprise au lac de Saint-Ferréol',
+    'salle.seminaires.hero.tagline': 'Votre séminaire au bord du lac, dans un cadre qui inspire',
+    'salle.seminaires.hero.subtitle': 'Séminaires, réunions et team building au lac de Saint-Ferréol, près de Toulouse',
     // La Salle — Séminaires (page)
     'salle.seminaires.config.eyebrow': 'Configurateur',
     'salle.seminaires.config.title': 'Composez votre séminaire',
@@ -224,6 +232,22 @@ export const translations = {
     'salle.seminaires.tb.coaching.cta': 'Demander un devis',
     'salle.seminaires.venue.eyebrow': 'L\'espace',
     'salle.seminaires.contact.eyebrow': 'Devis',
+    // Séminaires — SEO prose section
+    'salle.seminaires.why.eyebrow': 'Pourquoi Saint-Ferréol',
+    'salle.seminaires.why.title': 'Un cadre naturel à 45 minutes de Toulouse',
+    'salle.seminaires.why.body': 'Le lac de Saint-Ferréol, au pied de la Montagne Noire dans le Tarn, offre un cadre idéal pour sortir du quotidien sans aller loin. À seulement 45 minutes de Toulouse et 30 minutes de Castres, notre base de loisirs combine une salle de séminaire entièrement équipée, un restaurant avec terrasse face au lac, et des activités de team building en pleine nature. Entre Revel et Sorèze, au cœur du Lauragais, c\'est l\'endroit parfait pour reconnecter vos équipes dans un environnement inspirant — loin des salles de réunion classiques, mais à portée d\'autoroute.',
+    // Séminaires — FAQ
+    'salle.seminaires.faq.title': 'Questions fréquentes',
+    'salle.seminaires.faq.q1': 'Où se situe le lieu de séminaire ?',
+    'salle.seminaires.faq.a1': 'La Terrasse se trouve au lac de Saint-Ferréol, à Sorèze dans le Tarn (81). Le site est à 45 minutes de Toulouse par l\'A61 ou l\'A68, et à 30 minutes de Castres. Facilement accessible depuis toute l\'Occitanie.',
+    'salle.seminaires.faq.q2': 'Quelle est la capacité de la salle ?',
+    'salle.seminaires.faq.a2': 'La salle de 195 m² accueille jusqu\'à 202 personnes (debout/cocktail) ou 80 en configuration séminaire avec tables. Elle est équipée d\'un vidéoprojecteur laser, d\'une sono, du Wi-Fi et de la climatisation.',
+    'salle.seminaires.faq.q3': 'Quelles activités de team building proposez-vous ?',
+    'salle.seminaires.faq.a3': 'Paddle, canoë, archery tag, course d\'orientation, VTT, pédalo… Toutes les activités de la base sont disponibles pour votre séminaire. Nous proposons aussi des programmes avec coaching professionnel (défis type Koh-Lanta, cohésion d\'équipe, épreuves sportives).',
+    'salle.seminaires.faq.q4': 'La restauration est-elle possible sur place ?',
+    'salle.seminaires.faq.a4': 'Oui, notre restaurant prépare des repas avec des produits locaux et de saison. Plusieurs formules : du petit-déjeuner d\'accueil au repas complet, en passant par l\'apéro dînatoire et les pauses café.',
+    'salle.seminaires.faq.q5': 'Comment venir depuis Toulouse ?',
+    'salle.seminaires.faq.a5': 'Depuis Toulouse, prenez l\'A61 direction Castelnaudary puis la D629 vers Revel et Sorèze, ou l\'A68 direction Castres puis la D629. Comptez environ 1 heure de route. Parking gratuit sur place.',
     // La Salle — Séminaires (configurateur)
     'salle.seminaires.cfg.journee': 'Journée',
     'salle.seminaires.cfg.soiree': 'Soirée',
@@ -470,8 +494,8 @@ export const translations = {
     'nav.pole.salle': 'La Salle',
 
     // Homepage
-    'home.page.title': 'Base de loisirs au lac de Saint-Ferréol',
-    'home.page.description': 'Base de loisirs au lac de Saint-Ferréol : restaurant en terrasse, activités nautiques et plein air, location de salle. La Terrasse, votre été au lac.',
+    'home.page.title': 'Base de loisirs au lac de Saint-Ferréol, près de Toulouse',
+    'home.page.description': 'Base de loisirs au lac de Saint-Ferréol, à 45 min de Toulouse : restaurant en terrasse, activités nautiques et plein air, location de salle. La Terrasse, votre été au lac.',
 
     // Contact page
     'contact.page.title': 'Contact',
@@ -592,7 +616,7 @@ export const translations = {
     'home.cta.title': 'Come experience La Terrasse',
 
     'restaurant.hero.tagline': 'Tapas, burgers and good vibes by the lake',
-    'restaurant.hero.subtitle': 'Convivial and quality food, on the terrace by the lake',
+    'restaurant.hero.subtitle': 'Convivial cuisine on the terrace, at Lake Saint-Ferréol',
     'restaurant.producers.title': 'Our local producers',
     'restaurant.producers.heroSubtitle': 'The local producers behind every dish',
     'restaurant.producers.breadcrumb': 'Our Producers',
@@ -609,7 +633,7 @@ export const translations = {
     'restaurant.menu.crossSell': 'After lunch, head down to the lake for a paddle or a bike ride.',
     'restaurant.menu.crossSellLink': 'Discover activities →',
 
-    'aventure.hero.tagline': 'Move, breathe, enjoy nature',
+    'aventure.hero.tagline': 'Move, breathe, enjoy — outdoor activities at the lake',
     'aventure.hero.subtitle': 'Land and water activities at Lake Saint-Ferréol',
     'aventure.aquatique': 'Water activities',
     'aventure.terrestre': 'Land activities',
@@ -626,6 +650,10 @@ export const translations = {
     'aventure.hub.viewActivities': 'View activities',
     'aventure.hub.groupBody': 'Organize a group outing — customized activities for companies, associations, schools and groups of friends.',
     'aventure.hub.groupCta': 'Group outing',
+    // Aventure — SEO prose section
+    'aventure.hub.introEyebrow': 'The playground',
+    'aventure.hub.introTitle': 'Outdoor activities at Lake Saint-Ferréol',
+    'aventure.hub.introBody': 'In the heart of Tarn, between Toulouse and Castres, Lake Saint-Ferréol is an outstanding natural playground. Our leisure base offers water activities — paddle, canoe, pedal boat — and land activities — mountain biking, mini-golf, archery tag, orienteering — accessible to all: families, groups of friends, school outings or corporate team building. Just 45 minutes from Toulouse and 30 minutes from Castres, at the foot of the Montagne Noire, enjoy a day of outdoor fun in a UNESCO World Heritage setting.',
 
     // Restaurant hub
     'restaurant.hub.viewMenu': 'View menu',
@@ -641,9 +669,13 @@ export const translations = {
     'restaurant.soirees.cta': 'See the events agenda',
     'restaurant.subpage.producteurs.title': 'Our Producers',
     'restaurant.subpage.producteurs.desc': 'The artisans behind our plates',
+    // Restaurant — SEO prose section
+    'restaurant.hub.locationEyebrow': 'The setting',
+    'restaurant.hub.locationTitle': 'A restaurant by Lake Saint-Ferréol',
+    'restaurant.hub.locationBody': 'In Sorèze, at the foot of the Montagne Noire and just 45 minutes from Toulouse, La Terrasse welcomes you in an exceptional natural setting. Located steps from Lake Saint-Ferréol — the largest reservoir of the UNESCO-listed Canal du Midi — the restaurant serves homemade dishes with local produce from Tarn and Lauragais. In summer, the lakeside terrace is the perfect spot for lunch with friends, a family dinner or sunset drinks. Between Castres and Revel, it\'s an address that Toulouse locals quickly adopt.',
 
     // La Salle — Hub
-    'salle.hero.tagline': 'One venue, endless possibilities',
+    'salle.hero.tagline': 'Your lakeside venue, endless possibilities',
     'salle.hero.subtitle': 'Seminars, concerts, conferences, exhibitions — a versatile venue at the heart of Lake Saint-Ferréol',
     'salle.venue.title': 'The venue',
     'salle.packs.title': 'Our seminar packages',
@@ -705,8 +737,8 @@ export const translations = {
     'salle.evenementiel.marches.desc': 'Exhibitor space with combined indoor and outdoor areas.',
     'salle.evenementiel.cta': 'Contact us',
     // La Salle — Séminaires
-    'salle.seminaires.hero.tagline': 'Work differently, in an inspiring setting',
-    'salle.seminaires.hero.subtitle': 'Seminars, meetings and corporate events at Lake Saint-Ferréol',
+    'salle.seminaires.hero.tagline': 'Your lakeside seminar, in an inspiring setting',
+    'salle.seminaires.hero.subtitle': 'Seminars, meetings and team building at Lake Saint-Ferréol, near Toulouse',
     // La Salle — Séminaires (page)
     'salle.seminaires.config.eyebrow': 'Configurator',
     'salle.seminaires.config.title': 'Build your seminar',
@@ -748,6 +780,22 @@ export const translations = {
     'salle.seminaires.tb.coaching.cta': 'Request a quote',
     'salle.seminaires.venue.eyebrow': 'The space',
     'salle.seminaires.contact.eyebrow': 'Quote',
+    // Séminaires — SEO prose section
+    'salle.seminaires.why.eyebrow': 'Why Saint-Ferréol',
+    'salle.seminaires.why.title': 'A natural setting 45 minutes from Toulouse',
+    'salle.seminaires.why.body': 'Lake Saint-Ferréol, at the foot of the Montagne Noire in Tarn, offers the ideal setting for stepping away from the everyday without going far. Just 45 minutes from Toulouse and 30 minutes from Castres, our leisure base combines a fully equipped seminar room, a lakeside restaurant, and outdoor team building activities. Between Revel and Sorèze, in the heart of Lauragais, it\'s the perfect place to reconnect your teams in an inspiring environment — far from ordinary meeting rooms, but just off the motorway.',
+    // Séminaires — FAQ
+    'salle.seminaires.faq.title': 'Frequently asked questions',
+    'salle.seminaires.faq.q1': 'Where is the seminar venue located?',
+    'salle.seminaires.faq.a1': 'La Terrasse is located at Lake Saint-Ferréol, in Sorèze, Tarn (81). The site is 45 minutes from Toulouse via the A61 or A68, and 30 minutes from Castres. Easily accessible from across Occitanie.',
+    'salle.seminaires.faq.q2': 'What is the venue capacity?',
+    'salle.seminaires.faq.a2': 'The 195 m² hall accommodates up to 202 people (standing/cocktail) or 80 in seminar configuration with tables. It is equipped with a laser projector, sound system, Wi-Fi and air conditioning.',
+    'salle.seminaires.faq.q3': 'What team building activities do you offer?',
+    'salle.seminaires.faq.a3': 'Paddle, canoe, archery tag, orienteering, mountain biking, pedal boats… All base activities are available for your seminar. We also offer programmes with professional coaching (Koh-Lanta-style challenges, team cohesion, sports challenges).',
+    'salle.seminaires.faq.q4': 'Is on-site catering available?',
+    'salle.seminaires.faq.a4': 'Yes, our restaurant prepares meals with local, seasonal produce. Several options are available: from welcome breakfast to full meals, cocktail receptions and coffee breaks.',
+    'salle.seminaires.faq.q5': 'How do I get there from Toulouse?',
+    'salle.seminaires.faq.a5': 'From Toulouse, take the A61 towards Castelnaudary then the D629 towards Revel and Sorèze, or the A68 towards Castres then the D629. Allow about 1 hour. Free parking on site.',
     // La Salle — Séminaires (configurator)
     'salle.seminaires.cfg.journee': 'Full day',
     'salle.seminaires.cfg.soiree': 'Evening',
@@ -990,8 +1038,8 @@ export const translations = {
     'nav.pole.salle': 'La Salle',
 
     // Homepage
-    'home.page.title': 'Leisure base at Lake Saint-Ferréol',
-    'home.page.description': 'Leisure base at Lake Saint-Ferréol: lakeside restaurant, water sports & outdoor activities, venue hire. La Terrasse, your summer at the lake.',
+    'home.page.title': 'Leisure base at Lake Saint-Ferréol, near Toulouse',
+    'home.page.description': 'Leisure base at Lake Saint-Ferréol, 45 min from Toulouse: lakeside restaurant, water sports & outdoor activities, venue hire. La Terrasse, your summer at the lake.',
 
     // Contact page
     'contact.page.title': 'Contact',
@@ -1112,7 +1160,7 @@ export const translations = {
     'home.cta.title': 'Ven a vivir la experiencia La Terrasse',
 
     'restaurant.hero.tagline': 'Tapas, burgers y buen rollo frente al lago',
-    'restaurant.hero.subtitle': 'Cocina convivial y de calidad, en la terraza junto al lago',
+    'restaurant.hero.subtitle': 'Cocina convivial en terraza, junto al lago de Saint-Ferréol',
     'restaurant.producers.title': 'Nuestros productores locales',
     'restaurant.producers.heroSubtitle': 'Los productores locales detrás de cada plato',
     'restaurant.producers.breadcrumb': 'Nuestros Productores',
@@ -1129,7 +1177,7 @@ export const translations = {
     'restaurant.menu.crossSell': 'Después del almuerzo, baja al lago para un paddle o un paseo en bici.',
     'restaurant.menu.crossSellLink': 'Descubrir actividades →',
 
-    'aventure.hero.tagline': 'Muévete, respira, disfruta de la naturaleza',
+    'aventure.hero.tagline': 'Muévete, respira, disfruta — actividades al aire libre en el lago',
     'aventure.hero.subtitle': 'Actividades terrestres y acuáticas en el lago de Saint-Ferréol',
     'aventure.aquatique': 'Actividades acuáticas',
     'aventure.terrestre': 'Actividades terrestres',
@@ -1146,6 +1194,10 @@ export const translations = {
     'aventure.hub.viewActivities': 'Ver las actividades',
     'aventure.hub.groupBody': 'Organice una salida de grupo — actividades personalizadas para empresas, asociaciones, escuelas y grupos de amigos.',
     'aventure.hub.groupCta': 'Salida en grupo',
+    // Aventure — SEO prose section
+    'aventure.hub.introEyebrow': 'El terreno de juego',
+    'aventure.hub.introTitle': 'Actividades en la naturaleza en el lago de Saint-Ferréol',
+    'aventure.hub.introBody': 'En el corazón del Tarn, entre Toulouse y Castres, el lago de Saint-Ferréol es un terreno de juego natural excepcional. Nuestra base de ocio ofrece actividades acuáticas — paddle, canoa, hidropedal — y terrestres — BTT, mini-golf, archery tag, orientación — accesibles para todos: familias, grupos de amigos, excursiones escolares o team building de empresa. A solo 45 minutos de Toulouse y 30 minutos de Castres, al pie de la Montagne Noire, disfrute de un día al aire libre en un entorno declarado Patrimonio Mundial de la UNESCO.',
 
     // Restaurant hub
     'restaurant.hub.viewMenu': 'Ver la carta',
@@ -1161,9 +1213,13 @@ export const translations = {
     'restaurant.soirees.cta': 'Ver la agenda de noches',
     'restaurant.subpage.producteurs.title': 'Nuestros Productores',
     'restaurant.subpage.producteurs.desc': 'Los artesanos detrás de nuestros platos',
+    // Restaurant — SEO prose section
+    'restaurant.hub.locationEyebrow': 'El entorno',
+    'restaurant.hub.locationTitle': 'Un restaurante junto al lago de Saint-Ferréol',
+    'restaurant.hub.locationBody': 'En Sorèze, al pie de la Montagne Noire y a solo 45 minutos de Toulouse, La Terrasse le recibe en un entorno natural excepcional. Situado a pocos pasos del lago de Saint-Ferréol — el mayor embalse del Canal du Midi, declarado Patrimonio de la UNESCO — el restaurante ofrece cocina casera con productos locales del Tarn y del Lauragais. En verano, la terraza frente al lago es el lugar ideal para un almuerzo entre amigos, una cena en familia o un aperitivo al atardecer. Entre Castres y Revel, es una dirección que los habitantes de Toulouse adoptan rápidamente.',
 
     // La Salle — Hub
-    'salle.hero.tagline': 'Un lugar, mil posibilidades',
+    'salle.hero.tagline': 'Su sala junto al lago, mil posibilidades',
     'salle.hero.subtitle': 'Seminarios, conciertos, congresos, ferias — un espacio versátil en el corazón del lago de Saint-Ferréol',
     'salle.venue.title': 'El espacio',
     'salle.packs.title': 'Nuestras fórmulas de seminario',
@@ -1225,8 +1281,8 @@ export const translations = {
     'salle.evenementiel.marches.desc': 'Espacio para expositores, interior y exterior combinables.',
     'salle.evenementiel.cta': 'Contáctenos',
     // La Salle — Séminaires
-    'salle.seminaires.hero.tagline': 'Trabaja de otra manera, en un entorno inspirador',
-    'salle.seminaires.hero.subtitle': 'Seminarios, reuniones y eventos corporativos en el lago de Saint-Ferréol',
+    'salle.seminaires.hero.tagline': 'Su seminario junto al lago, en un entorno inspirador',
+    'salle.seminaires.hero.subtitle': 'Seminarios, reuniones y team building en el lago de Saint-Ferréol, cerca de Toulouse',
     // La Salle — Séminaires (página)
     'salle.seminaires.config.eyebrow': 'Configurador',
     'salle.seminaires.config.title': 'Componga su seminario',
@@ -1268,6 +1324,22 @@ export const translations = {
     'salle.seminaires.tb.coaching.cta': 'Solicitar presupuesto',
     'salle.seminaires.venue.eyebrow': 'El espacio',
     'salle.seminaires.contact.eyebrow': 'Presupuesto',
+    // Séminaires — SEO prose section
+    'salle.seminaires.why.eyebrow': 'Por qué Saint-Ferréol',
+    'salle.seminaires.why.title': 'Un entorno natural a 45 minutos de Toulouse',
+    'salle.seminaires.why.body': 'El lago de Saint-Ferréol, al pie de la Montagne Noire en el Tarn, ofrece el marco ideal para salir de la rutina sin ir lejos. A solo 45 minutos de Toulouse y 30 minutos de Castres, nuestra base de ocio combina una sala de seminarios totalmente equipada, un restaurante con terraza frente al lago y actividades de team building en plena naturaleza. Entre Revel y Sorèze, en el corazón del Lauragais, es el lugar perfecto para reconectar a sus equipos en un entorno inspirador — lejos de las salas de reuniones clásicas, pero cerca de la autopista.',
+    // Séminaires — FAQ
+    'salle.seminaires.faq.title': 'Preguntas frecuentes',
+    'salle.seminaires.faq.q1': '¿Dónde se encuentra el lugar del seminario?',
+    'salle.seminaires.faq.a1': 'La Terrasse se encuentra en el lago de Saint-Ferréol, en Sorèze, Tarn (81). El sitio está a 45 minutos de Toulouse por la A61 o la A68, y a 30 minutos de Castres. Fácilmente accesible desde toda Occitania.',
+    'salle.seminaires.faq.q2': '¿Cuál es la capacidad de la sala?',
+    'salle.seminaires.faq.a2': 'La sala de 195 m² acoge hasta 202 personas (de pie/cóctel) o 80 en configuración seminario con mesas. Está equipada con proyector láser, sistema de sonido, Wi-Fi y climatización.',
+    'salle.seminaires.faq.q3': '¿Qué actividades de team building ofrecen?',
+    'salle.seminaires.faq.a3': 'Paddle, canoa, archery tag, orientación, BTT, hidropedal… Todas las actividades de la base están disponibles para su seminario. También ofrecemos programas con coaching profesional (retos tipo Koh-Lanta, cohesión de equipo, desafíos deportivos).',
+    'salle.seminaires.faq.q4': '¿Hay restauración en el lugar?',
+    'salle.seminaires.faq.a4': 'Sí, nuestro restaurante prepara comidas con productos locales y de temporada. Varias opciones disponibles: desde desayuno de bienvenida hasta comida completa, pasando por cóctel y pausas café.',
+    'salle.seminaires.faq.q5': '¿Cómo llegar desde Toulouse?',
+    'salle.seminaires.faq.a5': 'Desde Toulouse, tome la A61 dirección Castelnaudary y luego la D629 hacia Revel y Sorèze, o la A68 dirección Castres y luego la D629. Cuente aproximadamente 1 hora de camino. Aparcamiento gratuito en el lugar.',
     // La Salle — Séminaires (configurador)
     'salle.seminaires.cfg.journee': 'Jornada',
     'salle.seminaires.cfg.soiree': 'Noche',
@@ -1510,8 +1582,8 @@ export const translations = {
     'nav.pole.salle': 'La Salle',
 
     // Homepage
-    'home.page.title': 'Base de ocio en el lago de Saint-Ferréol',
-    'home.page.description': 'Base de ocio en el lago de Saint-Ferréol: restaurante junto al lago, deportes acuáticos y actividades al aire libre, alquiler de sala. La Terrasse, tu verano en el lago.',
+    'home.page.title': 'Base de ocio en el lago de Saint-Ferréol, cerca de Toulouse',
+    'home.page.description': 'Base de ocio en el lago de Saint-Ferréol, a 45 min de Toulouse: restaurante junto al lago, deportes acuáticos y actividades al aire libre, alquiler de sala. La Terrasse, tu verano en el lago.',
 
     // Contact page
     'contact.page.title': 'Contacto',

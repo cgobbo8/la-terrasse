@@ -15,6 +15,34 @@ const BUSINESS_INFO = {
     longitude: 2.0505,
   },
   image: 'https://baseloisirs-saintferreol.fr/og-image.jpg',
+  hasMap: 'https://maps.google.com/?q=144+avenue+de+Carcassonne+81540+Soreze',
+  areaServed: [
+    // Grandes villes
+    { '@type': 'City', name: 'Toulouse' },
+    { '@type': 'City', name: 'Castres' },
+    { '@type': 'City', name: 'Carcassonne' },
+    { '@type': 'City', name: 'Albi' },
+    { '@type': 'City', name: 'Montauban' },
+    // Villes moyennes proches
+    { '@type': 'City', name: 'Revel' },
+    { '@type': 'City', name: 'Sorèze' },
+    { '@type': 'City', name: 'Mazamet' },
+    { '@type': 'City', name: 'Castelnaudary' },
+    { '@type': 'City', name: 'Lavaur' },
+    { '@type': 'City', name: 'Pamiers' },
+    { '@type': 'City', name: 'Foix' },
+    { '@type': 'City', name: 'Muret' },
+    { '@type': 'City', name: 'Limoux' },
+    { '@type': 'City', name: 'Dourgne' },
+    { '@type': 'City', name: 'Puylaurens' },
+    // Départements et région
+    { '@type': 'AdministrativeArea', name: 'Tarn' },
+    { '@type': 'AdministrativeArea', name: 'Haute-Garonne' },
+    { '@type': 'AdministrativeArea', name: 'Aude' },
+    { '@type': 'AdministrativeArea', name: 'Ariège' },
+    { '@type': 'AdministrativeArea', name: 'Tarn-et-Garonne' },
+    { '@type': 'AdministrativeArea', name: 'Occitanie' },
+  ],
 };
 
 export function generateLocalBusinessLD(): string {
@@ -35,6 +63,8 @@ export function generateLocalBusinessLD(): string {
       '@type': 'GeoCoordinates',
       ...BUSINESS_INFO.geo,
     },
+    hasMap: BUSINESS_INFO.hasMap,
+    areaServed: BUSINESS_INFO.areaServed,
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
@@ -56,12 +86,15 @@ export function generateRestaurantLD(): string {
   return JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'Restaurant',
-    name: 'La Terrasse — Restaurant',
+    name: 'La Terrasse — Restaurant au lac de Saint-Ferréol',
     url: `${BUSINESS_INFO.url}/restaurant`,
     telephone: BUSINESS_INFO.telephone,
     image: BUSINESS_INFO.image,
-    servesCuisine: 'Tapas, burgers, cuisine conviviale',
+    servesCuisine: 'Tapas, burgers, salades, cuisine conviviale',
     priceRange: '€€',
+    menu: `${BUSINESS_INFO.url}/restaurant/carte`,
+    hasMap: BUSINESS_INFO.hasMap,
+    areaServed: BUSINESS_INFO.areaServed,
     address: {
       '@type': 'PostalAddress',
       ...BUSINESS_INFO.address,
@@ -149,5 +182,20 @@ export function generateSportsActivityLD(activity: {
       '@type': 'GeoCoordinates',
       ...BUSINESS_INFO.geo,
     },
+  });
+}
+
+export function generateFAQLD(faqs: { question: string; answer: string }[]): string {
+  return JSON.stringify({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.answer,
+      },
+    })),
   });
 }

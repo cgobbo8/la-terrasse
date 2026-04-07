@@ -52,8 +52,8 @@ const jsonLd = generateSportsActivityLD({
   url: `${siteUrl}/aventure`,
 });
 
-const seoTitle = 'Aventure — Activités plein air | La Terrasse Saint-Ferréol';
-const seoDescription = 'Découvrez toutes les activités plein air au lac de Saint-Ferréol : pédalo, paddle, canoë, mini-golf, VTT, archery tag et plus. Activités lac Saint-Ferréol pour toute la famille.';
+const seoTitle = 'Activités plein air au lac de Saint-Ferréol, près de Toulouse';
+const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferréol, entre Toulouse et Castres : paddle, canoë, pédalo, VTT, mini-golf, archery tag. Familles et groupes, dans le Tarn.';
 ---
 
 <BaseLayout
@@ -75,6 +75,19 @@ const seoDescription = 'Découvrez toutes les activités plein air au lac de Sai
       <Icon name="lucide:arrow-down" class="w-4 h-4" />
     </a>
   </SectionHero>
+
+  <!-- Intro prose — SEO section -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+      <p class="section-eyebrow text-aventure/40 mb-4">{t('aventure.hub.introEyebrow')}</p>
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-6 text-gray-900">
+        {t('aventure.hub.introTitle')}
+      </h2>
+      <p class="text-gray-600 leading-relaxed text-base lg:text-lg">
+        {t('aventure.hub.introBody')}
+      </p>
+    </div>
+  </section>
 
   <!-- Activités aquatiques -->
   <section id="activites" class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">

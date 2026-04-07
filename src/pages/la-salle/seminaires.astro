@@ -15,6 +15,7 @@ import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils'
 import { defaultLang } from '@/i18n/translations';
 import { buildQuoteMailto, poleConfigs } from '@/lib/pole-config';
 import { getSiteSettings, toTelHref } from '@/lib/site-settings';
+import { generateFAQLD } from '@/lib/seo';
 import { createReader } from '@keystatic/core/reader';
 
 const { accent: salleAccent, light: salleLight } = poleConfigs.salle;
@@ -57,8 +58,17 @@ const packages = seminars.map((s) => ({
   highlighted: false,
 }));
 
-const seoTitle = 'Séminaire nature près de Toulouse — La Terrasse Saint-Ferréol';
-const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle équipée, restauration et team building. 3 packs pour entreprises, écoles et institutions.';
+const seoTitle = 'Séminaire au lac de Saint-Ferréol, près de Toulouse';
+const seoDescription = 'Séminaire d\'entreprise au lac de Saint-Ferréol, à 45 min de Toulouse. Salle équipée jusqu\'à 80 personnes, restauration locale, team building nature. Devis sous 24h.';
+
+const faqItems = [
+  { question: t('salle.seminaires.faq.q1'), answer: t('salle.seminaires.faq.a1') },
+  { question: t('salle.seminaires.faq.q2'), answer: t('salle.seminaires.faq.a2') },
+  { question: t('salle.seminaires.faq.q3'), answer: t('salle.seminaires.faq.a3') },
+  { question: t('salle.seminaires.faq.q4'), answer: t('salle.seminaires.faq.a4') },
+  { question: t('salle.seminaires.faq.q5'), answer: t('salle.seminaires.faq.a5') },
+];
+const faqJsonLd = generateFAQLD(faqItems);
 ---
 
 <BaseLayout
@@ -66,6 +76,7 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
   description={seoDescription}
   pole="salle"
   pagePath="/la-salle/seminaires"
+  jsonLd={faqJsonLd}
 >
   <!-- Hero -->
   <SectionHero
@@ -290,6 +301,36 @@ const seoDescription = 'Formules séminaire au lac de Saint-Ferréol : salle éq
         <Icon name="lucide:mail" class="w-4 h-4" />
         {t('common.requestQuote')}
       </a>
+    </div>
+  </section>
+
+  <!-- Pourquoi Saint-Ferréol — SEO prose section -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+      <p class="section-eyebrow mb-4" style={`color: ${salleAccent}80;`}>{t('salle.seminaires.why.eyebrow')}</p>
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-6 text-gray-900">
+        {t('salle.seminaires.why.title')}
+      </h2>
+      <p class="text-gray-600 leading-relaxed text-base lg:text-lg">
+        {t('salle.seminaires.why.body')}
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQ — SEO + user info -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-8 text-gray-900" data-reveal>
+        {t('salle.seminaires.faq.title')}
+      </h2>
+      <dl class="space-y-6" data-reveal-stagger>
+        {faqItems.map((faq) => (
+          <div class="border-b border-gray-200 pb-6">
+            <dt class="font-heading font-bold text-gray-900 mb-2">{faq.question}</dt>
+            <dd class="text-gray-600 leading-relaxed">{faq.answer}</dd>
+          </div>
+        ))}
+      </dl>
     </div>
   </section>
 

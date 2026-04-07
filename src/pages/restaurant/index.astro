@@ -26,8 +26,8 @@ const phone = siteSettings?.phone ?? '';
 const telHref = toTelHref(phone);
 const jsonLd = generateRestaurantLD();
 
-const seoTitle = 'Restaurant & Soirées au lac de Saint-Ferréol — La Terrasse';
-const seoDescription = 'Tapas, burgers, salades et soirées en terrasse face au lac de Saint-Ferréol. Concerts, karaoké, blind test. Producteurs locaux, ambiance guinguette.';
+const seoTitle = 'Restaurant en terrasse au lac de Saint-Ferréol, près de Toulouse';
+const seoDescription = 'Restaurant en terrasse au bord du lac de Saint-Ferréol, à 45 min de Toulouse. Tapas, burgers, salades — produits locaux du Tarn, ambiance guinguette. Concerts et soirées.';
 
 const subPages = [
   {
@@ -152,6 +152,19 @@ const subPages = [
           <Icon name="lucide:arrow-right" class="w-4 h-4" />
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- Le cadre — SEO prose section -->
+  <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
+      <p class="section-eyebrow mb-4" style={`color: ${restaurant.accent}50`}>{t('restaurant.hub.locationEyebrow')}</p>
+      <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-6 text-gray-900">
+        {t('restaurant.hub.locationTitle')}
+      </h2>
+      <p class="text-gray-600 leading-relaxed text-base lg:text-lg">
+        {t('restaurant.hub.locationBody')}
+      </p>
     </div>
   </section>
 
