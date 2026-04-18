@@ -30,7 +30,7 @@ const jsonLd = generateRestaurantLD();
 
 // CMS texts for this page
 const reader = createReader(process.cwd(), keystaticConfig);
-const pageTexts = await reader.singletons.restaurantHubTexts.read();
+const pageTexts = await reader.singletons.restaurantHub.read();
 const tx = (path: string) => {
   const [section, field] = path.split('.');
   return getLocalizedField(

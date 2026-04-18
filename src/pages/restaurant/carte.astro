@@ -27,9 +27,8 @@ const reader = createReader(process.cwd(), keystaticConfig);
 const siteSettings = await getSiteSettings();
 const phone = siteSettings?.phone ?? '';
 const telHref = toTelHref(phone);
-const restaurantData = await reader.singletons.restaurant.read();
-const menuSections = restaurantData?.menuSections ?? [];
-const pageTexts = await reader.singletons.restaurantMenuTexts.read();
+const pageTexts = await reader.singletons.restaurantCarte.read();
+const menuSections = pageTexts?.menuSections ?? [];
 const tx = (path: string) => {
   const [section, field] = path.split('.');
   return getLocalizedField(

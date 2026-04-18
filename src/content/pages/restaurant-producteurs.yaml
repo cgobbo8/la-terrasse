@@ -1,0 +1,122 @@
+hero:
+  subtitle:
+    fr: "Les producteurs locaux derrière chaque assiette"
+    en: "The local producers behind every dish"
+    es: "Los productores locales detrás de cada plato"
+intro:
+  fr: "Nous travaillons main dans la main avec les producteurs locaux. Circuits courts, produits de saison, savoir-faire transmis de génération en génération — chaque assiette raconte une histoire."
+  en: "We work hand in hand with local producers. Short supply chains, seasonal products, skills passed down through generations — every plate tells a story."
+  es: "Trabajamos mano a mano con los productores locales. Circuitos cortos, productos de temporada, saber hacer transmitido de generación en generación — cada plato cuenta una historia."
+producers:
+  - name: La Ferme de Cabriole
+    photo: /images/producers/cabriole_batiment_elevage.webp
+    location: Saint-Félix de Lauragais
+    distance: 13
+    website: https://ferme-de-cabriole.com/
+    product:
+      fr: Fromages de chèvre & de vache
+      en: Goat & cow cheese
+      es: Quesos de cabra y vaca
+    story:
+      fr: >-
+        Ferme et fromagerie à Saint-Félix de Lauragais, La Ferme de Cabriole élève
+        chèvres Saanen et Alpine ainsi que vaches de race Brune. Leurs fromages
+        fermiers — chèvre, vache et mixtes — accompagnent nos planches et nos salades.
+      en: >-
+        A farm and cheese dairy in Saint-Félix de Lauragais, La Ferme de Cabriole
+        raises Saanen and Alpine goats as well as Brune cattle. Their farmhouse
+        cheeses — goat, cow and mixed milk — feature on our platters and salads.
+      es: >-
+        Granja y quesería en Saint-Félix de Lauragais, La Ferme de Cabriole cría
+        cabras Saanen y Alpine así como vacas de raza Brune. Sus quesos artesanales —
+        de cabra, de vaca y mixtos — acompañan nuestras tablas y ensaladas.
+    visible: true
+
+  - name: La Bonne Énergie
+    photo: /images/producers/la-bonne-energie.webp
+    location: Saint-Amans-Soult
+    distance: 50
+    website: https://www.facebook.com/labonneenergie/
+    product:
+      fr: Jus de fruits artisanaux bio
+      en: Organic artisan fruit juices
+      es: Zumos de frutas artesanales ecológicos
+    story:
+      fr: >-
+        Depuis Saint-Amans-Soult, La Bonne Énergie presse des jus de fruits bio non
+        filtrés aux mélanges subtils — pomme-gingembre, pomme-kiwi, betterave… Leurs
+        élixirs et sirops artisanaux accompagnent notre carte boissons.
+      en: >-
+        From Saint-Amans-Soult, La Bonne Énergie presses organic unfiltered fruit
+        juices with subtle blends — apple-ginger, apple-kiwi, beetroot… Their
+        artisan elixirs and syrups feature on our drinks menu.
+      es: >-
+        Desde Saint-Amans-Soult, La Bonne Énergie elabora zumos de frutas ecológicos
+        sin filtrar con mezclas sutiles — manzana-jengibre, manzana-kiwi,
+        remolacha… Sus elixires y siropes artesanales acompañan nuestra carta de
+        bebidas.
+    visible: true
+
+  - name: Eighty One Brewing
+    photo: /images/producers/eighty-one-brewing.webp
+    location: Soual
+    distance: 18
+    website: https://www.eightyonebrewing.fr/
+    product:
+      fr: Bières artisanales
+      en: Craft beers
+      es: Cervezas artesanales
+    story:
+      fr: >-
+        Brasserie artisanale fondée par David et Antonin à Soual, dans le Tarn.
+        Eighty One Brewing propose une gamme de bières aux profils variés — lager,
+        Wheat IPA, Triple — et des éditions limitées au fil des saisons. Leurs bières
+        accompagnent notre carte en pression et en bouteille.
+      en: >-
+        A craft brewery founded by David and Antonin in Soual, Tarn. Eighty One
+        Brewing offers a range of beers with diverse profiles — lager, Wheat IPA,
+        Triple — plus limited seasonal editions. Their beers feature on our menu on
+        tap and in bottles.
+      es: >-
+        Cervecería artesanal fundada por David y Antonin en Soual, Tarn. Eighty One
+        Brewing ofrece una gama de cervezas con perfiles variados — lager, Wheat IPA,
+        Triple — y ediciones limitadas de temporada. Sus cervezas acompañan nuestra
+        carta de grifo y en botella.
+    visible: true
+
+  - name: Le Cochon Régaleur
+    photo: /images/producers/le-cochon-regaleur.webp
+    location: Le Cabanial
+    distance: 30
+    website: https://www.facebook.com/lecochonregaleur/
+    product:
+      fr: Charcuterie artisanale & traiteur
+      en: Artisan charcuterie & catering
+      es: Charcutería artesanal y catering
+    story:
+      fr: >-
+        Artisan charcutier-traiteur installé au Cabanial, Le Cochon Régaleur
+        perpétue la tradition avec des charcuteries maison et des produits régionaux
+        de qualité. Leurs planches et terrines garnissent notre carte apéro.
+      en: >-
+        An artisan charcutier-caterer based in Le Cabanial, Le Cochon Régaleur
+        upholds tradition with homemade charcuterie and quality regional products.
+        Their platters and terrines feature on our aperitif menu.
+      es: >-
+        Charcutero-caterer artesanal establecido en Le Cabanial, Le Cochon Régaleur
+        perpetúa la tradición con embutidos caseros y productos regionales de
+        calidad. Sus tablas y terrinas componen nuestra carta de aperitivos.
+    visible: true
+cta:
+  eyebrow:
+    fr: "Terroir"
+    en: "Terroir"
+    es: "Terruño"
+  title:
+    fr: "Venez découvrir nos saveurs"
+    en: "Come discover our flavours"
+    es: "Ven a descubrir nuestros sabores"
+  subtitle:
+    fr: "Réservez votre table et découvrez les saveurs de nos producteurs locaux."
+    en: "Book your table and discover the flavours of our local producers."
+    es: "Reserva tu mesa y descubre los sabores de nuestros productores locales."

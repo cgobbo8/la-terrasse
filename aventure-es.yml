@@ -1,0 +1,176 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - navigation [ref=e3]:
+      - generic [ref=e4]:
+        - link "Aventura" [ref=e5] [cursor=pointer]:
+          - /url: /es/
+          - img [ref=e6]
+          - generic [ref=e18]: Aventura
+        - generic [ref=e443]:
+          - link "Restaurante" [ref=e445] [cursor=pointer]:
+            - /url: /es/restaurant
+          - link "Aventura" [ref=e448] [cursor=pointer]:
+            - /url: /es/aventure
+          - link "La Salle" [ref=e451] [cursor=pointer]:
+            - /url: /es/la-salle
+          - link "Agenda" [ref=e453] [cursor=pointer]:
+            - /url: /es/agenda
+          - link "Cómo llegar" [ref=e454] [cursor=pointer]:
+            - /url: https://www.google.com/maps/dir/?api=1&destination=144+Route+de+Carcassonne,+81540+Sorèze
+          - generic [ref=e456]
+          - link "Reservar mi aventura" [ref=e460] [cursor=pointer]:
+            - /url: /es/contact
+  - main [ref=e19]:
+    - generic [ref=e25]:
+      - heading "Muévete, respira, disfruta — actividades al aire libre en el lago" [level=1] [ref=e26]
+      - paragraph [ref=e27]: Actividades terrestres y acuáticas en el lago de Saint-Ferréol
+      - link "Ver las actividades" [ref=e29] [cursor=pointer]:
+        - /url: "#activites"
+        - text: Ver las actividades
+        - img [ref=e30]
+    - generic [ref=e33]:
+      - paragraph [ref=e34]: El terreno de juego
+      - heading "Actividades en la naturaleza en el lago de Saint-Ferréol" [level=2] [ref=e35]
+      - paragraph [ref=e36]: "En el corazón del Tarn, entre Toulouse y Castres, el lago de Saint-Ferréol es un terreno de juego natural excepcional. Nuestra base de ocio ofrece actividades acuáticas — paddle, canoa, hidropedal — y terrestres — BTT, mini-golf, archery tag, orientación — accesibles para todos: familias, grupos de amigos, excursiones escolares o team building de empresa. A solo 45 minutos de Toulouse y 30 minutos de Castres, al pie de la Montagne Noire, disfrute de un día al aire libre en un entorno declarado Patrimonio Mundial de la UNESCO."
+    - generic [ref=e38]:
+      - generic [ref=e39]:
+        - img [ref=e41]
+        - heading "Actividades acuáticas" [level=2] [ref=e43]
+      - generic [ref=e44]:
+        - link "Hidropedal Activité phare Hidropedal 25€/h — Pour 4 à 5 personnes Dès 3 ans 1h Descubrir" [ref=e45] [cursor=pointer]:
+          - /url: /es/aventure/pedalo
+          - generic [ref=e46]
+          - generic [ref=e52]
+        - link "Paddle Surf Paddle Surf 12€/h — Par personne Dès 8 ans 1h Descubrir" [ref=e65] [cursor=pointer]:
+          - /url: /es/aventure/paddle
+          - img "Paddle Surf" [ref=e67]
+          - generic [ref=e68]
+        - link "Canoa Canoa 12€/h — Par personne Dès 6 ans 1h Descubrir" [ref=e81] [cursor=pointer]:
+          - /url: /es/aventure/canoe
+          - img "Canoa" [ref=e83]
+          - generic [ref=e84]
+    - generic [ref=e98]:
+      - generic [ref=e99]:
+        - img [ref=e101]
+        - heading "Actividades terrestres" [level=2] [ref=e103]
+      - generic [ref=e104]:
+        - link "Mini Golf Mini Golf 8€ — Par personne Dès 4 ans 45min - 1h Descubrir" [ref=e105] [cursor=pointer]:
+          - /url: /es/aventure/mini-golf
+          - img "Mini Golf" [ref=e107]
+          - generic [ref=e108]
+        - link "BTT eléctrica Activité phare BTT eléctrica À partir de 15€ — par personne Dès 14 ans 1h ou demi-journée Descubrir" [ref=e121] [cursor=pointer]:
+          - /url: /es/aventure/velo-electrique
+          - generic [ref=e122]
+          - generic [ref=e128]
+        - link "BTT clásica Activité phare BTT clásica À partir de 10€ — par personne Dès 10 ans 1h ou demi-journée Descubrir" [ref=e141] [cursor=pointer]:
+          - /url: /es/aventure/velo-classique
+          - generic [ref=e142]
+          - generic [ref=e148]
+        - link "Archery Tag Activité phare Archery Tag 20€ — Par personne (min 8) Dès 12 ans 1 à 2h Descubrir" [ref=e161] [cursor=pointer]:
+          - /url: /es/aventure/archery-tag
+          - generic [ref=e162]
+          - generic [ref=e168]
+        - link "Carrera de orientación Carrera de orientación 8€ — Par personne Dès 6 ans 1h Descubrir" [ref=e181] [cursor=pointer]:
+          - /url: /es/aventure/course-orientation
+          - img "Carrera de orientación" [ref=e183]
+          - generic [ref=e184]
+        - link "Juego de pistas Juego de pistas 8€ — Par personne Dès 6 ans 1h Descubrir" [ref=e197] [cursor=pointer]:
+          - /url: /es/aventure/jeu-de-piste
+          - img "Juego de pistas" [ref=e199]
+          - generic [ref=e200]
+        - link "Trampolín Trampolín 5€ — 5 minutes Dès 3 ans 5min Descubrir" [ref=e213] [cursor=pointer]:
+          - /url: /es/aventure/trampoline
+          - img "Trampolín" [ref=e215]
+          - generic [ref=e216]
+    - generic [ref=e230]:
+      - paragraph [ref=e231]: Grupos y escolares
+      - heading "Salida en grupo" [level=2] [ref=e232]
+      - paragraph [ref=e233]: Organice una salida de grupo — actividades personalizadas para empresas, asociaciones, escuelas y grupos de amigos.
+      - paragraph [ref=e234]: Combina con una comida en el lugar
+      - generic [ref=e235]:
+        - link "Salida en grupo" [ref=e236] [cursor=pointer]:
+          - /url: /es/contact
+          - text: Salida en grupo
+          - img [ref=e237]
+        - link "Contáctenos" [ref=e239] [cursor=pointer]:
+          - /url: /es/contact
+    - generic [ref=e243]:
+      - generic [ref=e244]:
+        - generic [ref=e246]:
+          - img [ref=e247]
+          - text: Pase Día
+        - generic [ref=e249]:
+          - heading "Disfruta de toda La Terrasse" [level=2] [ref=e250]
+          - paragraph [ref=e252]: Reserva 3 actividades incluyendo al menos 1 grande y obtén un 20% de descuento en tu pack de actividades.
+        - generic [ref=e253]:
+          - paragraph [ref=e254]: Grandes actividades elegibles
+          - generic [ref=e255]
+        - generic [ref=e265]:
+          - link "Descubrir las actividades" [ref=e266] [cursor=pointer]:
+            - /url: /es/aventure
+          - link "Ver tarifas" [ref=e271] [cursor=pointer]:
+            - /url: /es/aventure#tarifs
+      - generic [ref=e275]:
+        - generic [ref=e276]:
+          - generic [ref=e277]: −20%
+          - generic [ref=e278]: en tu pack de actividades
+          - generic [ref=e279]
+        - generic [ref=e286]:
+          - generic [ref=e287]
+          - generic [ref=e295]
+          - generic [ref=e303]
+          - paragraph [ref=e312]
+    - complementary [ref=e315]:
+      - link "Después del esfuerzo, la recompensa — almuerza junto al lago con productos locales →" [ref=e317] [cursor=pointer]:
+        - /url: /es/restaurant
+        - generic [ref=e318]: Después del esfuerzo, la recompensa — almuerza junto al lago con productos locales →
+        - img [ref=e319]
+    - generic [ref=e322]:
+      - paragraph [ref=e323]: La Terrasse también es
+      - generic [ref=e324]:
+        - link "La Terrasse Restaurante Cocina sencilla, local y deliciosa" [ref=e325] [cursor=pointer]:
+          - /url: /es/restaurant
+          - img [ref=e327]
+          - generic [ref=e329]
+          - img [ref=e332]
+        - link "La Terrasse La Salle Seminarios, eventos y recepciones en un entorno inspirador" [ref=e334] [cursor=pointer]:
+          - /url: /es/la-salle
+          - img [ref=e336]
+          - generic [ref=e338]
+          - img [ref=e341]
+  - contentinfo [ref=e343]:
+    - generic [ref=e345]:
+      - generic [ref=e346]:
+        - img [ref=e347]
+        - paragraph [ref=e359]: Base de ocio en el lago de Saint-Ferréol — Restaurante, aventura y eventos.
+      - generic [ref=e360]:
+        - generic [ref=e361]:
+          - heading "Restaurante" [level=3] [ref=e362]
+          - list [ref=e363]
+        - generic [ref=e370]:
+          - heading "Aventura" [level=3] [ref=e371]
+          - list [ref=e372]
+        - generic [ref=e377]:
+          - heading "La Salle" [level=3] [ref=e378]
+          - list [ref=e379]
+        - generic [ref=e386]:
+          - heading "Contáctenos" [level=3] [ref=e387]
+          - generic [ref=e388]
+      - generic [ref=e412]:
+        - paragraph [ref=e413]: Algunas fotos y vídeos provienen de bancos de imágenes libres de derechos y serán reemplazados por visuales propios del establecimiento.
+        - generic [ref=e414]:
+          - paragraph [ref=e415]: © 2026 La Terrasse — Base de loisirs de Saint-Ferréol
+          - navigation "Legal" [ref=e416]
+  - generic [ref=e421]:
+    - button "Menu" [ref=e422]:
+      - img [ref=e424]
+      - generic: Menu
+    - button "Inspect" [ref=e428]:
+      - img [ref=e430]
+      - generic: Inspect
+    - button "Audit" [ref=e432]:
+      - img [ref=e434]
+      - generic: Audit
+    - button "Settings" [ref=e437]:
+      - img [ref=e439]
+      - generic: Settings

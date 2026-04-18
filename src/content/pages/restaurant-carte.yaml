@@ -1,7 +1,14 @@
+hero:
+  title:
+    fr: "La Carte"
+    en: "The Menu"
+    es: "La Carta"
+  subtitle:
+    fr: "Cuisine faite maison, produits locaux et de saison"
+    en: "Homemade cuisine with local, seasonal products"
+    es: "Cocina casera con productos locales y de temporada"
 menuSections:
-  # ============================
   # MIDI — Burgers
-  # ============================
   - group: midi
     title:
       fr: Burgers
@@ -45,9 +52,7 @@ menuSections:
         price: ''
         tags: []
 
-  # ============================
   # MIDI — Plats
-  # ============================
   - group: midi
     title:
       fr: Plats
@@ -103,9 +108,7 @@ menuSections:
         price: ''
         tags: []
 
-  # ============================
   # MIDI — Salades
-  # ============================
   - group: midi
     title:
       fr: Salades
@@ -154,9 +157,7 @@ menuSections:
         tags:
           - végétarien
 
-  # ============================
   # MIDI — Les petits plus
-  # ============================
   - group: midi
     title:
       fr: Les petits plus
@@ -184,9 +185,7 @@ menuSections:
         price: ''
         tags: []
 
-  # ============================
   # DESSERTS
-  # ============================
   - group: desserts
     title:
       fr: Desserts
@@ -244,9 +243,7 @@ menuSections:
         price: ''
         tags: []
 
-  # ============================
   # TAPAS DU SOIR
-  # ============================
   - group: soir
     title:
       fr: Tapas du soir
@@ -336,9 +333,7 @@ menuSections:
         price: ''
         tags: []
 
-  # ============================
   # MENU ENFANT
-  # ============================
   - group: enfant
     title:
       fr: Menu enfant
@@ -385,3 +380,25 @@ menuSections:
           es: Un pequeño regalo sorpresa
         price: ''
         tags: []
+cta:
+  eyebrow:
+    fr: "Réservation"
+    en: "Reservation"
+    es: "Reserva"
+  title:
+    fr: "Envie de goûter ?"
+    en: "Fancy a taste?"
+    es: "¿Te apetece probar?"
+  subtitle:
+    fr: "Appelez-nous pour réserver votre table ou venez directement profiter de la terrasse."
+    en: "Call us to book your table or just come and enjoy the terrace."
+    es: "Llámanos para reservar tu mesa o ven directamente a disfrutar de la terraza."
+crossSell:
+  text:
+    fr: "Après le déjeuner, descendez au lac pour un paddle ou une sortie VTT."
+    en: "After lunch, head down to the lake for a paddle or a bike ride."
+    es: "Después del almuerzo, baja al lago para un paddle o un paseo en bici."
+  link:
+    fr: "Découvrir les activités →"
+    en: "Discover activities →"
+    es: "Descubrir actividades →"

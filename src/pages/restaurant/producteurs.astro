@@ -21,10 +21,9 @@ const restaurant = poleConfigs.restaurant;
 const siteSettings = await getSiteSettings();
 const telHref = toTelHref(siteSettings?.phone ?? '');
 
-// Load producers from Keystatic
+// Load page content from Keystatic (texts + producers list inline)
 const reader = createReader(process.cwd(), keystaticConfig);
-const allProducers = await reader.collections.producers.all();
-const pageTexts = await reader.singletons.producteursTexts.read();
+const pageTexts = await reader.singletons.restaurantProducteurs.read();
 const tx = (path: string) => {
   const [section, field] = path.split('.');
   return getLocalizedField(
@@ -38,9 +37,7 @@ const introText = getLocalizedField(
   'intro',
   lang,
 );
-const producers = allProducers
-  .filter((p) => p.entry.meta.visible)
-  .sort((a, b) => (a.entry.meta.order ?? 0) - (b.entry.meta.order ?? 0));
+const producers = (pageTexts?.producers ?? []).filter((p) => p.visible);
 
 const seoTitle = 'Nos Producteurs — Restaurant | La Terrasse Saint-Ferréol';
 const seoDescription = 'Découvrez les producteurs locaux qui fournissent le restaurant La Terrasse : miel, fromages, vins de Gaillac, légumes bio. Circuits courts et terroir.';
@@ -77,13 +74,13 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
         <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
           {producers.map((producer) => (
             <ProducerCard
-              name={producer.entry.name}
-              photo={producer.entry.info.photo ?? '/images/placeholders/daniel-jacob.webp'}
-              product={getLocalizedField(producer.entry, 'product', lang)}
-              story={getLocalizedField(producer.entry, 'story', lang)}
-              location={producer.entry.info.location}
-              distance={producer.entry.info.distance}
-              website={producer.entry.info.website}
+              name={producer.name}
+              photo={producer.photo ?? '/images/placeholders/daniel-jacob.webp'}
+              product={getLocalizedField(producer, 'product', lang)}
+              story={getLocalizedField(producer, 'story', lang)}
+              location={producer.location}
+              distance={producer.distance}
+              website={producer.website}
             />
           ))}
         </div>

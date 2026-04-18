@@ -92,7 +92,7 @@ export default config({
     },
     navigation: {
       'Homepage': ['homepageTexts', 'nearby'],
-      'Restaurant': ['restaurant', 'producers', 'restaurantHubTexts', 'restaurantMenuTexts', 'producteursTexts'],
+      'Restaurant': ['restaurantHub', 'restaurantCarte', 'restaurantProducteurs'],
       'Aventure': ['activities', 'aventureHubTexts'],
       'La Salle': ['venue', 'seminars', 'seminarsPricing', 'salleHubTexts'],
       'Agenda': ['events'],
@@ -101,55 +101,6 @@ export default config({
   },
 
   collections: {
-    // ========================================
-    // Producers (Restaurant pole)
-    // Stored as: src/content/producers/jean-pierre-dubois.yaml
-    // ========================================
-    producers: collection({
-      label: 'Producteurs locaux',
-      slugField: 'name',
-      path: 'src/content/producers/*',
-      format: { data: 'yaml' },
-      schema: {
-        name: fields.slug({ name: { label: 'Nom du producteur', validation: { isRequired: true } } }),
-        info: fields.object(
-          {
-            photo: fields.image({
-              label: 'Portrait',
-              directory: 'public/images/producers',
-              publicPath: '/images/producers/',
-            }),
-            location: fields.text({ label: 'Lieu (ex: Saint-Félix de Lauragais)' }),
-            distance: fields.integer({ label: 'Distance depuis Saint-Ferréol (km)' }),
-            website: fields.url({ label: 'Site web du producteur' }),
-          },
-          { label: 'Informations', layout: [12, 8, 4, 12] },
-        ),
-        product: fields.object(
-          {
-            fr: fields.text({ label: 'Français', validation: { isRequired: true } }),
-            en: fields.text({ label: 'English' }),
-            es: fields.text({ label: 'Español' }),
-          },
-          { label: 'Produit / spécialité', layout: [4, 4, 4] },
-        ),
-        story: fields.object(
-          {
-            fr: fields.text({ label: 'Français', multiline: true, validation: { isRequired: true } }),
-            en: fields.text({ label: 'English', multiline: true }),
-            es: fields.text({ label: 'Español', multiline: true }),
-          },
-          { label: 'Histoire (2–3 phrases)', layout: [4, 4, 4] },
-        ),
-        meta: fields.object(
-          {
-            order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
-            visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
-          },
-          { label: 'Affichage', layout: [6, 6] },
-        ),
-      },
-    }),
 
     // ========================================
     // Activities (Aventure pole)
@@ -428,72 +379,6 @@ export default config({
   },
 
   singletons: {
-    // ========================================
-    // Restaurant info
-    // Stored as: src/content/restaurant/info.yaml
-    // ========================================
-    restaurant: singleton({
-      label: 'Restaurant',
-      path: 'src/content/restaurant/info',
-      schema: {
-        menuSections: fields.array(
-          fields.object({
-            group: fields.select({
-              label: 'Moment',
-              defaultValue: 'midi',
-              options: [
-                { label: 'Midi', value: 'midi' },
-                { label: 'Desserts', value: 'desserts' },
-                { label: 'Soir', value: 'soir' },
-                { label: 'Menu enfant', value: 'enfant' },
-              ],
-            }),
-            title: fields.object(
-              {
-                fr: fields.text({ label: 'Français' }),
-                en: fields.text({ label: 'English' }),
-                es: fields.text({ label: 'Español' }),
-              },
-              { label: 'Titre de section (ex: Burgers, Salades)', layout: [4, 4, 4] },
-            ),
-            dishes: fields.array(
-              fields.object({
-                name: fields.object(
-                  {
-                    fr: fields.text({ label: 'Français' }),
-                    en: fields.text({ label: 'English' }),
-                    es: fields.text({ label: 'Español' }),
-                  },
-                  { label: 'Nom du plat', layout: [4, 4, 4] },
-                ),
-                description: fields.object(
-                  {
-                    fr: fields.text({ label: 'Français' }),
-                    en: fields.text({ label: 'English' }),
-                    es: fields.text({ label: 'Español' }),
-                  },
-                  { label: 'Description', layout: [4, 4, 4] },
-                ),
-                price: fields.text({ label: 'Prix (ex: 12.50)' }),
-                tags: fields.array(
-                  fields.text({ label: 'Tag' }),
-                  { label: 'Tags alimentaires', itemLabel: (props) => props.value || 'Tag' },
-                ),
-              }),
-              {
-                label: 'Plats de la section',
-                itemLabel: (props) => props.fields.name.fields.fr.value || 'Plat',
-              },
-            ),
-          }),
-          {
-            label: 'Sections du menu',
-            itemLabel: (props) => props.fields.title.fields.fr.value || 'Section',
-          },
-        ),
-      },
-    }),
-
     // ========================================
     // Venue info (salle séminaire)
     // Stored as: src/content/venue/info.yaml
@@ -810,9 +695,9 @@ export default config({
       },
     }),
 
-    restaurantHubTexts: singleton({
-      label: 'Textes — Restaurant (hub)',
-      path: 'src/content/page-texts/restaurant-hub',
+    restaurantHub: singleton({
+      label: 'Accueil Restaurant',
+      path: 'src/content/pages/restaurant-hub',
       format: { data: 'yaml' },
       schema: {
         hero: fields.object(
@@ -881,9 +766,9 @@ export default config({
       },
     }),
 
-    restaurantMenuTexts: singleton({
-      label: 'Textes — Restaurant Carte',
-      path: 'src/content/page-texts/restaurant-menu',
+    restaurantCarte: singleton({
+      label: 'La Carte',
+      path: 'src/content/pages/restaurant-carte',
       format: { data: 'yaml' },
       schema: {
         hero: fields.object(
@@ -892,58 +777,135 @@ export default config({
             subtitle: i18n('Sous-titre'),
           },
           {
-            label: 'Hero',
-            description: 'En-tête de /restaurant/carte (au-dessus du menu).',
+            label: 'En-tête de la page',
+            description: 'Titre et sous-titre affichés tout en haut de la page La Carte.',
+          },
+        ),
+        menuSections: fields.array(
+          fields.object({
+            group: fields.select({
+              label: 'Moment du service',
+              defaultValue: 'midi',
+              options: [
+                { label: 'Midi', value: 'midi' },
+                { label: 'Desserts', value: 'desserts' },
+                { label: 'Soir', value: 'soir' },
+                { label: 'Menu enfant', value: 'enfant' },
+              ],
+            }),
+            title: fields.object(
+              {
+                fr: fields.text({ label: 'Français' }),
+                en: fields.text({ label: 'English' }),
+                es: fields.text({ label: 'Español' }),
+              },
+              { label: 'Titre de la section (ex : Burgers, Salades)', layout: [4, 4, 4] },
+            ),
+            dishes: fields.array(
+              fields.object({
+                name: fields.object(
+                  {
+                    fr: fields.text({ label: 'Français' }),
+                    en: fields.text({ label: 'English' }),
+                    es: fields.text({ label: 'Español' }),
+                  },
+                  { label: 'Nom du plat', layout: [4, 4, 4] },
+                ),
+                description: fields.object(
+                  {
+                    fr: fields.text({ label: 'Français' }),
+                    en: fields.text({ label: 'English' }),
+                    es: fields.text({ label: 'Español' }),
+                  },
+                  { label: 'Description du plat', layout: [4, 4, 4] },
+                ),
+                price: fields.text({ label: 'Prix (ex : 12.50)' }),
+                tags: fields.array(
+                  fields.text({ label: 'Tag' }),
+                  { label: 'Tags alimentaires (végétarien, sans gluten…)', itemLabel: (props) => props.value || 'Tag' },
+                ),
+              }),
+              {
+                label: 'Plats de la section',
+                itemLabel: (props) => props.fields.name.fields.fr.value || 'Plat',
+              },
+            ),
+          }),
+          {
+            label: 'Sections du menu',
+            description: 'Chaque section regroupe des plats (Burgers, Salades, Desserts…). Glissez-déposez pour réordonner.',
+            itemLabel: (props) => props.fields.title.fields.fr.value || 'Nouvelle section',
           },
         ),
         cta: fields.object(
           {
-            eyebrow: i18n('Eyebrow'),
+            eyebrow: i18n('Sur-titre'),
             title: i18n('Titre'),
-            subtitle: i18n('Sous-titre', true),
+            subtitle: i18n('Phrase sous le titre', true),
           },
           {
-            label: 'CTA réservation',
-            description: 'Bloc en pied de page du menu, avec le numéro de téléphone.',
+            label: 'Bloc « Réserver une table »',
+            description: 'Encadré coloré en bas de page avec le numéro de téléphone et un bouton de réservation.',
           },
         ),
         crossSell: fields.object(
           {
-            text: i18n('Texte'),
-            link: i18n('Lien'),
+            text: i18n('Phrase d\'invitation'),
+            link: i18n('Libellé du lien'),
           },
           {
-            label: 'Cross-link vers aventure',
-            description: 'Bandeau narratif invitant à enchaîner sur les activités après le déjeuner.',
+            label: 'Suggestion activité (bandeau)',
+            description: 'Petit bandeau narratif suggérant d\'enchaîner sur les activités Aventure après le repas.',
           },
         ),
       },
     }),
 
-    producteursTexts: singleton({
-      label: 'Textes — Restaurant Producteurs',
-      path: 'src/content/page-texts/restaurant-producteurs',
+    restaurantProducteurs: singleton({
+      label: 'Nos Producteurs',
+      path: 'src/content/pages/restaurant-producteurs',
       format: { data: 'yaml' },
       schema: {
         hero: fields.object(
           {
-            subtitle: i18n('Sous-titre'),
+            subtitle: i18n('Sous-titre sous le titre « Nos producteurs locaux »'),
           },
           {
-            label: 'Hero',
-            description: 'Juste le sous-titre du hero — le titre principal « Nos producteurs locaux » est un label UI défini dans les traductions du code.',
+            label: 'En-tête de la page',
+            description: 'Sous-titre affiché sous le grand titre en haut de page.',
           },
         ),
-        intro: i18n('Introduction', true),
+        intro: i18n('Paragraphe d\'introduction', true),
+        producers: fields.array(
+          fields.object({
+            name: fields.text({ label: 'Nom du producteur', validation: { isRequired: true } }),
+            photo: fields.image({
+              label: 'Photo',
+              directory: 'public/images/producers',
+              publicPath: '/images/producers/',
+            }),
+            location: fields.text({ label: 'Lieu (ex : Saint-Félix de Lauragais)' }),
+            distance: fields.integer({ label: 'Distance du lac (km)' }),
+            website: fields.url({ label: 'Site web' }),
+            product: i18n('Produit / spécialité'),
+            story: i18n('Histoire (2–3 phrases)', true),
+            visible: fields.checkbox({ label: 'Afficher sur le site', defaultValue: true }),
+          }),
+          {
+            label: 'Liste des producteurs',
+            description: 'Chaque producteur apparaît en carte sur la page. Glissez-déposez pour réordonner.',
+            itemLabel: (props) => props.fields.name.value || 'Nouveau producteur',
+          },
+        ),
         cta: fields.object(
           {
-            eyebrow: i18n('Eyebrow (Terroir)'),
-            title: i18n('Titre CTA'),
-            subtitle: i18n('Sous-titre CTA', true),
+            eyebrow: i18n('Sur-titre'),
+            title: i18n('Titre'),
+            subtitle: i18n('Phrase sous le titre', true),
           },
           {
-            label: 'CTA final',
-            description: 'Bloc crème en pied de page invitant à réserver.',
+            label: 'Bloc « Venez découvrir nos saveurs » (en bas de page)',
+            description: 'Encadré final invitant à réserver une table.',
           },
         ),
       },
