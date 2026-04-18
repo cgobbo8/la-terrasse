@@ -13,7 +13,7 @@ import VenueSpaces from '@/components/salle/VenueSpaces.svelte';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import CollectivitesCallout from '@/components/salle/CollectivitesCallout.astro';
-import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedArray } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedArray, getLocalizedField } from '@/i18n/utils';
 import { generateEventVenueLD } from '@/lib/seo';
 import { buildQuoteMailto, poleConfigs } from '@/lib/pole-config';
 import { getSiteSettings } from '@/lib/site-settings';
@@ -31,6 +31,15 @@ const siteEmail = siteSettings?.email ?? '';
 const sitePhone = siteSettings?.phone ?? '';
 const reader = createReader(process.cwd(), keystaticConfig);
 const venueData = await reader.singletons.venue.read();
+const pageTexts = await reader.singletons.salleHubTexts.read();
+const tx = (path: string) => {
+  const [section, field] = path.split('.');
+  return getLocalizedField(
+    ((pageTexts as Record<string, unknown> | null)?.[section] as Record<string, unknown>) ?? {},
+    field,
+    lang,
+  );
+};
 
 const capacityMax = venueData?.space.capacityMax ?? 0;
 const surfaceM2 = venueData?.space.surfaceM2 ?? 0;
@@ -55,8 +64,8 @@ const jsonLd = generateEventVenueLD({
 >
   <!-- Hero -->
   <SectionHero
-    tagline={t('salle.hero.tagline')}
-    subtitle={t('salle.hero.subtitle')}
+    tagline={tx('hero.tagline')}
+    subtitle={tx('hero.subtitle')}
     pole="salle"
     image="/images/heroes/salle.webp"
   >
@@ -74,9 +83,9 @@ const jsonLd = generateEventVenueLD({
   <!-- L'ESPACE — Venue specs -->
   <div class="pt-(--spacing-section-mobile) lg:pt-(--spacing-section)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-      <p class="section-eyebrow mb-4" style={`color: ${salleAccent}50;`}>L'espace</p>
+      <p class="section-eyebrow mb-4" style={`color: ${salleAccent}50;`}>{tx('venue.eyebrow')}</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-2 text-gray-900">
-        {t('salle.venue.title')}
+        {tx('venue.title')}
       </h2>
     </div>
     <VenueSpecs
@@ -92,9 +101,9 @@ const jsonLd = generateEventVenueLD({
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mb-10" data-reveal>
-        <p class="section-eyebrow mb-4" style={`color: ${salleAccent}50;`}>{t('salle.spaces.eyebrow')}</p>
+        <p class="section-eyebrow mb-4" style={`color: ${salleAccent}50;`}>{tx('spaces.eyebrow')}</p>
         <h2 class="font-heading text-2xl lg:text-3xl font-bold text-gray-900">
-          {t('salle.spaces.title')}
+          {tx('spaces.title')}
         </h2>
       </div>
       <VenueSpaces
@@ -161,9 +170,9 @@ const jsonLd = generateEventVenueLD({
           </div>
           <div class="p-7">
             <h3 class="font-heading text-xl font-bold mb-2 text-gray-900">
-              {t('salle.hub.evenementielTitle')}
+              {tx('dispatch.evenementielTitle')}
             </h3>
-            <p class="text-gray-500 text-sm mb-4 leading-relaxed">Louez la salle pour vos concerts, foires, expositions, soirées privées — un espace modulable à votre disposition.</p>
+            <p class="text-gray-500 text-sm mb-4 leading-relaxed">{tx('dispatch.evenementielDesc')}</p>
             <span class="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all" style={`color: ${salleAccent};`}>
               {t('salle.hub.evenementielCta')}
               <Icon name="lucide:arrow-right" class="w-4 h-4" />
@@ -186,9 +195,9 @@ const jsonLd = generateEventVenueLD({
           </div>
           <div class="p-7">
             <h3 class="font-heading text-xl font-bold mb-2 text-gray-900">
-              {t('salle.hub.seminairesTitle')}
+              {tx('dispatch.seminairesTitle')}
             </h3>
-            <p class="text-gray-500 text-sm mb-4 leading-relaxed">{t('salle.hub.seminairesDesc')}</p>
+            <p class="text-gray-500 text-sm mb-4 leading-relaxed">{tx('dispatch.seminairesDesc')}</p>
             <span class="inline-flex items-center gap-1.5 text-sm font-semibold group-hover:gap-2.5 transition-all" style={`color: ${salleAccent};`}>
               {t('salle.hub.seminairesCta')}
               <Icon name="lucide:arrow-right" class="w-4 h-4" />
@@ -202,10 +211,10 @@ const jsonLd = generateEventVenueLD({
   <!-- Section contact -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) grain-overlay overflow-hidden" style={`background-color: ${salleAccent};`}>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-reveal>
-      <p class="section-eyebrow text-white/30 mb-6">{t('salle.hub.contact.eyebrow')}</p>
-      <h2 class="font-heading text-3xl font-bold text-white mb-4">{t('salle.hub.contact.title')}</h2>
+      <p class="section-eyebrow text-white/30 mb-6">{tx('contact.eyebrow')}</p>
+      <h2 class="font-heading text-3xl font-bold text-white mb-4">{tx('contact.title')}</h2>
       <p class="text-white/50 mb-10 max-w-lg mx-auto">
-        {t('common.requestQuoteDesc')}
+        {tx('contact.subtitle')}
       </p>
       <a href={buildQuoteMailto(siteEmail)} class="inline-flex items-center gap-2 px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px text-white bg-white/15 border border-white/20 hover:bg-white/25">
         {t('common.requestQuote')}

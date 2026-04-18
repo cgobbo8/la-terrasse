@@ -1,0 +1,57 @@
+hero:
+  tagline:
+    fr: "Votre salle au bord du lac, mille possibilités"
+    en: "Your lakeside venue, endless possibilities"
+    es: "Su sala junto al lago, mil posibilidades"
+  subtitle:
+    fr: "Séminaires, concerts, congrès, foires — une salle modulable au cœur du lac de Saint-Ferréol"
+    en: "Seminars, concerts, conferences, exhibitions — a versatile venue at the heart of Lake Saint-Ferréol"
+    es: "Seminarios, conciertos, congresos, ferias — un espacio versátil en el corazón del lago de Saint-Ferréol"
+venue:
+  eyebrow:
+    fr: "L'espace"
+    en: "The venue"
+    es: "El espacio"
+  title:
+    fr: "L'espace"
+    en: "The venue"
+    es: "El espacio"
+spaces:
+  eyebrow:
+    fr: "Les espaces"
+    en: "The spaces"
+    es: "Los espacios"
+  title:
+    fr: "Tout est prévu"
+    en: "Everything is ready"
+    es: "Todo está previsto"
+dispatch:
+  evenementielTitle:
+    fr: "Événementiel"
+    en: "Events"
+    es: "Eventos"
+  evenementielDesc:
+    fr: "Louez la salle pour vos concerts, foires, expositions, soirées privées — un espace modulable à votre disposition."
+    en: "Book the venue for your concerts, fairs, exhibitions, private parties — a versatile space at your service."
+    es: "Alquile el espacio para sus conciertos, ferias, exposiciones, fiestas privadas — un lugar versátil a su disposición."
+  seminairesTitle:
+    fr: "Séminaires & Pro"
+    en: "Seminars & Corporate"
+    es: "Seminarios & Pro"
+  seminairesDesc:
+    fr: "Séminaires d'entreprise, congrès, formations et journées d'étude dans un cadre inspirant."
+    en: "Corporate seminars, conferences, training sessions and study days in an inspiring setting."
+    es: "Seminarios de empresa, congresos, formaciones y jornadas de estudio en un entorno inspirador."
+contact:
+  eyebrow:
+    fr: "Contact"
+    en: "Contact"
+    es: "Contacto"
+  title:
+    fr: "Un projet en tête ?"
+    en: "Have a project in mind?"
+    es: "¿Tienes un proyecto en mente?"
+  subtitle:
+    fr: "Contactez-nous pour un devis personnalisé."
+    en: "Contact us for a personalised quote."
+    es: "Contáctenos para un presupuesto personalizado."

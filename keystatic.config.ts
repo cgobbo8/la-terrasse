@@ -823,6 +823,52 @@ export default config({
       },
     }),
 
+    salleHubTexts: singleton({
+      label: 'Textes — La Salle (hub)',
+      path: 'src/content/page-texts/salle-hub',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            tagline: i18n('Tagline'),
+            subtitle: i18n('Sous-titre', true),
+          },
+          { label: 'Hero' },
+        ),
+        venue: fields.object(
+          {
+            eyebrow: i18n('Eyebrow'),
+            title: i18n('Titre'),
+          },
+          { label: 'Section L\'espace' },
+        ),
+        spaces: fields.object(
+          {
+            eyebrow: i18n('Eyebrow'),
+            title: i18n('Titre'),
+          },
+          { label: 'Section 3 espaces' },
+        ),
+        dispatch: fields.object(
+          {
+            evenementielTitle: i18n('Carte Événementiel — Titre'),
+            evenementielDesc: i18n('Carte Événementiel — Description', true),
+            seminairesTitle: i18n('Carte Séminaires — Titre'),
+            seminairesDesc: i18n('Carte Séminaires — Description', true),
+          },
+          { label: 'Cartes de dispatch (Événementiel / Séminaires)' },
+        ),
+        contact: fields.object(
+          {
+            eyebrow: i18n('Eyebrow'),
+            title: i18n('Titre'),
+            subtitle: i18n('Sous-titre', true),
+          },
+          { label: 'CTA contact final' },
+        ),
+      },
+    }),
+
     aventureHubTexts: singleton({
       label: 'Textes — Aventure (hub)',
       path: 'src/content/page-texts/aventure-hub',
