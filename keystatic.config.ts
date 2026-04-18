@@ -23,6 +23,14 @@ export default config({
       },
   ui: {
     brand: { name: 'La Terrasse — CMS' },
+    navigation: {
+      'Contenu géré': ['events', 'activities', 'seminars', 'producers', 'nearby'],
+      'Restaurant': ['restaurant', 'restaurantHubTexts', 'restaurantMenuTexts', 'producteursTexts'],
+      'Aventure': ['aventureHubTexts'],
+      'La Salle': ['venue', 'seminarsPricing', 'salleHubTexts'],
+      'Homepage': ['homepageTexts'],
+      'Paramètres': ['settings', 'legalMentions'],
+    },
   },
 
   collections: {
