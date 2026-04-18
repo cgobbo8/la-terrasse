@@ -560,6 +560,63 @@ export const translations = {
     'restaurant.menu.period.desserts': 'Les Desserts',
     'restaurant.menu.period.enfant': 'Menu Enfant',
 
+    // Home — Bento (infos pratiques)
+    'home.bento.eyebrow': 'Pratique',
+    'home.bento.period': 'Période',
+    'home.bento.periodShoulder': 'Mai & septembre : week-ends et jours fériés',
+    'home.bento.periodHigh': 'Juin, juillet, août : tous les jours',
+    'home.bento.activitiesLabel': 'Activités',
+    'home.bento.restaurantLabel': 'Restaurant',
+    'home.bento.activitiesTime': '10h – 19h',
+    'home.bento.restaurantTime': '9h – 22h',
+    'home.bento.contactLabel': 'Contact',
+    'home.bento.distance': 'À 45 min de Toulouse',
+    'home.bento.ctaDesc': 'Une question ? Écrivez-nous.',
+
+    // Home — Soirées decorative cards
+    'home.soirees.eyebrow': 'Restaurant & soirées',
+    'home.soirees.card.concerts.label': 'Concerts en terrasse',
+    'home.soirees.card.concerts.desc': 'Artistes locaux, coucher de soleil',
+    'home.soirees.card.karaoke.label': 'Soirées karaoké',
+    'home.soirees.card.karaoke.desc': 'Votre scène, votre micro',
+    'home.soirees.card.blind.label': 'Blind tests',
+    'home.soirees.card.blind.desc': 'Musique, ciné, culture',
+    'home.soirees.card.dj.label': 'DJ sets',
+    'home.soirees.card.dj.desc': 'Électro, house, funk',
+
+    // Pass Journée (OffreJournee)
+    'offre.eyebrow': 'Pass Journée',
+    'offre.titleLine1': 'Profitez de',
+    'offre.titleLine2': 'toute La Terrasse',
+    'offre.desc': 'Achetez 3 activités dont au moins 1 grande et bénéficiez de {discount}% de réduction sur l\'ensemble de votre pack activités.',
+    'offre.eligibleEyebrow': 'Grandes activités éligibles',
+    'offre.activity.vtt': 'VTT tout-terrain',
+    'offre.activity.pedalo': 'Pédalo & kayak',
+    'offre.activity.archery': 'Archery tag',
+    'offre.ctaDiscover': 'Découvrir les activités',
+    'offre.ctaPrices': 'Voir les tarifs',
+    'offre.packSuffix': 'sur votre pack activités',
+    'offre.step1.label': '1 grande activité',
+    'offre.step1.detail': 'VTT, pédalo, archery tag…',
+    'offre.step2.label': '+ 2 petites activités',
+    'offre.step2.detail': 'Mini-golf, trampoline…',
+    'offre.step3.labelTpl': '= −{discount}% sur le pack',
+    'offre.step3.detail': 'Sur l\'ensemble de vos activités',
+    'offre.validity': 'Valable le jour même — réduction appliquée directement à l\'achat.',
+
+    // La Salle — Collectivités callout
+    'salle.collectivites.title': 'Collectivités & associations',
+    'salle.collectivites.desc.before': 'Les établissements scolaires, centres de loisirs, centres aérés et associations bénéficient de ',
+    'salle.collectivites.desc.highlight': 'tarifs spécifiques',
+    'salle.collectivites.desc.after': ' adaptés à leur structure et à leurs besoins.',
+    'salle.collectivites.desc2': 'Contactez-nous directement pour obtenir un devis personnalisé — nous vous proposerons une offre sur mesure.',
+    'salle.collectivites.ctaQuote': 'Demander un devis',
+    'salle.collectivites.ctaPhone': 'Nous appeler',
+
+    // La Salle — Hub contact CTA
+    'salle.hub.contact.eyebrow': 'Contact',
+    'salle.hub.contact.title': 'Un projet en tête ?',
+
     // 404
     'error.404.pageTitle': 'Page introuvable',
     'error.404.title': 'Cette page n\'existe pas',
@@ -1111,6 +1168,63 @@ export const translations = {
     'restaurant.menu.period.desserts': 'Desserts',
     'restaurant.menu.period.enfant': 'Kids\' Menu',
 
+    // Home — Bento (practical info)
+    'home.bento.eyebrow': 'Practical',
+    'home.bento.period': 'Period',
+    'home.bento.periodShoulder': 'May & September: weekends and public holidays',
+    'home.bento.periodHigh': 'June, July, August: every day',
+    'home.bento.activitiesLabel': 'Activities',
+    'home.bento.restaurantLabel': 'Restaurant',
+    'home.bento.activitiesTime': '10am – 7pm',
+    'home.bento.restaurantTime': '9am – 10pm',
+    'home.bento.contactLabel': 'Contact',
+    'home.bento.distance': '45 min from Toulouse',
+    'home.bento.ctaDesc': 'A question? Drop us a line.',
+
+    // Home — Evenings decorative cards
+    'home.soirees.eyebrow': 'Restaurant & evenings',
+    'home.soirees.card.concerts.label': 'Terrace concerts',
+    'home.soirees.card.concerts.desc': 'Local artists, sunset',
+    'home.soirees.card.karaoke.label': 'Karaoke nights',
+    'home.soirees.card.karaoke.desc': 'Your stage, your mic',
+    'home.soirees.card.blind.label': 'Blind tests',
+    'home.soirees.card.blind.desc': 'Music, cinema, culture',
+    'home.soirees.card.dj.label': 'DJ sets',
+    'home.soirees.card.dj.desc': 'Electro, house, funk',
+
+    // Day Pass (OffreJournee)
+    'offre.eyebrow': 'Day Pass',
+    'offre.titleLine1': 'Enjoy',
+    'offre.titleLine2': 'all of La Terrasse',
+    'offre.desc': 'Book 3 activities including at least 1 premium and get {discount}% off your full activity pack.',
+    'offre.eligibleEyebrow': 'Eligible premium activities',
+    'offre.activity.vtt': 'Mountain bike',
+    'offre.activity.pedalo': 'Pedal boat & kayak',
+    'offre.activity.archery': 'Archery tag',
+    'offre.ctaDiscover': 'Discover activities',
+    'offre.ctaPrices': 'See pricing',
+    'offre.packSuffix': 'on your activity pack',
+    'offre.step1.label': '1 premium activity',
+    'offre.step1.detail': 'Mountain bike, pedal boat, archery tag…',
+    'offre.step2.label': '+ 2 smaller activities',
+    'offre.step2.detail': 'Mini-golf, trampoline…',
+    'offre.step3.labelTpl': '= −{discount}% on the pack',
+    'offre.step3.detail': 'On all your activities',
+    'offre.validity': 'Valid same day — discount applied directly at purchase.',
+
+    // La Salle — Community & associations callout
+    'salle.collectivites.title': 'Schools & associations',
+    'salle.collectivites.desc.before': 'Schools, leisure centres, holiday clubs and associations enjoy ',
+    'salle.collectivites.desc.highlight': 'special pricing',
+    'salle.collectivites.desc.after': ' tailored to their size and needs.',
+    'salle.collectivites.desc2': 'Contact us directly for a personalised quote — we\'ll build you a tailor-made offer.',
+    'salle.collectivites.ctaQuote': 'Request a quote',
+    'salle.collectivites.ctaPhone': 'Call us',
+
+    // La Salle — Hub contact CTA
+    'salle.hub.contact.eyebrow': 'Contact',
+    'salle.hub.contact.title': 'Have a project in mind?',
+
     // 404
     'error.404.pageTitle': 'Page not found',
     'error.404.title': 'This page does not exist',
@@ -1661,6 +1775,63 @@ export const translations = {
     'restaurant.menu.period.soirSub': 'Tapas, tablas y platos para compartir',
     'restaurant.menu.period.desserts': 'Postres',
     'restaurant.menu.period.enfant': 'Menú Infantil',
+
+    // Home — Bento (información práctica)
+    'home.bento.eyebrow': 'Práctico',
+    'home.bento.period': 'Temporada',
+    'home.bento.periodShoulder': 'Mayo y septiembre: fines de semana y festivos',
+    'home.bento.periodHigh': 'Junio, julio, agosto: todos los días',
+    'home.bento.activitiesLabel': 'Actividades',
+    'home.bento.restaurantLabel': 'Restaurante',
+    'home.bento.activitiesTime': '10h – 19h',
+    'home.bento.restaurantTime': '9h – 22h',
+    'home.bento.contactLabel': 'Contacto',
+    'home.bento.distance': 'A 45 min de Toulouse',
+    'home.bento.ctaDesc': '¿Una pregunta? Escríbenos.',
+
+    // Home — Veladas decorative cards
+    'home.soirees.eyebrow': 'Restaurante y veladas',
+    'home.soirees.card.concerts.label': 'Conciertos en la terraza',
+    'home.soirees.card.concerts.desc': 'Artistas locales, atardecer',
+    'home.soirees.card.karaoke.label': 'Noches karaoke',
+    'home.soirees.card.karaoke.desc': 'Tu escenario, tu micro',
+    'home.soirees.card.blind.label': 'Blind tests',
+    'home.soirees.card.blind.desc': 'Música, cine, cultura',
+    'home.soirees.card.dj.label': 'DJ sets',
+    'home.soirees.card.dj.desc': 'Electro, house, funk',
+
+    // Pase Día (OffreJournee)
+    'offre.eyebrow': 'Pase Día',
+    'offre.titleLine1': 'Disfruta de',
+    'offre.titleLine2': 'toda La Terrasse',
+    'offre.desc': 'Reserva 3 actividades incluyendo al menos 1 grande y obtén un {discount}% de descuento en tu pack de actividades.',
+    'offre.eligibleEyebrow': 'Grandes actividades elegibles',
+    'offre.activity.vtt': 'BTT todoterreno',
+    'offre.activity.pedalo': 'Hidropedal y kayak',
+    'offre.activity.archery': 'Archery tag',
+    'offre.ctaDiscover': 'Descubrir las actividades',
+    'offre.ctaPrices': 'Ver tarifas',
+    'offre.packSuffix': 'en tu pack de actividades',
+    'offre.step1.label': '1 gran actividad',
+    'offre.step1.detail': 'BTT, hidropedal, archery tag…',
+    'offre.step2.label': '+ 2 pequeñas actividades',
+    'offre.step2.detail': 'Mini-golf, trampolín…',
+    'offre.step3.labelTpl': '= −{discount}% en el pack',
+    'offre.step3.detail': 'Sobre todas tus actividades',
+    'offre.validity': 'Válido el mismo día — descuento aplicado directamente al comprar.',
+
+    // La Salle — Colectividades y asociaciones
+    'salle.collectivites.title': 'Colectividades y asociaciones',
+    'salle.collectivites.desc.before': 'Los centros escolares, centros de ocio, campamentos y asociaciones se benefician de ',
+    'salle.collectivites.desc.highlight': 'tarifas específicas',
+    'salle.collectivites.desc.after': ' adaptadas a su estructura y necesidades.',
+    'salle.collectivites.desc2': 'Contáctenos directamente para obtener un presupuesto personalizado — le propondremos una oferta a medida.',
+    'salle.collectivites.ctaQuote': 'Solicitar presupuesto',
+    'salle.collectivites.ctaPhone': 'Llámenos',
+
+    // La Salle — Hub contact CTA
+    'salle.hub.contact.eyebrow': 'Contacto',
+    'salle.hub.contact.title': '¿Tienes un proyecto en mente?',
 
     // 404
     'error.404.pageTitle': 'Página no encontrada',

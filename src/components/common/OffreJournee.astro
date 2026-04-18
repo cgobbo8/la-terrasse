@@ -8,7 +8,7 @@
  * Zero JS — pure Astro + CSS. Hover effects via CSS transitions.
  */
 import { Icon } from 'astro-icon/components';
-import { getLangFromUrl, getLocalizedPath } from '@/i18n/utils';
+import { getLangFromUrl, getLocalizedPath, useTranslations } from '@/i18n/utils';
 import type { Lang } from '@/i18n/translations';
 import { poleConfigs, brandColors } from '@/lib/pole-config';
 import { getSiteSettings } from '@/lib/site-settings';
@@ -18,6 +18,7 @@ interface Props {
 
 const { lang: langProp } = Astro.props;
 const lang: Lang = langProp ?? getLangFromUrl(Astro.url, Astro.currentLocale);
+const t = useTranslations(lang);
 
 const settings = await getSiteSettings();
 const discount = settings?.passJourneeDiscount ?? 20;
@@ -30,9 +31,9 @@ const { accent: aventureAccent, accentDark: aventureDark, light: aventureLight }
    Large activities — the "1 grande activité" anchor points
 ---------------------------------------------------------------- */
 const grandesActivites = [
-  { icon: 'lucide:bike',        label: 'VTT tout-terrain' },
-  { icon: 'lucide:waves',       label: 'Pédalo & kayak'   },
-  { icon: 'lucide:target',      label: 'Archery tag'       },
+  { icon: 'lucide:bike',        label: t('offre.activity.vtt')     },
+  { icon: 'lucide:waves',       label: t('offre.activity.pedalo')  },
+  { icon: 'lucide:target',      label: t('offre.activity.archery') },
 ];
 
 /* ----------------------------------------------------------------
@@ -44,24 +45,24 @@ const steps = [
     icon: 'lucide:mountain-snow',
     color: aventureAccent,
     bgLight: aventureLight,
-    label: '1 grande activité',
-    detail: 'VTT, pédalo, archery tag…',
+    label: t('offre.step1.label'),
+    detail: t('offre.step1.detail'),
   },
   {
     number: '02',
     icon: 'lucide:sparkles',
     color: aventureAccent,
     bgLight: aventureLight,
-    label: '+ 2 petites activités',
-    detail: 'Mini-golf, trampoline…',
+    label: t('offre.step2.label'),
+    detail: t('offre.step2.detail'),
   },
   {
     number: '03',
     icon: 'lucide:percent',
     color: aventureAccent,
     bgLight: aventureLight,
-    label: `= −${discount}% sur le pack`,
-    detail: 'Sur l\'ensemble de vos activités',
+    label: t('offre.step3.labelTpl').replace('{discount}', String(discount)),
+    detail: t('offre.step3.detail'),
   },
 ];
 ---
@@ -94,25 +95,25 @@ const steps = [
               style={`background-color: ${brandColors.soleilDark}20; color: ${brandColors.brunTerre};`}
             >
               <Icon name="lucide:sun" class="inline w-3.5 h-3.5 mr-1 -mt-0.5" />
-              Pass Journée
+              {t('offre.eyebrow')}
             </span>
           </div>
 
           <!-- Headline -->
           <div>
             <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-brun-terre">
-              Profitez de<br />
-              <em class="not-italic" style={`color: ${aventureAccent}`}>toute La Terrasse</em>
+              {t('offre.titleLine1')}<br />
+              <em class="not-italic" style={`color: ${aventureAccent}`}>{t('offre.titleLine2')}</em>
             </h2>
             <p class="mt-4 text-base lg:text-lg leading-relaxed max-w-prose text-gray-600">
-              Achetez 3 activités dont au moins 1 grande et bénéficiez de {discount}% de réduction sur l'ensemble de votre pack activités.
+              {t('offre.desc').replace('{discount}', String(discount))}
             </p>
           </div>
 
           <!-- Grande activité anchor chips -->
           <div>
             <p class="section-eyebrow mb-3 text-gray-400">
-              Grandes activités éligibles
+              {t('offre.eligibleEyebrow')}
             </p>
             <div class="flex flex-wrap gap-2">
               {grandesActivites.map((act) => (
@@ -134,7 +135,7 @@ const steps = [
               style={`background-color: ${aventureAccent};`}
             >
               <Icon name="lucide:compass" class="w-4 h-4 flex-shrink-0" />
-              Découvrir les activités
+              {t('offre.ctaDiscover')}
               <Icon name="lucide:arrow-right" class="w-4 h-4 flex-shrink-0 cta-arrow" />
             </a>
             <a
@@ -143,7 +144,7 @@ const steps = [
               style={`background-color: transparent; color: ${aventureDark}; border: 1.5px solid ${aventureAccent}30;`}
             >
               <Icon name="lucide:tag" class="w-4 h-4 flex-shrink-0" />
-              Voir les tarifs
+              {t('offre.ctaPrices')}
             </a>
           </div>
         </div>
@@ -158,7 +159,7 @@ const steps = [
                 −{discount}%
               </span>
               <span class="mt-1.5 text-sm font-medium text-brun-terre/70">
-                sur votre pack activités
+                {t('offre.packSuffix')}
               </span>
               <!-- Subtle star decoration -->
               <div class="flex gap-1 mt-3 opacity-60" aria-hidden="true">
@@ -205,7 +206,7 @@ const steps = [
               <div class="px-5 py-3 bg-gray-100" style="border-top: 1px solid var(--color-gray-200);">
                 <p class="text-xs leading-snug text-gray-600">
                   <Icon name="lucide:info" class="inline w-3 h-3 mr-1 -mt-0.5" style={`color: ${aventureAccent};`} />
-                  Valable le jour même — réduction appliquée directement à l'achat.
+                  {t('offre.validity')}
                 </p>
               </div>
             </div>
