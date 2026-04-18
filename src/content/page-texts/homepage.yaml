@@ -1,0 +1,110 @@
+hero:
+  tagline:
+    fr: Un lieu, trois expériences
+    en: One place, three experiences
+    es: Un lugar, tres experiencias
+  subtitle:
+    fr: "Dégustez, explorez, célébrez — la base de loisirs du lac de Saint-Ferréol"
+    en: "Taste, explore, celebrate — the leisure base at Lake Saint-Ferréol"
+    es: "Deguste, explore, celebre — la base de ocio del lago de Saint-Ferréol"
+poles:
+  restaurantDesc:
+    fr: "Une cuisine simple, locale et gourmande à 30m du lac."
+    en: "Simple, local, and delicious cuisine just 30m from the lake."
+    es: "Cocina sencilla, local y deliciosa a 30m del lago."
+  aventureDesc:
+    fr: "Activités terrestres et aquatiques pour profiter de la nature."
+    en: "Land and water activities to enjoy nature."
+    es: "Actividades terrestres y acuáticas para disfrutar de la naturaleza."
+  salleDesc:
+    fr: "Séminaires, événements et réceptions dans un cadre naturel et inspirant."
+    en: "Seminars, events and receptions in a natural and inspiring setting."
+    es: "Seminarios, eventos y recepciones en un entorno natural e inspirador."
+dayTrip:
+  block0Title:
+    fr: "Arrivée au lac"
+    en: "Arrival at the lake"
+    es: "Llegada al lago"
+  block0Desc:
+    fr: "Traversez la pinède jusqu'au rivage — le lac apparaît entre les arbres, l'air sent le pin et la terre."
+    en: "Walk through the pine forest to the shore — the lake appears between the trees, the air smells of pine and earth."
+    es: "Cruce el pinar hasta la orilla — el lago aparece entre los árboles, el aire huele a pino y tierra."
+  block1Title:
+    fr: "Activité nature"
+    en: "Nature activity"
+    es: "Actividad en la naturaleza"
+  block1Desc:
+    fr: "Départ en kayak sur le lac, entre amis ou en famille. L'eau calme du matin est un pur bonheur."
+    en: "Set off by kayak on the lake, with friends or family. The calm morning waters are pure bliss."
+    es: "Salida en kayak por el lago, con amigos o en familia. Las aguas tranquilas de la mañana son un placer."
+  block2Title:
+    fr: "Déjeuner au bord du lac"
+    en: "Lunch by the lake"
+    es: "Almuerzo junto al lago"
+  block2Desc:
+    fr: "Cuisine locale et gourmande en terrasse, à 30 mètres de l'eau."
+    en: "Local and gourmet cuisine on the terrace, just 30 meters from the water."
+    es: "Cocina local y gourmet en la terraza, a 30 metros del agua."
+  block3Title:
+    fr: "Baignade et paddle"
+    en: "Swimming and paddle"
+    es: "Baño y paddle"
+  block3Desc:
+    fr: "Profitez du lac et de ses activités aquatiques tout l'après-midi."
+    en: "Enjoy the lake and its water activities all afternoon long."
+    es: "Disfruta del lago y sus actividades acuáticas durante toda la tarde."
+  block4Title:
+    fr: "Détente et farniente"
+    en: "Relax and unwind"
+    es: "Relax y descanso"
+  block4Desc:
+    fr: "Pause à l'ombre des arbres, vue sur le lac et les collines."
+    en: "Rest in the shade of the trees, overlooking the lake and hills."
+    es: "Descanso a la sombra de los árboles, con vistas al lago y las colinas."
+  block5Title:
+    fr: "Apéro en terrasse"
+    en: "Sunset drinks on the terrace"
+    es: "Aperitivo en la terraza"
+  block5Desc:
+    fr: "Cocktails et planches à partager au coucher du soleil."
+    en: "Cocktails and sharing platters at sunset."
+    es: "Cócteles y tablas para compartir al atardecer."
+soirees:
+  body:
+    fr: "Concerts en terrasse, soirées karaoké, blind test, tapas & drinks — toute la saison, La Terrasse s'anime pour des moments de convivialité face au lac."
+    en: "Live concerts on the terrace, karaoke nights, blind tests, tapas & drinks — all season long, La Terrasse comes alive with convivial moments overlooking the lake."
+    es: "Conciertos en la terraza, noches de karaoke, blind test, tapas & drinks — toda la temporada, La Terrasse se anima con momentos de convivialidad frente al lago."
+history:
+  eyebrow:
+    fr: "Notre histoire"
+    en: "Our history"
+    es: "Nuestra historia"
+  title:
+    fr: "Un lieu chargé d'histoire"
+    en: "A place steeped in history"
+    es: "Un lugar cargado de historia"
+  intro:
+    fr: "Le lac de Saint-Ferréol n'est pas un lac comme les autres."
+    en: "Lake Saint-Ferréol is no ordinary lake."
+    es: "El lago de Saint-Ferréol no es un lago cualquiera."
+  body:
+    fr: "Construit au XVIIe siècle par Pierre-Paul Riquet pour alimenter le Canal du Midi — chef-d'œuvre classé au patrimoine mondial de l'UNESCO — ce lac artificiel est le plus grand réservoir d'eau du canal. Depuis plus de 350 ans, il fait vivre le territoire, attire les promeneurs et incarne l'ingéniosité humaine au service de la nature."
+    en: "Built in the 17th century by Pierre-Paul Riquet to feed the Canal du Midi — a masterpiece listed as a UNESCO World Heritage Site — this artificial lake is the canal's largest water reservoir. For over 350 years, it has sustained the region, drawn visitors, and embodied human ingenuity in harmony with nature."
+    es: "Construido en el siglo XVII por Pierre-Paul Riquet para alimentar el Canal du Midi — obra maestra declarada Patrimonio de la Humanidad por la UNESCO — este lago artificial es el mayor embalse del canal. Desde hace más de 350 años, ha dado vida a la región, atraído visitantes y encarnado la ingeniosidad humana al servicio de la naturaleza."
+  closing:
+    fr: "Aujourd'hui, La Terrasse s'inscrit dans cette histoire en proposant un lieu de vie au bord de l'eau, où l'on vient se retrouver, partager un repas, bouger et profiter d'un cadre exceptionnel."
+    en: "Today, La Terrasse carries on this legacy by offering a vibrant gathering place by the water, where people come to share a meal, stay active, and enjoy an exceptional setting."
+    es: "Hoy, La Terrasse se inscribe en esta historia ofreciendo un lugar de vida junto al agua, donde la gente viene a compartir una comida, moverse y disfrutar de un entorno excepcional."
+cta:
+  eyebrow:
+    fr: "Rendez-vous au lac"
+    en: "Meet us at the lake"
+    es: "Nos vemos en el lago"
+  title:
+    fr: "Venez vivre l'expérience La Terrasse"
+    en: "Come experience La Terrasse"
+    es: "Ven a vivir la experiencia La Terrasse"
+  subtitle:
+    fr: "Une journée, trois univers — à 45 minutes de Toulouse."
+    en: "One day, three worlds — 45 minutes from Toulouse."
+    es: "Un día, tres mundos — a 45 minutos de Toulouse."

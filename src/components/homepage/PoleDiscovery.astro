@@ -5,9 +5,10 @@ import { useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { Icon } from 'astro-icon/components';
 interface Props {
   lang: Lang;
+  descriptions: Record<Pole, string>;
 }
 
-const { lang } = Astro.props;
+const { lang, descriptions } = Astro.props;
 const t = useTranslations(lang);
 
 const poles: { key: Pole; href: string; image: string; video: string }[] = [
@@ -31,7 +32,7 @@ const poles: { key: Pole; href: string; image: string; video: string }[] = [
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5 lg:gap-6" data-reveal-stagger>
       {poles.map(({ key, href, image, video }, i) => {
         const config = poleConfigs[key];
-        const description = t(`home.poles.description.${key}` as any);
+        const description = descriptions[key];
         const ctaLabel = t(`home.poles.cta.${key}` as any);
         const localizedHref = getLocalizedPath(href, lang);
         return (

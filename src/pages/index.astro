@@ -20,7 +20,7 @@ import NearbySection from '@/components/homepage/NearbySection.astro';
 import { Icon } from 'astro-icon/components';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import { poleConfigs } from '@/lib/pole-config';
 import { generateLocalBusinessLD } from '@/lib/seo';
 import { getSiteSettings } from '@/lib/site-settings';
@@ -33,57 +33,75 @@ const t = useTranslations(lang);
 const reader = createReader(process.cwd(), keystaticConfig);
 const settings = (await getSiteSettings()) ?? {};
 const allEvents = await reader.collections.events.all();
+const homeTexts = await reader.singletons.homepageTexts.read();
+
+// Helper: resolve a dotted path (e.g. "hero.tagline") from the CMS
+// homepage texts and pick the current language (fallback FR).
+const tx = (path: string) => {
+  const [section, field] = path.split('.');
+  return getLocalizedField(
+    ((homeTexts as Record<string, unknown> | null)?.[section] as Record<string, unknown>) ?? {},
+    field,
+    lang,
+  );
+};
 
 const timeBlocks = [
   {
     time: '9h00',
-    title: t('home.dayTrip.block0.title'),
-    description: t('home.dayTrip.block0.description'),
+    title: tx('dayTrip.block0Title'),
+    description: tx('dayTrip.block0Desc'),
     image: '/images/journee/arrivee.webp',
     href: '#',
     poleAccent: poleConfigs.restaurant.accent,
   },
   {
     time: '9h30',
-    title: t('home.dayTrip.block1.title'),
-    description: t('home.dayTrip.block1.description'),
+    title: tx('dayTrip.block1Title'),
+    description: tx('dayTrip.block1Desc'),
     image: '/images/journee/kayak.webp',
     href: getLocalizedPath('/aventure', lang),
     poleAccent: poleConfigs.aventure.accent,
   },
   {
     time: '12h30',
-    title: t('home.dayTrip.block2.title'),
-    description: t('home.dayTrip.block2.description'),
+    title: tx('dayTrip.block2Title'),
+    description: tx('dayTrip.block2Desc'),
     image: '/images/journee/dejeuner.webp',
     href: getLocalizedPath('/restaurant', lang),
     poleAccent: poleConfigs.restaurant.accent,
   },
   {
     time: '14h30',
-    title: t('home.dayTrip.block3.title'),
-    description: t('home.dayTrip.block3.description'),
+    title: tx('dayTrip.block3Title'),
+    description: tx('dayTrip.block3Desc'),
     image: '/images/journee/paddle.webp',
     href: getLocalizedPath('/aventure', lang),
     poleAccent: poleConfigs.aventure.accent,
   },
   {
     time: '17h00',
-    title: t('home.dayTrip.block4.title'),
-    description: t('home.dayTrip.block4.description'),
+    title: tx('dayTrip.block4Title'),
+    description: tx('dayTrip.block4Desc'),
     image: '/images/journee/detente.webp',
     href: '#',
     poleAccent: poleConfigs.restaurant.accent,
   },
   {
     time: '19h30',
-    title: t('home.dayTrip.block5.title'),
-    description: t('home.dayTrip.block5.description'),
+    title: tx('dayTrip.block5Title'),
+    description: tx('dayTrip.block5Desc'),
     image: '/images/journee/apero.webp',
     href: getLocalizedPath('/restaurant', lang),
     poleAccent: poleConfigs.restaurant.accent,
   },
 ];
+
+const poleDescriptions = {
+  restaurant: tx('poles.restaurantDesc'),
+  aventure: tx('poles.aventureDesc'),
+  salle: tx('poles.salleDesc'),
+};
 ---
 
 <BaseLayout title={t('home.page.title')} description={t('home.page.description')} pagePath="/" jsonLd={generateLocalBusinessLD()}>
@@ -102,7 +120,7 @@ const timeBlocks = [
   <LogoMaskReveal client:only="svelte" />
 
   <!-- 1. HERO — Le lieu (vidéo plein écran) -->
-  <VideoHero tagline={t('home.hero.tagline')} subtitle={t('home.hero.subtitle')}>
+  <VideoHero tagline={tx('hero.tagline')} subtitle={tx('hero.subtitle')}>
     <div class="flex flex-wrap justify-center gap-4">
       <a href={getLocalizedPath('/agenda', lang)} class="inline-flex items-center gap-2 bg-white text-brun-terre px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
         {t('home.hero.ctaAgenda')}
@@ -118,7 +136,7 @@ const timeBlocks = [
   <AgendaFloatingWidget events={allEvents} lang={lang} />
 
   <!-- 3. TROIS FAÇONS DE PROFITER — Les pôles (core value prop) -->
-  <PoleDiscovery lang={lang} />
+  <PoleDiscovery lang={lang} descriptions={poleDescriptions} />
 
   <!-- 4. INFOS PRATIQUES — Bento grid (practical) -->
   <BentoMeteo settings={settings} lang={lang} />
@@ -131,6 +149,8 @@ const timeBlocks = [
     sectionTitle={t('home.dayTrip.title')}
     ctaLabel={t('home.dayTrip.cta')}
   />
+
+  <!-- We keep dayTrip.title + dayTrip.cta in i18n (functional labels) — descriptions + block titles come from CMS via timeBlocks above. -->
 
   <!-- 6. SOIRÉES & ÉVÉNEMENTS (what's on) -->
   <SoireesSection lang={lang} />
@@ -168,18 +188,18 @@ const timeBlocks = [
                 </div>
                 <!-- Text -->
                 <div class="order-1 lg:order-2" data-reveal>
-                    <p class="section-eyebrow text-brun-terre/30 mb-6">Notre histoire</p>
+                    <p class="section-eyebrow text-brun-terre/30 mb-6">{tx('history.eyebrow')}</p>
                     <h2 class="font-heading text-3xl lg:text-5xl font-bold mb-8 leading-tight text-brun-terre">
-                        {t('home.history.title')}
+                        {tx('history.title')}
                     </h2>
                     <p class="text-xl text-brun-terre/80 font-medium mb-6 leading-relaxed">
-                        {t('home.history.intro')}
+                        {tx('history.intro')}
                     </p>
                     <p class="text-gray-600 leading-relaxed mb-8">
-                        {t('home.history.body')}
+                        {tx('history.body')}
                     </p>
                     <p class="text-gray-500 leading-relaxed italic border-l-2 border-aventure/30 pl-6">
-                        {t('home.history.closing')}
+                        {tx('history.closing')}
                     </p>
                 </div>
             </div>
@@ -213,12 +233,12 @@ const timeBlocks = [
   >
     <div class="absolute inset-0" style="background: linear-gradient(135deg, rgba(22, 163, 74, 0.7) 0%, rgba(45, 38, 32, 0.75) 100%);" />
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-reveal>
-      <p class="section-eyebrow text-white/40 mb-6">Rendez-vous au lac</p>
+      <p class="section-eyebrow text-white/40 mb-6">{tx('cta.eyebrow')}</p>
       <h2 class="font-heading text-3xl lg:text-5xl font-bold mb-6 leading-tight">
-        {t('home.cta.title')}
+        {tx('cta.title')}
       </h2>
       <p class="text-white/60 text-lg mb-10 max-w-xl mx-auto">
-        Une journée, trois univers — à 45 minutes de Toulouse.
+        {tx('cta.subtitle')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href={getLocalizedPath('/agenda', lang)} class="inline-flex items-center gap-2 bg-soleil text-brun-terre px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">

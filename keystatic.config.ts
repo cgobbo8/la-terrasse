@@ -1,5 +1,19 @@
 import { config, collection, singleton, fields } from '@keystatic/core';
 
+/**
+ * Helper: i18n text field with FR/EN/ES laid out side by side (layout 4-4-4).
+ * Pass multiline=true for paragraphs.
+ */
+const i18n = (label: string, multiline = false) =>
+  fields.object(
+    {
+      fr: fields.text({ label: 'Français', multiline }),
+      en: fields.text({ label: 'English', multiline }),
+      es: fields.text({ label: 'Español', multiline }),
+    },
+    { label, layout: [4, 4, 4] },
+  );
+
 export default config({
   storage: import.meta.env.DEV
     ? { kind: 'local' }
@@ -628,6 +642,77 @@ export default config({
             }),
           },
           { label: 'Offres & promotions' },
+        ),
+      },
+    }),
+
+    // ========================================
+    // Page texts — editorial content per page
+    // Each field is { fr, en, es } so the client can edit all 3 languages
+    // side by side in Keystatic. Functional labels (buttons, nav, common
+    // UI) stay in src/i18n/translations.ts.
+    // ========================================
+
+    homepageTexts: singleton({
+      label: 'Textes — Homepage',
+      path: 'src/content/page-texts/homepage',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            tagline: i18n('Tagline (gros titre)'),
+            subtitle: i18n('Sous-titre', true),
+          },
+          { label: 'Hero' },
+        ),
+        poles: fields.object(
+          {
+            restaurantDesc: i18n('Description — Restaurant', true),
+            aventureDesc: i18n('Description — Aventure', true),
+            salleDesc: i18n('Description — La Salle', true),
+          },
+          { label: 'Trois façons de profiter' },
+        ),
+        dayTrip: fields.object(
+          {
+            block0Title: i18n('Bloc 1 — Titre'),
+            block0Desc: i18n('Bloc 1 — Description', true),
+            block1Title: i18n('Bloc 2 — Titre'),
+            block1Desc: i18n('Bloc 2 — Description', true),
+            block2Title: i18n('Bloc 3 — Titre'),
+            block2Desc: i18n('Bloc 3 — Description', true),
+            block3Title: i18n('Bloc 4 — Titre'),
+            block3Desc: i18n('Bloc 4 — Description', true),
+            block4Title: i18n('Bloc 5 — Titre'),
+            block4Desc: i18n('Bloc 5 — Description', true),
+            block5Title: i18n('Bloc 6 — Titre'),
+            block5Desc: i18n('Bloc 6 — Description', true),
+          },
+          { label: 'Une journée type à La Terrasse' },
+        ),
+        soirees: fields.object(
+          {
+            body: i18n('Paragraphe', true),
+          },
+          { label: 'Section Soirées' },
+        ),
+        history: fields.object(
+          {
+            eyebrow: i18n('Eyebrow'),
+            title: i18n('Titre'),
+            intro: i18n('Introduction', true),
+            body: i18n('Corps du texte', true),
+            closing: i18n('Conclusion', true),
+          },
+          { label: 'Section Histoire' },
+        ),
+        cta: fields.object(
+          {
+            eyebrow: i18n('Eyebrow'),
+            title: i18n('Titre'),
+            subtitle: i18n('Sous-titre', true),
+          },
+          { label: 'CTA final' },
         ),
       },
     }),
