@@ -1,22 +1,26 @@
 name: La Ferme de Cabriole
-product: Fromages de chèvre & de vache
-story: >-
-  Ferme et fromagerie à Saint-Félix de Lauragais, La Ferme de Cabriole élève
-  chèvres Saanen et Alpine ainsi que vaches de race Brune. Leurs fromages
-  fermiers — chèvre, vache et mixtes — accompagnent nos planches et nos salades.
-photo: /images/producers/cabriole_batiment_elevage.webp
-location: Saint-Félix de Lauragais
-distance: 13
-website: https://ferme-de-cabriole.com/
-product_en: Goat & cow cheese
-product_es: Quesos de cabra y vaca
-story_en: >-
-  A farm and cheese dairy in Saint-Félix de Lauragais, La Ferme de Cabriole
-  raises Saanen and Alpine goats as well as Brune cattle. Their farmhouse
-  cheeses — goat, cow and mixed milk — feature on our platters and salads.
-story_es: >-
-  Granja y quesería en Saint-Félix de Lauragais, La Ferme de Cabriole cría
-  cabras Saanen y Alpine así como vacas de raza Brune. Sus quesos artesanales —
-  de cabra, de vaca y mixtos — acompañan nuestras tablas y ensaladas.
-order: 1
-visible: true
+info:
+  photo: /images/producers/cabriole_batiment_elevage.webp
+  location: Saint-Félix de Lauragais
+  distance: 13
+  website: https://ferme-de-cabriole.com/
+product:
+  fr: Fromages de chèvre & de vache
+  en: Goat & cow cheese
+  es: Quesos de cabra y vaca
+story:
+  fr: >-
+    Ferme et fromagerie à Saint-Félix de Lauragais, La Ferme de Cabriole élève
+    chèvres Saanen et Alpine ainsi que vaches de race Brune. Leurs fromages
+    fermiers — chèvre, vache et mixtes — accompagnent nos planches et nos salades.
+  en: >-
+    A farm and cheese dairy in Saint-Félix de Lauragais, La Ferme de Cabriole
+    raises Saanen and Alpine goats as well as Brune cattle. Their farmhouse
+    cheeses — goat, cow and mixed milk — feature on our platters and salads.
+  es: >-
+    Granja y quesería en Saint-Félix de Lauragais, La Ferme de Cabriole cría
+    cabras Saanen y Alpine así como vacas de raza Brune. Sus quesos artesanales —
+    de cabra, de vaca y mixtos — acompañan nuestras tablas y ensaladas.
+meta:
+  order: 1
+  visible: true

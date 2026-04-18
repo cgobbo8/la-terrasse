@@ -21,33 +21,43 @@ export async function getStaticPaths() {
   const allActivities = await reader.collections.activities.all();
 
   const visible = allActivities
-    .filter((a) => a.entry.visible)
-    .sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0));
+    .filter((a) => a.entry.meta.visible)
+    .sort((a, b) => (a.entry.meta.order ?? 0) - (b.entry.meta.order ?? 0));
 
-  const activitiesList = visible.map((a) => ({
-    title: a.entry.title,
+  // Flatten activity data for consumers (keeps card/prev-next components unchanged)
+  const flatten = (a: typeof visible[number]) => ({
     slug: a.slug,
-    price: a.entry.price ?? '',
-    priceDetails: a.entry.priceDetails ?? '',
-    priceDetails_en: a.entry.priceDetails_en ?? '',
-    priceDetails_es: a.entry.priceDetails_es ?? '',
-    age_min: a.entry.age_min ?? 0,
-    duration: a.entry.duration ?? '',
-    image: a.entry.image ?? null,
-    description: a.entry.description ?? '',
-    category: a.entry.category ?? 'terrestre',
+    title: a.entry.title,
     title_en: a.entry.title_en ?? '',
     title_es: a.entry.title_es ?? '',
-    description_en: a.entry.description_en ?? '',
-    description_es: a.entry.description_es ?? '',
-    priceTiers: (a.entry as any).priceTiers ?? [],
-    isPremium: (a.entry as any).isPremium ?? false,
-  }));
+    category: a.entry.category ?? 'terrestre',
+    description: a.entry.description.fr ?? '',
+    description_en: a.entry.description.en ?? '',
+    description_es: a.entry.description.es ?? '',
+    price: a.entry.pricing.price ?? '',
+    priceDetails: a.entry.pricing.priceDetails.fr ?? '',
+    priceDetails_en: a.entry.pricing.priceDetails.en ?? '',
+    priceDetails_es: a.entry.pricing.priceDetails.es ?? '',
+    priceTiers: (a.entry.pricing.priceTiers ?? []).map((tier) => ({
+      label: tier.label.fr ?? '',
+      label_en: tier.label.en ?? '',
+      label_es: tier.label.es ?? '',
+      price: tier.price,
+    })),
+    duration: a.entry.practical.duration ?? '',
+    minPersons: a.entry.practical.minPersons,
+    maxPersons: a.entry.practical.maxPersons,
+    age_min: a.entry.practical.age_min ?? 0,
+    isPremium: a.entry.practical.isPremium ?? false,
+    image: a.entry.practical.image ?? null,
+  });
+
+  const activitiesList = visible.map(flatten);
 
   return visible.map((activity) => ({
     params: { slug: activity.slug },
     props: {
-      activity: { slug: activity.slug, ...activity.entry },
+      activity: flatten(activity),
       allActivities: activitiesList,
     },
   }));

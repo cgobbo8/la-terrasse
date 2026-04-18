@@ -6,9 +6,9 @@ interface EventEntry {
   slug: string;
   entry: Record<string, unknown> & {
     title: string;
-    date: string | null;
-    description: string;
-    visible: boolean;
+    schedule: { date: string | null; startTime?: string; endTime?: string; category?: string };
+    description: { fr?: string; en?: string; es?: string } | string;
+    meta: { visible: boolean; highlighted?: boolean };
   };
 }
 
@@ -24,11 +24,11 @@ const t = useTranslations(lang);
 const now = new Date();
 const upcomingEvents = events
   .filter((e) => {
-    if (!e.entry.visible) return false;
-    if (!e.entry.date) return false;
-    return new Date(e.entry.date) >= now;
+    if (!e.entry.meta.visible) return false;
+    if (!e.entry.schedule.date) return false;
+    return new Date(e.entry.schedule.date) >= now;
   })
-  .sort((a, b) => new Date(a.entry.date!).getTime() - new Date(b.entry.date!).getTime())
+  .sort((a, b) => new Date(a.entry.schedule.date!).getTime() - new Date(b.entry.schedule.date!).getTime())
   .slice(0, 4);
 
 const hasEvents = upcomingEvents.length > 0;
@@ -41,19 +41,16 @@ function formatMonth(dateStr: string, locale: string) {
   return new Intl.DateTimeFormat(locale, { month: 'short' }).format(new Date(dateStr));
 }
 
-// Pre-compute event display data in the frontmatter to avoid `as` casts in template
-const displayEvents = upcomingEvents.map((event) => {
-  const entryAny = event.entry as Record<string, unknown>;
-  return {
-    slug: event.slug,
-    date: event.entry.date!,
-    startTime: (entryAny.startTime as string) || '',
-    endTime: (entryAny.endTime as string) || '',
-    highlighted: !!entryAny.highlighted,
-    title: getLocalizedField(event.entry, 'title', lang) || event.slug,
-    description: getLocalizedField(event.entry, 'description', lang),
-  };
-});
+// Pre-compute event display data
+const displayEvents = upcomingEvents.map((event) => ({
+  slug: event.slug,
+  date: event.entry.schedule.date!,
+  startTime: event.entry.schedule.startTime || '',
+  endTime: event.entry.schedule.endTime || '',
+  highlighted: !!event.entry.meta.highlighted,
+  title: getLocalizedField(event.entry, 'title', lang) || event.slug,
+  description: getLocalizedField(event.entry, 'description', lang),
+}));
 
 function formatTimeRange(start: string, end: string): string | null {
   if (!start) return null;

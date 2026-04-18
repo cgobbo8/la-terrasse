@@ -23,23 +23,42 @@ export default config({
       format: { data: 'yaml' },
       schema: {
         name: fields.slug({ name: { label: 'Nom du producteur', validation: { isRequired: true } } }),
-        product: fields.text({ label: 'Produit / spécialité', validation: { isRequired: true } }),
-        story: fields.text({ label: 'Histoire (2–3 phrases)', multiline: true, validation: { isRequired: true } }),
-        photo: fields.image({
-          label: 'Portrait',
-          directory: 'public/images/producers',
-          publicPath: '/images/producers/',
-        }),
-        location: fields.text({ label: 'Lieu (ex: Saint-Félix de Lauragais)' }),
-        distance: fields.integer({ label: 'Distance depuis Saint-Ferréol (km)' }),
-        website: fields.url({ label: 'Site web du producteur' }),
-        // i18n
-        product_en: fields.text({ label: 'Product (EN)' }),
-        product_es: fields.text({ label: 'Producto (ES)' }),
-        story_en: fields.text({ label: 'Story (EN)', multiline: true }),
-        story_es: fields.text({ label: 'Historia (ES)', multiline: true }),
-        order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
-        visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+        info: fields.object(
+          {
+            photo: fields.image({
+              label: 'Portrait',
+              directory: 'public/images/producers',
+              publicPath: '/images/producers/',
+            }),
+            location: fields.text({ label: 'Lieu (ex: Saint-Félix de Lauragais)' }),
+            distance: fields.integer({ label: 'Distance depuis Saint-Ferréol (km)' }),
+            website: fields.url({ label: 'Site web du producteur' }),
+          },
+          { label: 'Informations', layout: [12, 8, 4, 12] },
+        ),
+        product: fields.object(
+          {
+            fr: fields.text({ label: 'Français', validation: { isRequired: true } }),
+            en: fields.text({ label: 'English' }),
+            es: fields.text({ label: 'Español' }),
+          },
+          { label: 'Produit / spécialité', layout: [4, 4, 4] },
+        ),
+        story: fields.object(
+          {
+            fr: fields.text({ label: 'Français', multiline: true, validation: { isRequired: true } }),
+            en: fields.text({ label: 'English', multiline: true }),
+            es: fields.text({ label: 'Español', multiline: true }),
+          },
+          { label: 'Histoire (2–3 phrases)', layout: [4, 4, 4] },
+        ),
+        meta: fields.object(
+          {
+            order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
+            visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+          },
+          { label: 'Affichage', layout: [6, 6] },
+        ),
       },
     }),
 
@@ -53,8 +72,9 @@ export default config({
       path: 'src/content/activities/*',
       format: { contentField: 'content' },
       schema: {
-        title: fields.slug({ name: { label: 'Nom de l\'activité', validation: { isRequired: true } } }),
-        description: fields.text({ label: 'Description courte', multiline: true }),
+        title: fields.slug({ name: { label: 'Nom de l\'activité (FR / slug)', validation: { isRequired: true } } }),
+        title_en: fields.text({ label: 'Title (EN)' }),
+        title_es: fields.text({ label: 'Título (ES)' }),
         category: fields.select({
           label: 'Catégorie',
           options: [
@@ -63,36 +83,67 @@ export default config({
           ],
           defaultValue: 'terrestre',
         }),
-        price: fields.text({ label: 'Prix affiché sur la carte (ex: 25€)' }),
-        priceDetails: fields.text({ label: 'Détails prix carte (ex: par personne)', multiline: true }),
-        priceDetails_en: fields.text({ label: 'Price details card (EN)' }),
-        priceDetails_es: fields.text({ label: 'Detalles de precio tarjeta (ES)' }),
-        priceTiers: fields.array(
-          fields.object({
-            label: fields.text({ label: 'Durée / formule (ex: 1h, Demi-journée)', validation: { isRequired: true } }),
-            price: fields.text({ label: 'Prix (ex: 10€)', validation: { isRequired: true } }),
-            label_en: fields.text({ label: 'Duration / formula (EN)' }),
-            label_es: fields.text({ label: 'Duración / fórmula (ES)' }),
-          }),
-          { label: 'Grille tarifaire (si plusieurs options)', itemLabel: (props) => `${props.fields.label.value}: ${props.fields.price.value}` || 'Tarif' },
+        description: fields.object(
+          {
+            fr: fields.text({ label: 'Français', multiline: true }),
+            en: fields.text({ label: 'English', multiline: true }),
+            es: fields.text({ label: 'Español', multiline: true }),
+          },
+          { label: 'Description courte', layout: [4, 4, 4] },
         ),
-        isPremium: fields.checkbox({ label: 'Activité phare (éligible offre journée)', defaultValue: false }),
-        duration: fields.text({ label: 'Durée (ex: 1h, 2h, demi-journée)' }),
-        minPersons: fields.integer({ label: 'Nombre minimum de personnes', defaultValue: 1 }),
-        maxPersons: fields.integer({ label: 'Nombre maximum de personnes' }),
-        age_min: fields.integer({ label: 'Âge minimum (ans)', defaultValue: 0 }),
-        image: fields.image({
-          label: 'Photo principale',
-          directory: 'public/images/activities',
-          publicPath: '/images/activities/',
-        }),
-        // i18n
-        title_en: fields.text({ label: 'Title (EN)' }),
-        title_es: fields.text({ label: 'Título (ES)' }),
-        description_en: fields.text({ label: 'Description (EN)', multiline: true }),
-        description_es: fields.text({ label: 'Descripción (ES)', multiline: true }),
-        order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
-        visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+        pricing: fields.object(
+          {
+            price: fields.text({ label: 'Prix affiché sur la carte (ex: 25€)' }),
+            priceDetails: fields.object(
+              {
+                fr: fields.text({ label: 'Français' }),
+                en: fields.text({ label: 'English' }),
+                es: fields.text({ label: 'Español' }),
+              },
+              { label: 'Détails prix carte (ex: par personne)', layout: [4, 4, 4] },
+            ),
+            priceTiers: fields.array(
+              fields.object({
+                label: fields.object(
+                  {
+                    fr: fields.text({ label: 'Français' }),
+                    en: fields.text({ label: 'English' }),
+                    es: fields.text({ label: 'Español' }),
+                  },
+                  { label: 'Durée / formule', layout: [4, 4, 4] },
+                ),
+                price: fields.text({ label: 'Prix (ex: 10€)', validation: { isRequired: true } }),
+              }),
+              {
+                label: 'Grille tarifaire (si plusieurs options)',
+                itemLabel: (props) => `${props.fields.label.fields.fr.value || 'Tarif'}: ${props.fields.price.value}`,
+              },
+            ),
+          },
+          { label: 'Tarifs' },
+        ),
+        practical: fields.object(
+          {
+            duration: fields.text({ label: 'Durée (ex: 1h, 2h, demi-journée)' }),
+            age_min: fields.integer({ label: 'Âge minimum (ans)', defaultValue: 0 }),
+            minPersons: fields.integer({ label: 'Nombre minimum de personnes', defaultValue: 1 }),
+            maxPersons: fields.integer({ label: 'Nombre maximum de personnes' }),
+            isPremium: fields.checkbox({ label: 'Activité phare (éligible offre journée)', defaultValue: false }),
+            image: fields.image({
+              label: 'Photo principale',
+              directory: 'public/images/activities',
+              publicPath: '/images/activities/',
+            }),
+          },
+          { label: 'Informations pratiques', layout: [6, 3, 3, 3, 6, 12] },
+        ),
+        meta: fields.object(
+          {
+            order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
+            visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+          },
+          { label: 'Affichage', layout: [6, 6] },
+        ),
         content: fields.mdx({
           label: 'Description complète',
         }),
@@ -109,44 +160,70 @@ export default config({
       path: 'src/content/seminars/*',
       format: { contentField: 'content' },
       schema: {
-        title: fields.slug({ name: { label: 'Nom du pack', validation: { isRequired: true } } }),
-        subtitle: fields.text({ label: 'Sous-titre' }),
-        description: fields.text({ label: 'Description courte', multiline: true }),
-        includes: fields.array(
-          fields.text({ label: 'Élément inclus' }),
-          { label: 'Ce qui est inclus', itemLabel: (props) => props.value || 'Élément' },
-        ),
-        priceFrom: fields.text({ label: 'À partir de (prix indicatif)' }),
-        // i18n — subtitle, includes, priceFrom
-        subtitle_en: fields.text({ label: 'Subtitle (EN)' }),
-        subtitle_es: fields.text({ label: 'Subtítulo (ES)' }),
-        includes_en: fields.array(
-          fields.text({ label: 'Included item (EN)' }),
-          { label: 'What\'s included (EN)', itemLabel: (props) => props.value || 'Item' },
-        ),
-        includes_es: fields.array(
-          fields.text({ label: 'Elemento incluido (ES)' }),
-          { label: 'Qué incluye (ES)', itemLabel: (props) => props.value || 'Elemento' },
-        ),
-        priceFrom_en: fields.text({ label: 'Price from (EN)' }),
-        priceFrom_es: fields.text({ label: 'Precio desde (ES)' }),
-        features: fields.object({
-          salleEquipee: fields.checkbox({ label: 'Salle équipée', defaultValue: true }),
-          videoprojecteur: fields.checkbox({ label: 'Vidéoprojecteur', defaultValue: true }),
-          wifi: fields.checkbox({ label: 'Wi-Fi', defaultValue: true }),
-          petitDejeuner: fields.checkbox({ label: 'Petit-déjeuner d\'accueil', defaultValue: false }),
-          dejeuner: fields.checkbox({ label: 'Déjeuner terroir', defaultValue: false }),
-          pausesCafe: fields.checkbox({ label: 'Pauses café', defaultValue: false }),
-          teamBuilding: fields.checkbox({ label: 'Activités team building', defaultValue: false }),
-          encadrement: fields.checkbox({ label: 'Encadrement dédié', defaultValue: false }),
-        }, { label: 'Fonctionnalités (comparateur)' }),
-        // i18n
+        title: fields.slug({ name: { label: 'Nom du pack (FR / slug)', validation: { isRequired: true } } }),
         title_en: fields.text({ label: 'Title (EN)' }),
         title_es: fields.text({ label: 'Título (ES)' }),
-        description_en: fields.text({ label: 'Description (EN)', multiline: true }),
-        description_es: fields.text({ label: 'Descripción (ES)', multiline: true }),
-        order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
-        visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+        subtitle: fields.object(
+          {
+            fr: fields.text({ label: 'Français' }),
+            en: fields.text({ label: 'English' }),
+            es: fields.text({ label: 'Español' }),
+          },
+          { label: 'Sous-titre', layout: [4, 4, 4] },
+        ),
+        description: fields.object(
+          {
+            fr: fields.text({ label: 'Français', multiline: true }),
+            en: fields.text({ label: 'English', multiline: true }),
+            es: fields.text({ label: 'Español', multiline: true }),
+          },
+          { label: 'Description courte', layout: [4, 4, 4] },
+        ),
+        includes: fields.object(
+          {
+            fr: fields.array(
+              fields.text({ label: 'Élément inclus' }),
+              { label: 'Français', itemLabel: (props) => props.value || 'Élément' },
+            ),
+            en: fields.array(
+              fields.text({ label: 'Included item' }),
+              { label: 'English', itemLabel: (props) => props.value || 'Item' },
+            ),
+            es: fields.array(
+              fields.text({ label: 'Elemento incluido' }),
+              { label: 'Español', itemLabel: (props) => props.value || 'Elemento' },
+            ),
+          },
+          { label: 'Ce qui est inclus', layout: [4, 4, 4] },
+        ),
+        priceFrom: fields.object(
+          {
+            fr: fields.text({ label: 'Français' }),
+            en: fields.text({ label: 'English' }),
+            es: fields.text({ label: 'Español' }),
+          },
+          { label: 'À partir de (prix indicatif)', layout: [4, 4, 4] },
+        ),
+        features: fields.object(
+          {
+            salleEquipee: fields.checkbox({ label: 'Salle équipée', defaultValue: true }),
+            videoprojecteur: fields.checkbox({ label: 'Vidéoprojecteur', defaultValue: true }),
+            wifi: fields.checkbox({ label: 'Wi-Fi', defaultValue: true }),
+            petitDejeuner: fields.checkbox({ label: 'Petit-déjeuner d\'accueil', defaultValue: false }),
+            dejeuner: fields.checkbox({ label: 'Déjeuner terroir', defaultValue: false }),
+            pausesCafe: fields.checkbox({ label: 'Pauses café', defaultValue: false }),
+            teamBuilding: fields.checkbox({ label: 'Activités team building', defaultValue: false }),
+            encadrement: fields.checkbox({ label: 'Encadrement dédié', defaultValue: false }),
+          },
+          { label: 'Fonctionnalités (comparateur)' },
+        ),
+        meta: fields.object(
+          {
+            order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
+            visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+          },
+          { label: 'Affichage', layout: [6, 6] },
+        ),
         content: fields.mdx({
           label: 'Description complète',
         }),
@@ -167,33 +244,47 @@ export default config({
       path: 'src/content/nearby/*',
       format: { data: 'yaml' },
       schema: {
-        name: fields.slug({ name: { label: 'Nom du lieu', validation: { isRequired: true } } }),
-        categories: fields.multiselect({
-          label: 'Catégories',
-          options: [
-            { label: 'Culture', value: 'culture' },
-            { label: 'Patrimoine', value: 'patrimoine' },
-            { label: 'Nature', value: 'nature' },
-            { label: 'Gastronomie', value: 'gastronomie' },
-            { label: 'Activités', value: 'activites' },
-            { label: 'Hébergement', value: 'hebergement' },
-          ],
-          defaultValue: ['culture'],
-        }),
-        description: fields.text({ label: 'Description courte (1-2 phrases)', multiline: true, validation: { isRequired: true } }),
-        image: fields.image({
-          label: 'Photo',
-          directory: 'public/images/nearby',
-          publicPath: '/images/nearby/',
-        }),
-        url: fields.url({ label: 'Site web du lieu' }),
-        // i18n
-        name_en: fields.text({ label: 'Name (EN)' }),
+        name: fields.slug({ name: { label: 'Nom du lieu (FR / slug)', validation: { isRequired: true } } }),
+        name_en: fields.text({ label: 'Nom (EN)' }),
         name_es: fields.text({ label: 'Nombre (ES)' }),
-        description_en: fields.text({ label: 'Description (EN)', multiline: true }),
-        description_es: fields.text({ label: 'Descripción (ES)', multiline: true }),
-        order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
-        visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+        info: fields.object(
+          {
+            categories: fields.multiselect({
+              label: 'Catégories',
+              options: [
+                { label: 'Culture', value: 'culture' },
+                { label: 'Patrimoine', value: 'patrimoine' },
+                { label: 'Nature', value: 'nature' },
+                { label: 'Gastronomie', value: 'gastronomie' },
+                { label: 'Activités', value: 'activites' },
+                { label: 'Hébergement', value: 'hebergement' },
+              ],
+              defaultValue: ['culture'],
+            }),
+            image: fields.image({
+              label: 'Photo',
+              directory: 'public/images/nearby',
+              publicPath: '/images/nearby/',
+            }),
+            url: fields.url({ label: 'Site web du lieu' }),
+          },
+          { label: 'Informations', layout: [12, 12, 12] },
+        ),
+        description: fields.object(
+          {
+            fr: fields.text({ label: 'Français', multiline: true, validation: { isRequired: true } }),
+            en: fields.text({ label: 'English', multiline: true }),
+            es: fields.text({ label: 'Español', multiline: true }),
+          },
+          { label: 'Description courte (1-2 phrases)', layout: [4, 4, 4] },
+        ),
+        meta: fields.object(
+          {
+            order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
+            visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+          },
+          { label: 'Affichage', layout: [6, 6] },
+        ),
       },
     }),
 
@@ -203,29 +294,43 @@ export default config({
       path: 'src/content/events/*',
       format: { contentField: 'content' },
       schema: {
-        title: fields.slug({ name: { label: 'Nom de l\'événement', validation: { isRequired: true } } }),
-        date: fields.date({ label: 'Date' }),
-        startTime: fields.text({ label: 'Heure de début (ex: 19:00)' }),
-        endTime: fields.text({ label: 'Heure de fin (ex: 22:00)' }),
-        category: fields.select({
-          label: 'Catégorie',
-          options: [
-            { label: 'Concert', value: 'concert' },
-            { label: 'Soirée à thème', value: 'soiree-theme' },
-            { label: 'Festival / Fête', value: 'festival' },
-            { label: 'Marché / Salon', value: 'marche' },
-            { label: 'Autre', value: 'autre' },
-          ],
-          defaultValue: 'autre',
-        }),
-        description: fields.text({ label: 'Description', multiline: true }),
-        // i18n
+        title: fields.slug({ name: { label: 'Nom de l\'événement (FR / slug)', validation: { isRequired: true } } }),
         title_en: fields.text({ label: 'Title (EN)' }),
         title_es: fields.text({ label: 'Título (ES)' }),
-        description_en: fields.text({ label: 'Description (EN)', multiline: true }),
-        description_es: fields.text({ label: 'Descripción (ES)', multiline: true }),
-        highlighted: fields.checkbox({ label: 'Mettre en avant (style doré)', defaultValue: false }),
-        visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+        schedule: fields.object(
+          {
+            date: fields.date({ label: 'Date' }),
+            startTime: fields.text({ label: 'Heure de début (ex: 19:00)' }),
+            endTime: fields.text({ label: 'Heure de fin (ex: 22:00)' }),
+            category: fields.select({
+              label: 'Catégorie',
+              options: [
+                { label: 'Concert', value: 'concert' },
+                { label: 'Soirée à thème', value: 'soiree-theme' },
+                { label: 'Festival / Fête', value: 'festival' },
+                { label: 'Marché / Salon', value: 'marche' },
+                { label: 'Autre', value: 'autre' },
+              ],
+              defaultValue: 'autre',
+            }),
+          },
+          { label: 'Date & catégorie', layout: [6, 3, 3, 12] },
+        ),
+        description: fields.object(
+          {
+            fr: fields.text({ label: 'Français', multiline: true }),
+            en: fields.text({ label: 'English', multiline: true }),
+            es: fields.text({ label: 'Español', multiline: true }),
+          },
+          { label: 'Description', layout: [4, 4, 4] },
+        ),
+        meta: fields.object(
+          {
+            highlighted: fields.checkbox({ label: 'Mettre en avant (style doré)', defaultValue: false }),
+            visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
+          },
+          { label: 'Affichage', layout: [6, 6] },
+        ),
         content: fields.mdx({
           label: 'Contenu',
         }),
@@ -254,27 +359,48 @@ export default config({
                 { label: 'Menu enfant', value: 'enfant' },
               ],
             }),
-            title: fields.text({ label: 'Titre de section (ex: Burgers, Salades)' }),
-            title_en: fields.text({ label: 'Section title (EN)' }),
-            title_es: fields.text({ label: 'Título de sección (ES)' }),
+            title: fields.object(
+              {
+                fr: fields.text({ label: 'Français' }),
+                en: fields.text({ label: 'English' }),
+                es: fields.text({ label: 'Español' }),
+              },
+              { label: 'Titre de section (ex: Burgers, Salades)', layout: [4, 4, 4] },
+            ),
             dishes: fields.array(
               fields.object({
-                name: fields.text({ label: 'Nom du plat' }),
-                description: fields.text({ label: 'Description' }),
+                name: fields.object(
+                  {
+                    fr: fields.text({ label: 'Français' }),
+                    en: fields.text({ label: 'English' }),
+                    es: fields.text({ label: 'Español' }),
+                  },
+                  { label: 'Nom du plat', layout: [4, 4, 4] },
+                ),
+                description: fields.object(
+                  {
+                    fr: fields.text({ label: 'Français' }),
+                    en: fields.text({ label: 'English' }),
+                    es: fields.text({ label: 'Español' }),
+                  },
+                  { label: 'Description', layout: [4, 4, 4] },
+                ),
                 price: fields.text({ label: 'Prix (ex: 12.50)' }),
                 tags: fields.array(
                   fields.text({ label: 'Tag' }),
                   { label: 'Tags alimentaires', itemLabel: (props) => props.value || 'Tag' },
                 ),
-                name_en: fields.text({ label: 'Name (EN)' }),
-                name_es: fields.text({ label: 'Nombre (ES)' }),
-                description_en: fields.text({ label: 'Description (EN)' }),
-                description_es: fields.text({ label: 'Descripción (ES)' }),
               }),
-              { label: 'Plats de la section', itemLabel: (props) => props.fields.name.value || 'Plat' },
+              {
+                label: 'Plats de la section',
+                itemLabel: (props) => props.fields.name.fields.fr.value || 'Plat',
+              },
             ),
           }),
-          { label: 'Sections du menu', itemLabel: (props) => props.fields.title.value || 'Section' },
+          {
+            label: 'Sections du menu',
+            itemLabel: (props) => props.fields.title.fields.fr.value || 'Section',
+          },
         ),
       },
     }),
@@ -288,32 +414,46 @@ export default config({
       path: 'src/content/venue/info',
       format: { data: 'yaml' },
       schema: {
-        capacityMax: fields.integer({ label: 'Capacité maximale (personnes)', validation: { isRequired: true } }),
-        surfaceM2: fields.integer({ label: 'Surface (m²)', validation: { isRequired: true } }),
-        equipment: fields.array(
-          fields.text({ label: 'Équipement' }),
-          { label: 'Équipements disponibles', itemLabel: (props) => props.value || 'Équipement' },
+        space: fields.object(
+          {
+            capacityMax: fields.integer({ label: 'Capacité maximale (personnes)', validation: { isRequired: true } }),
+            surfaceM2: fields.integer({ label: 'Surface (m²)', validation: { isRequired: true } }),
+          },
+          { label: 'Espace', layout: [6, 6] },
         ),
-        layoutSuggestions: fields.array(
-          fields.text({ label: 'Disposition' }),
-          { label: 'Idées de disposition', itemLabel: (props) => props.value || 'Disposition' },
+        equipment: fields.object(
+          {
+            fr: fields.array(
+              fields.text({ label: 'Équipement' }),
+              { label: 'Français', itemLabel: (props) => props.value || 'Équipement' },
+            ),
+            en: fields.array(
+              fields.text({ label: 'Equipment' }),
+              { label: 'English', itemLabel: (props) => props.value || 'Equipment' },
+            ),
+            es: fields.array(
+              fields.text({ label: 'Equipamiento' }),
+              { label: 'Español', itemLabel: (props) => props.value || 'Equipamiento' },
+            ),
+          },
+          { label: 'Équipements disponibles', layout: [4, 4, 4] },
         ),
-        // i18n
-        equipment_en: fields.array(
-          fields.text({ label: 'Equipment (EN)' }),
-          { label: 'Equipment (EN)', itemLabel: (props) => props.value || 'Equipment' },
-        ),
-        equipment_es: fields.array(
-          fields.text({ label: 'Equipamiento (ES)' }),
-          { label: 'Equipamiento (ES)', itemLabel: (props) => props.value || 'Equipamiento' },
-        ),
-        layoutSuggestions_en: fields.array(
-          fields.text({ label: 'Layout suggestion (EN)' }),
-          { label: 'Layout ideas (EN)', itemLabel: (props) => props.value || 'Layout' },
-        ),
-        layoutSuggestions_es: fields.array(
-          fields.text({ label: 'Disposición (ES)' }),
-          { label: 'Ideas de disposición (ES)', itemLabel: (props) => props.value || 'Disposición' },
+        layoutSuggestions: fields.object(
+          {
+            fr: fields.array(
+              fields.text({ label: 'Disposition' }),
+              { label: 'Français', itemLabel: (props) => props.value || 'Disposition' },
+            ),
+            en: fields.array(
+              fields.text({ label: 'Layout' }),
+              { label: 'English', itemLabel: (props) => props.value || 'Layout' },
+            ),
+            es: fields.array(
+              fields.text({ label: 'Disposición' }),
+              { label: 'Español', itemLabel: (props) => props.value || 'Disposición' },
+            ),
+          },
+          { label: 'Idées de disposition', layout: [4, 4, 4] },
         ),
       },
     }),
@@ -413,34 +553,67 @@ export default config({
       label: 'Paramètres du site',
       path: 'src/content/settings/site',
       schema: {
-        phone: fields.text({ label: 'Téléphone principal' }),
-        email: fields.text({ label: 'Email de contact' }),
-        address: fields.text({ label: 'Adresse', multiline: true }),
-        googleMapsUrl: fields.text({ label: 'Lien Google Maps' }),
-        facebook: fields.text({ label: 'Facebook URL' }),
-        instagram: fields.text({ label: 'Instagram URL' }),
-        // Seasonal info fields
-        openingHours: fields.text({ label: 'Horaires d\'ouverture', multiline: true }),
-        openingHours_en: fields.text({ label: 'Opening hours (EN)', multiline: true }),
-        openingHours_es: fields.text({ label: 'Horarios de apertura (ES)', multiline: true }),
-        seasonalMessage: fields.text({ label: 'Message saisonnier', multiline: true }),
-        seasonalMessage_en: fields.text({ label: 'Seasonal message (EN)', multiline: true }),
-        seasonalMessage_es: fields.text({ label: 'Mensaje estacional (ES)', multiline: true }),
-        currentSeason: fields.select({
-          label: 'Saison actuelle',
-          options: [
-            { label: 'Printemps', value: 'printemps' },
-            { label: 'Été', value: 'ete' },
-            { label: 'Automne', value: 'automne' },
-            { label: 'Hiver', value: 'hiver' },
-          ],
-          defaultValue: 'printemps',
-        }),
-        passJourneeDiscount: fields.integer({
-          label: 'Réduction Pass Journée (%)',
-          description: 'Pourcentage de réduction au restaurant avec le Pass Journée (ex: 20 pour −20%)',
-          defaultValue: 20,
-        }),
+        contact: fields.object(
+          {
+            phone: fields.text({ label: 'Téléphone principal' }),
+            email: fields.text({ label: 'Email de contact' }),
+            address: fields.text({ label: 'Adresse', multiline: true }),
+            googleMapsUrl: fields.text({ label: 'Lien Google Maps' }),
+          },
+          {
+            label: 'Coordonnées',
+            description: 'Informations de contact affichées sur le site',
+            layout: [6, 6, 12, 12],
+          },
+        ),
+        socials: fields.object(
+          {
+            facebook: fields.text({ label: 'Facebook URL' }),
+            instagram: fields.text({ label: 'Instagram URL' }),
+          },
+          { label: 'Réseaux sociaux', layout: [6, 6] },
+        ),
+        season: fields.object(
+          {
+            currentSeason: fields.select({
+              label: 'Saison actuelle',
+              options: [
+                { label: 'Printemps', value: 'printemps' },
+                { label: 'Été', value: 'ete' },
+                { label: 'Automne', value: 'automne' },
+                { label: 'Hiver', value: 'hiver' },
+              ],
+              defaultValue: 'printemps',
+            }),
+            openingHours: fields.object(
+              {
+                fr: fields.text({ label: 'Français', multiline: true }),
+                en: fields.text({ label: 'English', multiline: true }),
+                es: fields.text({ label: 'Español', multiline: true }),
+              },
+              { label: 'Horaires d\'ouverture', layout: [4, 4, 4] },
+            ),
+            seasonalMessage: fields.object(
+              {
+                fr: fields.text({ label: 'Français', multiline: true }),
+                en: fields.text({ label: 'English', multiline: true }),
+                es: fields.text({ label: 'Español', multiline: true }),
+              },
+              { label: 'Message saisonnier', layout: [4, 4, 4] },
+            ),
+          },
+          { label: 'Saison & horaires' },
+        ),
+        offers: fields.object(
+          {
+            passJourneeDiscount: fields.integer({
+              label: 'Réduction Pass Journée (%)',
+              description: 'Pourcentage de réduction au restaurant avec le Pass Journée (ex: 20 pour −20%)',
+              defaultValue: 20,
+            }),
+          },
+          { label: 'Offres & promotions' },
+        ),
       },
     }),
   },

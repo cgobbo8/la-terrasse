@@ -1,18 +1,21 @@
 name: La Halle & le Beffroi de Revel
-categories:
-  - patrimoine
-description: >-
-  Symbole historique au cœur de Revel, la halle du XIVe siècle et son beffroi
-  dominent la place centrale.
-image: /images/nearby/beffroi-revel.webp
-url: https://www.auxsourcesducanaldumidi.com/decouvrir-vadrouiller-explorer/visiter/le-beffroi-de-revel/
 name_en: The Hall & Belfry of Revel
 name_es: La Lonja y el Campanario de Revel
-description_en: >-
-  A historic landmark in the heart of Revel, the 14th-century hall and its
-  belfry tower over the central square.
-description_es: >-
-  Símbolo histórico en el corazón de Revel, la lonja del siglo XIV y su
-  campanario dominan la plaza central.
-order: 4
-visible: true
+info:
+  categories:
+    - patrimoine
+  image: /images/nearby/beffroi-revel.webp
+  url: https://www.auxsourcesducanaldumidi.com/decouvrir-vadrouiller-explorer/visiter/le-beffroi-de-revel/
+description:
+  fr: >-
+    Symbole historique au cœur de Revel, la halle du XIVe siècle et son beffroi
+    dominent la place centrale.
+  en: >-
+    A historic landmark in the heart of Revel, the 14th-century hall and its
+    belfry tower over the central square.
+  es: >-
+    Símbolo histórico en el corazón de Revel, la lonja del siglo XIV y su
+    campanario dominan la plaza central.
+meta:
+  order: 4
+  visible: true

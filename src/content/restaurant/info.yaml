@@ -3,324 +3,385 @@ menuSections:
   # MIDI — Burgers
   # ============================
   - group: midi
-    title: Burgers
-    title_en: Burgers
-    title_es: Hamburguesas
+    title:
+      fr: Burgers
+      en: Burgers
+      es: Hamburguesas
     dishes:
-      - name: Le Saint-Fé
-        description: >-
-          Pain bun brioché, steak haché de bœuf 150g, aïoli maison, tomates
-          cerises confites, oignons frits, Tomme de vache de la ferme, salade +
-          frites maison
+      - name:
+          fr: Le Saint-Fé
+          en: Le Saint-Fé
+          es: Le Saint-Fé
+        description:
+          fr: >-
+            Pain bun brioché, steak haché de bœuf 150g, aïoli maison, tomates
+            cerises confites, oignons frits, Tomme de vache de la ferme, salade +
+            frites maison
+          en: >-
+            Brioche bun, 150g beef patty, homemade aïoli, confit cherry tomatoes,
+            fried onions, farmhouse Tomme cheese, salad + homemade fries
+          es: >-
+            Pan brioche, hamburguesa de ternera 150g, alioli casero, tomates
+            cherry confitados, cebollas fritas, queso Tomme de granja, ensalada +
+            patatas fritas caseras
         price: ''
         tags: []
-        name_en: Le Saint-Fé
-        name_es: Le Saint-Fé
-        description_en: >-
-          Brioche bun, 150g beef patty, homemade aïoli, confit cherry tomatoes,
-          fried onions, farmhouse Tomme cheese, salad + homemade fries
-        description_es: >-
-          Pan brioche, hamburguesa de ternera 150g, alioli casero, tomates
-          cherry confitados, cebollas fritas, queso Tomme de granja, ensalada +
-          patatas fritas caseras
-      - name: Le Burger Gourmand
-        description: >-
-          Pain burger croissant, steak haché de bœuf 150g, tomates cerises
-          confites, oignons frits, cheddar, sauce mayo épicée, salade + frites
-          maison
+      - name:
+          fr: Le Burger Gourmand
+          en: Le Burger Gourmand
+          es: Le Burger Gourmand
+        description:
+          fr: >-
+            Pain burger croissant, steak haché de bœuf 150g, tomates cerises
+            confites, oignons frits, cheddar, sauce mayo épicée, salade + frites
+            maison
+          en: >-
+            Croissant burger bun, 150g beef patty, confit cherry tomatoes,
+            fried onions, cheddar, spicy mayo sauce, salad + homemade fries
+          es: >-
+            Pan croissant, hamburguesa de ternera 150g, tomates cherry
+            confitados, cebollas fritas, cheddar, salsa mayo picante, ensalada +
+            patatas fritas caseras
         price: ''
         tags: []
-        name_en: Le Burger Gourmand
-        name_es: Le Burger Gourmand
-        description_en: >-
-          Croissant burger bun, 150g beef patty, confit cherry tomatoes,
-          fried onions, cheddar, spicy mayo sauce, salad + homemade fries
-        description_es: >-
-          Pan croissant, hamburguesa de ternera 150g, tomates cherry
-          confitados, cebollas fritas, cheddar, salsa mayo picante, ensalada +
-          patatas fritas caseras
 
   # ============================
   # MIDI — Plats
   # ============================
   - group: midi
-    title: Plats
-    title_en: Mains
-    title_es: Platos
+    title:
+      fr: Plats
+      en: Mains
+      es: Platos
     dishes:
-      - name: Le Bagel
-        description: >-
-          Pain bagel sésame, saumon fumé, crème citron ciboulette, salade,
-          carottes râpées, radis, tomates cerises confites, oignons frits +
-          frites maison et salade
+      - name:
+          fr: Le Bagel
+          en: Le Bagel
+          es: Le Bagel
+        description:
+          fr: >-
+            Pain bagel sésame, saumon fumé, crème citron ciboulette, salade,
+            carottes râpées, radis, tomates cerises confites, oignons frits +
+            frites maison et salade
+          en: >-
+            Sesame bagel bread, smoked salmon, lemon chive cream, salad, grated
+            carrots, radishes, confit cherry tomatoes, fried onions + homemade
+            fries and salad
+          es: >-
+            Pan de bagel con sésamo, salmón ahumado, crema de limón y cebollino,
+            ensalada, zanahoria rallada, rábanos, tomates cherry confitados,
+            cebollas fritas + patatas fritas caseras y ensalada
         price: ''
         tags: []
-        name_en: Le Bagel
-        name_es: Le Bagel
-        description_en: >-
-          Sesame bagel bread, smoked salmon, lemon chive cream, salad, grated
-          carrots, radishes, confit cherry tomatoes, fried onions + homemade
-          fries and salad
-        description_es: >-
-          Pan de bagel con sésamo, salmón ahumado, crema de limón y cebollino,
-          ensalada, zanahoria rallada, rábanos, tomates cherry confitados,
-          cebollas fritas + patatas fritas caseras y ensalada
-      - name: Le Croque-monsieur feuilleté
-        description: de canard confit + frites maison et salade
+      - name:
+          fr: Le Croque-monsieur feuilleté
+          en: Le Croque-monsieur Feuilleté
+          es: Le Croque-monsieur Feuilleté
+        description:
+          fr: de canard confit + frites maison et salade
+          en: Duck confit + homemade fries and salad
+          es: Pato confitado + patatas fritas caseras y ensalada
         price: ''
         tags: []
-        name_en: Le Croque-monsieur Feuilleté
-        name_es: Le Croque-monsieur Feuilleté
-        description_en: Duck confit + homemade fries and salad
-        description_es: Pato confitado + patatas fritas caseras y ensalada
-      - name: Le Poke Bowl
-        description: >-
-          Riz vinaigré, poulet, avocat, fêta, sésame noir et crudités de
-          saison. Sauce : huile d'olive, citron, gingembre ou sauce mayo
-          épicée. Option végé sans poulet
+      - name:
+          fr: Le Poke Bowl
+          en: Le Poke Bowl
+          es: Le Poke Bowl
+        description:
+          fr: >-
+            Riz vinaigré, poulet, avocat, fêta, sésame noir et crudités de
+            saison. Sauce : huile d'olive, citron, gingembre ou sauce mayo
+            épicée. Option végé sans poulet
+          en: >-
+            Seasoned rice, chicken, avocado, feta, black sesame and seasonal raw
+            vegetables. Sauce: olive oil, lemon, ginger or spicy mayo. Veggie
+            option without chicken
+          es: >-
+            Arroz avinagrado, pollo, aguacate, feta, sésamo negro y crudités de
+            temporada. Salsa: aceite de oliva, limón, jengibre o mayo picante.
+            Opción vegetariana sin pollo
         price: ''
         tags: []
-        name_en: Le Poke Bowl
-        name_es: Le Poke Bowl
-        description_en: >-
-          Seasoned rice, chicken, avocado, feta, black sesame and seasonal raw
-          vegetables. Sauce: olive oil, lemon, ginger or spicy mayo. Veggie
-          option without chicken
-        description_es: >-
-          Arroz avinagrado, pollo, aguacate, feta, sésamo negro y crudités de
-          temporada. Salsa: aceite de oliva, limón, jengibre o mayo picante.
-          Opción vegetariana sin pollo
 
   # ============================
   # MIDI — Salades
   # ============================
   - group: midi
-    title: Salades
-    title_en: Salads
-    title_es: Ensaladas
+    title:
+      fr: Salades
+      en: Salads
+      es: Ensaladas
     dishes:
-      - name: La Salade de La Cabriole
-        description: 'Salade, toasts de chèvre chaud de la ferme au miel, noix, crudités'
+      - name:
+          fr: La Salade de La Cabriole
+          en: La Salade de La Cabriole
+          es: La Salade de La Cabriole
+        description:
+          fr: 'Salade, toasts de chèvre chaud de la ferme au miel, noix, crudités'
+          en: 'Salad, warm farmhouse goat cheese toasts with honey, walnuts, raw vegetables'
+          es: 'Ensalada, tostas de queso de cabra de granja caliente con miel, nueces, crudités'
         price: ''
         tags:
           - végétarien
-        name_en: La Salade de La Cabriole
-        name_es: La Salade de La Cabriole
-        description_en: 'Salad, warm farmhouse goat cheese toasts with honey, walnuts, raw vegetables'
-        description_es: 'Ensalada, tostas de queso de cabra de granja caliente con miel, nueces, crudités'
-      - name: La Salade Estivale
-        description: >-
-          Salade, fêta, tomates, poivrons grillés, concombre, avocat, carottes
-          râpées, oignons frits
+      - name:
+          fr: La Salade Estivale
+          en: La Salade Estivale
+          es: La Salade Estivale
+        description:
+          fr: >-
+            Salade, fêta, tomates, poivrons grillés, concombre, avocat, carottes
+            râpées, oignons frits
+          en: >-
+            Salad, feta, tomatoes, grilled peppers, cucumber, avocado, grated
+            carrots, fried onions
+          es: >-
+            Ensalada, feta, tomates, pimientos asados, pepino, aguacate,
+            zanahorias ralladas, cebollas fritas
         price: ''
         tags:
           - végétarien
-        name_en: La Salade Estivale
-        name_es: La Salade Estivale
-        description_en: >-
-          Salad, feta, tomatoes, grilled peppers, cucumber, avocado, grated
-          carrots, fried onions
-        description_es: >-
-          Ensalada, feta, tomates, pimientos asados, pepino, aguacate,
-          zanahorias ralladas, cebollas fritas
-      - name: La Salade Italienne
-        description: >-
-          Tomates, Burrata crémeuse 120g, huile d'olive, oignon rouge, basilic
-          frais
+      - name:
+          fr: La Salade Italienne
+          en: La Salade Italienne
+          es: La Salade Italienne
+        description:
+          fr: >-
+            Tomates, Burrata crémeuse 120g, huile d'olive, oignon rouge, basilic
+            frais
+          en: 'Tomatoes, creamy 120g Burrata, olive oil, red onion, fresh basil'
+          es: 'Tomates, Burrata cremosa 120g, aceite de oliva, cebolla roja, albahaca fresca'
         price: ''
         tags:
           - végétarien
-        name_en: La Salade Italienne
-        name_es: La Salade Italienne
-        description_en: 'Tomatoes, creamy 120g Burrata, olive oil, red onion, fresh basil'
-        description_es: 'Tomates, Burrata cremosa 120g, aceite de oliva, cebolla roja, albahaca fresca'
 
   # ============================
   # MIDI — Les petits plus
   # ============================
   - group: midi
-    title: Les petits plus
-    title_en: Extras
-    title_es: Los extras
+    title:
+      fr: Les petits plus
+      en: Extras
+      es: Los extras
     dishes:
-      - name: Bol de frites
-        description: Frites maison
+      - name:
+          fr: Bol de frites
+          en: Bowl of Fries
+          es: Bol de patatas fritas
+        description:
+          fr: Frites maison
+          en: Homemade fries
+          es: Patatas fritas caseras
         price: ''
         tags: []
-        name_en: Bowl of Fries
-        name_es: Bol de patatas fritas
-        description_en: Homemade fries
-        description_es: Patatas fritas caseras
-      - name: Assiette de fromages
-        description: Sélection de fromages de la région
+      - name:
+          fr: Assiette de fromages
+          en: Cheese Plate
+          es: Tabla de quesos
+        description:
+          fr: Sélection de fromages de la région
+          en: Selection of regional cheeses
+          es: Selección de quesos de la región
         price: ''
         tags: []
-        name_en: Cheese Plate
-        name_es: Tabla de quesos
-        description_en: Selection of regional cheeses
-        description_es: Selección de quesos de la región
 
   # ============================
   # DESSERTS
   # ============================
   - group: desserts
-    title: Desserts
-    title_en: Desserts
-    title_es: Postres
+    title:
+      fr: Desserts
+      en: Desserts
+      es: Postres
     dishes:
-      - name: Salade de fruits
-        description: Fruits frais de saison
+      - name:
+          fr: Salade de fruits
+          en: Fruit Salad
+          es: Ensalada de frutas
+        description:
+          fr: Fruits frais de saison
+          en: Fresh seasonal fruits
+          es: Frutas frescas de temporada
         price: ''
         tags: []
-        name_en: Fruit Salad
-        name_es: Ensalada de frutas
-        description_en: Fresh seasonal fruits
-        description_es: Frutas frescas de temporada
-      - name: Tiramisu café
-        description: Tiramisu classique au café
+      - name:
+          fr: Tiramisu café
+          en: Coffee Tiramisu
+          es: Tiramisú de café
+        description:
+          fr: Tiramisu classique au café
+          en: Classic coffee tiramisu
+          es: Tiramisú clásico de café
         price: ''
         tags: []
-        name_en: Coffee Tiramisu
-        name_es: Tiramisú de café
-        description_en: Classic coffee tiramisu
-        description_es: Tiramisú clásico de café
-      - name: Moelleux au chocolat
-        description: Cœur coulant au chocolat noir
+      - name:
+          fr: Moelleux au chocolat
+          en: Chocolate Lava Cake
+          es: Coulant de chocolate
+        description:
+          fr: Cœur coulant au chocolat noir
+          en: Dark chocolate molten cake
+          es: Bizcocho fundente de chocolate negro
         price: ''
         tags: []
-        name_en: Chocolate Lava Cake
-        name_es: Coulant de chocolate
-        description_en: Dark chocolate molten cake
-        description_es: Bizcocho fundente de chocolate negro
-      - name: Crêpes
-        description: 'Sucre, Nutella, caramel beurre salé'
+      - name:
+          fr: Crêpes
+          en: Crêpes
+          es: Crêpes
+        description:
+          fr: 'Sucre, Nutella, caramel beurre salé'
+          en: 'Sugar, Nutella, or salted caramel'
+          es: 'Azúcar, Nutella o caramelo con mantequilla salada'
         price: ''
         tags: []
-        name_en: Crêpes
-        name_es: Crêpes
-        description_en: 'Sugar, Nutella, or salted caramel'
-        description_es: 'Azúcar, Nutella o caramelo con mantequilla salada'
-      - name: Glaces
-        description: Choix de parfums artisanaux
+      - name:
+          fr: Glaces
+          en: Ice Cream
+          es: Helados
+        description:
+          fr: Choix de parfums artisanaux
+          en: Choice of artisanal flavours
+          es: Selección de sabores artesanales
         price: ''
         tags: []
-        name_en: Ice Cream
-        name_es: Helados
-        description_en: Choice of artisanal flavours
-        description_es: Selección de sabores artesanales
 
   # ============================
   # TAPAS DU SOIR
   # ============================
   - group: soir
-    title: Tapas du soir
-    title_en: Evening Tapas
-    title_es: Tapas de noche
+    title:
+      fr: Tapas du soir
+      en: Evening Tapas
+      es: Tapas de noche
     dishes:
-      - name: Croque-monsieur de canard
-        description: Croque-monsieur garni de canard confit
+      - name:
+          fr: Croque-monsieur de canard
+          en: Duck Croque-Monsieur
+          es: Croque-monsieur de pato
+        description:
+          fr: Croque-monsieur garni de canard confit
+          en: Croque-monsieur filled with duck confit
+          es: Croque-monsieur relleno de pato confitado
         price: ''
         tags: []
-        name_en: Duck Croque-Monsieur
-        name_es: Croque-monsieur de pato
-        description_en: Croque-monsieur filled with duck confit
-        description_es: Croque-monsieur relleno de pato confitado
-      - name: Navette alsacienne
-        description: 'Par 2, 4 ou 6'
+      - name:
+          fr: Navette alsacienne
+          en: Alsatian Navette
+          es: Navette alsaciana
+        description:
+          fr: 'Par 2, 4 ou 6'
+          en: 'Serves 2, 4 or 6'
+          es: 'Por 2, 4 o 6'
         price: ''
         tags: []
-        name_en: Alsatian Navette
-        name_es: Navette alsaciana
-        description_en: 'Serves 2, 4 or 6'
-        description_es: 'Por 2, 4 o 6'
-      - name: Planche charcuterie
-        description: 'Taille M ou L'
+      - name:
+          fr: Planche charcuterie
+          en: Charcuterie Board
+          es: Tabla de embutidos
+        description:
+          fr: 'Taille M ou L'
+          en: 'Size M or L'
+          es: 'Tamaño M o L'
         price: ''
         tags: []
-        name_en: Charcuterie Board
-        name_es: Tabla de embutidos
-        description_en: 'Size M or L'
-        description_es: 'Tamaño M o L'
-      - name: Planche mixte charcuterie fromages
-        description: 'Taille M ou L'
+      - name:
+          fr: Planche mixte charcuterie fromages
+          en: Mixed Charcuterie & Cheese Board
+          es: Tabla mixta de embutidos y quesos
+        description:
+          fr: 'Taille M ou L'
+          en: 'Size M or L'
+          es: 'Tamaño M o L'
         price: ''
         tags: []
-        name_en: Mixed Charcuterie & Cheese Board
-        name_es: Tabla mixta de embutidos y quesos
-        description_en: 'Size M or L'
-        description_es: 'Tamaño M o L'
-      - name: Assiette de fromages
-        description: Sélection de fromages de la région
+      - name:
+          fr: Assiette de fromages
+          en: Cheese Plate
+          es: Tabla de quesos
+        description:
+          fr: Sélection de fromages de la région
+          en: Selection of regional cheeses
+          es: Selección de quesos de la región
         price: ''
         tags: []
-        name_en: Cheese Plate
-        name_es: Tabla de quesos
-        description_en: Selection of regional cheeses
-        description_es: Selección de quesos de la región
-      - name: Toasts grillés et ses tartinables
-        description: 'Houmous, tapenade olive noire et caviar d''aubergines'
+      - name:
+          fr: Toasts grillés et ses tartinables
+          en: Grilled Toasts with Spreads
+          es: Tostas a la parrilla con untables
+        description:
+          fr: 'Houmous, tapenade olive noire et caviar d''aubergines'
+          en: 'Hummus, black olive tapenade and eggplant caviar'
+          es: 'Hummus, tapenade de aceituna negra y caviar de berenjena'
         price: ''
         tags:
           - végétarien
-        name_en: Grilled Toasts with Spreads
-        name_es: Tostas a la parrilla con untables
-        description_en: 'Hummus, black olive tapenade and eggplant caviar'
-        description_es: 'Hummus, tapenade de aceituna negra y caviar de berenjena'
-      - name: Burrata 120g et ses toasts grillés
-        description: 'Huile d''olive et basilic frais'
+      - name:
+          fr: Burrata 120g et ses toasts grillés
+          en: 120g Burrata with Grilled Toasts
+          es: Burrata 120g con tostas a la parrilla
+        description:
+          fr: 'Huile d''olive et basilic frais'
+          en: 'Olive oil and fresh basil'
+          es: 'Aceite de oliva y albahaca fresca'
         price: ''
         tags:
           - végétarien
-        name_en: 120g Burrata with Grilled Toasts
-        name_es: Burrata 120g con tostas a la parrilla
-        description_en: 'Olive oil and fresh basil'
-        description_es: 'Aceite de oliva y albahaca fresca'
-      - name: Bol de frites
-        description: Frites maison
+      - name:
+          fr: Bol de frites
+          en: Bowl of Fries
+          es: Bol de patatas fritas
+        description:
+          fr: Frites maison
+          en: Homemade fries
+          es: Patatas fritas caseras
         price: ''
         tags: []
-        name_en: Bowl of Fries
-        name_es: Bol de patatas fritas
-        description_en: Homemade fries
-        description_es: Patatas fritas caseras
 
   # ============================
   # MENU ENFANT
   # ============================
   - group: enfant
-    title: Menu enfant
-    title_en: Kids' Menu
-    title_es: Menú infantil
+    title:
+      fr: Menu enfant
+      en: Kids' Menu
+      es: Menú infantil
     dishes:
-      - name: 1 sirop
-        description: Sirop au choix
+      - name:
+          fr: 1 sirop
+          en: 1 Syrup Drink
+          es: 1 Sirope
+        description:
+          fr: Sirop au choix
+          en: Choice of syrup
+          es: Sirope a elegir
         price: ''
         tags: []
-        name_en: 1 Syrup Drink
-        name_es: 1 Sirope
-        description_en: Choice of syrup
-        description_es: Sirope a elegir
-      - name: Nuggets frites ou petit poke bowl
-        description: Au choix de l'enfant
+      - name:
+          fr: Nuggets frites ou petit poke bowl
+          en: Nuggets & Fries or Small Poke Bowl
+          es: Nuggets con patatas fritas o mini poke bowl
+        description:
+          fr: Au choix de l'enfant
+          en: Child's choice
+          es: A elección del niño
         price: ''
         tags: []
-        name_en: Nuggets & Fries or Small Poke Bowl
-        name_es: Nuggets con patatas fritas o mini poke bowl
-        description_en: Child's choice
-        description_es: A elección del niño
-      - name: 1 glace ou salade de fruits
-        description: Parfum au choix ou fruits frais
+      - name:
+          fr: 1 glace ou salade de fruits
+          en: 1 Ice Cream or Fruit Salad
+          es: 1 Helado o ensalada de frutas
+        description:
+          fr: Parfum au choix ou fruits frais
+          en: Choice of flavour or fresh fruits
+          es: Sabor a elegir o frutas frescas
         price: ''
         tags: []
-        name_en: 1 Ice Cream or Fruit Salad
-        name_es: 1 Helado o ensalada de frutas
-        description_en: Choice of flavour or fresh fruits
-        description_es: Sabor a elegir o frutas frescas
-      - name: 1 cadeau
-        description: Petit cadeau surprise
+      - name:
+          fr: 1 cadeau
+          en: 1 Gift
+          es: 1 Regalo
+        description:
+          fr: Petit cadeau surprise
+          en: A little surprise gift
+          es: Un pequeño regalo sorpresa
         price: ''
         tags: []
-        name_en: 1 Gift
-        name_es: 1 Regalo
-        description_en: A little surprise gift
-        description_es: Un pequeño regalo sorpresa

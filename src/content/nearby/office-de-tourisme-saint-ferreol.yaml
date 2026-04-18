@@ -1,21 +1,24 @@
 name: Office de Tourisme — Aux Sources du Canal du Midi
-categories:
-  - culture
-description: >-
-  L'Office de Tourisme intercommunal du Lauragais Revel Sorézois — point
-  d'information à Saint-Ferréol, idées de sorties, hébergements et découverte
-  du patrimoine UNESCO du Canal du Midi.
-image: /images/nearby/office-tourisme-saint-ferreol.webp
-url: https://www.auxsourcesducanaldumidi.com/
 name_en: Tourist Office — Aux Sources du Canal du Midi
 name_es: Oficina de Turismo — Aux Sources du Canal du Midi
-description_en: >-
-  The intercommunal Tourist Office of Lauragais Revel Sorézois — information
-  point in Saint-Ferréol, activity ideas, accommodations and discovery of the
-  UNESCO-listed Canal du Midi heritage.
-description_es: >-
-  La Oficina de Turismo intercomunal del Lauragais Revel Sorézois — punto de
-  información en Saint-Ferréol, ideas de actividades, alojamientos y
-  descubrimiento del patrimonio UNESCO del Canal du Midi.
-order: 9
-visible: true
+info:
+  categories:
+    - culture
+  image: /images/nearby/office-tourisme-saint-ferreol.webp
+  url: https://www.auxsourcesducanaldumidi.com/
+description:
+  fr: >-
+    L'Office de Tourisme intercommunal du Lauragais Revel Sorézois — point
+    d'information à Saint-Ferréol, idées de sorties, hébergements et découverte
+    du patrimoine UNESCO du Canal du Midi.
+  en: >-
+    The intercommunal Tourist Office of Lauragais Revel Sorézois — information
+    point in Saint-Ferréol, activity ideas, accommodations and discovery of the
+    UNESCO-listed Canal du Midi heritage.
+  es: >-
+    La Oficina de Turismo intercomunal del Lauragais Revel Sorézois — punto de
+    información en Saint-Ferréol, ideas de actividades, alojamientos y
+    descubrimiento del patrimonio UNESCO del Canal du Midi.
+meta:
+  order: 9
+  visible: true

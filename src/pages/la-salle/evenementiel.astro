@@ -9,8 +9,7 @@ import SectionHero from '@/components/common/SectionHero.astro';
 import VenueSpecs from '@/components/salle/VenueSpecs.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import { Icon } from 'astro-icon/components';
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
-import { defaultLang } from '@/i18n/translations';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedArray } from '@/i18n/utils';
 import { buildEventContactMailto, poleConfigs } from '@/lib/pole-config';
 import { getSiteSettings } from '@/lib/site-settings';
 import { createReader } from '@keystatic/core/reader';
@@ -27,15 +26,10 @@ const siteEmail = siteSettings?.email ?? '';
 // Load venue data
 const reader = createReader(process.cwd(), keystaticConfig);
 const venueData = await reader.singletons.venue.read();
-const capacityMax = venueData?.capacityMax ?? 0;
-const surfaceM2 = venueData?.surfaceM2 ?? 0;
-const venueAny = venueData as Record<string, unknown> | null;
-const equipment = venueData
-  ? (lang !== defaultLang && venueAny?.[`equipment_${lang}`] as readonly string[]) || venueData.equipment || []
-  : [] as readonly string[];
-const layoutSuggestions = venueData
-  ? (lang !== defaultLang && venueAny?.[`layoutSuggestions_${lang}`] as readonly string[]) || venueData.layoutSuggestions || []
-  : [] as readonly string[];
+const capacityMax = venueData?.space.capacityMax ?? 0;
+const surfaceM2 = venueData?.space.surfaceM2 ?? 0;
+const equipment = getLocalizedArray(venueData ?? {}, 'equipment', lang);
+const layoutSuggestions = getLocalizedArray(venueData ?? {}, 'layoutSuggestions', lang);
 
 const eventTypes = [
   {

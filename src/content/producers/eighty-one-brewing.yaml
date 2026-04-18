@@ -1,25 +1,29 @@
 name: Eighty One Brewing
-product: Bières artisanales
-story: >-
-  Brasserie artisanale fondée par David et Antonin à Soual, dans le Tarn.
-  Eighty One Brewing propose une gamme de bières aux profils variés — lager,
-  Wheat IPA, Triple — et des éditions limitées au fil des saisons. Leurs bières
-  accompagnent notre carte en pression et en bouteille.
-photo: /images/producers/eighty-one-brewing.webp
-location: Soual
-distance: 18
-website: https://www.eightyonebrewing.fr/
-product_en: Craft beers
-product_es: Cervezas artesanales
-story_en: >-
-  A craft brewery founded by David and Antonin in Soual, Tarn. Eighty One
-  Brewing offers a range of beers with diverse profiles — lager, Wheat IPA,
-  Triple — plus limited seasonal editions. Their beers feature on our menu on
-  tap and in bottles.
-story_es: >-
-  Cervecería artesanal fundada por David y Antonin en Soual, Tarn. Eighty One
-  Brewing ofrece una gama de cervezas con perfiles variados — lager, Wheat IPA,
-  Triple — y ediciones limitadas de temporada. Sus cervezas acompañan nuestra
-  carta de grifo y en botella.
-order: 3
-visible: true
+info:
+  photo: /images/producers/eighty-one-brewing.webp
+  location: Soual
+  distance: 18
+  website: https://www.eightyonebrewing.fr/
+product:
+  fr: Bières artisanales
+  en: Craft beers
+  es: Cervezas artesanales
+story:
+  fr: >-
+    Brasserie artisanale fondée par David et Antonin à Soual, dans le Tarn.
+    Eighty One Brewing propose une gamme de bières aux profils variés — lager,
+    Wheat IPA, Triple — et des éditions limitées au fil des saisons. Leurs bières
+    accompagnent notre carte en pression et en bouteille.
+  en: >-
+    A craft brewery founded by David and Antonin in Soual, Tarn. Eighty One
+    Brewing offers a range of beers with diverse profiles — lager, Wheat IPA,
+    Triple — plus limited seasonal editions. Their beers feature on our menu on
+    tap and in bottles.
+  es: >-
+    Cervecería artesanal fundada por David y Antonin en Soual, Tarn. Eighty One
+    Brewing ofrece una gama de cervezas con perfiles variados — lager, Wheat IPA,
+    Triple — y ediciones limitadas de temporada. Sus cervezas acompañan nuestra
+    carta de grifo y en botella.
+meta:
+  order: 3
+  visible: true

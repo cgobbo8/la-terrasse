@@ -25,11 +25,31 @@ const allActivities = await reader.collections.activities.all();
 
 // Filter visible, sort by order, split by category
 const visible = allActivities
-  .filter((a) => a.entry.visible)
-  .sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0));
+  .filter((a) => a.entry.meta.visible)
+  .sort((a, b) => (a.entry.meta.order ?? 0) - (b.entry.meta.order ?? 0));
 
 const aquatiques = visible.filter((a) => a.entry.category === 'aquatique');
 const terrestres = visible.filter((a) => a.entry.category === 'terrestre');
+
+function toCardProps(a: typeof visible[number]) {
+  return {
+    title: a.entry.title,
+    slug: a.slug,
+    price: a.entry.pricing.price ?? '',
+    priceDetails: a.entry.pricing.priceDetails.fr ?? '',
+    priceDetails_en: a.entry.pricing.priceDetails.en ?? '',
+    priceDetails_es: a.entry.pricing.priceDetails.es ?? '',
+    age_min: a.entry.practical.age_min ?? 0,
+    duration: a.entry.practical.duration ?? '',
+    image: a.entry.practical.image ?? null,
+    description: a.entry.description.fr ?? '',
+    description_en: a.entry.description.en ?? '',
+    description_es: a.entry.description.es ?? '',
+    title_en: a.entry.title_en ?? '',
+    title_es: a.entry.title_es ?? '',
+    isPremium: a.entry.practical.isPremium ?? false,
+  };
+}
 
 // Placeholder images — cycled across activity cards per category
 const aquaticImages = [
@@ -103,19 +123,7 @@ const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferré
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-stagger>
         {aquatiques.map((activity, i) => (
           <ActivityCard
-            activity={{
-              title: activity.entry.title,
-              slug: activity.slug,
-              price: activity.entry.price ?? '',
-              priceDetails: activity.entry.priceDetails ?? '',
-              age_min: activity.entry.age_min ?? 0,
-              duration: activity.entry.duration ?? '',
-              image: activity.entry.image ?? null,
-              description: activity.entry.description ?? '',
-              title_en: activity.entry.title_en ?? '',
-              title_es: activity.entry.title_es ?? '',
-              isPremium: (activity.entry as any).isPremium ?? false,
-            }}
+            activity={toCardProps(activity)}
             lang={lang}
             placeholderImage={aquaticImages[i % aquaticImages.length]}
             variant="aquatique"
@@ -139,19 +147,7 @@ const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferré
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-stagger>
         {terrestres.map((activity, i) => (
           <ActivityCard
-            activity={{
-              title: activity.entry.title,
-              slug: activity.slug,
-              price: activity.entry.price ?? '',
-              priceDetails: activity.entry.priceDetails ?? '',
-              age_min: activity.entry.age_min ?? 0,
-              duration: activity.entry.duration ?? '',
-              image: activity.entry.image ?? null,
-              description: activity.entry.description ?? '',
-              title_en: activity.entry.title_en ?? '',
-              title_es: activity.entry.title_es ?? '',
-              isPremium: (activity.entry as any).isPremium ?? false,
-            }}
+            activity={toCardProps(activity)}
             lang={lang}
             placeholderImage={terrestreImages[i % terrestreImages.length]}
             variant="terrestre"

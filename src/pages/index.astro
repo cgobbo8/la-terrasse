@@ -23,6 +23,7 @@ import keystaticConfig from '../../keystatic.config';
 import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
 import { poleConfigs } from '@/lib/pole-config';
 import { generateLocalBusinessLD } from '@/lib/seo';
+import { getSiteSettings } from '@/lib/site-settings';
 import Sunburst from '@/components/common/Sunburst.astro';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
@@ -30,7 +31,7 @@ const t = useTranslations(lang);
 
 // Load Keystatic CMS data
 const reader = createReader(process.cwd(), keystaticConfig);
-const settings = await reader.singletons.settings.read() ?? {};
+const settings = (await getSiteSettings()) ?? {};
 const allEvents = await reader.collections.events.all();
 
 const timeBlocks = [

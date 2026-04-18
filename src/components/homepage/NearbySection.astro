@@ -1,6 +1,6 @@
 ---
 import type { Lang } from '@/i18n/translations';
-import { useTranslations } from '@/i18n/utils';
+import { useTranslations, getLocalizedField } from '@/i18n/utils';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
 import NearbyCarousel from './NearbyCarousel.svelte';
@@ -47,21 +47,19 @@ const reader = createReader(process.cwd(), keystaticConfig);
 const allNearby = await reader.collections.nearby.all();
 
 const places = allNearby
-  .filter((entry) => entry.entry.visible)
-  .sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0))
+  .filter((entry) => entry.entry.meta.visible)
+  .sort((a, b) => (a.entry.meta.order ?? 0) - (b.entry.meta.order ?? 0))
   .map((entry) => {
     const d = entry.entry;
-    const localName = lang === 'en' && d.name_en ? d.name_en : lang === 'es' && d.name_es ? d.name_es : d.name;
-    const localDesc = lang === 'en' && d.description_en ? d.description_en : lang === 'es' && d.description_es ? d.description_es : d.description;
-    const cats = d.categories ?? ['culture'];
+    const cats = d.info.categories ?? ['culture'];
 
     return {
-      name: localName,
+      name: getLocalizedField(d, 'name', lang),
       categories: cats,
       categoryLabels: cats.map((c: string) => catLabels[c] || c),
-      description: localDesc,
-      image: d.image || '',
-      url: d.url || '#',
+      description: getLocalizedField(d, 'description', lang),
+      image: d.info.image || '',
+      url: d.info.url || '#',
     };
   });
 

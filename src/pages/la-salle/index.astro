@@ -13,8 +13,7 @@ import VenueSpaces from '@/components/salle/VenueSpaces.svelte';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import CollectivitesCallout from '@/components/salle/CollectivitesCallout.astro';
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
-import { defaultLang } from '@/i18n/translations';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedArray } from '@/i18n/utils';
 import { generateEventVenueLD } from '@/lib/seo';
 import { buildQuoteMailto, poleConfigs } from '@/lib/pole-config';
 import { getSiteSettings } from '@/lib/site-settings';
@@ -33,28 +32,17 @@ const sitePhone = siteSettings?.phone ?? '';
 const reader = createReader(process.cwd(), keystaticConfig);
 const venueData = await reader.singletons.venue.read();
 
-const capacityMax = venueData?.capacityMax ?? 0;
-const surfaceM2 = venueData?.surfaceM2 ?? 0;
-
-// For array fields, check localized version first, fall back to FR
-const venueAny = venueData as Record<string, unknown> | null;
-const equipment = venueData
-  ? (lang !== defaultLang && venueAny?.[`equipment_${lang}`] as readonly string[])
-    || venueData.equipment
-    || []
-  : [] as readonly string[];
-const layoutSuggestions = venueData
-  ? (lang !== defaultLang && venueAny?.[`layoutSuggestions_${lang}`] as readonly string[])
-    || venueData.layoutSuggestions
-    || []
-  : [] as readonly string[];
+const capacityMax = venueData?.space.capacityMax ?? 0;
+const surfaceM2 = venueData?.space.surfaceM2 ?? 0;
+const equipment = getLocalizedArray(venueData ?? {}, 'equipment', lang);
+const layoutSuggestions = getLocalizedArray(venueData ?? {}, 'layoutSuggestions', lang);
 
 const seoTitle = 'Location de salle au lac de Saint-Ferréol, près de Toulouse';
 const seoDescription = 'Salle modulable au lac de Saint-Ferréol, entre Toulouse et Castres : jusqu\'à ' + capacityMax + ' personnes. Séminaires, concerts, foires, soirées privées. Devis sur mesure.';
 
 const jsonLd = generateEventVenueLD({
   capacityMax,
-  amenities: venueData?.equipment ?? [],
+  amenities: venueData?.equipment.fr ?? [],
 });
 ---
 

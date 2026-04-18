@@ -34,15 +34,62 @@ export function getLocalizedPath(path: string, lang: Lang): string {
 }
 
 /**
- * Get localized content field
- * Returns the translated field if available, falls back to FR
+ * Get localized content field.
+ * Supports two schema patterns:
+ *   - Nested object: { fr: '...', en: '...', es: '...' }  (preferred)
+ *   - Legacy flat:   field + field_en + field_es            (used for slug fields)
+ * Falls back to FR when the requested lang is missing.
  */
 export function getLocalizedField<T extends Record<string, unknown>>(
   entry: T,
   field: string,
   lang: Lang,
 ): string {
-  if (lang === defaultLang) return (entry[field] as string) ?? '';
+  const value = entry[field];
+
+  if (
+    value &&
+    typeof value === 'object' &&
+    !Array.isArray(value) &&
+    'fr' in (value as Record<string, unknown>)
+  ) {
+    const obj = value as Record<string, string | undefined>;
+    return obj[lang] || obj[defaultLang] || '';
+  }
+
+  if (lang === defaultLang) return (value as string) ?? '';
   const localizedField = `${field}_${lang}`;
-  return (entry[localizedField] as string) || ((entry[field] as string) ?? '');
+  return (entry[localizedField] as string) || ((value as string) ?? '');
+}
+
+/**
+ * Get localized array field (list of strings).
+ * Supports:
+ *   - Nested:  { fr: [...], en: [...], es: [...] }
+ *   - Legacy:  field + field_en + field_es
+ */
+export function getLocalizedArray<T extends Record<string, unknown>>(
+  entry: T,
+  field: string,
+  lang: Lang,
+): string[] {
+  const value = entry[field];
+
+  if (
+    value &&
+    typeof value === 'object' &&
+    !Array.isArray(value) &&
+    'fr' in (value as Record<string, unknown>)
+  ) {
+    const obj = value as Record<string, readonly string[] | undefined>;
+    return [...(obj[lang] || obj[defaultLang] || [])];
+  }
+
+  if (lang === defaultLang) return [...((value as readonly string[]) ?? [])];
+  const localizedField = `${field}_${lang}`;
+  return [
+    ...((entry[localizedField] as readonly string[]) ||
+      (value as readonly string[]) ||
+      []),
+  ];
 }
