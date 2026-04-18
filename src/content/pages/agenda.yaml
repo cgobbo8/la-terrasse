@@ -1,0 +1,18 @@
+hero:
+  tagline:
+    fr: "L'agenda de La Terrasse"
+    en: "La Terrasse calendar"
+    es: "La agenda de La Terrasse"
+  subtitle:
+    fr: "Concerts, soirées, marchés et événements au lac de Saint-Ferréol"
+    en: "Concerts, nights out, markets and events at Lake Saint-Ferréol"
+    es: "Conciertos, noches, mercados y eventos en el lago de Saint-Ferréol"
+emptyMessage:
+  fr: "Pas d'événements prévus pour le moment. Revenez bientôt !"
+  en: "No events scheduled at the moment. Come back soon!"
+  es: "No hay eventos programados por el momento. ¡Vuelva pronto!"
+seo:
+  pageTitle:
+    fr: "Agenda — Événements et soirées à La Terrasse Saint-Ferréol"
+    en: "Calendar — Events and evenings at La Terrasse Saint-Ferréol"
+    es: "Agenda — Eventos y noches en La Terrasse Saint-Ferréol"

@@ -31,6 +31,8 @@ const jsonLd = generateRestaurantLD();
 // CMS texts for this page
 const reader = createReader(process.cwd(), keystaticConfig);
 const pageTexts = await reader.singletons.restaurantHub.read();
+const crosslinks = await reader.singletons.crosslinks.read();
+const hubNarratives = (crosslinks?.hubNarratives ?? {}) as Record<string, unknown>;
 const tx = (path: string) => {
   const [section, field] = path.split('.');
   return getLocalizedField(
@@ -184,7 +186,7 @@ const subPages = [
 
   <!-- Cross-link narratif contextuel -->
   <ContextualCrossLink
-    text={t('crosslink.restaurantHub.aventure')}
+    text={getLocalizedField(hubNarratives, 'restaurantToAventure', lang)}
     href={getLocalizedPath('/aventure', lang)}
     pole="aventure"
   />

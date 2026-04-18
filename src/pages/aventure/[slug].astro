@@ -104,16 +104,22 @@ const placeholderImages = [
 const placeholderIndex = activity.slug.length % placeholderImages.length;
 const heroImage = activity.image || placeholderImages[placeholderIndex];
 
-// Narrative cross-link text per activity (unique per page, never generic)
-const crossLinkTexts: Record<string, string> = {
-  paddle: t('crosslink.activity.paddle.restaurant'),
-  'archery-tag': t('crosslink.activity.archeryTag.restaurant'),
-  pedalo: t('crosslink.activity.pedalo.restaurant'),
-  canoe: t('crosslink.activity.canoe.restaurant'),
-  vtt: t('crosslink.activity.vtt.restaurant'),
-  'mini-golf': t('crosslink.activity.miniGolf.restaurant'),
+// Narrative cross-link text per activity — edited in CMS singleton `crosslinks`
+const reader = createReader(process.cwd(), keystaticConfig);
+const crosslinks = await reader.singletons.crosslinks.read();
+const activityCross = (crosslinks?.activityToRestaurant ?? {}) as Record<string, unknown>;
+const activityCrossMap: Record<string, string> = {
+  paddle: 'paddle',
+  'archery-tag': 'archeryTag',
+  pedalo: 'pedalo',
+  canoe: 'canoe',
+  vtt: 'vtt',
+  'mini-golf': 'miniGolf',
 };
-const crossLinkText = crossLinkTexts[activity.slug] ?? t('crosslink.activityDefault.restaurant');
+const crossLinkKey = activityCrossMap[activity.slug];
+const crossLinkText =
+  (crossLinkKey && getLocalizedField(activityCross, crossLinkKey, lang)) ||
+  getLocalizedField(activityCross, 'defaultText', lang);
 
 // SEO
 const siteUrl = 'https://baseloisirs-saintferreol.fr';

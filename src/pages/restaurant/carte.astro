@@ -28,6 +28,8 @@ const siteSettings = await getSiteSettings();
 const phone = siteSettings?.phone ?? '';
 const telHref = toTelHref(phone);
 const pageTexts = await reader.singletons.restaurantCarte.read();
+const crosslinks = await reader.singletons.crosslinks.read();
+const hubNarratives = (crosslinks?.hubNarratives ?? {}) as Record<string, unknown>;
 const menuSections = pageTexts?.menuSections ?? [];
 const tx = (path: string) => {
   const [section, field] = path.split('.');
@@ -339,7 +341,7 @@ function label(key: keyof typeof periodLabels) {
 
   <!-- Cross-link narratif contextuel -->
   <ContextualCrossLink
-    text={t('crosslink.carte.aventure')}
+    text={getLocalizedField(hubNarratives, 'carteToAventure', lang)}
     href={getLocalizedPath('/aventure', lang)}
     pole="aventure"
   />

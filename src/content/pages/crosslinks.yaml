@@ -1,0 +1,55 @@
+polesDescription:
+  restaurant:
+    fr: "Une cuisine simple, locale et gourmande"
+    en: "Simple, local, and delicious cuisine"
+    es: "Cocina sencilla, local y deliciosa"
+  aventure:
+    fr: "Activités terrestres et aquatiques en pleine nature"
+    en: "Land and water activities in the heart of nature"
+    es: "Actividades terrestres y acuáticas en plena naturaleza"
+  salle:
+    fr: "Séminaires, événements et réceptions dans un cadre inspirant"
+    en: "Seminars, events and receptions in an inspiring setting"
+    es: "Seminarios, eventos y recepciones en un entorno inspirador"
+hubNarratives:
+  aventureToRestaurant:
+    fr: "Après l'effort, le réconfort — déjeunez au bord du lac avec des produits locaux →"
+    en: "After the adventure, treat yourself — lunch by the lake with local produce →"
+    es: "Después del esfuerzo, la recompensa — almuerza junto al lago con productos locales →"
+  restaurantToAventure:
+    fr: "Prolongez le plaisir — balade ou pédalo sur le lac après le déjeuner →"
+    en: "Extend the pleasure — a stroll or pedal boat ride on the lake after lunch →"
+    es: "Prolonga el placer — paseo o hidropedal en el lago después del almuerzo →"
+  carteToAventure:
+    fr: "Envie de digérer en douceur ? Le lac vous attend pour une balade →"
+    en: "Fancy walking it off? The lake awaits for a gentle stroll →"
+    es: "¿Ganas de pasear después de comer? El lago te espera →"
+activityToRestaurant:
+  defaultText:
+    fr: "Après votre activité, déjeunez au bord du lac avec des produits du terroir →"
+    en: "After your activity, enjoy lunch by the lake with local produce →"
+    es: "Después de tu actividad, almuerza junto al lago con productos del terroir →"
+  paddle:
+    fr: "Après votre session paddle, prolongez au restaurant avec vue sur le lac →"
+    en: "After your paddle session, head to the restaurant with lake views →"
+    es: "Después de tu sesión de paddle, disfruta del restaurante con vistas al lago →"
+  archeryTag:
+    fr: "Match terminé ? Célébrez autour d'un bon repas entre équipes →"
+    en: "Game over? Celebrate with a great meal among teammates →"
+    es: "¿Partido terminado? Celebra con una buena comida entre compañeros →"
+  pedalo:
+    fr: "Après votre tour en pédalo, une pause gourmande vous attend en terrasse →"
+    en: "After your pedal boat ride, a gourmet break awaits on the terrace →"
+    es: "Después de tu paseo en hidropedal, te espera un descanso gourmet en la terraza →"
+  canoe:
+    fr: "De retour sur la terre ferme ? Le restaurant vous accueille pour un déjeuner mérité →"
+    en: "Back on dry land? The restaurant welcomes you for a well-earned lunch →"
+    es: "¿De vuelta a tierra firme? El restaurante te espera para un almuerzo merecido →"
+  vtt:
+    fr: "Après les sentiers, rechargez les batteries avec un repas fait maison →"
+    en: "After the trails, recharge with a homemade meal →"
+    es: "Después de los senderos, recarga energías con una comida casera →"
+  miniGolf:
+    fr: "Partie terminée ? Prolongez le moment autour d'un bon repas en terrasse →"
+    en: "Game over? Extend the moment with a great meal on the terrace →"
+    es: "¿Partida terminada? Prolonga el momento con una buena comida en la terraza →"

@@ -1,0 +1,144 @@
+hero:
+  tagline:
+    fr: "Nous contacter"
+    en: "Contact us"
+    es: "Contáctenos"
+  subtitle:
+    fr: "Par téléphone, email ou venez nous rendre visite au bord du lac"
+    en: "By phone, email or come visit us by the lake"
+    es: "Por teléfono, email o venga a visitarnos junto al lago"
+info:
+  title:
+    fr: "Coordonnées"
+    en: "Contact details"
+    es: "Datos de contacto"
+  name:
+    fr: "La Terrasse — Base de loisirs"
+    en: "La Terrasse — Leisure base"
+    es: "La Terrasse — Base de ocio"
+  addressLine1:
+    fr: "144 avenue de Carcassonne"
+    en: "144 avenue de Carcassonne"
+    es: "144 avenue de Carcassonne"
+  addressLine2:
+    fr: "81540 Sorèze"
+    en: "81540 Sorèze"
+    es: "81540 Sorèze"
+hours:
+  title:
+    fr: "Horaires d'ouverture"
+    en: "Opening hours"
+    es: "Horarios de apertura"
+  seasonEyebrow:
+    fr: "Saison"
+    en: "Season"
+    es: "Temporada"
+  maySepLabel:
+    fr: "Mai & septembre"
+    en: "May & September"
+    es: "Mayo & septiembre"
+  maySepPeriod:
+    fr: "Week-ends & jours fériés"
+    en: "Weekends & public holidays"
+    es: "Fines de semana y festivos"
+  summerLabel:
+    fr: "Juin, juillet, août"
+    en: "June, July, August"
+    es: "Junio, julio, agosto"
+  summerPeriod:
+    fr: "Tous les jours"
+    en: "Every day"
+    es: "Todos los días"
+  scheduleEyebrow:
+    fr: "Horaires"
+    en: "Schedule"
+    es: "Horarios"
+  activitiesLabel:
+    fr: "Activités"
+    en: "Activities"
+    es: "Actividades"
+  activitiesTime:
+    fr: "10h – 19h"
+    en: "10am – 7pm"
+    es: "10h – 19h"
+  restaurantTime:
+    fr: "9h – 22h"
+    en: "9am – 10pm"
+    es: "9h – 22h"
+map:
+  title:
+    fr: "Nous trouver"
+    en: "Find us"
+    es: "Encuéntranos"
+  fallback:
+    fr: "Voir sur Google Maps"
+    en: "View on Google Maps"
+    es: "Ver en Google Maps"
+directions:
+  eyebrow:
+    fr: "Accès"
+    en: "Access"
+    es: "Acceso"
+  title:
+    fr: "Accès & infos pratiques"
+    en: "Access & practical info"
+    es: "Acceso e información práctica"
+  distance:
+    fr: "~60 km de Toulouse"
+    en: "~60 km from Toulouse"
+    es: "~60 km de Toulouse"
+  duration:
+    fr: "~1h de trajet"
+    en: "~1h drive"
+    es: "~1h de trayecto"
+directionsList:
+  - icon: car
+    title:
+      fr: "En voiture"
+      en: "By car"
+      es: "En coche"
+    desc:
+      fr: "Depuis Toulouse (~60 km, ~1h) : A61 direction Castelnaudary puis D629 vers Revel/Sorèze, ou A68 direction Castres puis D629."
+      en: "From Toulouse (~60 km, ~1h): A61 towards Castelnaudary then D629 towards Revel/Sorèze, or A68 towards Castres then D629."
+      es: "Desde Toulouse (~60 km, ~1h): A61 dirección Castelnaudary y luego D629 hacia Revel/Sorèze, o A68 dirección Castres y luego D629."
+  - icon: bus
+    title:
+      fr: "En bus"
+      en: "By bus"
+      es: "En autobús"
+    desc:
+      fr: "Ligne liO 356 depuis Toulouse (~70 min). Ligne 761 depuis Castres via Sorèze. En été, navette quotidienne Revel → Saint-Ferréol, 1 € A/R (juillet-août)."
+      en: "liO line 356 from Toulouse (~70 min). Line 761 from Castres via Sorèze. In summer, daily shuttle Revel → Saint-Ferréol, €1 return (July–August)."
+      es: "Línea liO 356 desde Toulouse (~70 min). Línea 761 desde Castres vía Sorèze. En verano, lanzadera diaria Revel → Saint-Ferréol, 1 € ida y vuelta (julio-agosto)."
+  - icon: bike
+    title:
+      fr: "À vélo"
+      en: "By bike"
+      es: "En bicicleta"
+    desc:
+      fr: "Voies vertes Sorèze–Revel (5,9 km) et Rigole de la Plaine (V84). Location de vélos électriques disponible à Sorèze."
+      en: "Greenways Sorèze–Revel (5.9 km) and Rigole de la Plaine (V84). E-bike rental available in Sorèze."
+      es: "Vías verdes Sorèze–Revel (5,9 km) y Rigole de la Plaine (V84). Alquiler de bicicletas eléctricas disponible en Sorèze."
+  - icon: map-pin-check
+    title:
+      fr: "Sur place"
+      en: "On site"
+      es: "En el lugar"
+    desc:
+      fr: "Parking à proximité immédiate. Sanitaires modernes et accessibles PMR, à disposition de tous les visiteurs."
+      en: "Parking right next to the site. Modern accessible restrooms available for all visitors."
+      es: "Aparcamiento junto al sitio. Sanitarios modernos y accesibles, a disposición de todos los visitantes."
+social:
+  title:
+    fr: "Réseaux sociaux"
+    en: "Social media"
+    es: "Redes sociales"
+seo:
+  pageTitle:
+    fr: "Contact"
+    en: "Contact"
+    es: "Contacto"
+  pageDescription:
+    fr: "Contactez La Terrasse — Base de loisirs de Saint-Ferréol"
+    en: "Contact La Terrasse — Leisure base at Lake Saint-Ferréol"
+    es: "Contacta La Terrasse — Base de ocio en el lago de Saint-Ferréol"

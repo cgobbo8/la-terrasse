@@ -4,8 +4,10 @@
  * Compact, discreet links at bottom of every pole page.
  */
 import { Icon } from 'astro-icon/components';
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import { poleConfigs, type Pole } from '@/lib/pole-config';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
 
 interface Props {
   /** Current pole to exclude from suggestions */
@@ -16,11 +18,15 @@ const { currentPole } = Astro.props;
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
+const reader = createReader(process.cwd(), keystaticConfig);
+const crosslinks = await reader.singletons.crosslinks.read();
+const polesDesc = (crosslinks?.polesDescription ?? {}) as Record<string, unknown>;
+
 const poles = [
   {
     id: 'restaurant' as const,
     label: t('nav.restaurant'),
-    description: t('crosslink.restaurant.description'),
+    description: getLocalizedField(polesDesc, 'restaurant', lang),
     href: getLocalizedPath('/restaurant', lang),
     accent: poleConfigs.restaurant.accent,
     icon: 'lucide:utensils',
@@ -28,7 +34,7 @@ const poles = [
   {
     id: 'aventure' as const,
     label: t('nav.aventure'),
-    description: t('crosslink.aventure.description'),
+    description: getLocalizedField(polesDesc, 'aventure', lang),
     href: getLocalizedPath('/aventure', lang),
     accent: poleConfigs.aventure.accent,
     icon: 'lucide:mountain',
@@ -36,7 +42,7 @@ const poles = [
   {
     id: 'salle' as const,
     label: t('nav.salle'),
-    description: t('crosslink.salle.description'),
+    description: getLocalizedField(polesDesc, 'salle', lang),
     href: getLocalizedPath('/la-salle', lang),
     accent: poleConfigs.salle.accent,
     icon: 'lucide:building-2',

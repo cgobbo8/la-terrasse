@@ -23,6 +23,8 @@ const t = useTranslations(lang);
 const reader = createReader(process.cwd(), keystaticConfig);
 const allActivities = await reader.collections.activities.all();
 const pageTexts = await reader.singletons.aventureHub.read();
+const crosslinks = await reader.singletons.crosslinks.read();
+const hubNarratives = (crosslinks?.hubNarratives ?? {}) as Record<string, unknown>;
 const tx = (path: string) => {
   const [section, field] = path.split('.');
   return getLocalizedField(
@@ -201,7 +203,7 @@ const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferré
 
   <!-- Cross-link narratif contextuel -->
   <ContextualCrossLink
-    text={t('crosslink.aventureHub.restaurant')}
+    text={getLocalizedField(hubNarratives, 'aventureToRestaurant', lang)}
     href={getLocalizedPath('/restaurant', lang)}
     pole="restaurant"
   />

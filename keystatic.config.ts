@@ -95,8 +95,9 @@ export default config({
       'Restaurant': ['restaurantHub', 'restaurantCarte', 'restaurantProducteurs'],
       'Aventure': ['aventureHub', 'activities'],
       'La Salle': ['salleHub', 'salleEvenementiel', 'salleSeminaires'],
-      'Agenda': ['events'],
-      'Paramètres': ['settings', 'legalMentions'],
+      'Agenda': ['agendaPage', 'events'],
+      'Contact': ['contactPage'],
+      'Paramètres': ['settings', 'crosslinks', 'legalMentions'],
     },
   },
 
@@ -192,7 +193,7 @@ export default config({
     }),
 
     events: collection({
-      label: 'Agenda',
+      label: 'Événements à venir',
       slugField: 'title',
       path: 'src/content/events/*',
       format: { contentField: 'content' },
@@ -1037,6 +1038,191 @@ export default config({
           },
         ),
         alsoLike: i18n('« Vous pourriez aussi aimer »'),
+      },
+    }),
+
+    contactPage: singleton({
+      label: 'Page Contact',
+      path: 'src/content/pages/contact',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            tagline: i18n('Grand titre'),
+            subtitle: i18n('Phrase d\'accroche', true),
+          },
+          {
+            label: 'En-tête de la page',
+            description: 'Titre et sous-titre affichés tout en haut, sur la photo de hero.',
+          },
+        ),
+        info: fields.object(
+          {
+            title: i18n('Titre de la section'),
+            name: i18n('Nom affiché (ex : La Terrasse — Base de loisirs)'),
+            addressLine1: i18n('Adresse — 1re ligne'),
+            addressLine2: i18n('Adresse — 2e ligne'),
+          },
+          {
+            label: 'Bloc Coordonnées',
+            description: 'Carte affichant le téléphone, l\'email et l\'adresse postale. Le téléphone et l\'email sont tirés des Paramètres généraux — seul le libellé du nom et les 2 lignes d\'adresse sont édités ici.',
+          },
+        ),
+        hours: fields.object(
+          {
+            title: i18n('Titre de la section'),
+            seasonEyebrow: i18n('Sur-titre de la carte « Saison »'),
+            maySepLabel: i18n('Mai & septembre — label'),
+            maySepPeriod: i18n('Mai & septembre — période'),
+            summerLabel: i18n('Juin/juillet/août — label'),
+            summerPeriod: i18n('Juin/juillet/août — période'),
+            scheduleEyebrow: i18n('Sur-titre de la carte « Horaires »'),
+            activitiesLabel: i18n('Label « Activités »'),
+            activitiesTime: i18n('Plage horaire activités'),
+            restaurantTime: i18n('Plage horaire restaurant'),
+          },
+          {
+            label: 'Bloc Horaires d\'ouverture',
+            description: 'Deux cartes empilées : « Saison » (périodes d\'ouverture) et « Horaires » (plages horaires par service : activités, restaurant).',
+          },
+        ),
+        map: fields.object(
+          {
+            title: i18n('Titre de la carte'),
+            fallback: i18n('Libellé du lien vers Google Maps'),
+          },
+          {
+            label: 'Bloc Carte (Google Maps)',
+            description: 'L\'iframe Google Maps à droite et le lien « Voir sur Google Maps » sous la carte. L\'URL Google Maps elle-même est dans Paramètres généraux.',
+          },
+        ),
+        directions: fields.object(
+          {
+            eyebrow: i18n('Sur-titre de la section'),
+            title: i18n('Titre de la section'),
+            distance: i18n('Badge distance (ex : ~60 km de Toulouse)'),
+            duration: i18n('Badge durée (ex : ~1h de trajet)'),
+          },
+          {
+            label: 'Bloc Accès — en-tête',
+            description: 'Titre de la section suivie des 2 badges ronds (distance, durée de trajet).',
+          },
+        ),
+        directionsList: fields.array(
+          fields.object({
+            icon: fields.select({
+              label: 'Icône',
+              options: [
+                { label: 'Voiture', value: 'car' },
+                { label: 'Bus', value: 'bus' },
+                { label: 'Vélo', value: 'bike' },
+                { label: 'Sur place (pin)', value: 'map-pin-check' },
+                { label: 'Train', value: 'train' },
+                { label: 'Marche', value: 'footprints' },
+              ],
+              defaultValue: 'car',
+            }),
+            title: i18n('Titre (ex : En voiture)'),
+            desc: i18n('Description', true),
+          }),
+          {
+            label: 'Modes d\'accès',
+            description: 'Grille de cartes : un mode de transport = une carte avec son icône, son titre et sa description. Glissez-déposez pour réordonner, ajoutez-en autant que vous voulez.',
+            itemLabel: (props) => props.fields.title.fields.fr.value || 'Nouveau mode',
+          },
+        ),
+        social: fields.object(
+          {
+            title: i18n('Sur-titre du bloc'),
+          },
+          {
+            label: 'Bloc Réseaux sociaux',
+            description: 'Le sur-titre au-dessus des icônes Facebook/Instagram dans la carte Coordonnées. Les URLs viennent des Paramètres généraux.',
+          },
+        ),
+        seo: fields.object(
+          {
+            pageTitle: i18n('Titre de l\'onglet navigateur'),
+            pageDescription: i18n('Description pour Google', true),
+          },
+          {
+            label: 'Référencement',
+            description: 'Métadonnées pour Google : titre de l\'onglet + description affichée sous le lien dans les résultats de recherche.',
+          },
+        ),
+      },
+    }),
+
+    agendaPage: singleton({
+      label: 'Page Agenda',
+      path: 'src/content/pages/agenda',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            tagline: i18n('Grand titre'),
+            subtitle: i18n('Phrase d\'accroche', true),
+          },
+          {
+            label: 'En-tête de la page',
+            description: 'Titre et sous-titre affichés tout en haut de la page /agenda, sur la photo.',
+          },
+        ),
+        emptyMessage: i18n('Message affiché quand l\'agenda est vide', true),
+        seo: fields.object(
+          {
+            pageTitle: i18n('Titre de l\'onglet navigateur'),
+          },
+          {
+            label: 'Référencement',
+            description: 'Titre de l\'onglet navigateur. La description reprend automatiquement la phrase d\'accroche du hero.',
+          },
+        ),
+      },
+    }),
+
+    crosslinks: singleton({
+      label: 'Liens entre les pages',
+      path: 'src/content/pages/crosslinks',
+      format: { data: 'yaml' },
+      schema: {
+        polesDescription: fields.object(
+          {
+            restaurant: i18n('Description — Restaurant'),
+            aventure: i18n('Description — Aventure'),
+            salle: i18n('Description — La Salle'),
+          },
+          {
+            label: 'Bloc « La Terrasse c\'est aussi… »',
+            description: 'Affiché en bas de chaque page de pôle : 2 cartes grises avec le nom du pôle et une petite description dessous. C\'est la phrase grise qui est éditée ici.',
+          },
+        ),
+        hubNarratives: fields.object(
+          {
+            aventureToRestaurant: i18n('Depuis Aventure → vers Restaurant', true),
+            restaurantToAventure: i18n('Depuis Restaurant (hub) → vers Aventure', true),
+            carteToAventure: i18n('Depuis La Carte → vers Aventure', true),
+          },
+          {
+            label: 'Phrases narratives entre pages (hubs)',
+            description: 'Phrase italique centrée, avec une flèche, affichée entre 2 sections sur les pages de pôle. Invite à consulter un autre pôle. Exemple : « Après l\'effort, le réconfort — déjeunez au bord du lac… ».',
+          },
+        ),
+        activityToRestaurant: fields.object(
+          {
+            defaultText: i18n('Phrase par défaut (activités sans texte propre)', true),
+            paddle: i18n('Après Paddle', true),
+            archeryTag: i18n('Après Archery Tag', true),
+            pedalo: i18n('Après Pédalo', true),
+            canoe: i18n('Après Canoë', true),
+            vtt: i18n('Après VTT', true),
+            miniGolf: i18n('Après Mini-golf', true),
+          },
+          {
+            label: 'Phrases narratives après activité → Restaurant',
+            description: 'Phrase italique affichée en bas de chaque fiche activité, invitant à finir la journée au restaurant. Si une activité n\'a pas sa propre phrase, la phrase par défaut est utilisée.',
+          },
+        ),
       },
     }),
   },

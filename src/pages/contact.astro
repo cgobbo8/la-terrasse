@@ -6,9 +6,11 @@
 import { Icon } from 'astro-icon/components';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedField } from '@/i18n/utils';
 import { generateLocalBusinessLD } from '@/lib/seo';
 import { getSiteSettings } from '@/lib/site-settings';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../keystatic.config';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
@@ -23,12 +25,30 @@ const facebook = siteSettings?.facebook ?? '';
 const instagram = siteSettings?.instagram ?? '';
 const googleMapsEmbedUrl = 'https://maps.google.com/maps?q=144+avenue+de+Carcassonne+81540+Sor%C3%A8ze+France&t=&z=15&ie=UTF8&iwloc=&output=embed';
 
+const reader = createReader(process.cwd(), keystaticConfig);
+const pageTexts = await reader.singletons.contactPage.read();
+
+const tx = (path: string) => {
+  const [section, field] = path.split('.');
+  return getLocalizedField(
+    ((pageTexts as Record<string, unknown> | null)?.[section] as Record<string, unknown>) ?? {},
+    field,
+    lang,
+  );
+};
+
+const directionsList = (pageTexts?.directionsList ?? []).map((item) => ({
+  icon: `lucide:${item.icon}`,
+  title: getLocalizedField(item, 'title', lang),
+  desc: getLocalizedField(item, 'desc', lang),
+}));
+
 const jsonLd = generateLocalBusinessLD();
 ---
 
 <BaseLayout
-  title={t('contact.page.title')}
-  description={t('contact.page.description')}
+  title={tx('seo.pageTitle')}
+  description={tx('seo.pageDescription')}
   jsonLd={jsonLd}
   pagePath="/contact"
   ctaLabel={phone}
@@ -36,8 +56,8 @@ const jsonLd = generateLocalBusinessLD();
   ctaIcon={true}
 >
   <SectionHero
-    tagline={t('contact.hero.tagline')}
-    subtitle={t('contact.hero.subtitle')}
+    tagline={tx('hero.tagline')}
+    subtitle={tx('hero.subtitle')}
     image="/images/heroes/contact.webp"
   />
 
@@ -51,7 +71,7 @@ const jsonLd = generateLocalBusinessLD();
           <div>
             <p class="section-eyebrow text-brun-terre/60 mb-3">{t('common.contact')}</p>
             <h2 class="font-heading text-2xl font-bold text-brun-terre mb-8">
-              {t('contact.info.title')}
+              {tx('info.title')}
             </h2>
             <div class="space-y-5">
               <!-- Phone -->
@@ -93,9 +113,9 @@ const jsonLd = generateLocalBusinessLD();
                 </div>
                 <div>
                   <p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">{t('common.address')}</p>
-                  <p class="text-gray-800 font-medium">{t('contact.info.name')}</p>
-                  <p class="text-gray-600 text-sm">{t('contact.info.address')}</p>
-                  <p class="text-gray-600 text-sm">{t('contact.info.city')}</p>
+                  <p class="text-gray-800 font-medium">{tx('info.name')}</p>
+                  <p class="text-gray-600 text-sm">{tx('info.addressLine1')}</p>
+                  <p class="text-gray-600 text-sm">{tx('info.addressLine2')}</p>
                 </div>
               </div>
 
@@ -106,7 +126,7 @@ const jsonLd = generateLocalBusinessLD();
                     <Icon name="lucide:share-2" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
                   </div>
                   <div>
-                    <p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">{t('contact.social.title')}</p>
+                    <p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">{tx('social.title')}</p>
                     <div class="flex items-center gap-3 mt-1">
                       {facebook && (
                         <a
@@ -140,40 +160,40 @@ const jsonLd = generateLocalBusinessLD();
           <!-- Opening hours -->
           <div>
             <h2 class="font-heading text-2xl font-bold text-brun-terre mb-6">
-              {t('contact.hours.title')}
+              {tx('hours.title')}
             </h2>
             <div class="space-y-4">
               <!-- Seasons -->
               <div class="rounded-xl p-6 border border-gray-200/60 bg-white">
-                <h3 class="section-eyebrow text-gray-400 mb-4">{t('contact.hours.season')}</h3>
+                <h3 class="section-eyebrow text-gray-400 mb-4">{tx('hours.seasonEyebrow')}</h3>
                 <div class="space-y-2">
                   <div class="flex justify-between items-center py-2.5 border-b border-gray-100">
-                    <span class="text-gray-800 font-medium">{t('contact.hours.maySep')}</span>
-                    <span class="text-brun-terre font-bold text-sm">{t('contact.hours.maySepPeriod')}</span>
+                    <span class="text-gray-800 font-medium">{tx('hours.maySepLabel')}</span>
+                    <span class="text-brun-terre font-bold text-sm">{tx('hours.maySepPeriod')}</span>
                   </div>
                   <div class="flex justify-between items-center py-2.5">
-                    <span class="text-gray-800 font-medium">{t('contact.hours.summer')}</span>
-                    <span class="text-brun-terre font-bold text-sm">{t('contact.hours.summerPeriod')}</span>
+                    <span class="text-gray-800 font-medium">{tx('hours.summerLabel')}</span>
+                    <span class="text-brun-terre font-bold text-sm">{tx('hours.summerPeriod')}</span>
                   </div>
                 </div>
               </div>
               <!-- Horaires -->
               <div class="rounded-xl p-6 border border-gray-200/60 bg-white">
-                <h3 class="section-eyebrow text-gray-400 mb-4">{t('contact.hours.schedule')}</h3>
+                <h3 class="section-eyebrow text-gray-400 mb-4">{tx('hours.scheduleEyebrow')}</h3>
                 <div class="space-y-2">
                   <div class="flex justify-between items-center py-2.5 border-b border-gray-100">
                     <span class="text-gray-800 font-medium flex items-center gap-2">
                       <Icon name="lucide:mountain" class="w-4 h-4 text-aventure" />
-                      {t('contact.hours.activitiesLabel')}
+                      {tx('hours.activitiesLabel')}
                     </span>
-                    <span class="text-brun-terre font-bold">{t('contact.hours.activitiesTime')}</span>
+                    <span class="text-brun-terre font-bold">{tx('hours.activitiesTime')}</span>
                   </div>
                   <div class="flex justify-between items-center py-2.5">
                     <span class="text-gray-800 font-medium flex items-center gap-2">
                       <Icon name="lucide:utensils" class="w-4 h-4 text-restaurant" />
                       {t('nav.restaurant')}
                     </span>
-                    <span class="text-brun-terre font-bold">{t('contact.hours.restaurantTime')}</span>
+                    <span class="text-brun-terre font-bold">{tx('hours.restaurantTime')}</span>
                   </div>
                 </div>
               </div>
@@ -183,14 +203,14 @@ const jsonLd = generateLocalBusinessLD();
 
         <!-- Right column: Map -->
         <div data-reveal>
-          <p class="section-eyebrow text-brun-terre/60 mb-3">{t('contact.map.title')}</p>
+          <p class="section-eyebrow text-brun-terre/60 mb-3">{tx('map.title')}</p>
           <h2 class="font-heading text-2xl font-bold text-brun-terre mb-6">
-            {t('contact.map.title')}
+            {tx('map.title')}
           </h2>
           <div class="rounded-2xl overflow-hidden border border-gray-200/60">
             <iframe
               src={googleMapsEmbedUrl}
-              title={t('contact.map.title')}
+              title={tx('map.title')}
               class="w-full h-[300px] lg:h-[450px] border-0"
               loading="lazy"
               allowfullscreen
@@ -204,7 +224,7 @@ const jsonLd = generateLocalBusinessLD();
             class="group inline-flex items-center gap-2 mt-4 text-brun-terre font-medium hover:text-brun-terre/80 transition-colors min-h-[44px]"
           >
             <Icon name="lucide:external-link" class="w-4 h-4" />
-            {t('contact.map.fallback')}
+            {tx('map.fallback')}
             <Icon name="lucide:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
@@ -216,58 +236,32 @@ const jsonLd = generateLocalBusinessLD();
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="text-center mb-12" data-reveal>
-        <p class="section-eyebrow text-brun-terre/60 mb-3">{t('contact.directions.eyebrow')}</p>
+        <p class="section-eyebrow text-brun-terre/60 mb-3">{tx('directions.eyebrow')}</p>
         <h2 class="font-heading text-3xl font-bold text-brun-terre">
-          {t('contact.directions.title')}
+          {tx('directions.title')}
         </h2>
       </div>
 
       <!-- Distance callout -->
       <div class="flex flex-wrap justify-center gap-4 mb-12" data-reveal>
         <div class="rounded-full px-6 py-3 border border-gray-200/60 bg-white text-center">
-          <p class="text-lg font-bold text-brun-terre">{t('contact.directions.distance')}</p>
+          <p class="text-lg font-bold text-brun-terre">{tx('directions.distance')}</p>
         </div>
         <div class="rounded-full px-6 py-3 border border-gray-200/60 bg-white text-center">
-          <p class="text-lg font-bold text-brun-terre">{t('contact.directions.duration')}</p>
+          <p class="text-lg font-bold text-brun-terre">{tx('directions.duration')}</p>
         </div>
       </div>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6" data-reveal-stagger>
-        <!-- Car -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
-          <div class="w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center mb-5">
-            <Icon name="lucide:car" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
+        {directionsList.map((d) => (
+          <div class="bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
+            <div class="w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center mb-5">
+              <Icon name={d.icon} class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
+            </div>
+            <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{d.title}</h3>
+            <p class="text-gray-600 text-sm leading-relaxed">{d.desc}</p>
           </div>
-          <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{t('contact.directions.car')}</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.carDesc')}</p>
-        </div>
-
-        <!-- Bus -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
-          <div class="w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center mb-5">
-            <Icon name="lucide:bus" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
-          </div>
-          <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{t('contact.directions.bus')}</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.busDesc')}</p>
-        </div>
-
-        <!-- Bike -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
-          <div class="w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center mb-5">
-            <Icon name="lucide:bike" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
-          </div>
-          <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{t('contact.directions.bike')}</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.bikeDesc')}</p>
-        </div>
-
-        <!-- On site -->
-        <div class="bg-white rounded-2xl p-6 border border-gray-200/60 hover:border-gray-300/80 transition-colors">
-          <div class="w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center mb-5">
-            <Icon name="lucide:map-pin-check" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
-          </div>
-          <h3 class="font-heading font-bold text-brun-terre text-lg mb-2">{t('contact.directions.onsite')}</h3>
-          <p class="text-gray-600 text-sm leading-relaxed">{t('contact.directions.onsiteDesc')}</p>
-        </div>
+        ))}
       </div>
     </div>
   </section>

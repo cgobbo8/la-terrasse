@@ -1,8 +1,10 @@
 ---
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import ContactLinks from './ContactLinks.astro';
 import LogoTerrasseFull from './LogoTerrasseFull.astro';
 import { Icon } from 'astro-icon/components';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
 
 interface Props {
   phone: string;
@@ -15,6 +17,12 @@ interface Props {
 const { phone, email, googleMapsUrl = '', facebook = '', instagram = '' } = Astro.props;
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const contactData = await reader.singletons.contactPage.read();
+const mapFallback = getLocalizedField((contactData?.map ?? {}) as Record<string, unknown>, 'fallback', lang);
+const contactAddressLine1 = getLocalizedField((contactData?.info ?? {}) as Record<string, unknown>, 'addressLine1', lang);
+const contactAddressLine2 = getLocalizedField((contactData?.info ?? {}) as Record<string, unknown>, 'addressLine2', lang);
 ---
 
 <footer class="bg-gray-100 text-gray-600 overflow-hidden">
@@ -78,15 +86,15 @@ const t = useTranslations(lang);
             href={googleMapsUrl || '#'}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={t('contact.map.fallback')}
+            aria-label={mapFallback}
             class="group flex items-start gap-3 p-3 -mx-1 rounded-lg border border-gray-200/70 bg-white/50 hover:bg-white hover:border-brun-terre/30 transition-all"
           >
             <span class="flex-shrink-0 w-8 h-8 rounded-md bg-brun-terre/5 flex items-center justify-center group-hover:bg-brun-terre/10 transition-colors">
               <Icon name="lucide:map-pin" class="w-4 h-4 text-brun-terre/70 group-hover:text-brun-terre transition-colors" stroke-width="1.5" />
             </span>
             <div class="flex-1 min-w-0 leading-snug">
-              <p class="text-gray-700 group-hover:text-brun-terre transition-colors">{t('contact.info.address')}</p>
-              <p class="text-xs text-gray-400 mt-0.5">{t('contact.info.city')}</p>
+              <p class="text-gray-700 group-hover:text-brun-terre transition-colors">{contactAddressLine1}</p>
+              <p class="text-xs text-gray-400 mt-0.5">{contactAddressLine2}</p>
             </div>
           </a>
 

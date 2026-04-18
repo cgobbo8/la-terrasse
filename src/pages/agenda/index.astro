@@ -16,6 +16,17 @@ const t = useTranslations(lang);
 
 const reader = createReader(process.cwd(), keystaticConfig);
 const allEvents = await reader.collections.events.all();
+const pageTexts = await reader.singletons.agendaPage.read();
+
+const tx = (path: string) => {
+  const [section, field] = path.split('.');
+  return getLocalizedField(
+    ((pageTexts as Record<string, unknown> | null)?.[section] as Record<string, unknown>) ?? {},
+    field,
+    lang,
+  );
+};
+const emptyMessage = getLocalizedField(pageTexts ?? {}, 'emptyMessage', lang);
 
 // Filter visible + future events, sort chronologically
 const now = new Date();
@@ -92,13 +103,13 @@ function getCategoryLabel(category: string): string {
 ---
 
 <BaseLayout
-  title={t('agenda.page.title')}
-  description={t('agenda.hero.subtitle')}
+  title={tx('seo.pageTitle')}
+  description={tx('hero.subtitle')}
   pagePath="/agenda"
 >
   <SectionHero
-    tagline={t('agenda.hero.tagline')}
-    subtitle={t('agenda.hero.subtitle')}
+    tagline={tx('hero.tagline')}
+    subtitle={tx('hero.subtitle')}
     image="/images/heroes/agenda.webp"
   />
 
@@ -166,7 +177,7 @@ function getCategoryLabel(category: string): string {
         <div class="text-center py-20" data-reveal>
           <p class="text-6xl font-bold text-gray-100 select-none mb-4">🎶</p>
           <p class="text-gray-400 text-lg">
-            {t('agenda.empty')}
+            {emptyMessage}
           </p>
         </div>
       )}
