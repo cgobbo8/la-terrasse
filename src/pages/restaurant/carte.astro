@@ -29,6 +29,15 @@ const phone = siteSettings?.phone ?? '';
 const telHref = toTelHref(phone);
 const restaurantData = await reader.singletons.restaurant.read();
 const menuSections = restaurantData?.menuSections ?? [];
+const pageTexts = await reader.singletons.restaurantMenuTexts.read();
+const tx = (path: string) => {
+  const [section, field] = path.split('.');
+  return getLocalizedField(
+    ((pageTexts as Record<string, unknown> | null)?.[section] as Record<string, unknown>) ?? {},
+    field,
+    lang,
+  );
+};
 
 // Group sections by period
 const midiSections = menuSections.filter((s) => s.group === 'midi');
@@ -46,8 +55,8 @@ function localizeDishes(dishes: typeof menuSections[0]['dishes']) {
   }));
 }
 
-const seoTitle = `${t('restaurant.menu.heroTitle')} — ${t('nav.restaurant')} | La Terrasse Saint-Ferréol`;
-const seoDescription = t('restaurant.menu.heroSubtitle');
+const seoTitle = `${tx('hero.title')} — ${t('nav.restaurant')} | La Terrasse Saint-Ferréol`;
+const seoDescription = tx('hero.subtitle');
 
 // Menu period labels — via translations.ts
 const periodLabels = {
@@ -71,8 +80,8 @@ function label(key: keyof typeof periodLabels) {
 >
   <!-- Hero -->
   <SectionHero
-    tagline={t('restaurant.menu.heroTitle')}
-    subtitle={t('restaurant.menu.heroSubtitle')}
+    tagline={tx('hero.title')}
+    subtitle={tx('hero.subtitle')}
     pole="restaurant"
     image="/images/heroes/carte.webp"
     breadcrumb={{ parentLabel: t('nav.restaurant'), parentHref: getLocalizedPath('/restaurant', lang), currentLabel: t('restaurant.menu.breadcrumb') }}
@@ -302,12 +311,12 @@ function label(key: keyof typeof periodLabels) {
   <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) text-white grain-overlay overflow-hidden" style={`background-color: ${accent}`}>
     <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 30% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);"></div>
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
-      <p class="section-eyebrow text-white/40 mb-3">{t('restaurant.menu.ctaEyebrow')}</p>
+      <p class="section-eyebrow text-white/40 mb-3">{tx('cta.eyebrow')}</p>
       <h2 class="font-heading text-3xl font-bold mb-6">
-        {t('restaurant.menu.ctaTitle')}
+        {tx('cta.title')}
       </h2>
       <p class="text-white/70 text-lg mb-8">
-        {t('restaurant.menu.ctaSubtitle')}
+        {tx('cta.subtitle')}
       </p>
       <a
         href={telHref}

@@ -11,7 +11,7 @@ import ActivityCard from '@/components/aventure/ActivityCard.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import OffreJournee from '@/components/common/OffreJournee.astro';
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import { generateSportsActivityLD } from '@/lib/seo';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../../keystatic.config';
@@ -22,6 +22,20 @@ const t = useTranslations(lang);
 // Load activities from Keystatic
 const reader = createReader(process.cwd(), keystaticConfig);
 const allActivities = await reader.collections.activities.all();
+const pageTexts = await reader.singletons.aventureHubTexts.read();
+const tx = (path: string) => {
+  const [section, field] = path.split('.');
+  return getLocalizedField(
+    ((pageTexts as Record<string, unknown> | null)?.[section] as Record<string, unknown>) ?? {},
+    field,
+    lang,
+  );
+};
+const alsoLikeText = getLocalizedField(
+  (pageTexts as Record<string, unknown> | null) ?? {},
+  'alsoLike',
+  lang,
+);
 
 // Filter visible, sort by order, split by category
 const visible = allActivities
@@ -68,7 +82,7 @@ const terrestreImages = [
 const siteUrl = 'https://baseloisirs-saintferreol.fr';
 const jsonLd = generateSportsActivityLD({
   name: 'Aventure — Activités plein air | La Terrasse Saint-Ferréol',
-  description: t('aventure.hero.subtitle'),
+  description: tx('hero.subtitle'),
   url: `${siteUrl}/aventure`,
 });
 
@@ -85,8 +99,8 @@ const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferré
 >
   <!-- Hero -->
   <SectionHero
-    tagline={t('aventure.hero.tagline')}
-    subtitle={t('aventure.hero.subtitle')}
+    tagline={tx('hero.tagline')}
+    subtitle={tx('hero.subtitle')}
     pole="aventure"
     image="/images/heroes/aventure.webp"
   >
@@ -99,12 +113,12 @@ const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferré
   <!-- Intro prose — SEO section -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-      <p class="section-eyebrow text-aventure/40 mb-4">{t('aventure.hub.introEyebrow')}</p>
+      <p class="section-eyebrow text-aventure/40 mb-4">{tx('intro.eyebrow')}</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-6 text-gray-900">
-        {t('aventure.hub.introTitle')}
+        {tx('intro.title')}
       </h2>
       <p class="text-gray-600 leading-relaxed text-base lg:text-lg">
-        {t('aventure.hub.introBody')}
+        {tx('intro.body')}
       </p>
     </div>
   </section>
@@ -117,7 +131,7 @@ const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferré
           <Icon name="lucide:waves" class="w-5 h-5 text-aventure" />
         </div>
         <h2 class="font-heading text-2xl font-bold text-gray-900">
-          {t('aventure.aquatique')}
+          {tx('cats.aquatique')}
         </h2>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-stagger>
@@ -141,7 +155,7 @@ const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferré
           <Icon name="lucide:mountain" class="w-5 h-5 text-aventure" />
         </div>
         <h2 class="font-heading text-2xl font-bold text-gray-900">
-          {t('aventure.terrestre')}
+          {tx('cats.terrestre')}
         </h2>
       </div>
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5" data-reveal-stagger>
@@ -160,15 +174,15 @@ const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferré
   <!-- Section groupes -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
-      <p class="section-eyebrow text-aventure/40 mb-4">Groupes & scolaires</p>
+      <p class="section-eyebrow text-aventure/40 mb-4">{tx('groups.eyebrow')}</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold text-gray-900 mb-4">
-        {t('aventure.groups.title')}
+        {tx('groups.title')}
       </h2>
       <p class="text-gray-500 mb-6 max-w-xl mx-auto">
-        {t('aventure.hub.groupBody')}
+        {tx('groups.body')}
       </p>
       <p class="text-gray-400 italic mb-8">
-        {t('aventure.groups.cta')}
+        {tx('groups.combine')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href={getLocalizedPath('/contact', lang)} class="inline-flex items-center gap-2 bg-aventure text-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">

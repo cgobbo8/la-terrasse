@@ -1,0 +1,52 @@
+hero:
+  tagline:
+    fr: "Bouger, respirer, profiter — activités plein air au lac"
+    en: "Move, breathe, enjoy — outdoor activities at the lake"
+    es: "Muévete, respira, disfruta — actividades al aire libre en el lago"
+  subtitle:
+    fr: "Activités terrestres et aquatiques au lac de Saint-Ferréol"
+    en: "Land and water activities at Lake Saint-Ferréol"
+    es: "Actividades terrestres y acuáticas en el lago de Saint-Ferréol"
+intro:
+  eyebrow:
+    fr: "Le terrain de jeu"
+    en: "The playground"
+    es: "El terreno de juego"
+  title:
+    fr: "Activités nature au lac de Saint-Ferréol"
+    en: "Outdoor activities at Lake Saint-Ferréol"
+    es: "Actividades en la naturaleza en el lago de Saint-Ferréol"
+  body:
+    fr: "Au cœur du Tarn, entre Toulouse et Castres, le lac de Saint-Ferréol est un terrain de jeu naturel exceptionnel. Notre base de loisirs propose des activités aquatiques — paddle, canoë, pédalo — et terrestres — VTT, mini-golf, archery tag, course d'orientation — accessibles à tous : familles, groupes d'amis, sorties scolaires ou team building d'entreprise. À 45 minutes de Toulouse et 30 minutes de Castres, au pied de la Montagne Noire, venez profiter d'une journée plein air dans un cadre classé au patrimoine mondial de l'UNESCO."
+    en: "In the heart of Tarn, between Toulouse and Castres, Lake Saint-Ferréol is an outstanding natural playground. Our leisure base offers water activities — paddle, canoe, pedal boat — and land activities — mountain biking, mini-golf, archery tag, orienteering — accessible to all: families, groups of friends, school outings or corporate team building. Just 45 minutes from Toulouse and 30 minutes from Castres, at the foot of the Montagne Noire, enjoy a day of outdoor fun in a UNESCO World Heritage setting."
+    es: "En el corazón del Tarn, entre Toulouse y Castres, el lago de Saint-Ferréol es un terreno de juego natural excepcional. Nuestra base de ocio ofrece actividades acuáticas — paddle, canoa, hidropedal — y terrestres — BTT, mini-golf, archery tag, orientación — accesibles para todos: familias, grupos de amigos, excursiones escolares o team building de empresa. A solo 45 minutos de Toulouse y 30 minutos de Castres, al pie de la Montagne Noire, disfrute de un día al aire libre en un entorno declarado Patrimonio Mundial de la UNESCO."
+groups:
+  eyebrow:
+    fr: "Groupes & scolaires"
+    en: "Groups & schools"
+    es: "Grupos y escolares"
+  title:
+    fr: "Sortie de groupe"
+    en: "Group outing"
+    es: "Salida en grupo"
+  body:
+    fr: "Organisez une sortie de groupe — activités personnalisées pour entreprises, associations, écoles et groupes d'amis."
+    en: "Organize a group outing — customized activities for companies, associations, schools and groups of friends."
+    es: "Organice una salida de grupo — actividades personalizadas para empresas, asociaciones, escuelas y grupos de amigos."
+  combine:
+    fr: "Combinez avec un repas sur place"
+    en: "Combine with a meal on site"
+    es: "Combina con una comida en el lugar"
+cats:
+  aquatique:
+    fr: "Activités aquatiques"
+    en: "Water activities"
+    es: "Actividades acuáticas"
+  terrestre:
+    fr: "Activités terrestres"
+    en: "Land activities"
+    es: "Actividades terrestres"
+alsoLike:
+  fr: "Vous pourriez aussi aimer"
+  en: "You might also like"
+  es: "También te puede gustar"

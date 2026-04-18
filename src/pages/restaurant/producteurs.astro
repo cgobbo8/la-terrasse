@@ -24,6 +24,20 @@ const telHref = toTelHref(siteSettings?.phone ?? '');
 // Load producers from Keystatic
 const reader = createReader(process.cwd(), keystaticConfig);
 const allProducers = await reader.collections.producers.all();
+const pageTexts = await reader.singletons.producteursTexts.read();
+const tx = (path: string) => {
+  const [section, field] = path.split('.');
+  return getLocalizedField(
+    ((pageTexts as Record<string, unknown> | null)?.[section] as Record<string, unknown>) ?? {},
+    field,
+    lang,
+  );
+};
+const introText = getLocalizedField(
+  (pageTexts as Record<string, unknown> | null) ?? {},
+  'intro',
+  lang,
+);
 const producers = allProducers
   .filter((p) => p.entry.meta.visible)
   .sort((a, b) => (a.entry.meta.order ?? 0) - (b.entry.meta.order ?? 0));
@@ -41,7 +55,7 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
   <!-- Hero — Terroir / farm-to-table feel -->
   <SectionHero
     tagline={t('restaurant.producers.title')}
-    subtitle={t('restaurant.producers.heroSubtitle')}
+    subtitle={tx('hero.subtitle')}
     pole="restaurant"
     image="/images/heroes/producteurs.webp"
     breadcrumb={{ parentLabel: t('nav.restaurant'), parentHref: getLocalizedPath('/restaurant', lang), currentLabel: t('restaurant.producers.breadcrumb') }}
@@ -51,7 +65,7 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
   <section class="pt-12 lg:pt-24 pb-8 lg:pb-12">
     <div class="max-w-[768px] mx-auto px-4 sm:px-6 lg:px-8">
       <p class="text-lg lg:text-xl text-gray-600 leading-relaxed text-center">
-        {t('restaurant.producers.intro')}
+        {introText}
       </p>
     </div>
   </section>
@@ -84,12 +98,12 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
   <!-- CTA — Subtle, storytelling-appropriate -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)" style={`background-color: ${restaurant.light}`}>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
-      <p class="section-eyebrow mb-3" style={`color: ${restaurant.accent}80`}>Terroir</p>
+      <p class="section-eyebrow mb-3" style={`color: ${restaurant.accent}80`}>{tx('cta.eyebrow')}</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4 text-gray-900">
-        {t('restaurant.producers.ctaTitle')}
+        {tx('cta.title')}
       </h2>
       <p class="text-gray-600 text-lg mb-8">
-        {t('restaurant.producers.ctaSubtitle')}
+        {tx('cta.subtitle')}
       </p>
       <a
         href={telHref}

@@ -716,5 +716,151 @@ export default config({
         ),
       },
     }),
+
+    restaurantHubTexts: singleton({
+      label: 'Textes — Restaurant (hub)',
+      path: 'src/content/page-texts/restaurant-hub',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            tagline: i18n('Tagline'),
+            subtitle: i18n('Sous-titre', true),
+          },
+          { label: 'Hero' },
+        ),
+        moment: fields.object(
+          {
+            eyebrow: i18n('Eyebrow (L\'ambiance)'),
+            title: i18n('Titre'),
+            body: i18n('Paragraphe', true),
+          },
+          { label: "L'esprit guinguette" },
+        ),
+        reserve: fields.object(
+          {
+            eyebrow: i18n('Eyebrow (Réservation)'),
+            title: i18n('Titre'),
+            subtitle: i18n('Sous-titre', true),
+          },
+          { label: 'Réservez votre table' },
+        ),
+        subpage: fields.object(
+          {
+            carteDesc: i18n('Description — Carte'),
+            producteursDesc: i18n('Description — Producteurs'),
+          },
+          { label: 'Cartes de navigation (carte / producteurs)' },
+        ),
+        soirees: fields.object(
+          {
+            title: i18n('Titre'),
+            body: i18n('Paragraphe', true),
+          },
+          { label: 'Section Soirées en terrasse' },
+        ),
+        location: fields.object(
+          {
+            eyebrow: i18n('Eyebrow'),
+            title: i18n('Titre'),
+            body: i18n('Corps du texte (prose SEO)', true),
+          },
+          { label: 'Le cadre (prose SEO)' },
+        ),
+      },
+    }),
+
+    restaurantMenuTexts: singleton({
+      label: 'Textes — Restaurant Carte',
+      path: 'src/content/page-texts/restaurant-menu',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            title: i18n('Titre'),
+            subtitle: i18n('Sous-titre'),
+          },
+          { label: 'Hero' },
+        ),
+        cta: fields.object(
+          {
+            eyebrow: i18n('Eyebrow'),
+            title: i18n('Titre'),
+            subtitle: i18n('Sous-titre', true),
+          },
+          { label: 'CTA réservation' },
+        ),
+        crossSell: fields.object(
+          {
+            text: i18n('Texte'),
+            link: i18n('Lien'),
+          },
+          { label: 'Cross-link vers aventure' },
+        ),
+      },
+    }),
+
+    producteursTexts: singleton({
+      label: 'Textes — Restaurant Producteurs',
+      path: 'src/content/page-texts/restaurant-producteurs',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            subtitle: i18n('Sous-titre'),
+          },
+          { label: 'Hero' },
+        ),
+        intro: i18n('Introduction', true),
+        cta: fields.object(
+          {
+            eyebrow: i18n('Eyebrow (Terroir)'),
+            title: i18n('Titre CTA'),
+            subtitle: i18n('Sous-titre CTA', true),
+          },
+          { label: 'CTA final' },
+        ),
+      },
+    }),
+
+    aventureHubTexts: singleton({
+      label: 'Textes — Aventure (hub)',
+      path: 'src/content/page-texts/aventure-hub',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            tagline: i18n('Tagline'),
+            subtitle: i18n('Sous-titre', true),
+          },
+          { label: 'Hero' },
+        ),
+        intro: fields.object(
+          {
+            eyebrow: i18n('Eyebrow'),
+            title: i18n('Titre'),
+            body: i18n('Corps du texte (prose SEO)', true),
+          },
+          { label: 'Intro SEO' },
+        ),
+        groups: fields.object(
+          {
+            eyebrow: i18n('Eyebrow'),
+            title: i18n('Titre'),
+            body: i18n('Description', true),
+            combine: i18n('Phrase combinée (« Combinez avec… »)'),
+          },
+          { label: 'Section groupes' },
+        ),
+        cats: fields.object(
+          {
+            aquatique: i18n('Titre catégorie Aquatique'),
+            terrestre: i18n('Titre catégorie Terrestre'),
+          },
+          { label: 'Titres de catégories' },
+        ),
+        alsoLike: i18n('« Vous pourriez aussi aimer »'),
+      },
+    }),
   },
 });

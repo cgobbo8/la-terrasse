@@ -1,0 +1,66 @@
+hero:
+  tagline:
+    fr: "Tapas, burgers et bonne humeur face au lac"
+    en: "Tapas, burgers and good vibes by the lake"
+    es: "Tapas, burgers y buen rollo frente al lago"
+  subtitle:
+    fr: "Cuisine conviviale en terrasse, au bord du lac de Saint-Ferréol"
+    en: "Convivial cuisine on the terrace, at Lake Saint-Ferréol"
+    es: "Cocina convivial en terraza, junto al lago de Saint-Ferréol"
+moment:
+  eyebrow:
+    fr: "L'ambiance"
+    en: "The vibe"
+    es: "El ambiente"
+  title:
+    fr: "L'esprit guinguette"
+    en: "The guinguette spirit"
+    es: "El espíritu guinguette"
+  body:
+    fr: "À quelques pas du lac, la terrasse s'anime sous les guirlandes. Ici, on partage des tapas et des planches entre amis, on croque dans un burger fait maison, on savoure une salade fraîche ou un croque-monsieur. Les soirées s'étirent en karaoké, blind test ou concert en terrasse. Produits locaux, ambiance festive, bonne humeur — c'est ça, La Terrasse."
+    en: "Steps from the lake, the terrace comes alive under fairy lights. Here, you share tapas and platters with friends, bite into a homemade burger, enjoy a fresh salad or a croque-monsieur. Evenings stretch into karaoke, blind tests or live concerts on the terrace. Local produce, festive vibes, good times — that's La Terrasse."
+    es: "A pocos pasos del lago, la terraza se anima bajo las guirnaldas. Aquí se comparten tapas y tablas entre amigos, se muerde un burger casero, se disfruta una ensalada fresca o un croque-monsieur. Las noches se alargan con karaoke, blind test o concierto en la terraza. Productos locales, ambiente festivo, buen rollo — eso es La Terrasse."
+reserve:
+  eyebrow:
+    fr: "Réservation"
+    en: "Reservation"
+    es: "Reserva"
+  title:
+    fr: "Réservez votre table"
+    en: "Book your table"
+    es: "Reserve su mesa"
+  subtitle:
+    fr: "Appelez-nous pour réserver ou venez directement profiter de la terrasse."
+    en: "Call us to book or come directly to enjoy the terrace."
+    es: "Llámenos para reservar o venga directamente a disfrutar de la terraza."
+subpage:
+  carteDesc:
+    fr: "Tapas, burgers, salades et plats de saison"
+    en: "Tapas, burgers, salads and seasonal dishes"
+    es: "Tapas, burgers, ensaladas y platos de temporada"
+  producteursDesc:
+    fr: "Les artisans derrière nos assiettes"
+    en: "The artisans behind our plates"
+    es: "Los artesanos detrás de nuestros platos"
+soirees:
+  title:
+    fr: "Soirées en terrasse"
+    en: "Evenings on the terrace"
+    es: "Noches en la terraza"
+  body:
+    fr: "Concerts, karaoké, blind test, soirées tapas & DJ... La Terrasse s'anime toute la saison avec des soirées conviviales face au lac. Venez comme vous êtes, repartez avec le sourire."
+    en: "Concerts, karaoke, blind tests, tapas nights & DJ sets... La Terrasse comes alive all season with convivial evenings by the lake. Come as you are, leave with a smile."
+    es: "Conciertos, karaoke, blind test, noches de tapas & DJ... La Terrasse se anima toda la temporada con noches conviviales frente al lago. Ven como eres, vuelve con una sonrisa."
+location:
+  eyebrow:
+    fr: "Le cadre"
+    en: "The setting"
+    es: "El entorno"
+  title:
+    fr: "Un restaurant au bord du lac de Saint-Ferréol"
+    en: "A restaurant by Lake Saint-Ferréol"
+    es: "Un restaurante junto al lago de Saint-Ferréol"
+  body:
+    fr: "À Sorèze, au pied de la Montagne Noire et à 45 minutes de Toulouse, La Terrasse vous accueille dans un cadre naturel d'exception. Installé à quelques pas du lac de Saint-Ferréol — plus grand réservoir du Canal du Midi classé UNESCO — le restaurant propose une cuisine faite maison avec des produits locaux du Tarn et du Lauragais. L'été, la terrasse face au lac est l'endroit idéal pour un déjeuner entre amis, un dîner en famille ou un apéro au coucher du soleil. Entre Castres et Revel, c'est une adresse que les Toulousains adoptent vite."
+    en: "In Sorèze, at the foot of the Montagne Noire and just 45 minutes from Toulouse, La Terrasse welcomes you in an exceptional natural setting. Located steps from Lake Saint-Ferréol — the largest reservoir of the UNESCO-listed Canal du Midi — the restaurant serves homemade dishes with local produce from Tarn and Lauragais. In summer, the lakeside terrace is the perfect spot for lunch with friends, a family dinner or sunset drinks. Between Castres and Revel, it's an address that Toulouse locals quickly adopt."
+    es: "En Sorèze, al pie de la Montagne Noire y a solo 45 minutos de Toulouse, La Terrasse le recibe en un entorno natural excepcional. Situado a pocos pasos del lago de Saint-Ferréol — el mayor embalse del Canal du Midi, declarado Patrimonio de la UNESCO — el restaurante ofrece cocina casera con productos locales del Tarn y del Lauragais. En verano, la terraza frente al lago es el lugar ideal para un almuerzo entre amigos, una cena en familia o un aperitivo al atardecer. Entre Castres y Revel, es una dirección que los habitantes de Toulouse adoptan rápidamente."

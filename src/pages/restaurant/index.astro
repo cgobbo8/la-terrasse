@@ -12,10 +12,12 @@ import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
 import SoireesSection from '@/components/homepage/SoireesSection.astro';
 import OffreJournee from '@/components/common/OffreJournee.astro';
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import { poleConfigs } from '@/lib/pole-config';
 import { getSiteSettings, toTelHref } from '@/lib/site-settings';
 import { generateRestaurantLD } from '@/lib/seo';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
@@ -26,6 +28,18 @@ const phone = siteSettings?.phone ?? '';
 const telHref = toTelHref(phone);
 const jsonLd = generateRestaurantLD();
 
+// CMS texts for this page
+const reader = createReader(process.cwd(), keystaticConfig);
+const pageTexts = await reader.singletons.restaurantHubTexts.read();
+const tx = (path: string) => {
+  const [section, field] = path.split('.');
+  return getLocalizedField(
+    ((pageTexts as Record<string, unknown> | null)?.[section] as Record<string, unknown>) ?? {},
+    field,
+    lang,
+  );
+};
+
 const seoTitle = 'Restaurant en terrasse au lac de Saint-Ferréol, près de Toulouse';
 const seoDescription = 'Restaurant en terrasse au bord du lac de Saint-Ferréol, à 45 min de Toulouse. Tapas, burgers, salades — produits locaux du Tarn, ambiance guinguette. Concerts et soirées.';
 
@@ -33,13 +47,13 @@ const subPages = [
   {
     title: t('restaurant.subpage.carte.title'),
     href: '/restaurant/carte',
-    description: t('restaurant.subpage.carte.desc'),
+    description: tx('subpage.carteDesc'),
     icon: 'lucide:book-open',
   },
   {
     title: t('restaurant.subpage.producteurs.title'),
     href: '/restaurant/producteurs',
-    description: t('restaurant.subpage.producteurs.desc'),
+    description: tx('subpage.producteursDesc'),
     icon: 'lucide:leaf',
   },
 ];
@@ -56,8 +70,8 @@ const subPages = [
 >
   <!-- Hero — Atmosphère, le moment vécu -->
   <SectionHero
-    tagline={t('restaurant.hero.tagline')}
-    subtitle={t('restaurant.hero.subtitle')}
+    tagline={tx('hero.tagline')}
+    subtitle={tx('hero.subtitle')}
     pole="restaurant"
     image="/images/heroes/restaurant.webp"
   >
@@ -96,7 +110,7 @@ const subPages = [
             </h3>
             <p class="text-gray-500 text-sm leading-relaxed">{page.description}</p>
             <span class="inline-flex items-center gap-1.5 mt-4 text-sm font-semibold group-hover:gap-2.5 transition-all" style={`color: ${restaurant.accent};`}>
-              Découvrir
+              {t('common.discover')}
               <Icon name="lucide:arrow-right" class="w-4 h-4" />
             </span>
           </a>
@@ -108,12 +122,12 @@ const subPages = [
   <!-- Atmosphère — Section sensorielle (why us) -->
   <section class="py-16 lg:py-28" style={`background-color: ${restaurant.light}`}>
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
-      <p class="section-eyebrow mb-6" style={`color: ${restaurant.accent}50`}>L'ambiance</p>
+      <p class="section-eyebrow mb-6" style={`color: ${restaurant.accent}50`}>{tx('moment.eyebrow')}</p>
       <h2 class="font-heading text-3xl lg:text-4xl font-bold mb-8 text-gray-900">
-        {t('restaurant.hub.momentTitle')}
+        {tx('moment.title')}
       </h2>
       <p class="text-lg lg:text-xl text-gray-600 leading-relaxed">
-        {t('restaurant.hub.momentBody')}
+        {tx('moment.body')}
       </p>
     </div>
   </section>
@@ -128,12 +142,12 @@ const subPages = [
   <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) grain-overlay overflow-hidden" style={`background-color: ${restaurant.accent}`}>
     <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 40% 50%, rgba(255,255,255,0.15) 0%, transparent 60%);"></div>
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10" data-reveal>
-      <p class="section-eyebrow text-white/30 mb-6">Réservation</p>
+      <p class="section-eyebrow text-white/30 mb-6">{tx('reserve.eyebrow')}</p>
       <h2 class="font-heading text-3xl lg:text-4xl font-bold text-white mb-6">
-        {t('restaurant.hub.reserveTitle')}
+        {tx('reserve.title')}
       </h2>
       <p class="text-white/50 text-lg mb-10">
-        {t('restaurant.hub.reserveSubtitle')}
+        {tx('reserve.subtitle')}
       </p>
       <a
         href={telHref}
@@ -158,12 +172,12 @@ const subPages = [
   <!-- Le cadre — SEO prose section -->
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite">
     <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-      <p class="section-eyebrow mb-4" style={`color: ${restaurant.accent}50`}>{t('restaurant.hub.locationEyebrow')}</p>
+      <p class="section-eyebrow mb-4" style={`color: ${restaurant.accent}50`}>{tx('location.eyebrow')}</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-6 text-gray-900">
-        {t('restaurant.hub.locationTitle')}
+        {tx('location.title')}
       </h2>
       <p class="text-gray-600 leading-relaxed text-base lg:text-lg">
-        {t('restaurant.hub.locationBody')}
+        {tx('location.body')}
       </p>
     </div>
   </section>
