@@ -671,7 +671,10 @@ export default config({
             tagline: i18n('Tagline (gros titre)'),
             subtitle: i18n('Sous-titre', true),
           },
-          { label: 'Hero' },
+          {
+            label: 'Hero',
+            description: 'Grande section en tête de page, au-dessus du pli : le titre principal et une phrase d\'accroche.',
+          },
         ),
         poles: fields.object(
           {
@@ -679,7 +682,10 @@ export default config({
             aventureDesc: i18n('Description — Aventure', true),
             salleDesc: i18n('Description — La Salle', true),
           },
-          { label: 'Trois façons de profiter' },
+          {
+            label: 'Trois façons de profiter',
+            description: 'Les 3 cartes juste après le widget agenda, qui renvoient vers Restaurant / Aventure / La Salle.',
+          },
         ),
         dayTrip: fields.object(
           {
@@ -696,13 +702,19 @@ export default config({
             block5Title: i18n('Bloc 6 — Titre'),
             block5Desc: i18n('Bloc 6 — Description', true),
           },
-          { label: 'Une journée type à La Terrasse' },
+          {
+            label: 'Une journée type à La Terrasse',
+            description: 'Timeline illustrée : les 6 étapes d\'une journée (9h → 19h30). Chaque bloc a un titre court + une phrase narrative.',
+          },
         ),
         soirees: fields.object(
           {
             body: i18n('Paragraphe', true),
           },
-          { label: 'Section Soirées' },
+          {
+            label: 'Section Soirées',
+            description: 'Paragraphe central entre les 4 cartes déco (concerts / karaoké / blind test / DJ).',
+          },
         ),
         history: fields.object(
           {
@@ -712,7 +724,10 @@ export default config({
             body: i18n('Corps du texte', true),
             closing: i18n('Conclusion', true),
           },
-          { label: 'Section Histoire' },
+          {
+            label: 'Section Histoire',
+            description: 'Section storytelling avec le portrait de Riquet. Eyebrow, titre, puis 3 paragraphes (intro en gras, corps, conclusion en italique).',
+          },
         ),
         cta: fields.object(
           {
@@ -720,7 +735,10 @@ export default config({
             title: i18n('Titre'),
             subtitle: i18n('Sous-titre', true),
           },
-          { label: 'CTA final' },
+          {
+            label: 'CTA final',
+            description: 'Bloc coloré au pied de la homepage avec le gros titre et une phrase sous le titre.',
+          },
         ),
       },
     }),
@@ -735,7 +753,10 @@ export default config({
             tagline: i18n('Tagline'),
             subtitle: i18n('Sous-titre', true),
           },
-          { label: 'Hero' },
+          {
+            label: 'Hero',
+            description: 'En-tête de /restaurant : titre plein écran sur la photo + phrase d\'accroche.',
+          },
         ),
         moment: fields.object(
           {
@@ -743,7 +764,10 @@ export default config({
             title: i18n('Titre'),
             body: i18n('Paragraphe', true),
           },
-          { label: "L'esprit guinguette" },
+          {
+            label: "L'esprit guinguette",
+            description: 'Section atmosphérique sur fond terracotta, juste après les 2 cartes "Carte / Producteurs". Eyebrow + gros titre + paragraphe sensoriel.',
+          },
         ),
         reserve: fields.object(
           {
@@ -751,21 +775,30 @@ export default config({
             title: i18n('Titre'),
             subtitle: i18n('Sous-titre', true),
           },
-          { label: 'Réservez votre table' },
+          {
+            label: 'Réservez votre table',
+            description: 'Bloc terracotta pleine largeur avec le numéro affiché en gros. Situé après la section "Offre Journée".',
+          },
         ),
         subpage: fields.object(
           {
             carteDesc: i18n('Description — Carte'),
             producteursDesc: i18n('Description — Producteurs'),
           },
-          { label: 'Cartes de navigation (carte / producteurs)' },
+          {
+            label: 'Cartes de navigation (carte / producteurs)',
+            description: 'Deux cartes blanches à côté de la photo hero qui dirigent vers /restaurant/carte et /restaurant/producteurs. On édite juste la petite description grise sous le titre.',
+          },
         ),
         soirees: fields.object(
           {
             title: i18n('Titre'),
             body: i18n('Paragraphe', true),
           },
-          { label: 'Section Soirées en terrasse' },
+          {
+            label: 'Section Soirées en terrasse',
+            description: 'Variante de la section "Soirées" déjà présente sur la homepage, adaptée au contexte restaurant.',
+          },
         ),
         location: fields.object(
           {
@@ -773,7 +806,10 @@ export default config({
             title: i18n('Titre'),
             body: i18n('Corps du texte (prose SEO)', true),
           },
-          { label: 'Le cadre (prose SEO)' },
+          {
+            label: 'Le cadre (prose SEO)',
+            description: 'Bloc éditorial en bas de page, optimisé pour le référencement (mots-clés « Sorèze », « Toulouse », « Canal du Midi »). Long paragraphe.',
+          },
         ),
       },
     }),
@@ -788,7 +824,10 @@ export default config({
             title: i18n('Titre'),
             subtitle: i18n('Sous-titre'),
           },
-          { label: 'Hero' },
+          {
+            label: 'Hero',
+            description: 'En-tête de /restaurant/carte (au-dessus du menu).',
+          },
         ),
         cta: fields.object(
           {
@@ -796,14 +835,20 @@ export default config({
             title: i18n('Titre'),
             subtitle: i18n('Sous-titre', true),
           },
-          { label: 'CTA réservation' },
+          {
+            label: 'CTA réservation',
+            description: 'Bloc en pied de page du menu, avec le numéro de téléphone.',
+          },
         ),
         crossSell: fields.object(
           {
             text: i18n('Texte'),
             link: i18n('Lien'),
           },
-          { label: 'Cross-link vers aventure' },
+          {
+            label: 'Cross-link vers aventure',
+            description: 'Bandeau narratif invitant à enchaîner sur les activités après le déjeuner.',
+          },
         ),
       },
     }),
@@ -817,7 +862,10 @@ export default config({
           {
             subtitle: i18n('Sous-titre'),
           },
-          { label: 'Hero' },
+          {
+            label: 'Hero',
+            description: 'Juste le sous-titre du hero — le titre principal « Nos producteurs locaux » est un label UI défini dans les traductions du code.',
+          },
         ),
         intro: i18n('Introduction', true),
         cta: fields.object(
@@ -826,7 +874,10 @@ export default config({
             title: i18n('Titre CTA'),
             subtitle: i18n('Sous-titre CTA', true),
           },
-          { label: 'CTA final' },
+          {
+            label: 'CTA final',
+            description: 'Bloc crème en pied de page invitant à réserver.',
+          },
         ),
       },
     }),
@@ -841,21 +892,30 @@ export default config({
             tagline: i18n('Tagline'),
             subtitle: i18n('Sous-titre', true),
           },
-          { label: 'Hero' },
+          {
+            label: 'Hero',
+            description: 'En-tête de /la-salle : titre plein écran sur la photo de la salle.',
+          },
         ),
         venue: fields.object(
           {
             eyebrow: i18n('Eyebrow'),
             title: i18n('Titre'),
           },
-          { label: 'Section L\'espace' },
+          {
+            label: 'Section L\'espace',
+            description: 'Petit titre juste avant les chiffres clés de la salle (capacité / surface) et la liste des équipements.',
+          },
         ),
         spaces: fields.object(
           {
             eyebrow: i18n('Eyebrow'),
             title: i18n('Titre'),
           },
-          { label: 'Section 3 espaces' },
+          {
+            label: 'Section 3 espaces',
+            description: 'Titre de la section qui présente les 3 cards détaillées : salle, sanitaires, traiteur.',
+          },
         ),
         dispatch: fields.object(
           {
@@ -864,7 +924,10 @@ export default config({
             seminairesTitle: i18n('Carte Séminaires — Titre'),
             seminairesDesc: i18n('Carte Séminaires — Description', true),
           },
-          { label: 'Cartes de dispatch (Événementiel / Séminaires)' },
+          {
+            label: 'Cartes de dispatch (Événementiel / Séminaires)',
+            description: 'Les 2 grandes cartes image + texte qui dispatchent vers /la-salle/evenementiel et /la-salle/seminaires.',
+          },
         ),
         contact: fields.object(
           {
@@ -872,7 +935,10 @@ export default config({
             title: i18n('Titre'),
             subtitle: i18n('Sous-titre', true),
           },
-          { label: 'CTA contact final' },
+          {
+            label: 'CTA contact final',
+            description: 'Bloc bleu ardoise pleine largeur en bas de la page avec le bouton « Demander un devis ».',
+          },
         ),
       },
     }),
@@ -887,7 +953,10 @@ export default config({
             tagline: i18n('Tagline'),
             subtitle: i18n('Sous-titre', true),
           },
-          { label: 'Hero' },
+          {
+            label: 'Hero',
+            description: 'En-tête de /aventure : titre plein écran sur photo.',
+          },
         ),
         intro: fields.object(
           {
@@ -895,7 +964,10 @@ export default config({
             title: i18n('Titre'),
             body: i18n('Corps du texte (prose SEO)', true),
           },
-          { label: 'Intro SEO' },
+          {
+            label: 'Intro SEO',
+            description: 'Bloc éditorial crème juste après le hero, optimisé référencement (mots-clés « Tarn », « Toulouse », « Castres »).',
+          },
         ),
         groups: fields.object(
           {
@@ -904,14 +976,20 @@ export default config({
             body: i18n('Description', true),
             combine: i18n('Phrase combinée (« Combinez avec… »)'),
           },
-          { label: 'Section groupes' },
+          {
+            label: 'Section groupes',
+            description: 'Bloc en bas de page centré, appelant les groupes / scolaires / team building à commander sur mesure.',
+          },
         ),
         cats: fields.object(
           {
             aquatique: i18n('Titre catégorie Aquatique'),
             terrestre: i18n('Titre catégorie Terrestre'),
           },
-          { label: 'Titres de catégories' },
+          {
+            label: 'Titres de catégories',
+            description: 'Les 2 titres de sections qui séparent les activités aquatiques des activités terrestres.',
+          },
         ),
         alsoLike: i18n('« Vous pourriez aussi aimer »'),
       },
