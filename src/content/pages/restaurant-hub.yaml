@@ -64,3 +64,12 @@ location:
     fr: "À Sorèze, au pied de la Montagne Noire et à 45 minutes de Toulouse, La Terrasse vous accueille dans un cadre naturel d'exception. Installé à quelques pas du lac de Saint-Ferréol — plus grand réservoir du Canal du Midi classé UNESCO — le restaurant propose une cuisine faite maison avec des produits locaux du Tarn et du Lauragais. L'été, la terrasse face au lac est l'endroit idéal pour un déjeuner entre amis, un dîner en famille ou un apéro au coucher du soleil. Entre Castres et Revel, c'est une adresse que les Toulousains adoptent vite."
     en: "In Sorèze, at the foot of the Montagne Noire and just 45 minutes from Toulouse, La Terrasse welcomes you in an exceptional natural setting. Located steps from Lake Saint-Ferréol — the largest reservoir of the UNESCO-listed Canal du Midi — the restaurant serves homemade dishes with local produce from Tarn and Lauragais. In summer, the lakeside terrace is the perfect spot for lunch with friends, a family dinner or sunset drinks. Between Castres and Revel, it's an address that Toulouse locals quickly adopt."
     es: "En Sorèze, al pie de la Montagne Noire y a solo 45 minutos de Toulouse, La Terrasse le recibe en un entorno natural excepcional. Situado a pocos pasos del lago de Saint-Ferréol — el mayor embalse del Canal du Midi, declarado Patrimonio de la UNESCO — el restaurante ofrece cocina casera con productos locales del Tarn y del Lauragais. En verano, la terraza frente al lago es el lugar ideal para un almuerzo entre amigos, una cena en familia o un aperitivo al atardecer. Entre Castres y Revel, es una dirección que los habitantes de Toulouse adoptan rápidamente."
+crosslink:
+  description:
+    fr: "Une cuisine simple, locale et gourmande"
+    en: "Simple, local, and delicious cuisine"
+    es: "Cocina sencilla, local y deliciosa"
+  toAventure:
+    fr: "Prolongez le plaisir — balade ou pédalo sur le lac après le déjeuner →"
+    en: "Extend the pleasure — a stroll or pedal boat ride on the lake after lunch →"
+    es: "Prolonga el placer — paseo o hidropedal en el lago después del almuerzo →"

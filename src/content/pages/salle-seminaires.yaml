@@ -20,6 +20,162 @@ config:
     fr: "Sélectionnez vos options et obtenez une estimation instantanée. Nous vous envoyons votre devis sous 24h."
     en: "Select your options and get an instant estimate. We'll send your quote within 24 hours."
     es: "Seleccione sus opciones y obtenga una estimación instantánea. Le enviamos su presupuesto en 24 horas."
+calloutSeparator:
+  fr: "ou votre projet est unique ?"
+  en: "or is your project unique?"
+  es: "¿o su proyecto es único?"
+callout:
+  title:
+    fr: "Un projet qui sort de l'ordinaire ?"
+    en: "A project out of the ordinary?"
+    es: "¿Un proyecto fuera de lo común?"
+  desc:
+    fr: "Journée sportive, format atypique, groupe scolaire, événement sur-mesure… Chaque demande est unique. Contactez-nous directement pour un devis 100 % adapté."
+    en: "Sports day, atypical format, school group, bespoke event… Every request is unique. Contact us directly for a 100% tailored quote."
+    es: "Jornada deportiva, formato atípico, grupo escolar, evento a medida… Cada solicitud es única. Contáctenos directamente para un presupuesto 100% adaptado."
+  phoneLabel:
+    fr: "Appelez-nous"
+    en: "Call us"
+    es: "Llámenos"
+  emailLabel:
+    fr: "Envoyer un mail"
+    en: "Send an email"
+    es: "Enviar un email"
+teamBuilding:
+  eyebrow:
+    fr: "Cohésion"
+    en: "Team spirit"
+    es: "Cohesión"
+  title:
+    fr: "Team building"
+    en: "Team building"
+    es: "Team building"
+  desc:
+    fr: "Renforcez la cohésion de votre équipe avec nos activités sur site et nos programmes encadrés par un coach professionnel."
+    en: "Strengthen your team's cohesion with our on-site activities and programmes led by a professional coach."
+    es: "Refuerce la cohesión de su equipo con nuestras actividades in situ y nuestros programas dirigidos por un coach profesional."
+  outdoor:
+    title:
+      fr: "Activités plein air"
+      en: "Outdoor activities"
+      es: "Actividades al aire libre"
+    subtitle:
+      fr: "En autonomie, sur le site"
+      en: "Self-guided, on site"
+      es: "Autónomas, en el sitio"
+    activities:
+      - icon: target
+        label:
+          fr: "Archery Tag"
+          en: "Archery Tag"
+          es: "Archery Tag"
+        desc:
+          fr: "Stratégie et esprit d'équipe"
+          en: "Strategy and team spirit"
+          es: "Estrategia y espíritu de equipo"
+      - icon: waves
+        label:
+          fr: "Paddle & Canoë"
+          en: "Paddle & Canoe"
+          es: "Paddle y Canoa"
+        desc:
+          fr: "Cohésion sur le lac"
+          en: "Team bonding on the lake"
+          es: "Cohesión en el lago"
+      - icon: bike
+        label:
+          fr: "VTT"
+          en: "Mountain biking"
+          es: "BTT"
+        desc:
+          fr: "Exploration nature en groupe"
+          en: "Group nature exploration"
+          es: "Exploración naturaleza en grupo"
+      - icon: compass
+        label:
+          fr: "Course d'orientation"
+          en: "Orienteering"
+          es: "Carrera de orientación"
+        desc:
+          fr: "Logique et communication"
+          en: "Logic and communication"
+          es: "Lógica y comunicación"
+      - icon: anchor
+        label:
+          fr: "Pédalo"
+          en: "Pedal boat"
+          es: "Hidropedal"
+        desc:
+          fr: "Détente et convivialité"
+          en: "Relaxation and togetherness"
+          es: "Relax y convivencia"
+    ctaLabel:
+      fr: "Voir toutes les activités"
+      en: "See all activities"
+      es: "Ver todas las actividades"
+  coaching:
+    title:
+      fr: "Coaching professionnel"
+      en: "Professional coaching"
+      es: "Coaching profesional"
+    subtitle:
+      fr: "Encadré par un coach spécialisé"
+      en: "Led by a specialised coach"
+      es: "Dirigido por un coach especializado"
+    premiumLabel:
+      fr: "Premium"
+      en: "Premium"
+      es: "Premium"
+    activities:
+      - icon: flame
+        label:
+          fr: "Épreuves type Koh-Lanta"
+          en: "Koh-Lanta-style challenges"
+          es: "Pruebas tipo Koh-Lanta"
+        desc:
+          fr: "Dépassement de soi"
+          en: "Pushing your limits"
+          es: "Superación personal"
+      - icon: brain
+        label:
+          fr: "Préparation mentale"
+          en: "Mental preparation"
+          es: "Preparación mental"
+        desc:
+          fr: "Gestion du stress et focus"
+          en: "Stress management and focus"
+          es: "Gestión del estrés y concentración"
+      - icon: users
+        label:
+          fr: "Cohésion d'équipe"
+          en: "Team cohesion"
+          es: "Cohesión de equipo"
+        desc:
+          fr: "Exercices de confiance et communication"
+          en: "Trust and communication exercises"
+          es: "Ejercicios de confianza y comunicación"
+      - icon: puzzle
+        label:
+          fr: "Épreuves de logique"
+          en: "Logic challenges"
+          es: "Pruebas de lógica"
+        desc:
+          fr: "Résolution de problèmes en équipe"
+          en: "Team problem-solving"
+          es: "Resolución de problemas en equipo"
+      - icon: medal
+        label:
+          fr: "Défis sportifs"
+          en: "Sports challenges"
+          es: "Desafíos deportivos"
+        desc:
+          fr: "Parcours et épreuves physiques"
+          en: "Courses and physical challenges"
+          es: "Circuitos y pruebas físicas"
+    ctaLabel:
+      fr: "Demander un devis"
+      en: "Request a quote"
+      es: "Solicitar un presupuesto"
 why:
   eyebrow:
     fr: "Pourquoi Saint-Ferréol"

@@ -7,64 +7,68 @@
  *
  * Zero JS — pure Astro + CSS. Hover effects via CSS transitions.
  */
-import { Icon } from 'astro-icon/components';
-import { getLangFromUrl, getLocalizedPath, useTranslations } from '@/i18n/utils';
+import Icon from '@/components/common/Icon.astro';
+import { getLangFromUrl, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import type { Lang } from '@/i18n/translations';
 import { poleConfigs, brandColors } from '@/lib/pole-config';
 import { getSiteSettings } from '@/lib/site-settings';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
+
 interface Props {
   lang?: Lang;
 }
 
 const { lang: langProp } = Astro.props;
 const lang: Lang = langProp ?? getLangFromUrl(Astro.url, Astro.currentLocale);
-const t = useTranslations(lang);
 
 const settings = await getSiteSettings();
 const discount = settings?.passJourneeDiscount ?? 20;
 
-const aventurePath = getLocalizedPath('/aventure', lang);
+const reader = createReader(process.cwd(), keystaticConfig);
+const offre = await reader.singletons.offreJournee.read();
+const ox = (section: string, field: string) =>
+  getLocalizedField((offre?.[section as keyof typeof offre] ?? {}) as Record<string, unknown>, field, lang);
 
+const aventurePath = getLocalizedPath('/aventure', lang);
 const { accent: aventureAccent, accentDark: aventureDark, light: aventureLight } = poleConfigs.aventure;
 
-/* ----------------------------------------------------------------
-   Large activities — the "1 grande activité" anchor points
----------------------------------------------------------------- */
-const grandesActivites = [
-  { icon: 'lucide:bike',        label: t('offre.activity.vtt')     },
-  { icon: 'lucide:waves',       label: t('offre.activity.pedalo')  },
-  { icon: 'lucide:target',      label: t('offre.activity.archery') },
-];
+const grandesActivites = ((offre?.eligibleActivities?.list ?? []) as Array<any>).map((a) => ({
+  icon: `lucide:${a.icon}`,
+  label: getLocalizedField(a, 'label', lang),
+}));
 
-/* ----------------------------------------------------------------
-   Three-step flow (morning → restaurant → afternoon)
----------------------------------------------------------------- */
+const stepsData = (offre?.steps ?? {}) as Record<string, unknown>;
 const steps = [
   {
     number: '01',
     icon: 'lucide:mountain-snow',
     color: aventureAccent,
     bgLight: aventureLight,
-    label: t('offre.step1.label'),
-    detail: t('offre.step1.detail'),
+    label: getLocalizedField(stepsData, 'step1Label', lang),
+    detail: getLocalizedField(stepsData, 'step1Detail', lang),
   },
   {
     number: '02',
     icon: 'lucide:sparkles',
     color: aventureAccent,
     bgLight: aventureLight,
-    label: t('offre.step2.label'),
-    detail: t('offre.step2.detail'),
+    label: getLocalizedField(stepsData, 'step2Label', lang),
+    detail: getLocalizedField(stepsData, 'step2Detail', lang),
   },
   {
     number: '03',
     icon: 'lucide:percent',
     color: aventureAccent,
     bgLight: aventureLight,
-    label: t('offre.step3.labelTpl').replace('{discount}', String(discount)),
-    detail: t('offre.step3.detail'),
+    label: getLocalizedField(stepsData, 'step3Label', lang).replace('{discount}', String(discount)),
+    detail: getLocalizedField(stepsData, 'step3Detail', lang),
   },
 ];
+
+const heroDesc = ox('hero', 'desc').replace('{discount}', String(discount));
+const packSuffix = getLocalizedField(offre ?? {}, 'packSuffix', lang);
+const validity = getLocalizedField(offre ?? {}, 'validity', lang);
 ---
 
 <section id="offre" class="offre-journee py-(--spacing-section-mobile) lg:py-(--spacing-section)">
@@ -95,25 +99,25 @@ const steps = [
               style={`background-color: ${brandColors.soleilDark}20; color: ${brandColors.brunTerre};`}
             >
               <Icon name="lucide:sun" class="inline w-3.5 h-3.5 mr-1 -mt-0.5" />
-              {t('offre.eyebrow')}
+              {ox('hero', 'eyebrow')}
             </span>
           </div>
 
           <!-- Headline -->
           <div>
             <h2 class="font-heading text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight text-brun-terre">
-              {t('offre.titleLine1')}<br />
-              <em class="not-italic" style={`color: ${aventureAccent}`}>{t('offre.titleLine2')}</em>
+              {ox('hero', 'titleLine1')}<br />
+              <em class="not-italic" style={`color: ${aventureAccent}`}>{ox('hero', 'titleLine2')}</em>
             </h2>
             <p class="mt-4 text-base lg:text-lg leading-relaxed max-w-prose text-gray-600">
-              {t('offre.desc').replace('{discount}', String(discount))}
+              {heroDesc}
             </p>
           </div>
 
           <!-- Grande activité anchor chips -->
           <div>
             <p class="section-eyebrow mb-3 text-gray-400">
-              {t('offre.eligibleEyebrow')}
+              {ox('eligibleActivities', 'eyebrow')}
             </p>
             <div class="flex flex-wrap gap-2">
               {grandesActivites.map((act) => (
@@ -135,7 +139,7 @@ const steps = [
               style={`background-color: ${aventureAccent};`}
             >
               <Icon name="lucide:compass" class="w-4 h-4 flex-shrink-0" />
-              {t('offre.ctaDiscover')}
+              {ox('ctas', 'discoverLabel')}
               <Icon name="lucide:arrow-right" class="w-4 h-4 flex-shrink-0 cta-arrow" />
             </a>
             <a
@@ -144,7 +148,7 @@ const steps = [
               style={`background-color: transparent; color: ${aventureDark}; border: 1.5px solid ${aventureAccent}30;`}
             >
               <Icon name="lucide:tag" class="w-4 h-4 flex-shrink-0" />
-              {t('offre.ctaPrices')}
+              {ox('ctas', 'pricesLabel')}
             </a>
           </div>
         </div>
@@ -159,7 +163,7 @@ const steps = [
                 −{discount}%
               </span>
               <span class="mt-1.5 text-sm font-medium text-brun-terre/70">
-                {t('offre.packSuffix')}
+                {packSuffix}
               </span>
               <!-- Subtle star decoration -->
               <div class="flex gap-1 mt-3 opacity-60" aria-hidden="true">
@@ -206,7 +210,7 @@ const steps = [
               <div class="px-5 py-3 bg-gray-100" style="border-top: 1px solid var(--color-gray-200);">
                 <p class="text-xs leading-snug text-gray-600">
                   <Icon name="lucide:info" class="inline w-3 h-3 mr-1 -mt-0.5" style={`color: ${aventureAccent};`} />
-                  {t('offre.validity')}
+                  {validity}
                 </p>
               </div>
             </div>

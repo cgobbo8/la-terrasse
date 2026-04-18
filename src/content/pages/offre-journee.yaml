@@ -1,0 +1,80 @@
+hero:
+  eyebrow:
+    fr: "Pass Journée"
+    en: "Day Pass"
+    es: "Pase del día"
+  titleLine1:
+    fr: "Profitez de"
+    en: "Enjoy"
+    es: "Disfrute de"
+  titleLine2:
+    fr: "toute La Terrasse"
+    en: "all of La Terrasse"
+    es: "todo La Terrasse"
+  desc:
+    fr: "Achetez 3 activités dont au moins 1 grande et bénéficiez de {discount}% de réduction sur l'ensemble de votre pack activités."
+    en: "Buy 3 activities including at least 1 featured one and get {discount}% off your full activities pack."
+    es: "Compre 3 actividades incluyendo al menos 1 destacada y obtenga un {discount}% de descuento en todo su pack de actividades."
+eligibleActivities:
+  eyebrow:
+    fr: "Grandes activités éligibles"
+    en: "Featured eligible activities"
+    es: "Grandes actividades elegibles"
+  list:
+    - icon: bike
+      label:
+        fr: "VTT tout-terrain"
+        en: "Off-road mountain biking"
+        es: "BTT todoterreno"
+    - icon: waves
+      label:
+        fr: "Pédalo & kayak"
+        en: "Pedal boat & kayak"
+        es: "Hidropedal y kayak"
+    - icon: target
+      label:
+        fr: "Archery tag"
+        en: "Archery tag"
+        es: "Archery tag"
+steps:
+  step1Label:
+    fr: "1 grande activité"
+    en: "1 featured activity"
+    es: "1 actividad destacada"
+  step1Detail:
+    fr: "VTT, pédalo, archery tag…"
+    en: "Mountain biking, pedal boat, archery tag…"
+    es: "BTT, hidropedal, archery tag…"
+  step2Label:
+    fr: "+ 2 petites activités"
+    en: "+ 2 smaller activities"
+    es: "+ 2 actividades pequeñas"
+  step2Detail:
+    fr: "Mini-golf, trampoline…"
+    en: "Mini-golf, trampoline…"
+    es: "Mini-golf, trampolín…"
+  step3Label:
+    fr: "= −{discount}% sur le pack"
+    en: "= −{discount}% on the pack"
+    es: "= −{discount}% en el pack"
+  step3Detail:
+    fr: "Sur l'ensemble de vos activités"
+    en: "On all your activities"
+    es: "En todas sus actividades"
+ctas:
+  discoverLabel:
+    fr: "Découvrir les activités"
+    en: "Discover the activities"
+    es: "Descubrir las actividades"
+  pricesLabel:
+    fr: "Voir les tarifs"
+    en: "View prices"
+    es: "Ver tarifas"
+packSuffix:
+  fr: "sur votre pack activités"
+  en: "on your activities pack"
+  es: "en su pack de actividades"
+validity:
+  fr: "Valable le jour même — réduction appliquée directement à l'achat."
+  en: "Valid same day — discount applied directly at purchase."
+  es: "Válido el mismo día — descuento aplicado directamente al comprar."

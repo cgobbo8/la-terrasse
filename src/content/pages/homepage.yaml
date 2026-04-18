@@ -20,6 +20,19 @@ poles:
     fr: "Séminaires, événements et réceptions dans un cadre naturel et inspirant."
     en: "Seminars, events and receptions in a natural and inspiring setting."
     es: "Seminarios, eventos y recepciones en un entorno natural e inspirador."
+dayTripIntro:
+  eyebrow:
+    fr: "Votre journée"
+    en: "Your day"
+    es: "Tu día"
+  title:
+    fr: "Une journée type à La Terrasse"
+    en: "A typical day at La Terrasse"
+    es: "Un día típico en La Terrasse"
+  cta:
+    fr: "En savoir plus"
+    en: "Learn more"
+    es: "Saber más"
 dayTrip:
   - timeLabel: "9h00"
     title:
@@ -88,10 +101,63 @@ dayTrip:
     image: /images/journee/apero.webp
     pole: restaurant
 soirees:
+  eyebrow:
+    fr: "Restaurant & soirées"
+    en: "Restaurant & evenings"
+    es: "Restaurante & noches"
+  title:
+    fr: "Soirées & événements"
+    en: "Evenings & events"
+    es: "Noches & eventos"
   body:
     fr: "Concerts en terrasse, soirées karaoké, blind test, tapas & drinks — toute la saison, La Terrasse s'anime pour des moments de convivialité face au lac."
     en: "Live concerts on the terrace, karaoke nights, blind tests, tapas & drinks — all season long, La Terrasse comes alive with convivial moments overlooking the lake."
     es: "Conciertos en la terraza, noches de karaoke, blind test, tapas & drinks — toda la temporada, La Terrasse se anima con momentos de convivialidad frente al lago."
+  ctaAgenda:
+    fr: "Voir l'agenda"
+    en: "View calendar"
+    es: "Ver agenda"
+  ctaRestaurant:
+    fr: "Découvrir le restaurant"
+    en: "Discover the restaurant"
+    es: "Descubrir el restaurante"
+  cards:
+    - icon: music
+      label:
+        fr: "Concerts en terrasse"
+        en: "Concerts on the terrace"
+        es: "Conciertos en la terraza"
+      desc:
+        fr: "Artistes locaux, coucher de soleil"
+        en: "Local artists, sunset vibes"
+        es: "Artistas locales, puesta de sol"
+    - icon: brain
+      label:
+        fr: "Blind tests"
+        en: "Blind tests"
+        es: "Blind tests"
+      desc:
+        fr: "Musique, ciné, culture"
+        en: "Music, film, culture"
+        es: "Música, cine, cultura"
+    - icon: mic
+      label:
+        fr: "Soirées karaoké"
+        en: "Karaoke nights"
+        es: "Noches de karaoke"
+      desc:
+        fr: "Votre scène, votre micro"
+        en: "Your stage, your mic"
+        es: "Tu escenario, tu micro"
+    - icon: disc-3
+      label:
+        fr: "DJ sets"
+        en: "DJ sets"
+        es: "DJ sets"
+      desc:
+        fr: "Électro, house, funk"
+        en: "Electro, house, funk"
+        es: "Electro, house, funk"
 history:
   eyebrow:
     fr: "Notre histoire"
@@ -126,6 +192,15 @@ cta:
     fr: "Une journée, trois univers — à 45 minutes de Toulouse."
     en: "One day, three worlds — 45 minutes from Toulouse."
     es: "Un día, tres mundos — a 45 minutos de Toulouse."
+seo:
+  pageTitle:
+    fr: "Base de loisirs au lac de Saint-Ferréol, près de Toulouse"
+    en: "Leisure base at Lake Saint-Ferréol, near Toulouse"
+    es: "Base de ocio en el lago de Saint-Ferréol, cerca de Toulouse"
+  pageDescription:
+    fr: "Base de loisirs au lac de Saint-Ferréol, à 45 min de Toulouse : restaurant en terrasse, activités nautiques et plein air, location de salle. La Terrasse, votre été au lac."
+    en: "Leisure base at Lake Saint-Ferréol, 45 min from Toulouse: lakeside restaurant, water sports & outdoor activities, venue hire. La Terrasse, your summer at the lake."
+    es: "Base de ocio en el lago de Saint-Ferréol, a 45 min de Toulouse: restaurante junto al lago, deportes acuáticos y actividades al aire libre, alquiler de sala. La Terrasse, tu verano en el lago."
 nearby:
   - name:
       fr: "Cité de Sorèze"

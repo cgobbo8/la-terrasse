@@ -1,0 +1,20 @@
+---
+/**
+ * Thin wrapper around astro-icon's <Icon> that forces is:inline.
+ *
+ * Why: astro-icon 1.1.5 has a bug where the first occurrence of each icon on
+ * a page renders a <symbol> sprite on an <svg> that has its viewBox stripped
+ * (Icon.astro line 120 calls `delete normalizedProps.viewBox` when symbol
+ * mode is on). Without viewBox on the outer <svg>, the symbol/use contents
+ * are rendered at native coordinates inside a 1em×1em viewport — meaning
+ * only the top-left corner is visible, which looks like an empty icon.
+ *
+ * Forcing is:inline inlines the body directly on every occurrence (slightly
+ * larger HTML, but guaranteed to render correctly). See node_modules/astro-
+ * icon/components/Icon.astro lines 30, 39, 118–121 for the bug site.
+ */
+import { Icon as AstroIcon } from 'astro-icon/components';
+
+const props = Astro.props;
+---
+<AstroIcon {...props} is:inline />

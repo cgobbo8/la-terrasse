@@ -12,68 +12,16 @@ info:
     fr: "Coordonnées"
     en: "Contact details"
     es: "Datos de contacto"
-  name:
-    fr: "La Terrasse — Base de loisirs"
-    en: "La Terrasse — Leisure base"
-    es: "La Terrasse — Base de ocio"
-  addressLine1:
-    fr: "144 avenue de Carcassonne"
-    en: "144 avenue de Carcassonne"
-    es: "144 avenue de Carcassonne"
-  addressLine2:
-    fr: "81540 Sorèze"
-    en: "81540 Sorèze"
-    es: "81540 Sorèze"
 hours:
   title:
     fr: "Horaires d'ouverture"
     en: "Opening hours"
     es: "Horarios de apertura"
-  seasonEyebrow:
-    fr: "Saison"
-    en: "Season"
-    es: "Temporada"
-  maySepLabel:
-    fr: "Mai & septembre"
-    en: "May & September"
-    es: "Mayo & septiembre"
-  maySepPeriod:
-    fr: "Week-ends & jours fériés"
-    en: "Weekends & public holidays"
-    es: "Fines de semana y festivos"
-  summerLabel:
-    fr: "Juin, juillet, août"
-    en: "June, July, August"
-    es: "Junio, julio, agosto"
-  summerPeriod:
-    fr: "Tous les jours"
-    en: "Every day"
-    es: "Todos los días"
-  scheduleEyebrow:
-    fr: "Horaires"
-    en: "Schedule"
-    es: "Horarios"
-  activitiesLabel:
-    fr: "Activités"
-    en: "Activities"
-    es: "Actividades"
-  activitiesTime:
-    fr: "10h – 19h"
-    en: "10am – 7pm"
-    es: "10h – 19h"
-  restaurantTime:
-    fr: "9h – 22h"
-    en: "9am – 10pm"
-    es: "9h – 22h"
 map:
   title:
     fr: "Nous trouver"
     en: "Find us"
     es: "Encuéntranos"
-  fallback:
-    fr: "Voir sur Google Maps"
-    en: "View on Google Maps"
-    es: "Ver en Google Maps"
 directions:
   eyebrow:
     fr: "Accès"

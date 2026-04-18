@@ -4,7 +4,7 @@
  * Editorial layout: each service period as a full-width section,
  * generous whitespace, elegant typographic hierarchy.
  */
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/common/Icon.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import MenuSection from '@/components/restaurant/MenuSection.astro';
@@ -28,8 +28,7 @@ const siteSettings = await getSiteSettings();
 const phone = siteSettings?.phone ?? '';
 const telHref = toTelHref(phone);
 const pageTexts = await reader.singletons.restaurantCarte.read();
-const crosslinks = await reader.singletons.crosslinks.read();
-const hubNarratives = (crosslinks?.hubNarratives ?? {}) as Record<string, unknown>;
+const crosslinkSection = (pageTexts?.crosslink ?? {}) as Record<string, unknown>;
 const menuSections = pageTexts?.menuSections ?? [];
 const tx = (path: string) => {
   const [section, field] = path.split('.');
@@ -341,7 +340,7 @@ function label(key: keyof typeof periodLabels) {
 
   <!-- Cross-link narratif contextuel -->
   <ContextualCrossLink
-    text={getLocalizedField(hubNarratives, 'carteToAventure', lang)}
+    text={getLocalizedField(crosslinkSection, 'toAventure', lang)}
     href={getLocalizedPath('/aventure', lang)}
     pole="aventure"
   />

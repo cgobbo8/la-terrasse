@@ -4,18 +4,24 @@
  * for schools, leisure centers and associations.
  * Used on: /la-salle, /la-salle/seminaires
  */
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/common/Icon.astro';
 import { poleConfigs } from '@/lib/pole-config';
 import { buildQuoteMailto } from '@/lib/pole-config';
 import { getSiteSettings, toTelHref } from '@/lib/site-settings';
-import { getLangFromUrl, useTranslations } from '@/i18n/utils';
+import { getLangFromUrl, getLocalizedField } from '@/i18n/utils';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
 
 const { accent: salleAccent, light: salleLight } = poleConfigs.salle;
 const settings = await getSiteSettings();
 const siteEmail = settings?.email ?? '';
 const telHref = toTelHref(settings?.phone ?? '');
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
-const t = useTranslations(lang);
+
+const reader = createReader(process.cwd(), keystaticConfig);
+const salleHubData = await reader.singletons.salleHub.read();
+const data = (salleHubData?.collectivites ?? {}) as Record<string, unknown>;
+const cx = (field: string) => getLocalizedField(data, field, lang);
 ---
 
 <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">
@@ -27,13 +33,13 @@ const t = useTranslations(lang);
         </span>
         <div class="flex-1 min-w-0">
           <h2 class="font-heading text-xl lg:text-2xl font-bold text-gray-900 mb-2">
-            {t('salle.collectivites.title')}
+            {cx('title')}
           </h2>
           <p class="text-gray-600 text-sm lg:text-base leading-relaxed mb-2">
-            {t('salle.collectivites.desc.before')}<strong class="text-gray-900">{t('salle.collectivites.desc.highlight')}</strong>{t('salle.collectivites.desc.after')}
+            {cx('descBefore')}<strong class="text-gray-900">{cx('descHighlight')}</strong>{cx('descAfter')}
           </p>
           <p class="text-gray-500 text-sm leading-relaxed mb-6">
-            {t('salle.collectivites.desc2')}
+            {cx('desc2')}
           </p>
           <div class="flex flex-wrap items-center gap-3">
             <a
@@ -42,7 +48,7 @@ const t = useTranslations(lang);
               style={`background-color: ${salleAccent};`}
             >
               <Icon name="lucide:mail" class="w-4 h-4" />
-              {t('salle.collectivites.ctaQuote')}
+              {cx('ctaQuote')}
             </a>
             <a
               href={telHref}
@@ -50,7 +56,7 @@ const t = useTranslations(lang);
               style={`color: ${salleAccent}; border: 1.5px solid ${salleAccent}30; background-color: white;`}
             >
               <Icon name="lucide:phone" class="w-4 h-4" />
-              {t('salle.collectivites.ctaPhone')}
+              {cx('ctaPhone')}
             </a>
           </div>
         </div>

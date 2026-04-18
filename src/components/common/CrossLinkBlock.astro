@@ -2,8 +2,9 @@
 /**
  * Cross-linking structural block (Layer 1)
  * Compact, discreet links at bottom of every pole page.
+ * Each pole's short description is edited on its own hub singleton.
  */
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/common/Icon.astro';
 import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import { poleConfigs, type Pole } from '@/lib/pole-config';
 import { createReader } from '@keystatic/core/reader';
@@ -19,14 +20,19 @@ const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const reader = createReader(process.cwd(), keystaticConfig);
-const crosslinks = await reader.singletons.crosslinks.read();
-const polesDesc = (crosslinks?.polesDescription ?? {}) as Record<string, unknown>;
+const [restaurantHub, aventureHub, salleHub] = await Promise.all([
+  reader.singletons.restaurantHub.read(),
+  reader.singletons.aventureHub.read(),
+  reader.singletons.salleHub.read(),
+]);
+const crosslinkDesc = (obj: { crosslink?: { description?: unknown } } | null) =>
+  getLocalizedField((obj?.crosslink ?? {}) as Record<string, unknown>, 'description', lang);
 
 const poles = [
   {
     id: 'restaurant' as const,
     label: t('nav.restaurant'),
-    description: getLocalizedField(polesDesc, 'restaurant', lang),
+    description: crosslinkDesc(restaurantHub),
     href: getLocalizedPath('/restaurant', lang),
     accent: poleConfigs.restaurant.accent,
     icon: 'lucide:utensils',
@@ -34,7 +40,7 @@ const poles = [
   {
     id: 'aventure' as const,
     label: t('nav.aventure'),
-    description: getLocalizedField(polesDesc, 'aventure', lang),
+    description: crosslinkDesc(aventureHub),
     href: getLocalizedPath('/aventure', lang),
     accent: poleConfigs.aventure.accent,
     icon: 'lucide:mountain',
@@ -42,7 +48,7 @@ const poles = [
   {
     id: 'salle' as const,
     label: t('nav.salle'),
-    description: getLocalizedField(polesDesc, 'salle', lang),
+    description: crosslinkDesc(salleHub),
     href: getLocalizedPath('/la-salle', lang),
     accent: poleConfigs.salle.accent,
     icon: 'lucide:building-2',

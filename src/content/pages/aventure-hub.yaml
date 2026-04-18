@@ -50,3 +50,16 @@ alsoLike:
   fr: "Vous pourriez aussi aimer"
   en: "You might also like"
   es: "También te puede gustar"
+crosslink:
+  description:
+    fr: "Activités terrestres et aquatiques en pleine nature"
+    en: "Land and water activities in the heart of nature"
+    es: "Actividades terrestres y acuáticas en plena naturaleza"
+  toRestaurant:
+    fr: "Après l'effort, le réconfort — déjeunez au bord du lac avec des produits locaux →"
+    en: "After the adventure, treat yourself — lunch by the lake with local produce →"
+    es: "Después del esfuerzo, la recompensa — almuerza junto al lago con productos locales →"
+  activityDefaultToRestaurant:
+    fr: "Après votre activité, déjeunez au bord du lac avec des produits du terroir →"
+    en: "After your activity, enjoy lunch by the lake with local produce →"
+    es: "Después de tu actividad, almuerza junto al lago con productos del terroir →"

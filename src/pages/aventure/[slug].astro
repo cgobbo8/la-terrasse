@@ -3,7 +3,7 @@
  * Activity detail page — dynamic route for each Keystatic activity.
  * Pole: Aventure — accent from poleConfigs
  */
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/common/Icon.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import ContextualCrossLink from '@/components/common/ContextualCrossLink.astro';
@@ -104,22 +104,16 @@ const placeholderImages = [
 const placeholderIndex = activity.slug.length % placeholderImages.length;
 const heroImage = activity.image || placeholderImages[placeholderIndex];
 
-// Narrative cross-link text per activity — edited in CMS singleton `crosslinks`
+// Narrative cross-link text — per-activity override (activities frontmatter)
+// with fallback on aventureHub.crosslink.activityDefaultToRestaurant
 const reader = createReader(process.cwd(), keystaticConfig);
-const crosslinks = await reader.singletons.crosslinks.read();
-const activityCross = (crosslinks?.activityToRestaurant ?? {}) as Record<string, unknown>;
-const activityCrossMap: Record<string, string> = {
-  paddle: 'paddle',
-  'archery-tag': 'archeryTag',
-  pedalo: 'pedalo',
-  canoe: 'canoe',
-  vtt: 'vtt',
-  'mini-golf': 'miniGolf',
-};
-const crossLinkKey = activityCrossMap[activity.slug];
+const aventureData = await reader.singletons.aventureHub.read();
+const rawActivity = await reader.collections.activities.read(activity.slug);
+const activityCrossLink = (rawActivity?.contextualCrossLink ?? {}) as Record<string, string>;
+const activityOverride = activityCrossLink[lang] || activityCrossLink.fr || '';
 const crossLinkText =
-  (crossLinkKey && getLocalizedField(activityCross, crossLinkKey, lang)) ||
-  getLocalizedField(activityCross, 'defaultText', lang);
+  activityOverride ||
+  getLocalizedField((aventureData?.crosslink ?? {}) as Record<string, unknown>, 'activityDefaultToRestaurant', lang);
 
 // SEO
 const siteUrl = 'https://baseloisirs-saintferreol.fr';

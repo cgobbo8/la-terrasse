@@ -16,3 +16,95 @@ seo:
     fr: "Agenda — Événements et soirées à La Terrasse Saint-Ferréol"
     en: "Calendar — Events and evenings at La Terrasse Saint-Ferréol"
     es: "Agenda — Eventos y noches en La Terrasse Saint-Ferréol"
+events:
+  - title:
+      fr: "Ouverture de La Terrasse"
+      en: "La Terrasse Grand Opening"
+      es: "Apertura de La Terrasse"
+    date: 2026-05-01
+    startTime: ""
+    endTime: ""
+    category: autre
+    description:
+      fr: "La Terrasse ouvre ses portes ! Venez découvrir notre base de loisirs au bord du Lac de Saint-Ferréol : restaurant, activités nautiques et terrestres, salle événementielle."
+      en: "La Terrasse opens its doors! Come discover our leisure base on the shores of Lac de Saint-Ferréol: restaurant, water and land activities, event venue."
+      es: "¡La Terrasse abre sus puertas! Ven a descubrir nuestra base de ocio a orillas del Lac de Saint-Ferréol: restaurante, actividades acuáticas y terrestres, sala de eventos."
+    highlighted: true
+  - title:
+      fr: "Concert Anthon & Tony"
+      en: "Anthon & Tony Live — Fête de la Musique"
+      es: "Concierto Anthon & Tony — Fiesta de la Música"
+    date: 2026-06-21
+    startTime: "20:00"
+    endTime: "22:00"
+    category: concert
+    description:
+      fr: "Fête de la Musique au bord du lac ! Anthon & Tony, duo acoustique toulousain folk/pop, posent leurs voix et leurs guitares à La Terrasse pour une soirée tout en harmonies. Reprises françaises et anglaises, ambiance chaleureuse et conviviale. De 20h à 22h."
+      en: "Fête de la Musique by the lake! Anthon & Tony, a Toulouse-based folk/pop acoustic duo, bring their warm harmonies and guitar to La Terrasse. French and English covers in an intimate, feel-good atmosphere. From 8pm to 10pm."
+      es: "¡Fiesta de la Música junto al lago! Anthon & Tony, dúo acústico folk/pop de Toulouse, traen sus armonías y guitarras a La Terrasse. Versiones en francés e inglés en un ambiente cálido y cercano. De 20h a 22h."
+    highlighted: false
+  - title:
+      fr: "Kriké DJ — Open Mic + Tropical Shatta"
+      en: "Kriké DJ — Open Mic + Tropical Shatta"
+      es: "Kriké DJ — Open Mic + Tropical Shatta"
+    date: 2026-07-11
+    startTime: "17:00"
+    endTime: "22:00"
+    category: soiree-theme
+    description:
+      fr: "Après-midi et soirée chaudes garanties ! Kriké, MC et DJ toulousain, prend les commandes de La Terrasse pour un mix explosif : DJ set tropical & shatta, open mic ouvert à tous et bonnes vibes au bord du lac. Ramenez votre énergie, on s'occupe du son ! De 17h à 22h."
+      en: "Hot afternoon and evening guaranteed! Kriké, Toulouse-based MC and DJ, takes over La Terrasse with an explosive mix: tropical & shatta DJ set, open mic for everyone and good vibes by the lake. Bring your energy, we bring the sound! From 5pm to 10pm."
+      es: "¡Tarde y noche calientes aseguradas! Kriké, MC y DJ de Toulouse, toma el control de La Terrasse con una mezcla explosiva: DJ set tropical & shatta, open mic abierto a todos y buen rollo junto al lago. ¡Traed vuestra energía, nosotros ponemos el sonido! De 17h a 22h."
+    highlighted: false
+  - title:
+      fr: "Soirée Jazz au Lac"
+      en: "Jazz Night by the Lake"
+      es: "Noche de Jazz junto al Lago"
+    date: 2026-07-25
+    startTime: "20:00"
+    endTime: "22:00"
+    category: concert
+    description:
+      fr: "Le jazz s'invite au bord du lac de Saint-Ferréol ! Venez savourer une soirée sous les étoiles bercée par des standards jazz, un verre à la main et les pieds au frais. L'été comme on l'aime. De 20h à 22h."
+      en: "Jazz comes to the shores of Lac de Saint-Ferréol! Enjoy an evening under the stars with jazz standards, a drink in hand and a cool summer breeze. Summer at its finest. From 8pm to 10pm."
+      es: "¡El jazz llega a las orillas del Lac de Saint-Ferréol! Disfruta de una velada bajo las estrellas con clásicos del jazz, copa en mano y la brisa fresca del verano. El verano como nos gusta. De 20h a 22h."
+    highlighted: false
+  - title:
+      fr: "Concert Embée — Funk en Trio"
+      en: "Embée Live — Funk Trio"
+      es: "Concierto Embée — Funk en Trío"
+    date: 2026-08-01
+    startTime: "20:00"
+    endTime: "21:00"
+    category: concert
+    description:
+      fr: "Du funk au bord du lac ! Embée débarque en trio à La Terrasse pour une heure de groove pur. Lignes de basse rondes, guitare qui claque et voix soul — la recette parfaite pour faire danser le lac de Saint-Ferréol. De 20h à 21h."
+      en: "Funk by the lake! Embée arrives as a trio at La Terrasse for a pure hour of groove. Round bass lines, snappy guitar and soulful vocals — the perfect recipe to get Lac de Saint-Ferréol dancing. From 8pm to 9pm."
+      es: "¡Funk junto al lago! Embée llega en trío a La Terrasse para una hora de groove puro. Líneas de bajo redondas, guitarra con garra y voz soul — la receta perfecta para hacer bailar el Lac de Saint-Ferréol. De 20h a 21h."
+    highlighted: false
+  - title:
+      fr: "Concert Big Pheel"
+      en: "Big Pheel Live Concert"
+      es: "Concierto Big Pheel"
+    date: 2026-08-08
+    startTime: "20:00"
+    endTime: "22:00"
+    category: concert
+    description:
+      fr: "Big Pheel pose ses amplis à La Terrasse ! Figure incontournable de la scène toulousaine avec plus de 120 concerts par an, Big Pheel et son crew enflamment la soirée avec un mix de pop rock, soul et swing festif. Ambiance participative garantie — chantez, dansez, vibrez au bord du lac. De 20h à 22h."
+      en: "Big Pheel sets up at La Terrasse! A cornerstone of the Toulouse live scene with over 120 gigs a year, Big Pheel and his crew light up the evening with a festive mix of pop rock, soul and swing. Sing along, dance, and feel the vibes by the lake. From 8pm to 10pm."
+      es: "¡Big Pheel se instala en La Terrasse! Figura imprescindible de la escena musical toulousana con más de 120 conciertos al año, Big Pheel y su crew encienden la velada con un mix festivo de pop rock, soul y swing. Cantad, bailad, vibrad junto al lago. De 20h a 22h."
+    highlighted: false
+  - title:
+      fr: "Concert Manu Roig"
+      en: "Manu Roig Live Concert"
+      es: "Concierto Manu Roig"
+    date: 2026-08-15
+    startTime: "20:00"
+    endTime: "22:00"
+    category: concert
+    description:
+      fr: "Manu Roig en concert à La Terrasse pour le 15 août ! Chanteur albigeois révélé dans The Voice saison 9 avec le trio familial La Rafa Mia, Manu Roig porte une voix puissante et chaleureuse sur des reprises pop, folk et grands classiques. Une soirée festive au bord du lac pour célébrer l'été. De 20h à 22h."
+      en: "Manu Roig live at La Terrasse for August 15th! Singer from Albi who appeared on The Voice Season 9 with family trio La Rafa Mia, Manu Roig brings a powerful, warm voice to pop, folk and classic covers. A festive lakeside evening to celebrate summer. From 8pm to 10pm."
+      es: "¡Manu Roig en concierto en La Terrasse el 15 de agosto! Cantante de Albi revelado en The Voice temporada 9 con el trío familiar La Rafa Mia, Manu Roig trae una voz potente y cálida con versiones pop, folk y grandes clásicos. Una velada festiva junto al lago para celebrar el verano. De 20h a 22h."
+    highlighted: false

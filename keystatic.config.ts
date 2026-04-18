@@ -95,9 +95,9 @@ export default config({
       'Restaurant': ['restaurantHub', 'restaurantCarte', 'restaurantProducteurs'],
       'Aventure': ['aventureHub', 'activities'],
       'La Salle': ['salleHub', 'salleEvenementiel', 'salleSeminaires'],
-      'Agenda': ['agendaPage', 'events'],
+      'Agenda': ['agenda'],
       'Contact': ['contactPage'],
-      'Paramètres': ['settings', 'crosslinks', 'legalMentions'],
+      'Paramètres': ['settings', 'offreJournee', 'legalMentions'],
     },
   },
 
@@ -186,56 +186,24 @@ export default config({
           },
           { label: 'Affichage', layout: [6, 6] },
         ),
+        contextualCrossLink: fields.object(
+          {
+            fr: fields.text({ label: 'Français', multiline: true }),
+            en: fields.text({ label: 'English', multiline: true }),
+            es: fields.text({ label: 'Español', multiline: true }),
+          },
+          {
+            label: 'Phrase narrative vers le Restaurant (optionnel)',
+            description: 'Phrase italique affichée en bas de la fiche pour inviter à finir la journée au restaurant. Laissez vide pour utiliser la phrase par défaut définie dans la page Aventure.',
+            layout: [4, 4, 4],
+          },
+        ),
         content: fields.mdx({
           label: 'Description complète',
         }),
       },
     }),
 
-    events: collection({
-      label: 'Événements à venir',
-      slugField: 'title',
-      path: 'src/content/events/*',
-      format: { contentField: 'content' },
-      columns: ['title', 'date', 'category'],
-      schema: {
-        title: fields.slug({ name: { label: 'Nom de l\'événement (FR / slug)', validation: { isRequired: true } } }),
-        title_en: fields.text({ label: 'Title (EN)' }),
-        title_es: fields.text({ label: 'Título (ES)' }),
-        date: fields.date({ label: 'Date', description: 'Date à laquelle l\'événement a lieu. Cliquez sur l\'en-tête « Date » dans la liste pour trier.' }),
-        startTime: fields.text({ label: 'Heure de début (ex : 19:00)' }),
-        endTime: fields.text({ label: 'Heure de fin (ex : 22:00)' }),
-        category: fields.select({
-          label: 'Catégorie',
-          options: [
-            { label: 'Concert', value: 'concert' },
-            { label: 'Soirée à thème', value: 'soiree-theme' },
-            { label: 'Festival / Fête', value: 'festival' },
-            { label: 'Marché / Salon', value: 'marche' },
-            { label: 'Autre', value: 'autre' },
-          ],
-          defaultValue: 'autre',
-        }),
-        description: fields.object(
-          {
-            fr: fields.text({ label: 'Français', multiline: true }),
-            en: fields.text({ label: 'English', multiline: true }),
-            es: fields.text({ label: 'Español', multiline: true }),
-          },
-          { label: 'Description', layout: [4, 4, 4] },
-        ),
-        meta: fields.object(
-          {
-            highlighted: fields.checkbox({ label: 'Mettre en avant (style doré)', defaultValue: false }),
-            visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
-          },
-          { label: 'Affichage', layout: [6, 6] },
-        ),
-        content: fields.mdx({
-          label: 'Contenu',
-        }),
-      },
-    }),
   },
 
   singletons: {
@@ -244,7 +212,7 @@ export default config({
     // Stored as: src/content/legal/mentions-legales.yaml
     // ========================================
     legalMentions: singleton({
-      label: 'Mentions légales (footer)',
+      label: 'Mentions légales',
       path: 'src/content/legal/mentions-legales',
       format: { data: 'yaml' },
       schema: {
@@ -271,13 +239,25 @@ export default config({
           {
             phone: fields.text({ label: 'Téléphone principal' }),
             email: fields.text({ label: 'Email de contact' }),
-            address: fields.text({ label: 'Adresse', multiline: true }),
-            googleMapsUrl: fields.text({ label: 'Lien Google Maps' }),
+            address: fields.text({
+              label: 'Adresse postale',
+              multiline: true,
+              description: 'Une ligne par élément (rue sur la 1re, code postal + ville sur la 2e).',
+            }),
+            googleMapsUrl: fields.text({
+              label: 'Lien Google Maps (ouverture dans un onglet)',
+              description: 'URL cliquable qui ouvre Google Maps dans un nouvel onglet.',
+            }),
+            googleMapsEmbedUrl: fields.text({
+              label: 'URL de la carte Google Maps intégrée (iframe)',
+              description: 'URL qui commence par https://maps.google.com/maps?q=... et se termine par &output=embed. Affichée comme carte interactive sur la page Contact.',
+              multiline: true,
+            }),
           },
           {
             label: 'Coordonnées',
-            description: 'Informations de contact affichées sur le site',
-            layout: [6, 6, 12, 12],
+            description: 'Téléphone, email, adresse postale et liens Google Maps. Utilisés sur la page Contact, le pied de page et la homepage.',
+            layout: [6, 6, 12, 12, 12],
           },
         ),
         socials: fields.object(
@@ -286,6 +266,24 @@ export default config({
             instagram: fields.text({ label: 'Instagram URL' }),
           },
           { label: 'Réseaux sociaux', layout: [6, 6] },
+        ),
+        hours: fields.object(
+          {
+            seasonEyebrow: i18n('Sur-titre « Saison »'),
+            maySepLabel: i18n('Mai/septembre — label'),
+            maySepPeriod: i18n('Mai/septembre — période'),
+            summerLabel: i18n('Juin/juillet/août — label'),
+            summerPeriod: i18n('Juin/juillet/août — période'),
+            scheduleEyebrow: i18n('Sur-titre « Horaires »'),
+            activitiesLabel: i18n('Label « Activités »'),
+            activitiesTime: i18n('Plage horaire activités'),
+            restaurantLabel: i18n('Label « Restaurant »'),
+            restaurantTime: i18n('Plage horaire restaurant'),
+          },
+          {
+            label: 'Horaires d\'ouverture',
+            description: 'Saison (périodes d\'ouverture) + plages horaires par service. Affichés sur la page Contact (section « Horaires ») et sur la homepage (carte Bento « Horaires d\'ouverture »).',
+          },
         ),
         season: fields.object(
           {
@@ -299,14 +297,6 @@ export default config({
               ],
               defaultValue: 'printemps',
             }),
-            openingHours: fields.object(
-              {
-                fr: fields.text({ label: 'Français', multiline: true }),
-                en: fields.text({ label: 'English', multiline: true }),
-                es: fields.text({ label: 'Español', multiline: true }),
-              },
-              { label: 'Horaires d\'ouverture', layout: [4, 4, 4] },
-            ),
             seasonalMessage: fields.object(
               {
                 fr: fields.text({ label: 'Français', multiline: true }),
@@ -316,7 +306,10 @@ export default config({
               { label: 'Message saisonnier', layout: [4, 4, 4] },
             ),
           },
-          { label: 'Saison & horaires' },
+          {
+            label: 'Saison en cours',
+            description: 'Saison active (pour la carte saisonnière de la homepage) + message saisonnier affiché dans cette carte.',
+          },
         ),
         offers: fields.object(
           {
@@ -327,6 +320,16 @@ export default config({
             }),
           },
           { label: 'Offres & promotions' },
+        ),
+        branding: fields.object(
+          {
+            footerTagline: i18n('Tagline affichée dans le footer', true),
+            photoDisclaimer: i18n('Mention légale photos (bas du footer)', true),
+          },
+          {
+            label: 'Marque & footer',
+            description: 'Textes du footer apparaissant sur toutes les pages : tagline sous le logo + mention sur les photos libres de droits.',
+          },
         ),
       },
     }),
@@ -364,6 +367,17 @@ export default config({
             description: 'Les 3 cartes juste après le widget agenda, qui renvoient vers Restaurant / Aventure / La Salle.',
           },
         ),
+        dayTripIntro: fields.object(
+          {
+            eyebrow: i18n('Sur-titre (ex : « Votre journée »)'),
+            title: i18n('Titre'),
+            cta: i18n('Libellé du bouton « En savoir plus »'),
+          },
+          {
+            label: 'Journée type — en-tête',
+            description: 'Sur-titre, titre et libellé du bouton affichés au-dessus de la timeline « Une journée type à La Terrasse ».',
+          },
+        ),
         dayTrip: fields.array(
           fields.object({
             timeLabel: fields.text({
@@ -398,11 +412,40 @@ export default config({
         ),
         soirees: fields.object(
           {
+            eyebrow: i18n('Sur-titre'),
+            title: i18n('Titre'),
             body: i18n('Paragraphe', true),
+            ctaAgenda: i18n('Bouton « Voir l\'agenda »'),
+            ctaRestaurant: i18n('Bouton « Découvrir le restaurant »'),
+            cards: fields.array(
+              fields.object({
+                icon: fields.select({
+                  label: 'Icône',
+                  options: [
+                    { label: 'Musique (concerts)', value: 'music' },
+                    { label: 'Cerveau (blind test)', value: 'brain' },
+                    { label: 'Micro (karaoké)', value: 'mic' },
+                    { label: 'Disque (DJ)', value: 'disc-3' },
+                    { label: 'Étincelles', value: 'sparkles' },
+                    { label: 'Cœur', value: 'heart' },
+                    { label: 'Étoile', value: 'star' },
+                    { label: 'Guitare', value: 'guitar' },
+                  ],
+                  defaultValue: 'music',
+                }),
+                label: i18n('Titre de la carte'),
+                desc: i18n('Description courte'),
+              }),
+              {
+                label: 'Cartes déco',
+                description: '4 cartes décoratives (concerts / karaoké / blind test / DJ par défaut) disposées en triptyque autour du paragraphe central.',
+                itemLabel: (props) => props.fields.label.fields.fr.value || 'Nouvelle carte',
+              },
+            ),
           },
           {
             label: 'Section Soirées',
-            description: 'Paragraphe central entre les 4 cartes déco (concerts / karaoké / blind test / DJ).',
+            description: 'Sur la homepage : bloc avec un paragraphe central entouré de 4 cartes illustrant les types de soirées proposées.',
           },
         ),
         history: fields.object(
@@ -427,6 +470,16 @@ export default config({
           {
             label: 'CTA final',
             description: 'Bloc coloré au pied de la homepage avec le gros titre et une phrase sous le titre.',
+          },
+        ),
+        seo: fields.object(
+          {
+            pageTitle: i18n('Titre de l\'onglet navigateur'),
+            pageDescription: i18n('Description pour Google', true),
+          },
+          {
+            label: 'Référencement',
+            description: 'Métadonnées pour Google : titre de l\'onglet + description sous le lien dans les résultats de recherche.',
           },
         ),
         nearby: fields.array(
@@ -529,6 +582,16 @@ export default config({
             description: 'Bloc éditorial en bas de page, optimisé pour le référencement (mots-clés « Sorèze », « Toulouse », « Canal du Midi »). Long paragraphe.',
           },
         ),
+        crosslink: fields.object(
+          {
+            description: i18n('Description courte du Restaurant'),
+            toAventure: i18n('Phrase narrative vers Aventure', true),
+          },
+          {
+            label: 'Liens depuis / vers cette page',
+            description: 'La description apparaît dans le bloc « La Terrasse c\'est aussi… » affiché en bas de toutes les autres pages (phrase grise sous le lien). La phrase narrative est affichée en italique au milieu de /restaurant, pour inviter à aller sur Aventure.',
+          },
+        ),
       },
     }),
 
@@ -622,6 +685,15 @@ export default config({
           {
             label: 'Suggestion activité (bandeau)',
             description: 'Petit bandeau narratif suggérant d\'enchaîner sur les activités Aventure après le repas.',
+          },
+        ),
+        crosslink: fields.object(
+          {
+            toAventure: i18n('Phrase narrative vers Aventure', true),
+          },
+          {
+            label: 'Lien narratif vers Aventure',
+            description: 'Phrase italique affichée en bas de la carte, pour inviter à aller se balader au lac après le repas.',
           },
         ),
       },
@@ -759,10 +831,36 @@ export default config({
           {
             eyebrow: i18n('Sur-titre'),
             title: i18n('Titre'),
+            detailsLabel: i18n('Libellé bouton « Voir les détails »'),
+            hideLabel: i18n('Libellé bouton « Masquer »'),
+            list: fields.array(
+              fields.object({
+                icon: fields.select({
+                  label: 'Icône',
+                  options: [
+                    { label: 'Salle polyvalente', value: 'room' },
+                    { label: 'Sanitaires', value: 'sanitary' },
+                    { label: 'Espace traiteur', value: 'catering' },
+                  ],
+                  defaultValue: 'room',
+                }),
+                title: i18n('Titre de la carte'),
+                desc: i18n('Description', true),
+                details: fields.array(i18n('Ligne de détail'), {
+                  label: 'Lignes de détails (affichées après « Voir les détails »)',
+                  itemLabel: (props) => props.fields.fr.value || 'Nouvelle ligne',
+                }),
+              }),
+              {
+                label: 'Cartes des espaces',
+                description: 'Une carte par espace (salle polyvalente, sanitaires, traiteur). Chaque carte a son icône, son titre, une description et une liste de détails dépliables.',
+                itemLabel: (props) => props.fields.title.fields.fr.value || 'Nouvel espace',
+              },
+            ),
           },
           {
-            label: 'Bloc « Les espaces » — titre',
-            description: 'Titre de la section qui présente les 3 cards : salle polyvalente, sanitaires, espace traiteur.',
+            label: 'Bloc « Les espaces »',
+            description: 'Les 3 cartes présentant la salle polyvalente, les sanitaires et l\'espace traiteur. Chaque carte est repliable avec des détails techniques.',
           },
         ),
         dispatch: fields.object(
@@ -786,6 +884,30 @@ export default config({
           {
             label: 'Bloc « Demander un devis » (bas de page)',
             description: 'Bandeau bleu ardoise tout en bas de la page avec le bouton de contact.',
+          },
+        ),
+        collectivites: fields.object(
+          {
+            title: i18n('Titre'),
+            descBefore: i18n('Début de phrase (avant le mot mis en gras)', true),
+            descHighlight: i18n('Mot / expression en gras'),
+            descAfter: i18n('Fin de phrase (après le mot en gras)', true),
+            desc2: i18n('Deuxième paragraphe', true),
+            ctaQuote: i18n('Bouton « Demander un devis »'),
+            ctaPhone: i18n('Bouton « Nous appeler »'),
+          },
+          {
+            label: 'Bloc Collectivités & associations',
+            description: 'Bandeau affiché sur /la-salle et /la-salle/seminaires : « Tarifs spécifiques pour écoles, centres de loisirs et associations ». La phrase principale se compose de 3 morceaux pour mettre un mot en gras au milieu.',
+          },
+        ),
+        crosslink: fields.object(
+          {
+            description: i18n('Description courte de La Salle'),
+          },
+          {
+            label: 'Liens depuis les autres pages',
+            description: 'Description affichée dans le bloc « La Terrasse c\'est aussi… » en bas de toutes les autres pages (phrase grise sous le lien La Salle).',
           },
         ),
       },
@@ -902,6 +1024,99 @@ export default config({
             label: 'FAQ',
             description: 'Liste de questions fréquentes affichée en bas de page. Utile pour le référencement. Ajoutez/supprimez autant de questions que vous voulez.',
             itemLabel: (props) => props.fields.question.fields.fr.value || 'Nouvelle question',
+          },
+        ),
+        calloutSeparator: i18n('Séparateur « ou votre projet est unique ? »'),
+        callout: fields.object(
+          {
+            title: i18n('Titre'),
+            desc: i18n('Paragraphe', true),
+            phoneLabel: i18n('Libellé bouton téléphone'),
+            emailLabel: i18n('Libellé bouton email'),
+          },
+          {
+            label: 'Bloc « Un projet qui sort de l\'ordinaire ? »',
+            description: 'Callout jaune soleil affiché sous le configurateur, entre le séparateur « ou votre projet est unique ? » et la section Team Building. Invite à contacter directement pour un devis sur mesure.',
+          },
+        ),
+        teamBuilding: fields.object(
+          {
+            eyebrow: i18n('Sur-titre de la section'),
+            title: i18n('Titre'),
+            desc: i18n('Paragraphe d\'introduction', true),
+            outdoor: fields.object(
+              {
+                title: i18n('Titre carte plein air'),
+                subtitle: i18n('Sous-titre'),
+                activities: fields.array(
+                  fields.object({
+                    icon: fields.select({
+                      label: 'Icône',
+                      options: [
+                        { label: 'Cible (archery)', value: 'target' },
+                        { label: 'Vagues (paddle/canoë)', value: 'waves' },
+                        { label: 'Vélo (VTT)', value: 'bike' },
+                        { label: 'Boussole (orientation)', value: 'compass' },
+                        { label: 'Ancre (pédalo)', value: 'anchor' },
+                        { label: 'Montagne', value: 'mountain' },
+                        { label: 'Arbre', value: 'trees' },
+                      ],
+                      defaultValue: 'target',
+                    }),
+                    label: i18n('Nom de l\'activité'),
+                    desc: i18n('Courte description'),
+                  }),
+                  {
+                    label: 'Activités plein air',
+                    itemLabel: (props) => props.fields.label.fields.fr.value || 'Nouvelle activité',
+                  },
+                ),
+                ctaLabel: i18n('Libellé bouton CTA (« Voir toutes les activités »)'),
+              },
+              {
+                label: 'Carte gauche — Activités plein air',
+                description: 'Présente les activités plein air disponibles en autonomie sur le site.',
+              },
+            ),
+            coaching: fields.object(
+              {
+                title: i18n('Titre carte coaching'),
+                subtitle: i18n('Sous-titre'),
+                premiumLabel: i18n('Badge « Premium »'),
+                activities: fields.array(
+                  fields.object({
+                    icon: fields.select({
+                      label: 'Icône',
+                      options: [
+                        { label: 'Flamme (Koh-Lanta)', value: 'flame' },
+                        { label: 'Cerveau (mental)', value: 'brain' },
+                        { label: 'Personnes (cohésion)', value: 'users' },
+                        { label: 'Pièce de puzzle (logique)', value: 'puzzle' },
+                        { label: 'Médaille (sport)', value: 'medal' },
+                        { label: 'Trophée', value: 'trophy' },
+                        { label: 'Étincelles', value: 'sparkles' },
+                      ],
+                      defaultValue: 'flame',
+                    }),
+                    label: i18n('Nom du programme'),
+                    desc: i18n('Courte description'),
+                  }),
+                  {
+                    label: 'Programmes de coaching',
+                    itemLabel: (props) => props.fields.label.fields.fr.value || 'Nouveau programme',
+                  },
+                ),
+                ctaLabel: i18n('Libellé bouton CTA (« Demander un devis »)'),
+              },
+              {
+                label: 'Carte droite — Coaching professionnel (Premium)',
+                description: 'Programmes encadrés par un coach spécialisé — Koh-Lanta, cohésion, logique, sport.',
+              },
+            ),
+          },
+          {
+            label: 'Section Team Building',
+            description: 'Affichée sur /la-salle/seminaires entre le configurateur et les specs de la salle. 2 cartes : activités plein air en autonomie (gauche) + coaching professionnel premium (droite).',
           },
         ),
         pricingForfaits: fields.object(
@@ -1038,6 +1253,93 @@ export default config({
           },
         ),
         alsoLike: i18n('« Vous pourriez aussi aimer »'),
+        crosslink: fields.object(
+          {
+            description: i18n('Description courte du pôle Aventure'),
+            toRestaurant: i18n('Phrase narrative « Après l\'effort → Restaurant »', true),
+            activityDefaultToRestaurant: i18n('Phrase narrative par défaut pour les fiches activité', true),
+          },
+          {
+            label: 'Liens entre les pages',
+            description: 'La description apparaît dans le bloc « La Terrasse c\'est aussi… » en bas de toutes les autres pages. La phrase narrative est affichée en bas de /aventure. La phrase par défaut est utilisée pour les fiches activité qui n\'ont pas leur propre phrase (chaque fiche peut la personnaliser).',
+          },
+        ),
+      },
+    }),
+
+    offreJournee: singleton({
+      label: 'Offre Pass Journée',
+      path: 'src/content/pages/offre-journee',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            eyebrow: i18n('Sur-titre (« Pass Journée »)'),
+            titleLine1: i18n('Titre — 1re ligne'),
+            titleLine2: i18n('Titre — 2e ligne (en couleur)'),
+            desc: i18n('Paragraphe descriptif (le {discount} sera remplacé par le pourcentage)', true),
+          },
+          {
+            label: 'En-tête de l\'offre',
+            description: 'Bloc texte à gauche de la carte : sur-titre, titre en 2 lignes et paragraphe descriptif. Dans le paragraphe, écrivez {discount} pour insérer automatiquement le pourcentage défini dans Paramètres généraux → Offres.',
+          },
+        ),
+        eligibleActivities: fields.object(
+          {
+            eyebrow: i18n('Sur-titre (« Grandes activités éligibles »)'),
+            list: fields.array(
+              fields.object({
+                icon: fields.select({
+                  label: 'Icône',
+                  options: [
+                    { label: 'Vélo (VTT)', value: 'bike' },
+                    { label: 'Vagues (pédalo/paddle)', value: 'waves' },
+                    { label: 'Cible (archery)', value: 'target' },
+                    { label: 'Montagne', value: 'mountain' },
+                    { label: 'Boussole', value: 'compass' },
+                    { label: 'Ancre', value: 'anchor' },
+                  ],
+                  defaultValue: 'bike',
+                }),
+                label: i18n('Nom de l\'activité'),
+              }),
+              {
+                label: 'Liste des grandes activités',
+                description: 'Activités « phares » éligibles à l\'offre (le client doit en prendre au moins 1).',
+                itemLabel: (props) => props.fields.label.fields.fr.value || 'Nouvelle activité',
+              },
+            ),
+          },
+          {
+            label: 'Grandes activités éligibles',
+            description: 'Petites puces colorées affichées sous le paragraphe descriptif.',
+          },
+        ),
+        steps: fields.object(
+          {
+            step1Label: i18n('Étape 1 — titre'),
+            step1Detail: i18n('Étape 1 — détail'),
+            step2Label: i18n('Étape 2 — titre'),
+            step2Detail: i18n('Étape 2 — détail'),
+            step3Label: i18n('Étape 3 — titre (le {discount} sera remplacé)'),
+            step3Detail: i18n('Étape 3 — détail'),
+          },
+          {
+            label: 'Les 3 étapes de la formule',
+            description: 'Encart à droite de la carte — les 3 étapes : 1 grande activité, + 2 petites, = remise. Dans l\'étape 3, écrivez {discount} pour insérer le pourcentage.',
+          },
+        ),
+        ctas: fields.object(
+          {
+            discoverLabel: i18n('Bouton « Découvrir les activités »'),
+            pricesLabel: i18n('Bouton « Voir les tarifs »'),
+          },
+          {
+            label: 'Boutons d\'action',
+          },
+        ),
+        packSuffix: i18n('Texte sous le pourcentage (« sur votre pack activités »)'),
+        validity: i18n('Mention en bas de l\'encart (validité)', true),
       },
     }),
 
@@ -1059,41 +1361,28 @@ export default config({
         info: fields.object(
           {
             title: i18n('Titre de la section'),
-            name: i18n('Nom affiché (ex : La Terrasse — Base de loisirs)'),
-            addressLine1: i18n('Adresse — 1re ligne'),
-            addressLine2: i18n('Adresse — 2e ligne'),
           },
           {
-            label: 'Bloc Coordonnées',
-            description: 'Carte affichant le téléphone, l\'email et l\'adresse postale. Le téléphone et l\'email sont tirés des Paramètres généraux — seul le libellé du nom et les 2 lignes d\'adresse sont édités ici.',
+            label: 'Bloc Coordonnées — titre uniquement',
+            description: 'Titre H2 affiché au-dessus de la carte de contact. Le téléphone, l\'email et l\'adresse postale qui apparaissent dans cette carte sont définis dans Paramètres généraux → Coordonnées.',
           },
         ),
         hours: fields.object(
           {
             title: i18n('Titre de la section'),
-            seasonEyebrow: i18n('Sur-titre de la carte « Saison »'),
-            maySepLabel: i18n('Mai & septembre — label'),
-            maySepPeriod: i18n('Mai & septembre — période'),
-            summerLabel: i18n('Juin/juillet/août — label'),
-            summerPeriod: i18n('Juin/juillet/août — période'),
-            scheduleEyebrow: i18n('Sur-titre de la carte « Horaires »'),
-            activitiesLabel: i18n('Label « Activités »'),
-            activitiesTime: i18n('Plage horaire activités'),
-            restaurantTime: i18n('Plage horaire restaurant'),
           },
           {
-            label: 'Bloc Horaires d\'ouverture',
-            description: 'Deux cartes empilées : « Saison » (périodes d\'ouverture) et « Horaires » (plages horaires par service : activités, restaurant).',
+            label: 'Bloc Horaires — titre uniquement',
+            description: 'Titre H2 affiché au-dessus des cartes d\'horaires. Les périodes d\'ouverture et les plages horaires (activités, restaurant) sont définies dans Paramètres généraux → Horaires d\'ouverture.',
           },
         ),
         map: fields.object(
           {
             title: i18n('Titre de la carte'),
-            fallback: i18n('Libellé du lien vers Google Maps'),
           },
           {
-            label: 'Bloc Carte (Google Maps)',
-            description: 'L\'iframe Google Maps à droite et le lien « Voir sur Google Maps » sous la carte. L\'URL Google Maps elle-même est dans Paramètres généraux.',
+            label: 'Bloc Carte — titre uniquement',
+            description: 'Titre H2 affiché au-dessus de la carte Google Maps. Les URLs Google Maps (lien et iframe) sont définies dans Paramètres généraux → Coordonnées.',
           },
         ),
         directions: fields.object(
@@ -1153,8 +1442,8 @@ export default config({
       },
     }),
 
-    agendaPage: singleton({
-      label: 'Page Agenda',
+    agenda: singleton({
+      label: 'Agenda',
       path: 'src/content/pages/agenda',
       format: { data: 'yaml' },
       schema: {
@@ -1178,52 +1467,35 @@ export default config({
             description: 'Titre de l\'onglet navigateur. La description reprend automatiquement la phrase d\'accroche du hero.',
           },
         ),
+        events: fields.array(
+          fields.object({
+            title: i18n('Nom de l\'événement'),
+            date: fields.date({ label: 'Date' }),
+            startTime: fields.text({ label: 'Heure de début (ex : 19:00)' }),
+            endTime: fields.text({ label: 'Heure de fin (ex : 22:00)' }),
+            category: fields.select({
+              label: 'Catégorie',
+              options: [
+                { label: 'Concert', value: 'concert' },
+                { label: 'Soirée à thème', value: 'soiree-theme' },
+                { label: 'Festival / Fête', value: 'festival' },
+                { label: 'Marché / Salon', value: 'marche' },
+                { label: 'Autre', value: 'autre' },
+              ],
+              defaultValue: 'autre',
+            }),
+            description: i18n('Description', true),
+            highlighted: fields.checkbox({ label: 'Mettre en avant (style doré)', defaultValue: false }),
+          }),
+          {
+            label: 'Événements',
+            description: 'Liste des événements. Les événements passés ne s\'affichent plus automatiquement. Glissez-déposez pour réordonner.',
+            itemLabel: (props) =>
+              `${props.fields.date.value || '—'} · ${props.fields.title.fields.fr.value || 'Nouvel événement'}`,
+          },
+        ),
       },
     }),
 
-    crosslinks: singleton({
-      label: 'Liens entre les pages',
-      path: 'src/content/pages/crosslinks',
-      format: { data: 'yaml' },
-      schema: {
-        polesDescription: fields.object(
-          {
-            restaurant: i18n('Description — Restaurant'),
-            aventure: i18n('Description — Aventure'),
-            salle: i18n('Description — La Salle'),
-          },
-          {
-            label: 'Bloc « La Terrasse c\'est aussi… »',
-            description: 'Affiché en bas de chaque page de pôle : 2 cartes grises avec le nom du pôle et une petite description dessous. C\'est la phrase grise qui est éditée ici.',
-          },
-        ),
-        hubNarratives: fields.object(
-          {
-            aventureToRestaurant: i18n('Depuis Aventure → vers Restaurant', true),
-            restaurantToAventure: i18n('Depuis Restaurant (hub) → vers Aventure', true),
-            carteToAventure: i18n('Depuis La Carte → vers Aventure', true),
-          },
-          {
-            label: 'Phrases narratives entre pages (hubs)',
-            description: 'Phrase italique centrée, avec une flèche, affichée entre 2 sections sur les pages de pôle. Invite à consulter un autre pôle. Exemple : « Après l\'effort, le réconfort — déjeunez au bord du lac… ».',
-          },
-        ),
-        activityToRestaurant: fields.object(
-          {
-            defaultText: i18n('Phrase par défaut (activités sans texte propre)', true),
-            paddle: i18n('Après Paddle', true),
-            archeryTag: i18n('Après Archery Tag', true),
-            pedalo: i18n('Après Pédalo', true),
-            canoe: i18n('Après Canoë', true),
-            vtt: i18n('Après VTT', true),
-            miniGolf: i18n('Après Mini-golf', true),
-          },
-          {
-            label: 'Phrases narratives après activité → Restaurant',
-            description: 'Phrase italique affichée en bas de chaque fiche activité, invitant à finir la journée au restaurant. Si une activité n\'a pas sa propre phrase, la phrase par défaut est utilisée.',
-          },
-        ),
-      },
-    }),
   },
 });

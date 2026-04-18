@@ -1,34 +1,24 @@
 ---
 import type { Lang } from '@/i18n/translations';
 import { useTranslations, getLocalizedField } from '@/i18n/utils';
-
-interface EventEntry {
-  slug: string;
-  entry: Record<string, unknown> & {
-    title: string;
-    schedule: { date: string | null; startTime?: string; endTime?: string; category?: string };
-    description: { fr?: string; en?: string; es?: string } | string;
-    meta: { visible: boolean; highlighted?: boolean };
-  };
-}
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
 
 interface Props {
-  events: EventEntry[];
   lang: Lang;
 }
 
-const { events, lang } = Astro.props;
+const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-// Filter visible + future events, sort chronologically, limit to 4
+const reader = createReader(process.cwd(), keystaticConfig);
+const agendaData = await reader.singletons.agenda.read();
+const eventsList = agendaData?.events ?? [];
+
 const now = new Date();
-const upcomingEvents = events
-  .filter((e) => {
-    if (!e.entry.meta.visible) return false;
-    if (!e.entry.date) return false;
-    return new Date(e.entry.date) >= now;
-  })
-  .sort((a, b) => new Date(a.entry.date!).getTime() - new Date(b.entry.date!).getTime())
+const upcomingEvents = eventsList
+  .filter((e) => !!e.date && new Date(e.date) >= now)
+  .sort((a, b) => new Date(a.date!).getTime() - new Date(b.date!).getTime())
   .slice(0, 4);
 
 const hasEvents = upcomingEvents.length > 0;
@@ -41,15 +31,14 @@ function formatMonth(dateStr: string, locale: string) {
   return new Intl.DateTimeFormat(locale, { month: 'short' }).format(new Date(dateStr));
 }
 
-// Pre-compute event display data
-const displayEvents = upcomingEvents.map((event) => ({
-  slug: event.slug,
-  date: event.entry.date!,
-  startTime: event.entry.startTime || '',
-  endTime: event.entry.endTime || '',
-  highlighted: !!event.entry.meta.highlighted,
-  title: getLocalizedField(event.entry, 'title', lang) || event.slug,
-  description: getLocalizedField(event.entry, 'description', lang),
+const displayEvents = upcomingEvents.map((event, idx) => ({
+  slug: `event-${idx}`,
+  date: event.date!,
+  startTime: event.startTime || '',
+  endTime: event.endTime || '',
+  highlighted: !!event.highlighted,
+  title: getLocalizedField(event, 'title', lang),
+  description: getLocalizedField(event, 'description', lang),
 }));
 
 function formatTimeRange(start: string, end: string): string | null {

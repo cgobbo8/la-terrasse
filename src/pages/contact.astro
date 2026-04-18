@@ -3,7 +3,7 @@
  * PAGE CONTACT — Coordonnées, horaires, carte et accès
  * Brand-mother neutral styling (no pole-specific theming)
  */
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/common/Icon.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import { getLangFromUrl, useTranslations, getLocalizedField } from '@/i18n/utils';
@@ -20,10 +20,19 @@ const siteSettings = await getSiteSettings();
 const phone = siteSettings?.phone ?? '';
 const phoneTel = phone.replace(/\s/g, '').replace(/^0/, '+33');
 const email = siteSettings?.email ?? '';
-const googleMapsUrl = siteSettings?.googleMapsUrl ?? '';
+const googleMapsUrl = (siteSettings?.googleMapsUrl as string) ?? '';
+const googleMapsEmbedUrl = (siteSettings?.googleMapsEmbedUrl as string) ?? '';
 const facebook = siteSettings?.facebook ?? '';
 const instagram = siteSettings?.instagram ?? '';
-const googleMapsEmbedUrl = 'https://maps.google.com/maps?q=144+avenue+de+Carcassonne+81540+Sor%C3%A8ze+France&t=&z=15&ie=UTF8&iwloc=&output=embed';
+
+const addressLines = ((siteSettings?.address as string) ?? '')
+  .split(/\r?\n/)
+  .map((line) => line.trim())
+  .filter(Boolean);
+const addressLine1 = addressLines[0] ?? '';
+const addressLine2 = addressLines.slice(1).join(' ');
+const settingsHours = (siteSettings?.hours ?? {}) as Record<string, unknown>;
+const hx = (field: string) => getLocalizedField(settingsHours, field, lang);
 
 const reader = createReader(process.cwd(), keystaticConfig);
 const pageTexts = await reader.singletons.contactPage.read();
@@ -113,9 +122,8 @@ const jsonLd = generateLocalBusinessLD();
                 </div>
                 <div>
                   <p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">{t('common.address')}</p>
-                  <p class="text-gray-800 font-medium">{tx('info.name')}</p>
-                  <p class="text-gray-600 text-sm">{tx('info.addressLine1')}</p>
-                  <p class="text-gray-600 text-sm">{tx('info.addressLine2')}</p>
+                  <p class="text-gray-800 font-medium">{addressLine1}</p>
+                  <p class="text-gray-600 text-sm">{addressLine2}</p>
                 </div>
               </div>
 
@@ -165,35 +173,35 @@ const jsonLd = generateLocalBusinessLD();
             <div class="space-y-4">
               <!-- Seasons -->
               <div class="rounded-xl p-6 border border-gray-200/60 bg-white">
-                <h3 class="section-eyebrow text-gray-400 mb-4">{tx('hours.seasonEyebrow')}</h3>
+                <h3 class="section-eyebrow text-gray-400 mb-4">{hx('seasonEyebrow')}</h3>
                 <div class="space-y-2">
                   <div class="flex justify-between items-center py-2.5 border-b border-gray-100">
-                    <span class="text-gray-800 font-medium">{tx('hours.maySepLabel')}</span>
-                    <span class="text-brun-terre font-bold text-sm">{tx('hours.maySepPeriod')}</span>
+                    <span class="text-gray-800 font-medium">{hx('maySepLabel')}</span>
+                    <span class="text-brun-terre font-bold text-sm">{hx('maySepPeriod')}</span>
                   </div>
                   <div class="flex justify-between items-center py-2.5">
-                    <span class="text-gray-800 font-medium">{tx('hours.summerLabel')}</span>
-                    <span class="text-brun-terre font-bold text-sm">{tx('hours.summerPeriod')}</span>
+                    <span class="text-gray-800 font-medium">{hx('summerLabel')}</span>
+                    <span class="text-brun-terre font-bold text-sm">{hx('summerPeriod')}</span>
                   </div>
                 </div>
               </div>
               <!-- Horaires -->
               <div class="rounded-xl p-6 border border-gray-200/60 bg-white">
-                <h3 class="section-eyebrow text-gray-400 mb-4">{tx('hours.scheduleEyebrow')}</h3>
+                <h3 class="section-eyebrow text-gray-400 mb-4">{hx('scheduleEyebrow')}</h3>
                 <div class="space-y-2">
                   <div class="flex justify-between items-center py-2.5 border-b border-gray-100">
                     <span class="text-gray-800 font-medium flex items-center gap-2">
                       <Icon name="lucide:mountain" class="w-4 h-4 text-aventure" />
-                      {tx('hours.activitiesLabel')}
+                      {hx('activitiesLabel')}
                     </span>
-                    <span class="text-brun-terre font-bold">{tx('hours.activitiesTime')}</span>
+                    <span class="text-brun-terre font-bold">{hx('activitiesTime')}</span>
                   </div>
                   <div class="flex justify-between items-center py-2.5">
                     <span class="text-gray-800 font-medium flex items-center gap-2">
                       <Icon name="lucide:utensils" class="w-4 h-4 text-restaurant" />
-                      {t('nav.restaurant')}
+                      {hx('restaurantLabel')}
                     </span>
-                    <span class="text-brun-terre font-bold">{tx('hours.restaurantTime')}</span>
+                    <span class="text-brun-terre font-bold">{hx('restaurantTime')}</span>
                   </div>
                 </div>
               </div>
@@ -224,7 +232,7 @@ const jsonLd = generateLocalBusinessLD();
             class="group inline-flex items-center gap-2 mt-4 text-brun-terre font-medium hover:text-brun-terre/80 transition-colors min-h-[44px]"
           >
             <Icon name="lucide:external-link" class="w-4 h-4" />
-            {tx('map.fallback')}
+            {t('contact.map.fallback')}
             <Icon name="lucide:arrow-right" class="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>
         </div>

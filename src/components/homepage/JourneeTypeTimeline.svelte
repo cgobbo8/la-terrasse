@@ -6,8 +6,8 @@
    * @typedef {{ time: string, title: string, description: string, image: string, href: string, poleAccent: string }} TimeBlock
    */
 
-  /** @type {{ timeBlocks: TimeBlock[], lang: string, sectionTitle: string, ctaLabel: string }} */
-  let { timeBlocks, lang, sectionTitle, ctaLabel } = $props();
+  /** @type {{ timeBlocks: TimeBlock[], lang: string, sectionEyebrow: string, sectionTitle: string, ctaLabel: string }} */
+  let { timeBlocks, lang, sectionEyebrow, sectionTitle, ctaLabel } = $props();
 
   let sectionEl = $state(null);
   let trackEl = $state(null);
@@ -123,7 +123,7 @@
 >
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <div class="text-center mb-16 lg:mb-24" bind:this={introEl} style="opacity: 0;">
-      <p class="section-eyebrow text-brun-terre/40 mb-4">Votre journée</p>
+      <p class="section-eyebrow text-brun-terre/40 mb-4">{sectionEyebrow}</p>
       <h2 class="font-heading text-3xl lg:text-5xl font-bold text-brun-terre">
         {sectionTitle}
       </h2>

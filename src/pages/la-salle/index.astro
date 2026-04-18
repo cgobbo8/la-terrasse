@@ -5,7 +5,7 @@
  * Dispatch to sub-pages: Séminaires & Pro, Événementiel
  * Agenda preview of upcoming events
  */
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/common/Icon.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import VenueSpecs from '@/components/salle/VenueSpecs.astro';
@@ -110,40 +110,14 @@ const jsonLd = generateEventVenueLD({
         client:visible
         accent={salleAccent}
         light={salleLight}
-        detailsLabel={t('salle.spaces.details')}
-        hideLabel={t('salle.spaces.hideDetails')}
-        cards={[
-          {
-            icon: 'room',
-            title: t('salle.spaces.room.title'),
-            desc: t('salle.spaces.room.desc'),
-            details: [
-              t('salle.spaces.room.detail1'),
-              t('salle.spaces.room.detail2'),
-              t('salle.spaces.room.detail3'),
-              t('salle.spaces.room.detail4'),
-            ],
-          },
-          {
-            icon: 'sanitary',
-            title: t('salle.spaces.sanitary.title'),
-            desc: t('salle.spaces.sanitary.desc'),
-            details: [
-              t('salle.spaces.sanitary.detail1'),
-              t('salle.spaces.sanitary.detail2'),
-            ],
-          },
-          {
-            icon: 'catering',
-            title: t('salle.spaces.catering.title'),
-            desc: t('salle.spaces.catering.desc'),
-            details: [
-              t('salle.spaces.catering.detail1'),
-              t('salle.spaces.catering.detail2'),
-              t('salle.spaces.catering.detail3'),
-            ],
-          },
-        ]}
+        detailsLabel={tx('spaces.detailsLabel')}
+        hideLabel={tx('spaces.hideLabel')}
+        cards={(venueData?.spaces?.list ?? []).map((card) => ({
+          icon: card.icon,
+          title: getLocalizedField(card, 'title', lang),
+          desc: getLocalizedField(card, 'desc', lang),
+          details: (card.details ?? []).map((d) => (d as Record<string, string>)[lang] || (d as Record<string, string>).fr || '').filter(Boolean),
+        }))}
       />
     </div>
   </section>

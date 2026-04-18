@@ -402,3 +402,8 @@ crossSell:
     fr: "Découvrir les activités →"
     en: "Discover activities →"
     es: "Descubrir actividades →"
+crosslink:
+  toAventure:
+    fr: "Envie de digérer en douceur ? Le lac vous attend pour une balade →"
+    en: "Fancy walking it off? The lake awaits for a gentle stroll →"
+    es: "¿Ganas de pasear después de comer? El lago te espera →"

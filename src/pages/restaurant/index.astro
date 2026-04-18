@@ -5,7 +5,7 @@
  * Hero: le moment vécu, pas le menu
  * Entonnoir émotionnel: atmosphère → offre → détails → CTA
  */
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/common/Icon.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
@@ -31,8 +31,7 @@ const jsonLd = generateRestaurantLD();
 // CMS texts for this page
 const reader = createReader(process.cwd(), keystaticConfig);
 const pageTexts = await reader.singletons.restaurantHub.read();
-const crosslinks = await reader.singletons.crosslinks.read();
-const hubNarratives = (crosslinks?.hubNarratives ?? {}) as Record<string, unknown>;
+const crosslinkSection = (pageTexts?.crosslink ?? {}) as Record<string, unknown>;
 const tx = (path: string) => {
   const [section, field] = path.split('.');
   return getLocalizedField(
@@ -186,7 +185,7 @@ const subPages = [
 
   <!-- Cross-link narratif contextuel -->
   <ContextualCrossLink
-    text={getLocalizedField(hubNarratives, 'restaurantToAventure', lang)}
+    text={getLocalizedField(crosslinkSection, 'toAventure', lang)}
     href={getLocalizedPath('/aventure', lang)}
     pole="aventure"
   />

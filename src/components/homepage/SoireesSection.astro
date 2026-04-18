@@ -1,8 +1,10 @@
 ---
 import type { Lang } from '@/i18n/translations';
-import { useTranslations, getLocalizedPath } from '@/i18n/utils';
-import { Icon } from 'astro-icon/components';
+import { useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
+import Icon from '@/components/common/Icon.astro';
 import { poleConfigs, brandColors } from '@/lib/pole-config';
+import { createReader } from '@keystatic/core/reader';
+import keystaticConfig from '../../../keystatic.config';
 
 interface Props {
   lang: Lang;
@@ -12,15 +14,31 @@ interface Props {
 const { lang, hideRestaurantCta = false } = Astro.props;
 const t = useTranslations(lang);
 
-const leftCards = [
-  { icon: 'lucide:music',  label: t('home.soirees.card.concerts.label'), description: t('home.soirees.card.concerts.desc'), color: poleConfigs.aventure.accent,    rotate: '-3deg',  cx: '-10px', mt: '0px' },
-  { icon: 'lucide:brain',  label: t('home.soirees.card.blind.label'),    description: t('home.soirees.card.blind.desc'),    color: poleConfigs.salle.accent,       rotate: '-1.5deg', cx: '16px',  mt: '0px' },
+const reader = createReader(process.cwd(), keystaticConfig);
+const homeTexts = await reader.singletons.homepage.read();
+const soireesData = (homeTexts?.soirees ?? {}) as Record<string, unknown>;
+const sx = (field: string) => getLocalizedField(soireesData, field, lang);
+
+// Visual positioning per card index — fixed design, independent of label/icon edits
+const cardStyles = [
+  { color: poleConfigs.aventure.accent, rotate: '-3deg', cx: '-10px', mt: '0px', side: 'left' },
+  { color: poleConfigs.salle.accent, rotate: '-1.5deg', cx: '16px', mt: '0px', side: 'left' },
+  { color: poleConfigs.restaurant.accent, rotate: '2.5deg', cx: '-14px', mt: '32px', side: 'right' },
+  { color: brandColors.soleilDark, rotate: '3.5deg', cx: '8px', mt: '0px', side: 'right' },
 ];
-const rightCards = [
-  { icon: 'lucide:mic',    label: t('home.soirees.card.karaoke.label'),  description: t('home.soirees.card.karaoke.desc'),  color: poleConfigs.restaurant.accent,  rotate: '2.5deg',  cx: '-14px', mt: '32px' },
-  { icon: 'lucide:disc-3', label: t('home.soirees.card.dj.label'),       description: t('home.soirees.card.dj.desc'),       color: brandColors.soleilDark,          rotate: '3.5deg',  cx: '8px',   mt: '0px' },
-];
-const allCards = [...leftCards, ...rightCards];
+
+const cardsSource = (homeTexts?.soirees?.cards ?? []) as Array<{ icon: string; label: { fr?: string; en?: string; es?: string }; desc: { fr?: string; en?: string; es?: string } }>;
+const allCards = cardsSource.map((card, i) => {
+  const style = cardStyles[i] ?? cardStyles[cardStyles.length - 1];
+  return {
+    icon: `lucide:${card.icon}`,
+    label: getLocalizedField(card, 'label', lang),
+    description: getLocalizedField(card, 'desc', lang),
+    ...style,
+  };
+});
+const leftCards = allCards.filter((c) => c.side === 'left');
+const rightCards = allCards.filter((c) => c.side === 'right');
 ---
 
 <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite overflow-hidden relative">
@@ -30,16 +48,16 @@ const allCards = [...leftCards, ...rightCards];
     <!-- ── Mobile ── -->
     <div class="lg:hidden">
       <div class="mb-10" data-reveal>
-        <p class="section-eyebrow text-brun-terre/30 mb-4">{t('home.soirees.eyebrow')}</p>
-        <h2 class="font-heading text-3xl font-bold mb-5 leading-tight text-brun-terre">{t('home.soirees.title')}</h2>
-        <p class="text-base text-gray-600 leading-relaxed mb-8">{t('home.soirees.body')}</p>
+        <p class="section-eyebrow text-brun-terre/30 mb-4">{sx('eyebrow')}</p>
+        <h2 class="font-heading text-3xl font-bold mb-5 leading-tight text-brun-terre">{sx('title')}</h2>
+        <p class="text-base text-gray-600 leading-relaxed mb-8">{sx('body')}</p>
         <div class="flex flex-wrap gap-3">
           <a href={getLocalizedPath('/agenda', lang)} class="inline-flex items-center gap-2 bg-brun-terre text-white px-6 py-3 rounded-full font-heading font-semibold text-sm hover:shadow-lg transition-all">
-            {t('home.soirees.ctaAgenda')} <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            {sx('ctaAgenda')} <Icon name="lucide:arrow-right" class="w-4 h-4" />
           </a>
           {!hideRestaurantCta && (
             <a href={getLocalizedPath('/restaurant', lang)} class="inline-flex items-center gap-2 border border-brun-terre/20 text-brun-terre px-6 py-3 rounded-full font-heading font-semibold text-sm hover:bg-brun-terre/5 transition-all">
-              {t('home.soirees.ctaRestaurant')}
+              {sx('ctaRestaurant')}
             </a>
           )}
         </div>
@@ -77,16 +95,16 @@ const allCards = [...leftCards, ...rightCards];
 
       <!-- Center text -->
       <div class="soirees-center flex-1 text-center px-2">
-        <p class="section-eyebrow text-brun-terre/30 mb-4">{t('home.soirees.eyebrow')}</p>
-        <h2 class="font-heading text-4xl xl:text-5xl font-bold mb-6 leading-tight text-brun-terre">{t('home.soirees.title')}</h2>
-        <p class="text-gray-600 leading-relaxed mb-10 max-w-xs mx-auto">{t('home.soirees.body')}</p>
+        <p class="section-eyebrow text-brun-terre/30 mb-4">{sx('eyebrow')}</p>
+        <h2 class="font-heading text-4xl xl:text-5xl font-bold mb-6 leading-tight text-brun-terre">{sx('title')}</h2>
+        <p class="text-gray-600 leading-relaxed mb-10 max-w-xs mx-auto">{sx('body')}</p>
         <div class="flex flex-col items-center gap-3">
           <a href={getLocalizedPath('/agenda', lang)} class="inline-flex items-center gap-2 bg-brun-terre text-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all">
-            {t('home.soirees.ctaAgenda')} <Icon name="lucide:arrow-right" class="w-4 h-4" />
+            {sx('ctaAgenda')} <Icon name="lucide:arrow-right" class="w-4 h-4" />
           </a>
           {!hideRestaurantCta && (
             <a href={getLocalizedPath('/restaurant', lang)} class="inline-flex items-center gap-2 border border-brun-terre/20 text-brun-terre px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:bg-brun-terre/5 transition-all">
-              {t('home.soirees.ctaRestaurant')}
+              {sx('ctaRestaurant')}
             </a>
           )}
         </div>

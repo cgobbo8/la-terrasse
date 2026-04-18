@@ -11,10 +11,6 @@ const activities = defineCollection({
   loader: glob({ pattern: '*.mdx', base: 'src/content/activities' }),
 });
 
-const events = defineCollection({
-  loader: glob({ pattern: '*.mdx', base: 'src/content/events' }),
-});
-
 const producers = defineCollection({
   loader: glob({ pattern: '*.yaml', base: 'src/content/producers' }),
 });
@@ -37,7 +33,6 @@ const settings = defineCollection({
 
 export const collections = {
   activities,
-  events,
   producers,
   legal,
   restaurant,

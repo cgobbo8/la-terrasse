@@ -15,8 +15,8 @@ const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
 const reader = createReader(process.cwd(), keystaticConfig);
-const allEvents = await reader.collections.events.all();
-const pageTexts = await reader.singletons.agendaPage.read();
+const pageTexts = await reader.singletons.agenda.read();
+const eventsList = pageTexts?.events ?? [];
 
 const tx = (path: string) => {
   const [section, field] = path.split('.');
@@ -28,26 +28,22 @@ const tx = (path: string) => {
 };
 const emptyMessage = getLocalizedField(pageTexts ?? {}, 'emptyMessage', lang);
 
-// Filter visible + future events, sort chronologically
+// Filter future events, sort chronologically
 const now = new Date();
-const upcomingEvents = allEvents
-  .filter((e) => {
-    if (!e.entry.meta.visible) return false;
-    if (!e.entry.date) return false;
-    return new Date(e.entry.date) >= now;
-  })
-  .sort((a, b) => new Date(a.entry.date!).getTime() - new Date(b.entry.date!).getTime());
+const upcomingEvents = eventsList
+  .filter((e) => !!e.date && new Date(e.date) >= now)
+  .sort((a, b) => new Date(a.date!).getTime() - new Date(b.date!).getTime());
 
-// Pre-compute display data to avoid `as` casts in template
-const displayEvents = upcomingEvents.map((event) => ({
-  slug: event.slug,
-  date: event.entry.date!,
-  startTime: event.entry.startTime || '',
-  endTime: event.entry.endTime || '',
-  highlighted: !!event.entry.meta.highlighted,
-  category: event.entry.category || 'autre',
-  title: getLocalizedField(event.entry, 'title', lang) || event.slug,
-  description: getLocalizedField(event.entry, 'description', lang),
+// Pre-compute display data
+const displayEvents = upcomingEvents.map((event, idx) => ({
+  slug: `event-${idx}`,
+  date: event.date!,
+  startTime: event.startTime || '',
+  endTime: event.endTime || '',
+  highlighted: !!event.highlighted,
+  category: event.category || 'autre',
+  title: getLocalizedField(event, 'title', lang),
+  description: getLocalizedField(event, 'description', lang),
 }));
 
 function formatTimeRange(start: string, end: string): string | null {

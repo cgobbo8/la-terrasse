@@ -2,9 +2,8 @@
 import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import ContactLinks from './ContactLinks.astro';
 import LogoTerrasseFull from './LogoTerrasseFull.astro';
-import { Icon } from 'astro-icon/components';
-import { createReader } from '@keystatic/core/reader';
-import keystaticConfig from '../../../keystatic.config';
+import Icon from '@/components/common/Icon.astro';
+import { getSiteSettings } from '@/lib/site-settings';
 
 interface Props {
   phone: string;
@@ -18,11 +17,16 @@ const { phone, email, googleMapsUrl = '', facebook = '', instagram = '' } = Astr
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
-const reader = createReader(process.cwd(), keystaticConfig);
-const contactData = await reader.singletons.contactPage.read();
-const mapFallback = getLocalizedField((contactData?.map ?? {}) as Record<string, unknown>, 'fallback', lang);
-const contactAddressLine1 = getLocalizedField((contactData?.info ?? {}) as Record<string, unknown>, 'addressLine1', lang);
-const contactAddressLine2 = getLocalizedField((contactData?.info ?? {}) as Record<string, unknown>, 'addressLine2', lang);
+const siteSettings = await getSiteSettings();
+const addressLines = ((siteSettings?.address as string) ?? '')
+  .split(/\r?\n/)
+  .map((line) => line.trim())
+  .filter(Boolean);
+const addressLine1 = addressLines[0] ?? '';
+const addressLine2 = addressLines.slice(1).join(' ');
+const branding = (siteSettings?.branding ?? {}) as Record<string, unknown>;
+const footerTagline = getLocalizedField(branding, 'footerTagline', lang);
+const photoDisclaimer = getLocalizedField(branding, 'photoDisclaimer', lang);
 ---
 
 <footer class="bg-gray-100 text-gray-600 overflow-hidden">
@@ -34,7 +38,7 @@ const contactAddressLine2 = getLocalizedField((contactData?.info ?? {}) as Recor
     <div class="mb-16 text-center">
       <LogoTerrasseFull class="mx-auto" />
       <p class="mt-3 text-sm text-gray-400 max-w-xs mx-auto">
-        {t('footer.tagline')}
+        {footerTagline}
       </p>
     </div>
 
@@ -86,15 +90,15 @@ const contactAddressLine2 = getLocalizedField((contactData?.info ?? {}) as Recor
             href={googleMapsUrl || '#'}
             target="_blank"
             rel="noopener noreferrer"
-            aria-label={mapFallback}
+            aria-label={t('contact.map.fallback')}
             class="group flex items-start gap-3 p-3 -mx-1 rounded-lg border border-gray-200/70 bg-white/50 hover:bg-white hover:border-brun-terre/30 transition-all"
           >
             <span class="flex-shrink-0 w-8 h-8 rounded-md bg-brun-terre/5 flex items-center justify-center group-hover:bg-brun-terre/10 transition-colors">
               <Icon name="lucide:map-pin" class="w-4 h-4 text-brun-terre/70 group-hover:text-brun-terre transition-colors" stroke-width="1.5" />
             </span>
             <div class="flex-1 min-w-0 leading-snug">
-              <p class="text-gray-700 group-hover:text-brun-terre transition-colors">{contactAddressLine1}</p>
-              <p class="text-xs text-gray-400 mt-0.5">{contactAddressLine2}</p>
+              <p class="text-gray-700 group-hover:text-brun-terre transition-colors">{addressLine1}</p>
+              <p class="text-xs text-gray-400 mt-0.5">{addressLine2}</p>
             </div>
           </a>
 
@@ -134,7 +138,7 @@ const contactAddressLine2 = getLocalizedField((contactData?.info ?? {}) as Recor
 
     <!-- Bottom bar: copyright + legal links -->
     <div class="mt-16 pt-8 border-t border-gray-200 flex flex-col items-center gap-4 text-xs text-gray-400">
-      <p class="italic text-gray-400/60">{t('footer.photoDisclaimer')}</p>
+      <p class="italic text-gray-400/60">{photoDisclaimer}</p>
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
       <p>&copy; {new Date().getFullYear()} La Terrasse — Base de loisirs de Saint-Ferréol</p>
       <nav class="flex items-center gap-6" aria-label="Legal">

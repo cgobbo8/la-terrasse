@@ -4,7 +4,7 @@
  * Tone: dynamique, fun, familial
  * Fiches navigables avec suggestions d'alternatives
  */
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/common/Icon.astro';
 import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import ActivityCard from '@/components/aventure/ActivityCard.astro';
@@ -23,8 +23,7 @@ const t = useTranslations(lang);
 const reader = createReader(process.cwd(), keystaticConfig);
 const allActivities = await reader.collections.activities.all();
 const pageTexts = await reader.singletons.aventureHub.read();
-const crosslinks = await reader.singletons.crosslinks.read();
-const hubNarratives = (crosslinks?.hubNarratives ?? {}) as Record<string, unknown>;
+const crosslinkSection = (pageTexts?.crosslink ?? {}) as Record<string, unknown>;
 const tx = (path: string) => {
   const [section, field] = path.split('.');
   return getLocalizedField(
@@ -203,7 +202,7 @@ const seoDescription = 'Activités plein air et nautiques au lac de Saint-Ferré
 
   <!-- Cross-link narratif contextuel -->
   <ContextualCrossLink
-    text={getLocalizedField(hubNarratives, 'aventureToRestaurant', lang)}
+    text={getLocalizedField(crosslinkSection, 'toRestaurant', lang)}
     href={getLocalizedPath('/restaurant', lang)}
     pole="restaurant"
   />

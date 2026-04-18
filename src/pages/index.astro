@@ -17,7 +17,7 @@ import AgendaFloatingWidget from '@/components/homepage/AgendaFloatingWidget.ast
 import SoireesSection from '@/components/homepage/SoireesSection.astro';
 import OffreJournee from '@/components/common/OffreJournee.astro';
 import NearbySection from '@/components/homepage/NearbySection.astro';
-import { Icon } from 'astro-icon/components';
+import Icon from '@/components/common/Icon.astro';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
 import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
@@ -32,7 +32,6 @@ const t = useTranslations(lang);
 // Load Keystatic CMS data
 const reader = createReader(process.cwd(), keystaticConfig);
 const settings = (await getSiteSettings()) ?? {};
-const allEvents = await reader.collections.events.all();
 const homeTexts = await reader.singletons.homepage.read();
 
 // Helper: resolve a dotted path (e.g. "hero.tagline") from the CMS
@@ -74,7 +73,7 @@ const poleDescriptions = {
 };
 ---
 
-<BaseLayout title={t('home.page.title')} description={t('home.page.description')} pagePath="/" jsonLd={generateLocalBusinessLD()}>
+<BaseLayout title={tx('seo.pageTitle')} description={tx('seo.pageDescription')} pagePath="/" jsonLd={generateLocalBusinessLD()}>
   <!-- 0. INTRO — Logo mask reveal (first visit only) -->
   <script is:inline>
     // Prevent flash: hide overlay immediately for return visitors (before Svelte hydrates)
@@ -103,7 +102,7 @@ const poleDescriptions = {
   </VideoHero>
 
   <!-- 2. AGENDA WIDGET — Floating between hero and poles -->
-  <AgendaFloatingWidget events={allEvents} lang={lang} />
+  <AgendaFloatingWidget lang={lang} />
 
   <!-- 3. TROIS FAÇONS DE PROFITER — Les pôles (core value prop) -->
   <PoleDiscovery lang={lang} descriptions={poleDescriptions} />
@@ -116,8 +115,9 @@ const poleDescriptions = {
     client:only="svelte"
     timeBlocks={timeBlocks}
     lang={lang}
-    sectionTitle={t('home.dayTrip.title')}
-    ctaLabel={t('home.dayTrip.cta')}
+    sectionEyebrow={tx('dayTripIntro.eyebrow')}
+    sectionTitle={tx('dayTripIntro.title')}
+    ctaLabel={tx('dayTripIntro.cta')}
   />
 
   <!-- We keep dayTrip.title + dayTrip.cta in i18n (functional labels) — descriptions + block titles come from CMS via timeBlocks above. -->

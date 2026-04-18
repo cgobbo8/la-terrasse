@@ -17,6 +17,8 @@ export async function getSiteSettings() {
     ...raw.socials,
     ...raw.season,
     ...raw.offers,
+    hours: raw.hours,
+    branding: raw.branding,
   };
 }
 

@@ -78,6 +78,101 @@ spaces:
     fr: "Tout est prévu"
     en: "Everything is ready"
     es: "Todo está previsto"
+  detailsLabel:
+    fr: "Voir les détails"
+    en: "View details"
+    es: "Ver detalles"
+  hideLabel:
+    fr: "Masquer"
+    en: "Hide"
+    es: "Ocultar"
+  list:
+    - icon: room
+      title:
+        fr: "Salle polyvalente"
+        en: "Versatile hall"
+        es: "Sala polivalente"
+      desc:
+        fr: "195 m² modulables avec charpente apparente et traitement acoustique jusqu'à 95 dB. Espace divisible pour accueillir plusieurs activités simultanément."
+        en: "195 m² modular space with exposed timber framing and acoustic treatment up to 95 dB. Dividable space for hosting multiple activities simultaneously."
+        es: "195 m² modulables con estructura de madera vista y tratamiento acústico hasta 95 dB. Espacio divisible para acoger varias actividades simultáneamente."
+      details:
+        - fr: "Vidéoprojecteur laser + écran motorisé 3m × 4m"
+          en: "Laser projector + motorized screen 3m × 4m"
+          es: "Proyector láser + pantalla motorizada 3m × 4m"
+        - fr: "Sono intégrée, 2 micros sans fil + 1 micro filaire"
+          en: "Built-in sound system, 2 wireless mics + 1 wired mic"
+          es: "Sistema de sonido integrado, 2 micros inalámbricos + 1 micro con cable"
+        - fr: "Chauffage et climatisation par soufflage d'air"
+          en: "Air-blown heating and air conditioning"
+          es: "Calefacción y climatización por soplado de aire"
+        - fr: "12 prises électriques réparties en périphérie"
+          en: "12 power outlets distributed around the perimeter"
+          es: "12 tomas eléctricas distribuidas en la periferia"
+    - icon: sanitary
+      title:
+        fr: "Sanitaires"
+        en: "Restrooms"
+        es: "Sanitarios"
+      desc:
+        fr: "Sanitaires mixtes directement accessibles depuis la salle, avec un espace dédié aux personnes à mobilité réduite."
+        en: "Mixed restrooms directly accessible from the hall, with a dedicated space for people with reduced mobility."
+        es: "Sanitarios mixtos directamente accesibles desde la sala, con un espacio dedicado a personas con movilidad reducida."
+      details:
+        - fr: "3 sanitaires mixtes + 1 sanitaire PMR"
+          en: "3 mixed restrooms + 1 accessible restroom"
+          es: "3 sanitarios mixtos + 1 sanitario accesible"
+        - fr: "2 lavabos et local ménage"
+          en: "2 sinks and cleaning room"
+          es: "2 lavabos y cuarto de limpieza"
+    - icon: catering
+      title:
+        fr: "Espace traiteur"
+        en: "Catering space"
+        es: "Espacio de catering"
+      desc:
+        fr: "Cuisine professionnelle équipée de 20 m² pour la remise en température et le service, idéale pour vos traiteurs."
+        en: "Fully equipped 20 m² professional kitchen for reheating and service, ideal for your caterers."
+        es: "Cocina profesional equipada de 20 m² para el recalentamiento y servicio, ideal para sus caterings."
+      details:
+        - fr: "Four de remise en température 10 niveaux"
+          en: "10-level reheating oven"
+          es: "Horno de recalentamiento de 10 niveles"
+        - fr: "Armoire froide positive 1 300 litres"
+          en: "1,300 litre positive cold storage"
+          es: "Armario frigorífico de 1 300 litros"
+        - fr: "Plans de travail, chariots de service et plonge"
+          en: "Work surfaces, service trolleys and dishwashing area"
+          es: "Superficies de trabajo, carros de servicio y zona de lavado"
+collectivites:
+  title:
+    fr: "Collectivités & associations"
+    en: "Public bodies & associations"
+    es: "Colectividades y asociaciones"
+  descBefore:
+    fr: "Les établissements scolaires, centres de loisirs, centres aérés et associations bénéficient de "
+    en: "Schools, leisure centres, day camps and associations benefit from "
+    es: "Los centros escolares, centros de ocio, campamentos de día y asociaciones se benefician de "
+  descHighlight:
+    fr: "tarifs spécifiques"
+    en: "special rates"
+    es: "tarifas especiales"
+  descAfter:
+    fr: " adaptés à leur structure et à leurs besoins."
+    en: " adapted to their structure and their needs."
+    es: " adaptadas a su estructura y sus necesidades."
+  desc2:
+    fr: "Contactez-nous directement pour obtenir un devis personnalisé — nous vous proposerons une offre sur mesure."
+    en: "Contact us directly for a personalised quote — we'll offer you a tailor-made deal."
+    es: "Contáctenos directamente para obtener un presupuesto personalizado — le propondremos una oferta a medida."
+  ctaQuote:
+    fr: "Demander un devis"
+    en: "Request a quote"
+    es: "Solicitar un presupuesto"
+  ctaPhone:
+    fr: "Nous appeler"
+    en: "Call us"
+    es: "Llámenos"
 dispatch:
   evenementielTitle:
     fr: "Événementiel"
@@ -108,3 +203,8 @@ contact:
     fr: "Contactez-nous pour un devis personnalisé."
     en: "Contact us for a personalised quote."
     es: "Contáctenos para un presupuesto personalizado."
+crosslink:
+  description:
+    fr: "Séminaires, événements et réceptions dans un cadre inspirant"
+    en: "Seminars, events and receptions in an inspiring setting"
+    es: "Seminarios, eventos y recepciones en un entorno inspirador"

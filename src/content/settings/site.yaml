@@ -5,27 +5,53 @@ contact:
     144 Route de Carcassonne
     81540 Sorèze
   googleMapsUrl: https://www.google.com/maps/dir/?api=1&destination=144+Route+de+Carcassonne,+81540+Sorèze
+  googleMapsEmbedUrl: https://maps.google.com/maps?q=144+avenue+de+Carcassonne+81540+Sor%C3%A8ze+France&t=&z=15&ie=UTF8&iwloc=&output=embed
 socials:
   facebook: https://www.facebook.com/profile.php?id=61574748330124
   instagram: https://www.instagram.com/basedeloisirssaintferreol/
+hours:
+  seasonEyebrow:
+    fr: "Saison"
+    en: "Season"
+    es: "Temporada"
+  maySepLabel:
+    fr: "Mai & septembre"
+    en: "May & September"
+    es: "Mayo & septiembre"
+  maySepPeriod:
+    fr: "Week-ends & jours fériés"
+    en: "Weekends & public holidays"
+    es: "Fines de semana y festivos"
+  summerLabel:
+    fr: "Juin, juillet, août"
+    en: "June, July, August"
+    es: "Junio, julio, agosto"
+  summerPeriod:
+    fr: "Tous les jours"
+    en: "Every day"
+    es: "Todos los días"
+  scheduleEyebrow:
+    fr: "Horaires"
+    en: "Schedule"
+    es: "Horarios"
+  activitiesLabel:
+    fr: "Activités"
+    en: "Activities"
+    es: "Actividades"
+  activitiesTime:
+    fr: "10h – 19h"
+    en: "10am – 7pm"
+    es: "10h – 19h"
+  restaurantLabel:
+    fr: "Restaurant"
+    en: "Restaurant"
+    es: "Restaurante"
+  restaurantTime:
+    fr: "9h – 22h"
+    en: "9am – 10pm"
+    es: "9h – 22h"
 season:
   currentSeason: printemps
-  openingHours:
-    fr: |-
-      Mai & septembre : week-ends et jours fériés
-      Juin, juillet, août : tous les jours
-      Activités : 10h – 19h
-      Restaurant : 9h – 22h
-    en: |-
-      May & September: weekends and public holidays
-      June, July, August: every day
-      Activities: 10am – 7pm
-      Restaurant: 9am – 10pm
-    es: |-
-      Mayo y septiembre: fines de semana y festivos
-      Junio, julio, agosto: todos los días
-      Actividades: 10h – 19h
-      Restaurante: 9h – 22h
   seasonalMessage:
     fr: >-
       Le printemps est là ! Profitez des activités nautiques dès le mois de mai avec
@@ -38,3 +64,12 @@ season:
       condiciones ideales en el lago.
 offers:
   passJourneeDiscount: 20
+branding:
+  footerTagline:
+    fr: "Base de loisirs au lac de Saint-Ferréol — Restaurant, aventure & événements."
+    en: "Leisure base at Lake Saint-Ferréol — Restaurant, adventure & events."
+    es: "Base de ocio en el lago de Saint-Ferréol — Restaurante, aventura y eventos."
+  photoDisclaimer:
+    fr: "Certaines photos et vidéos sont issues de banques d'images libres de droits et seront remplacées par des visuels propres à l'établissement."
+    en: "Some photos and videos are sourced from royalty-free stock libraries and will be replaced with the establishment's own visuals."
+    es: "Algunas fotos y vídeos provienen de bancos de imágenes libres de derechos y serán reemplazados por visuales propios del establecimiento."
