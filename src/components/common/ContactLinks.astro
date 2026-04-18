@@ -31,7 +31,7 @@ function formatPhone(raw: string): string {
   <div class="flex flex-col gap-2 text-sm">
     <a
       href={`tel:${phone}`}
-      class="inline-flex items-center gap-2 min-h-11 hover:text-white transition-colors"
+      class="inline-flex items-center gap-2 min-h-11 hover:text-brun-terre transition-colors"
     >
       <Icon name="lucide:phone" class="w-4 h-4 shrink-0" />
       <span>{formatPhone(phone)}</span>
@@ -39,7 +39,7 @@ function formatPhone(raw: string): string {
     {email && (
       <a
         href={`mailto:${email}`}
-        class="inline-flex items-center gap-2 min-h-11 hover:text-white transition-colors"
+        class="inline-flex items-center gap-2 min-h-11 hover:text-brun-terre transition-colors"
       >
         <Icon name="lucide:mail" class="w-4 h-4 shrink-0" />
         <span>{email}</span>

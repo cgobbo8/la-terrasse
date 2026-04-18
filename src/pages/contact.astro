@@ -21,6 +21,8 @@ const phone = siteSettings?.phone ?? '';
 const phoneTel = phone.replace(/\s/g, '').replace(/^0/, '+33');
 const email = siteSettings?.email ?? '';
 const googleMapsUrl = siteSettings?.googleMapsUrl ?? '';
+const facebook = siteSettings?.facebook ?? '';
+const instagram = siteSettings?.instagram ?? '';
 const googleMapsEmbedUrl = 'https://maps.google.com/maps?q=144+avenue+de+Carcassonne+81540+Sor%C3%A8ze+France&t=&z=15&ie=UTF8&iwloc=&output=embed';
 
 const jsonLd = generateLocalBusinessLD();
@@ -100,34 +102,40 @@ const jsonLd = generateLocalBusinessLD();
               </div>
 
               <!-- Social media -->
-              <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-200/60 bg-white">
-                <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center">
-                  <Icon name="lucide:share-2" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
-                </div>
-                <div>
-                  <p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">{t('contact.social.title')}</p>
-                  <div class="flex items-center gap-3 mt-1">
-                    <a
-                      href="https://www.facebook.com/profile.php?id=61574748330124"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center gap-2 text-brun-terre hover:text-brun-terre/80 transition-colors font-medium min-h-[44px]"
-                    >
-                      <Icon name="lucide:facebook" class="w-5 h-5" stroke-width="1.5" />
-                      Facebook
-                    </a>
-                    <a
-                      href="https://www.instagram.com/basedeloisirssaintferreol/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      class="inline-flex items-center gap-2 text-brun-terre hover:text-brun-terre/80 transition-colors font-medium min-h-[44px]"
-                    >
-                      <Icon name="lucide:instagram" class="w-5 h-5" stroke-width="1.5" />
-                      Instagram
-                    </a>
+              {(facebook || instagram) && (
+                <div class="flex items-start gap-4 p-4 rounded-xl border border-gray-200/60 bg-white">
+                  <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-brun-terre/8 flex items-center justify-center">
+                    <Icon name="lucide:share-2" class="w-5 h-5 text-brun-terre" stroke-width="1.5" />
+                  </div>
+                  <div>
+                    <p class="text-xs font-medium text-gray-400 uppercase tracking-wider mb-1">{t('contact.social.title')}</p>
+                    <div class="flex items-center gap-3 mt-1">
+                      {facebook && (
+                        <a
+                          href={facebook}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center gap-2 text-brun-terre hover:text-brun-terre/80 transition-colors font-medium min-h-[44px]"
+                        >
+                          <Icon name="lucide:facebook" class="w-5 h-5" stroke-width="1.5" />
+                          Facebook
+                        </a>
+                      )}
+                      {instagram && (
+                        <a
+                          href={instagram}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          class="inline-flex items-center gap-2 text-brun-terre hover:text-brun-terre/80 transition-colors font-medium min-h-[44px]"
+                        >
+                          <Icon name="lucide:instagram" class="w-5 h-5" stroke-width="1.5" />
+                          Instagram
+                        </a>
+                      )}
+                    </div>
                   </div>
                 </div>
-              </div>
+              )}
             </div>
           </div>
 

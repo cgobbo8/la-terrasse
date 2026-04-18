@@ -7,9 +7,12 @@ import { Icon } from 'astro-icon/components';
 interface Props {
   phone: string;
   email: string;
+  googleMapsUrl?: string;
+  facebook?: string;
+  instagram?: string;
 }
 
-const { phone, email } = Astro.props;
+const { phone, email, googleMapsUrl = '', facebook = '', instagram = '' } = Astro.props;
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 ---
@@ -69,33 +72,54 @@ const t = useTranslations(lang);
         <h3 class="font-heading font-bold text-brun-terre text-xs uppercase tracking-[0.15em] mb-5">
           {t('common.contact')}
         </h3>
-        <div class="text-sm space-y-3">
-          <p>{t('contact.info.address')}</p>
-          <p class="text-gray-400">{t('contact.info.city')}</p>
-          <div class="pt-1">
-            <ContactLinks phone={phone} email={email} variant="footer" />
-          </div>
-          <div class="flex items-center gap-3 pt-3">
-            <span class="text-xs text-gray-400">{t('footer.followUs')}</span>
-            <a
-              href="https://www.facebook.com/profile.php?id=61574748330124"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Facebook"
-              class="w-9 h-9 rounded-full bg-gray-200/60 flex items-center justify-center hover:bg-brun-terre hover:text-white transition-colors"
-            >
-              <Icon name="lucide:facebook" class="w-4 h-4" />
-            </a>
-            <a
-              href="https://www.instagram.com/basedeloisirssaintferreol/"
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram"
-              class="w-9 h-9 rounded-full bg-gray-200/60 flex items-center justify-center hover:bg-brun-terre hover:text-white transition-colors"
-            >
-              <Icon name="lucide:instagram" class="w-4 h-4" />
-            </a>
-          </div>
+        <div class="text-sm space-y-4">
+          <!-- Address mini-card → Google Maps -->
+          <a
+            href={googleMapsUrl || '#'}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t('contact.map.fallback')}
+            class="group flex items-start gap-3 p-3 -mx-1 rounded-lg border border-gray-200/70 bg-white/50 hover:bg-white hover:border-brun-terre/30 transition-all"
+          >
+            <span class="flex-shrink-0 w-8 h-8 rounded-md bg-brun-terre/5 flex items-center justify-center group-hover:bg-brun-terre/10 transition-colors">
+              <Icon name="lucide:map-pin" class="w-4 h-4 text-brun-terre/70 group-hover:text-brun-terre transition-colors" stroke-width="1.5" />
+            </span>
+            <div class="flex-1 min-w-0 leading-snug">
+              <p class="text-gray-700 group-hover:text-brun-terre transition-colors">{t('contact.info.address')}</p>
+              <p class="text-xs text-gray-400 mt-0.5">{t('contact.info.city')}</p>
+            </div>
+          </a>
+
+          <!-- Phone + email -->
+          <ContactLinks phone={phone} email={email} variant="footer" />
+
+          <!-- Socials -->
+          {(facebook || instagram) && (
+            <div class="flex items-center gap-4 pt-1">
+              {facebook && (
+                <a
+                  href={facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Facebook"
+                  class="inline-flex items-center justify-center w-8 h-8 hover:text-brun-terre transition-colors"
+                >
+                  <Icon name="lucide:facebook" class="w-4 h-4" stroke-width="1.5" />
+                </a>
+              )}
+              {instagram && (
+                <a
+                  href={instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Instagram"
+                  class="inline-flex items-center justify-center w-8 h-8 hover:text-brun-terre transition-colors"
+                >
+                  <Icon name="lucide:instagram" class="w-4 h-4" stroke-width="1.5" />
+                </a>
+              )}
+            </div>
+          )}
         </div>
       </div>
     </div>
