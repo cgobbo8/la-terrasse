@@ -13,7 +13,7 @@ const { settings, lang } = Astro.props;
 const t = useTranslations(lang);
 
 const seasonalMessage = getLocalizedField(settings, 'seasonalMessage', lang);
-const openingHours = (settings.openingHours as string) ?? '';
+const openingHours = getLocalizedField(settings, 'openingHours', lang);
 const address = (settings.address as string) ?? '';
 const phone = (settings.phone as string) ?? '';
 const currentSeason = (settings.currentSeason as string) ?? 'printemps';

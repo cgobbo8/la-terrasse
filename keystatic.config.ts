@@ -134,18 +134,12 @@ export default config({
           salleEquipee: fields.checkbox({ label: 'Salle équipée', defaultValue: true }),
           videoprojecteur: fields.checkbox({ label: 'Vidéoprojecteur', defaultValue: true }),
           wifi: fields.checkbox({ label: 'Wi-Fi', defaultValue: true }),
-          parking: fields.checkbox({ label: 'Parking', defaultValue: true }),
           petitDejeuner: fields.checkbox({ label: 'Petit-déjeuner d\'accueil', defaultValue: false }),
           dejeuner: fields.checkbox({ label: 'Déjeuner terroir', defaultValue: false }),
           pausesCafe: fields.checkbox({ label: 'Pauses café', defaultValue: false }),
           teamBuilding: fields.checkbox({ label: 'Activités team building', defaultValue: false }),
           encadrement: fields.checkbox({ label: 'Encadrement dédié', defaultValue: false }),
         }, { label: 'Fonctionnalités (comparateur)' }),
-        image: fields.image({
-          label: 'Photo',
-          directory: 'public/images/seminars',
-          publicPath: '/images/seminars/',
-        }),
         // i18n
         title_en: fields.text({ label: 'Title (EN)' }),
         title_es: fields.text({ label: 'Título (ES)' }),
@@ -225,11 +219,6 @@ export default config({
           defaultValue: 'autre',
         }),
         description: fields.text({ label: 'Description', multiline: true }),
-        image: fields.image({
-          label: 'Visuel',
-          directory: 'public/images/events',
-          publicPath: '/images/events/',
-        }),
         // i18n
         title_en: fields.text({ label: 'Title (EN)' }),
         title_es: fields.text({ label: 'Título (ES)' }),
@@ -253,14 +242,6 @@ export default config({
       label: 'Restaurant',
       path: 'src/content/restaurant/info',
       schema: {
-        philosophy: fields.text({ label: 'Philosophie / pitch', multiline: true }),
-        menuUrl: fields.text({ label: 'Lien vers le menu (PDF ou page)' }),
-        openingHours: fields.text({ label: 'Horaires d\'ouverture', multiline: true }),
-        openingHours_en: fields.text({ label: 'Opening hours (EN)', multiline: true }),
-        openingHours_es: fields.text({ label: 'Horarios de apertura (ES)', multiline: true }),
-        reservationPhone: fields.text({ label: 'Téléphone réservation' }),
-        philosophy_en: fields.text({ label: 'Philosophy (EN)', multiline: true }),
-        philosophy_es: fields.text({ label: 'Filosofía (ES)', multiline: true }),
         menuSections: fields.array(
           fields.object({
             group: fields.select({
@@ -432,7 +413,6 @@ export default config({
       label: 'Paramètres du site',
       path: 'src/content/settings/site',
       schema: {
-        siteName: fields.text({ label: 'Nom du site', defaultValue: 'La Terrasse — Base de loisirs de Saint-Ferréol' }),
         phone: fields.text({ label: 'Téléphone principal' }),
         email: fields.text({ label: 'Email de contact' }),
         address: fields.text({ label: 'Adresse', multiline: true }),
@@ -461,9 +441,6 @@ export default config({
           description: 'Pourcentage de réduction au restaurant avec le Pass Journée (ex: 20 pour −20%)',
           defaultValue: 20,
         }),
-        promotionText: fields.text({ label: 'Promotion en cours' }),
-        promotionText_en: fields.text({ label: 'Current promotion (EN)' }),
-        promotionText_es: fields.text({ label: 'Promoción actual (ES)' }),
       },
     }),
   },

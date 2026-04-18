@@ -11,7 +11,7 @@ import VenueSpecs from '@/components/salle/VenueSpecs.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import CollectivitesCallout from '@/components/salle/CollectivitesCallout.astro';
 import { Icon } from 'astro-icon/components';
-import { getLangFromUrl, useTranslations, getLocalizedPath } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedField } from '@/i18n/utils';
 import { defaultLang } from '@/i18n/translations';
 import { buildQuoteMailto, poleConfigs } from '@/lib/pole-config';
 import { getSiteSettings, toTelHref } from '@/lib/site-settings';
@@ -46,17 +46,23 @@ const seminars = allSeminars
   .filter((s) => s.entry.visible)
   .sort((a, b) => (a.entry.order ?? 0) - (b.entry.order ?? 0));
 
-const packages = seminars.map((s) => ({
-  slug: s.slug,
-  title: s.entry.title,
-  subtitle: s.entry.subtitle ?? '',
-  description: s.entry.description ?? '',
-  includes: [...(s.entry.includes ?? [])],
-  priceFrom: s.entry.priceFrom ?? 'Sur devis',
-  features: s.entry.features,
-  ctaHref: buildQuoteMailto(siteEmail, s.entry.title),
-  highlighted: false,
-}));
+const packages = seminars.map((s) => {
+  const entry = s.entry as Record<string, unknown>;
+  const localizedIncludes = lang !== defaultLang
+    ? (entry[`includes_${lang}`] as readonly string[] | undefined) || s.entry.includes
+    : s.entry.includes;
+  return {
+    slug: s.slug,
+    title: getLocalizedField(entry, 'title', lang) || s.slug,
+    subtitle: getLocalizedField(entry, 'subtitle', lang),
+    description: getLocalizedField(entry, 'description', lang),
+    includes: [...(localizedIncludes ?? [])],
+    priceFrom: getLocalizedField(entry, 'priceFrom', lang) || 'Sur devis',
+    features: s.entry.features,
+    ctaHref: buildQuoteMailto(siteEmail, s.entry.title),
+    highlighted: false,
+  };
+});
 
 const seoTitle = 'Séminaire au lac de Saint-Ferréol, près de Toulouse';
 const seoDescription = 'Séminaire d\'entreprise au lac de Saint-Ferréol, à 45 min de Toulouse. Salle équipée jusqu\'à 80 personnes, restauration locale, team building nature. Devis sous 24h.';
