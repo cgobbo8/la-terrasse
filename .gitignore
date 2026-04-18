@@ -32,3 +32,12 @@ pnpm-debug.log*
 
 # Claude Code
 .claude/
+
+# Playwright / dev artifacts
+*.jpeg
+aventure-*.yml
+home-*.yml
+restaurant-*.yml
+salle-*.yml
+producteurs-*.yml
+contact-*.md
