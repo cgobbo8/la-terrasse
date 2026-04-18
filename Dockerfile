@@ -13,7 +13,9 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 ARG SITE_URL
+ARG PLAUSIBLE_DOMAIN
 ENV SITE_URL=${SITE_URL}
+ENV PLAUSIBLE_DOMAIN=${PLAUSIBLE_DOMAIN}
 RUN pnpm build
 
 # --- Production ---
