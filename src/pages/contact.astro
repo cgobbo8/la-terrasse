@@ -8,14 +8,12 @@ import BaseLayout from '@/layouts/BaseLayout.astro';
 import SectionHero from '@/components/common/SectionHero.astro';
 import { getLangFromUrl, useTranslations } from '@/i18n/utils';
 import { generateLocalBusinessLD } from '@/lib/seo';
-import { createReader } from '@keystatic/core/reader';
-import keystaticConfig from '../../keystatic.config';
+import { getSiteSettings } from '@/lib/site-settings';
 
 const lang = getLangFromUrl(Astro.url, Astro.currentLocale);
 const t = useTranslations(lang);
 
-const reader = createReader(process.cwd(), keystaticConfig);
-const siteSettings = await reader.singletons.settings.read();
+const siteSettings = await getSiteSettings();
 
 const phone = siteSettings?.phone ?? '';
 const phoneTel = phone.replace(/\s/g, '').replace(/^0/, '+33');
