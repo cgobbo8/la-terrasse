@@ -487,61 +487,76 @@ export default config({
       path: 'src/content/seminars-pricing/info',
       format: { data: 'yaml' },
       schema: {
-        flatJournee: fields.integer({
-          label: 'Forfait Salle sèche — Journée entière (€ HT)',
-          description: 'Location de salle uniquement, sans restauration (8h–18h)',
-          defaultValue: 600,
-          validation: { isRequired: true },
-        }),
-        flatDemiJournee: fields.integer({
-          label: 'Forfait Salle sèche — Demi-journée (€ HT)',
-          description: 'Location de salle demi-journée (4h)',
-          defaultValue: 350,
-          validation: { isRequired: true },
-        }),
-        flatSoiree: fields.integer({
-          label: 'Forfait Salle sèche — Soirée (€ HT)',
-          description: 'Location de salle soirée sans restauration',
-          defaultValue: 450,
-          validation: { isRequired: true },
-        }),
-        priceMealFull: fields.integer({
-          label: 'Repas complet (€ HT / pers.)',
-          defaultValue: 45,
-          validation: { isRequired: true },
-        }),
-        priceMealApero: fields.integer({
-          label: 'Apéro dînatoire (€ HT / pers.)',
-          defaultValue: 35,
-          validation: { isRequired: true },
-        }),
-        priceTeamBuilding: fields.integer({
-          label: 'Supplément Team Building (€ HT / pers.)',
-          description: 'Demi-journée activités de cohésion',
-          defaultValue: 25,
-          validation: { isRequired: true },
-        }),
-        priceExtraHour: fields.integer({
-          label: 'Heure supplémentaire soirée (€ HT / h)',
-          description: 'Après 23h',
-          defaultValue: 50,
-          validation: { isRequired: true },
-        }),
-        minRepasComplet: fields.integer({
-          label: 'Minimum personnes — Repas complet',
-          defaultValue: 12,
-          validation: { isRequired: true },
-        }),
-        minApero: fields.integer({
-          label: 'Minimum personnes — Apéro dînatoire',
-          defaultValue: 15,
-          validation: { isRequired: true },
-        }),
-        maxParticipants: fields.integer({
-          label: 'Maximum de participants',
-          defaultValue: 80,
-          validation: { isRequired: true },
-        }),
+        forfaits: fields.object(
+          {
+            flatJournee: fields.integer({
+              label: 'Journée entière (€ HT)',
+              description: 'Location de salle uniquement, 8h–18h',
+              defaultValue: 600,
+              validation: { isRequired: true },
+            }),
+            flatDemiJournee: fields.integer({
+              label: 'Demi-journée (€ HT)',
+              description: '4h',
+              defaultValue: 350,
+              validation: { isRequired: true },
+            }),
+            flatSoiree: fields.integer({
+              label: 'Soirée (€ HT)',
+              description: 'Sans restauration',
+              defaultValue: 450,
+              validation: { isRequired: true },
+            }),
+          },
+          { label: 'Forfaits salle sèche', layout: [4, 4, 4] },
+        ),
+        prestations: fields.object(
+          {
+            priceMealFull: fields.integer({
+              label: 'Repas complet (€ HT / pers.)',
+              defaultValue: 45,
+              validation: { isRequired: true },
+            }),
+            priceMealApero: fields.integer({
+              label: 'Apéro dînatoire (€ HT / pers.)',
+              defaultValue: 35,
+              validation: { isRequired: true },
+            }),
+            priceTeamBuilding: fields.integer({
+              label: 'Supplément Team Building (€ HT / pers.)',
+              description: 'Demi-journée activités de cohésion',
+              defaultValue: 25,
+              validation: { isRequired: true },
+            }),
+            priceExtraHour: fields.integer({
+              label: 'Heure supp. soirée (€ HT / h)',
+              description: 'Après 23h',
+              defaultValue: 50,
+              validation: { isRequired: true },
+            }),
+          },
+          { label: 'Prestations (par personne)', layout: [3, 3, 3, 3] },
+        ),
+        thresholds: fields.object(
+          {
+            minRepasComplet: fields.integer({
+              label: 'Minimum — Repas complet',
+              defaultValue: 12,
+              validation: { isRequired: true },
+            }),
+            minApero: fields.integer({
+              label: 'Minimum — Apéro dînatoire',
+              defaultValue: 15,
+              validation: { isRequired: true },
+            }),
+            maxParticipants: fields.integer({
+              label: 'Maximum de participants',
+              defaultValue: 80,
+              validation: { isRequired: true },
+            }),
+          },
+          { label: 'Seuils (nombre de personnes)', layout: [4, 4, 4] },
+        ),
       },
     }),
 

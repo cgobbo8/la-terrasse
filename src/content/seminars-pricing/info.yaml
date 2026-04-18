@@ -1,10 +1,13 @@
-flatJournee: 600
-flatDemiJournee: 350
-flatSoiree: 450
-priceMealFull: 45
-priceMealApero: 35
-priceTeamBuilding: 25
-priceExtraHour: 50
-minRepasComplet: 12
-minApero: 15
-maxParticipants: 80
+forfaits:
+  flatJournee: 600
+  flatDemiJournee: 350
+  flatSoiree: 450
+prestations:
+  priceMealFull: 45
+  priceMealApero: 35
+  priceTeamBuilding: 25
+  priceExtraHour: 50
+thresholds:
+  minRepasComplet: 12
+  minApero: 15
+  maxParticipants: 80

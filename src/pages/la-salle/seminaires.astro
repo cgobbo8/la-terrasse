@@ -32,7 +32,10 @@ const telHref = toTelHref(siteSettings?.phone ?? '');
 const reader = createReader(process.cwd(), keystaticConfig);
 const allSeminars = await reader.collections.seminars.all();
 const venueData = await reader.singletons.venue.read();
-const pricingData = await reader.singletons.seminarsPricing.read();
+const pricingRaw = await reader.singletons.seminarsPricing.read();
+const pricingData = pricingRaw
+  ? { ...pricingRaw.forfaits, ...pricingRaw.prestations, ...pricingRaw.thresholds }
+  : null;
 const capacityMax = venueData?.space.capacityMax ?? 0;
 const surfaceM2 = venueData?.space.surfaceM2 ?? 0;
 const equipment = getLocalizedArray(venueData ?? {}, 'equipment', lang);
