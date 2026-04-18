@@ -14,6 +14,67 @@ const i18n = (label: string, multiline = false) =>
     { label, layout: [4, 4, 4] },
   );
 
+/**
+ * Inline-style injector for the Keystatic admin UI. Stylesheet rules lose a
+ * cascade fight against Keystar's :where(.kui:reset) + Emotion's late-injected
+ * styles on the group elements themselves, so we apply the separators via
+ * inline style (specificity 1000) on every top-level section.
+ *
+ * Top-level sections = fields.object that we gave a description. They are
+ * rendered as <div role="group" aria-labelledby aria-describedby>.
+ * Nested i18n objects don't carry a description, so they are spared.
+ */
+const SEPARATOR_SELECTOR =
+  '#singleton-form [role="group"][aria-labelledby][aria-describedby], ' +
+  '#collection-item-form [role="group"][aria-labelledby][aria-describedby]';
+const LABEL_SELECTOR =
+  '#singleton-form [role="group"][aria-labelledby][aria-describedby] > span[id$="-label"], ' +
+  '#collection-item-form [role="group"][aria-labelledby][aria-describedby] > span[id$="-label"]';
+
+function applyKeystaticAdminStyles() {
+  if (typeof document === 'undefined') return;
+
+  // Group sections inside each form
+  const forms = document.querySelectorAll('#singleton-form, #collection-item-form');
+  forms.forEach((form) => {
+    const sections = form.querySelectorAll<HTMLElement>(
+      '[role="group"][aria-labelledby][aria-describedby]',
+    );
+    sections.forEach((el, i) => {
+      if (i === 0) {
+        el.style.removeProperty('border-top');
+        el.style.removeProperty('padding-top');
+        el.style.removeProperty('margin-top');
+        return;
+      }
+      el.style.setProperty(
+        'border-top',
+        '1px solid color-mix(in srgb, currentColor 18%, transparent)',
+        'important',
+      );
+      el.style.setProperty('padding-top', '2rem', 'important');
+      el.style.setProperty('margin-top', '2rem', 'important');
+    });
+  });
+
+  // Labels
+  document.querySelectorAll<HTMLElement>(LABEL_SELECTOR).forEach((el) => {
+    el.style.setProperty('font-size', '1.125rem', 'important');
+    el.style.setProperty('font-weight', '700', 'important');
+  });
+}
+
+function ensureKeystaticStyleObserver() {
+  if (typeof document === 'undefined') return;
+  const w = window as typeof window & { __keystaticStyleObserver?: boolean };
+  if (w.__keystaticStyleObserver) return;
+  w.__keystaticStyleObserver = true;
+
+  applyKeystaticAdminStyles();
+  const observer = new MutationObserver(() => applyKeystaticAdminStyles());
+  observer.observe(document.body, { childList: true, subtree: true });
+}
+
 export default config({
   storage: import.meta.env.DEV
     ? { kind: 'local' }
@@ -22,13 +83,19 @@ export default config({
         repo: 'cgobbo8/la-terrasse',
       },
   ui: {
-    brand: { name: 'La Terrasse — CMS' },
+    brand: {
+      name: 'La Terrasse — CMS',
+      mark: () => {
+        ensureKeystaticStyleObserver();
+        return null;
+      },
+    },
     navigation: {
-      'Contenu géré': ['events', 'activities', 'seminars', 'producers', 'nearby'],
-      'Restaurant': ['restaurant', 'restaurantHubTexts', 'restaurantMenuTexts', 'producteursTexts'],
-      'Aventure': ['aventureHubTexts'],
-      'La Salle': ['venue', 'seminarsPricing', 'salleHubTexts'],
-      'Homepage': ['homepageTexts'],
+      'Homepage': ['homepageTexts', 'nearby'],
+      'Restaurant': ['restaurant', 'producers', 'restaurantHubTexts', 'restaurantMenuTexts', 'producteursTexts'],
+      'Aventure': ['activities', 'aventureHubTexts'],
+      'La Salle': ['venue', 'seminars', 'seminarsPricing', 'salleHubTexts'],
+      'Agenda': ['events'],
       'Paramètres': ['settings', 'legalMentions'],
     },
   },
