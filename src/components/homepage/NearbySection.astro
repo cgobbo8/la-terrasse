@@ -42,26 +42,22 @@ const categoryMap: Record<string, Record<string, string>> = {
 
 const catLabels = categoryMap[lang] || categoryMap.fr;
 
-// Load nearby places from Keystatic CMS
+// Load nearby places from the homepage singleton (inline array)
 const reader = createReader(process.cwd(), keystaticConfig);
-const allNearby = await reader.collections.nearby.all();
+const homeData = await reader.singletons.homepage.read();
+const nearbyItems = homeData?.nearby ?? [];
 
-const places = allNearby
-  .filter((entry) => entry.entry.meta.visible)
-  .sort((a, b) => (a.entry.meta.order ?? 0) - (b.entry.meta.order ?? 0))
-  .map((entry) => {
-    const d = entry.entry;
-    const cats = d.info.categories ?? ['culture'];
-
-    return {
-      name: getLocalizedField(d, 'name', lang),
-      categories: cats,
-      categoryLabels: cats.map((c: string) => catLabels[c] || c),
-      description: getLocalizedField(d, 'description', lang),
-      image: d.info.image || '',
-      url: d.info.url || '#',
-    };
-  });
+const places = nearbyItems.map((item) => {
+  const cats = item.categories ?? ['culture'];
+  return {
+    name: getLocalizedField(item, 'name', lang),
+    categories: cats,
+    categoryLabels: cats.map((c: string) => catLabels[c] || c),
+    description: getLocalizedField(item, 'description', lang),
+    image: item.image || '',
+    url: item.url || '#',
+  };
+});
 
 const allLabel: Record<string, string> = {
   fr: 'Tout',

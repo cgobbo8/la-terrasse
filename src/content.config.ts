@@ -15,16 +15,8 @@ const events = defineCollection({
   loader: glob({ pattern: '*.mdx', base: 'src/content/events' }),
 });
 
-const seminars = defineCollection({
-  loader: glob({ pattern: '*.mdx', base: 'src/content/seminars' }),
-});
-
 const producers = defineCollection({
   loader: glob({ pattern: '*.yaml', base: 'src/content/producers' }),
-});
-
-const nearby = defineCollection({
-  loader: glob({ pattern: '*.yaml', base: 'src/content/nearby' }),
 });
 
 const legal = defineCollection({
@@ -43,19 +35,12 @@ const settings = defineCollection({
   loader: glob({ pattern: '*.yaml', base: 'src/content/settings' }),
 });
 
-const seminarsPricing = defineCollection({
-  loader: glob({ pattern: '*.yaml', base: 'src/content/seminars-pricing' }),
-});
-
 export const collections = {
   activities,
   events,
-  seminars,
   producers,
-  nearby,
   legal,
   restaurant,
   venue,
   settings,
-  'seminars-pricing': seminarsPricing,
 };

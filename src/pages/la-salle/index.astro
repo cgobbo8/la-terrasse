@@ -30,8 +30,8 @@ const siteSettings = await getSiteSettings();
 const siteEmail = siteSettings?.email ?? '';
 const sitePhone = siteSettings?.phone ?? '';
 const reader = createReader(process.cwd(), keystaticConfig);
-const venueData = await reader.singletons.venue.read();
-const pageTexts = await reader.singletons.salleHubTexts.read();
+const pageTexts = await reader.singletons.salleHub.read();
+const venueData = pageTexts;
 const tx = (path: string) => {
   const [section, field] = path.split('.');
   return getLocalizedField(
@@ -83,9 +83,9 @@ const jsonLd = generateEventVenueLD({
   <!-- L'ESPACE — Venue specs -->
   <div class="pt-(--spacing-section-mobile) lg:pt-(--spacing-section)">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8" data-reveal>
-      <p class="section-eyebrow mb-4" style={`color: ${salleAccent}50;`}>{tx('venue.eyebrow')}</p>
+      <p class="section-eyebrow mb-4" style={`color: ${salleAccent}50;`}>{tx('overview.eyebrow')}</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-2 text-gray-900">
-        {tx('venue.title')}
+        {tx('overview.title')}
       </h2>
     </div>
     <VenueSpecs

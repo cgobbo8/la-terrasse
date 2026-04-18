@@ -91,10 +91,10 @@ export default config({
       },
     },
     navigation: {
-      'Homepage': ['homepageTexts', 'nearby'],
+      'Homepage': ['homepage'],
       'Restaurant': ['restaurantHub', 'restaurantCarte', 'restaurantProducteurs'],
-      'Aventure': ['activities', 'aventureHubTexts'],
-      'La Salle': ['venue', 'seminars', 'seminarsPricing', 'salleHubTexts'],
+      'Aventure': ['aventureHub', 'activities'],
+      'La Salle': ['salleHub', 'salleEvenementiel', 'salleSeminaires'],
       'Agenda': ['events'],
       'Paramètres': ['settings', 'legalMentions'],
     },
@@ -107,10 +107,11 @@ export default config({
     // Stored as: src/content/activities/pedalo.mdx
     // ========================================
     activities: collection({
-      label: 'Activités',
+      label: 'Fiches Activités',
       slugField: 'title',
       path: 'src/content/activities/*',
       format: { contentField: 'content' },
+      columns: ['title', 'category'],
       schema: {
         title: fields.slug({ name: { label: 'Nom de l\'activité (FR / slug)', validation: { isRequired: true } } }),
         title_en: fields.text({ label: 'Title (EN)' }),
@@ -175,7 +176,7 @@ export default config({
               publicPath: '/images/activities/',
             }),
           },
-          { label: 'Informations pratiques', layout: [6, 3, 3, 3, 6, 12] },
+          { label: 'Informations pratiques', layout: [6, 3, 3, 6, 6, 12] },
         ),
         meta: fields.object(
           {
@@ -187,175 +188,33 @@ export default config({
         content: fields.mdx({
           label: 'Description complète',
         }),
-      },
-    }),
-
-    // ========================================
-    // Seminar packs (La Salle pole)
-    // Stored as: src/content/seminars/seminaire-simple.mdx
-    // ========================================
-    seminars: collection({
-      label: 'Packs Séminaire',
-      slugField: 'title',
-      path: 'src/content/seminars/*',
-      format: { contentField: 'content' },
-      schema: {
-        title: fields.slug({ name: { label: 'Nom du pack (FR / slug)', validation: { isRequired: true } } }),
-        title_en: fields.text({ label: 'Title (EN)' }),
-        title_es: fields.text({ label: 'Título (ES)' }),
-        subtitle: fields.object(
-          {
-            fr: fields.text({ label: 'Français' }),
-            en: fields.text({ label: 'English' }),
-            es: fields.text({ label: 'Español' }),
-          },
-          { label: 'Sous-titre', layout: [4, 4, 4] },
-        ),
-        description: fields.object(
-          {
-            fr: fields.text({ label: 'Français', multiline: true }),
-            en: fields.text({ label: 'English', multiline: true }),
-            es: fields.text({ label: 'Español', multiline: true }),
-          },
-          { label: 'Description courte', layout: [4, 4, 4] },
-        ),
-        includes: fields.object(
-          {
-            fr: fields.array(
-              fields.text({ label: 'Élément inclus' }),
-              { label: 'Français', itemLabel: (props) => props.value || 'Élément' },
-            ),
-            en: fields.array(
-              fields.text({ label: 'Included item' }),
-              { label: 'English', itemLabel: (props) => props.value || 'Item' },
-            ),
-            es: fields.array(
-              fields.text({ label: 'Elemento incluido' }),
-              { label: 'Español', itemLabel: (props) => props.value || 'Elemento' },
-            ),
-          },
-          { label: 'Ce qui est inclus', layout: [4, 4, 4] },
-        ),
-        priceFrom: fields.object(
-          {
-            fr: fields.text({ label: 'Français' }),
-            en: fields.text({ label: 'English' }),
-            es: fields.text({ label: 'Español' }),
-          },
-          { label: 'À partir de (prix indicatif)', layout: [4, 4, 4] },
-        ),
-        features: fields.object(
-          {
-            salleEquipee: fields.checkbox({ label: 'Salle équipée', defaultValue: true }),
-            videoprojecteur: fields.checkbox({ label: 'Vidéoprojecteur', defaultValue: true }),
-            wifi: fields.checkbox({ label: 'Wi-Fi', defaultValue: true }),
-            petitDejeuner: fields.checkbox({ label: 'Petit-déjeuner d\'accueil', defaultValue: false }),
-            dejeuner: fields.checkbox({ label: 'Déjeuner terroir', defaultValue: false }),
-            pausesCafe: fields.checkbox({ label: 'Pauses café', defaultValue: false }),
-            teamBuilding: fields.checkbox({ label: 'Activités team building', defaultValue: false }),
-            encadrement: fields.checkbox({ label: 'Encadrement dédié', defaultValue: false }),
-          },
-          { label: 'Fonctionnalités (comparateur)' },
-        ),
-        meta: fields.object(
-          {
-            order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
-            visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
-          },
-          { label: 'Affichage', layout: [6, 6] },
-        ),
-        content: fields.mdx({
-          label: 'Description complète',
-        }),
-      },
-    }),
-
-    // ========================================
-    // Events / Agenda
-    // Stored as: src/content/events/soiree-tapas.mdx
-    // ========================================
-    // ========================================
-    // Nearby places (À proximité)
-    // Stored as: src/content/nearby/abbaye-soreze.yaml
-    // ========================================
-    nearby: collection({
-      label: 'À proximité',
-      slugField: 'name',
-      path: 'src/content/nearby/*',
-      format: { data: 'yaml' },
-      schema: {
-        name: fields.slug({ name: { label: 'Nom du lieu (FR / slug)', validation: { isRequired: true } } }),
-        name_en: fields.text({ label: 'Nom (EN)' }),
-        name_es: fields.text({ label: 'Nombre (ES)' }),
-        info: fields.object(
-          {
-            categories: fields.multiselect({
-              label: 'Catégories',
-              options: [
-                { label: 'Culture', value: 'culture' },
-                { label: 'Patrimoine', value: 'patrimoine' },
-                { label: 'Nature', value: 'nature' },
-                { label: 'Gastronomie', value: 'gastronomie' },
-                { label: 'Activités', value: 'activites' },
-                { label: 'Hébergement', value: 'hebergement' },
-              ],
-              defaultValue: ['culture'],
-            }),
-            image: fields.image({
-              label: 'Photo',
-              directory: 'public/images/nearby',
-              publicPath: '/images/nearby/',
-            }),
-            url: fields.url({ label: 'Site web du lieu' }),
-          },
-          { label: 'Informations', layout: [12, 12, 12] },
-        ),
-        description: fields.object(
-          {
-            fr: fields.text({ label: 'Français', multiline: true, validation: { isRequired: true } }),
-            en: fields.text({ label: 'English', multiline: true }),
-            es: fields.text({ label: 'Español', multiline: true }),
-          },
-          { label: 'Description courte (1-2 phrases)', layout: [4, 4, 4] },
-        ),
-        meta: fields.object(
-          {
-            order: fields.integer({ label: 'Ordre d\'affichage', defaultValue: 0 }),
-            visible: fields.checkbox({ label: 'Visible sur le site', defaultValue: true }),
-          },
-          { label: 'Affichage', layout: [6, 6] },
-        ),
       },
     }),
 
     events: collection({
-      label: 'Événements / Agenda',
+      label: 'Agenda',
       slugField: 'title',
       path: 'src/content/events/*',
       format: { contentField: 'content' },
+      columns: ['title', 'date', 'category'],
       schema: {
         title: fields.slug({ name: { label: 'Nom de l\'événement (FR / slug)', validation: { isRequired: true } } }),
         title_en: fields.text({ label: 'Title (EN)' }),
         title_es: fields.text({ label: 'Título (ES)' }),
-        schedule: fields.object(
-          {
-            date: fields.date({ label: 'Date' }),
-            startTime: fields.text({ label: 'Heure de début (ex: 19:00)' }),
-            endTime: fields.text({ label: 'Heure de fin (ex: 22:00)' }),
-            category: fields.select({
-              label: 'Catégorie',
-              options: [
-                { label: 'Concert', value: 'concert' },
-                { label: 'Soirée à thème', value: 'soiree-theme' },
-                { label: 'Festival / Fête', value: 'festival' },
-                { label: 'Marché / Salon', value: 'marche' },
-                { label: 'Autre', value: 'autre' },
-              ],
-              defaultValue: 'autre',
-            }),
-          },
-          { label: 'Date & catégorie', layout: [6, 3, 3, 12] },
-        ),
+        date: fields.date({ label: 'Date', description: 'Date à laquelle l\'événement a lieu. Cliquez sur l\'en-tête « Date » dans la liste pour trier.' }),
+        startTime: fields.text({ label: 'Heure de début (ex : 19:00)' }),
+        endTime: fields.text({ label: 'Heure de fin (ex : 22:00)' }),
+        category: fields.select({
+          label: 'Catégorie',
+          options: [
+            { label: 'Concert', value: 'concert' },
+            { label: 'Soirée à thème', value: 'soiree-theme' },
+            { label: 'Festival / Fête', value: 'festival' },
+            { label: 'Marché / Salon', value: 'marche' },
+            { label: 'Autre', value: 'autre' },
+          ],
+          defaultValue: 'autre',
+        }),
         description: fields.object(
           {
             fr: fields.text({ label: 'Français', multiline: true }),
@@ -380,64 +239,11 @@ export default config({
 
   singletons: {
     // ========================================
-    // Venue info (salle séminaire)
-    // Stored as: src/content/venue/info.yaml
-    // ========================================
-    venue: singleton({
-      label: 'Salle & Équipements',
-      path: 'src/content/venue/info',
-      format: { data: 'yaml' },
-      schema: {
-        space: fields.object(
-          {
-            capacityMax: fields.integer({ label: 'Capacité maximale (personnes)', validation: { isRequired: true } }),
-            surfaceM2: fields.integer({ label: 'Surface (m²)', validation: { isRequired: true } }),
-          },
-          { label: 'Espace', layout: [6, 6] },
-        ),
-        equipment: fields.object(
-          {
-            fr: fields.array(
-              fields.text({ label: 'Équipement' }),
-              { label: 'Français', itemLabel: (props) => props.value || 'Équipement' },
-            ),
-            en: fields.array(
-              fields.text({ label: 'Equipment' }),
-              { label: 'English', itemLabel: (props) => props.value || 'Equipment' },
-            ),
-            es: fields.array(
-              fields.text({ label: 'Equipamiento' }),
-              { label: 'Español', itemLabel: (props) => props.value || 'Equipamiento' },
-            ),
-          },
-          { label: 'Équipements disponibles', layout: [4, 4, 4] },
-        ),
-        layoutSuggestions: fields.object(
-          {
-            fr: fields.array(
-              fields.text({ label: 'Disposition' }),
-              { label: 'Français', itemLabel: (props) => props.value || 'Disposition' },
-            ),
-            en: fields.array(
-              fields.text({ label: 'Layout' }),
-              { label: 'English', itemLabel: (props) => props.value || 'Layout' },
-            ),
-            es: fields.array(
-              fields.text({ label: 'Disposición' }),
-              { label: 'Español', itemLabel: (props) => props.value || 'Disposición' },
-            ),
-          },
-          { label: 'Idées de disposition', layout: [4, 4, 4] },
-        ),
-      },
-    }),
-
-    // ========================================
     // Legal mentions
     // Stored as: src/content/legal/mentions-legales.yaml
     // ========================================
     legalMentions: singleton({
-      label: 'Mentions légales',
+      label: 'Mentions légales (footer)',
       path: 'src/content/legal/mentions-legales',
       format: { data: 'yaml' },
       schema: {
@@ -453,93 +259,11 @@ export default config({
     }),
 
     // ========================================
-    // Seminars pricing (configurator)
-    // Stored as: src/content/seminars-pricing/info.yaml
-    // ========================================
-    seminarsPricing: singleton({
-      label: 'Tarifs Séminaires',
-      path: 'src/content/seminars-pricing/info',
-      format: { data: 'yaml' },
-      schema: {
-        forfaits: fields.object(
-          {
-            flatJournee: fields.integer({
-              label: 'Journée entière (€ HT)',
-              description: 'Location de salle uniquement, 8h–18h',
-              defaultValue: 600,
-              validation: { isRequired: true },
-            }),
-            flatDemiJournee: fields.integer({
-              label: 'Demi-journée (€ HT)',
-              description: '4h',
-              defaultValue: 350,
-              validation: { isRequired: true },
-            }),
-            flatSoiree: fields.integer({
-              label: 'Soirée (€ HT)',
-              description: 'Sans restauration',
-              defaultValue: 450,
-              validation: { isRequired: true },
-            }),
-          },
-          { label: 'Forfaits salle sèche', layout: [4, 4, 4] },
-        ),
-        prestations: fields.object(
-          {
-            priceMealFull: fields.integer({
-              label: 'Repas complet (€ HT / pers.)',
-              defaultValue: 45,
-              validation: { isRequired: true },
-            }),
-            priceMealApero: fields.integer({
-              label: 'Apéro dînatoire (€ HT / pers.)',
-              defaultValue: 35,
-              validation: { isRequired: true },
-            }),
-            priceTeamBuilding: fields.integer({
-              label: 'Supplément Team Building (€ HT / pers.)',
-              description: 'Demi-journée activités de cohésion',
-              defaultValue: 25,
-              validation: { isRequired: true },
-            }),
-            priceExtraHour: fields.integer({
-              label: 'Heure supp. soirée (€ HT / h)',
-              description: 'Après 23h',
-              defaultValue: 50,
-              validation: { isRequired: true },
-            }),
-          },
-          { label: 'Prestations (par personne)', layout: [3, 3, 3, 3] },
-        ),
-        thresholds: fields.object(
-          {
-            minRepasComplet: fields.integer({
-              label: 'Minimum — Repas complet',
-              defaultValue: 12,
-              validation: { isRequired: true },
-            }),
-            minApero: fields.integer({
-              label: 'Minimum — Apéro dînatoire',
-              defaultValue: 15,
-              validation: { isRequired: true },
-            }),
-            maxParticipants: fields.integer({
-              label: 'Maximum de participants',
-              defaultValue: 80,
-              validation: { isRequired: true },
-            }),
-          },
-          { label: 'Seuils (nombre de personnes)', layout: [4, 4, 4] },
-        ),
-      },
-    }),
-
-    // ========================================
     // Site settings
     // Stored as: src/content/settings/site.yaml
     // ========================================
     settings: singleton({
-      label: 'Paramètres du site',
+      label: 'Paramètres généraux',
       path: 'src/content/settings/site',
       schema: {
         contact: fields.object(
@@ -613,9 +337,9 @@ export default config({
     // UI) stay in src/i18n/translations.ts.
     // ========================================
 
-    homepageTexts: singleton({
-      label: 'Textes — Homepage',
-      path: 'src/content/page-texts/homepage',
+    homepage: singleton({
+      label: 'Accueil du site',
+      path: 'src/content/pages/homepage',
       format: { data: 'yaml' },
       schema: {
         hero: fields.object(
@@ -639,24 +363,36 @@ export default config({
             description: 'Les 3 cartes juste après le widget agenda, qui renvoient vers Restaurant / Aventure / La Salle.',
           },
         ),
-        dayTrip: fields.object(
-          {
-            block0Title: i18n('Bloc 1 — Titre'),
-            block0Desc: i18n('Bloc 1 — Description', true),
-            block1Title: i18n('Bloc 2 — Titre'),
-            block1Desc: i18n('Bloc 2 — Description', true),
-            block2Title: i18n('Bloc 3 — Titre'),
-            block2Desc: i18n('Bloc 3 — Description', true),
-            block3Title: i18n('Bloc 4 — Titre'),
-            block3Desc: i18n('Bloc 4 — Description', true),
-            block4Title: i18n('Bloc 5 — Titre'),
-            block4Desc: i18n('Bloc 5 — Description', true),
-            block5Title: i18n('Bloc 6 — Titre'),
-            block5Desc: i18n('Bloc 6 — Description', true),
-          },
+        dayTrip: fields.array(
+          fields.object({
+            timeLabel: fields.text({
+              label: 'Heure (ex : 9h00, 12h30)',
+              validation: { isRequired: true },
+            }),
+            title: i18n('Titre court'),
+            desc: i18n('Description narrative', true),
+            image: fields.image({
+              label: 'Photo du moment',
+              directory: 'public/images/journee',
+              publicPath: '/images/journee/',
+            }),
+            pole: fields.select({
+              label: 'Pôle associé (couleur + lien)',
+              description: 'Définit la couleur d\'accent de la carte et le lien vers lequel elle renvoie. « Aucun » pour une étape non cliquable.',
+              options: [
+                { label: 'Aucun (neutre)', value: 'none' },
+                { label: 'Restaurant', value: 'restaurant' },
+                { label: 'Aventure', value: 'aventure' },
+                { label: 'La Salle', value: 'salle' },
+              ],
+              defaultValue: 'none',
+            }),
+          }),
           {
             label: 'Une journée type à La Terrasse',
-            description: 'Timeline illustrée : les 6 étapes d\'une journée (9h → 19h30). Chaque bloc a un titre court + une phrase narrative.',
+            description: 'Timeline illustrée : les étapes d\'une journée au lac. Glissez-déposez pour réordonner, ajoutez/supprimez autant d\'étapes que vous voulez.',
+            itemLabel: (props) =>
+              `${props.fields.timeLabel.value || '—'} · ${props.fields.title.fields.fr.value || 'Nouveau bloc'}`,
           },
         ),
         soirees: fields.object(
@@ -690,6 +426,35 @@ export default config({
           {
             label: 'CTA final',
             description: 'Bloc coloré au pied de la homepage avec le gros titre et une phrase sous le titre.',
+          },
+        ),
+        nearby: fields.array(
+          fields.object({
+            name: i18n('Nom du lieu'),
+            image: fields.image({
+              label: 'Photo',
+              directory: 'public/images/nearby',
+              publicPath: '/images/nearby/',
+            }),
+            url: fields.url({ label: 'Site web du lieu' }),
+            categories: fields.multiselect({
+              label: 'Catégories',
+              options: [
+                { label: 'Culture', value: 'culture' },
+                { label: 'Patrimoine', value: 'patrimoine' },
+                { label: 'Nature', value: 'nature' },
+                { label: 'Gastronomie', value: 'gastronomie' },
+                { label: 'Activités', value: 'activites' },
+                { label: 'Hébergement', value: 'hebergement' },
+              ],
+              defaultValue: ['culture'],
+            }),
+            description: i18n('Description courte (1-2 phrases)', true),
+          }),
+          {
+            label: 'À proximité du lac',
+            description: 'Carrousel de lieux voisins affiché en bas de la homepage. Glissez-déposez pour réordonner.',
+            itemLabel: (props) => props.fields.name.fields.fr.value || 'Nouveau lieu',
           },
         ),
       },
@@ -911,39 +676,92 @@ export default config({
       },
     }),
 
-    salleHubTexts: singleton({
-      label: 'Textes — La Salle (hub)',
-      path: 'src/content/page-texts/salle-hub',
+    salleHub: singleton({
+      label: 'La Salle',
+      path: 'src/content/pages/salle-hub',
       format: { data: 'yaml' },
       schema: {
         hero: fields.object(
           {
-            tagline: i18n('Tagline'),
-            subtitle: i18n('Sous-titre', true),
+            tagline: i18n('Grand titre'),
+            subtitle: i18n('Phrase d\'accroche', true),
           },
           {
-            label: 'Hero',
-            description: 'En-tête de /la-salle : titre plein écran sur la photo de la salle.',
+            label: 'En-tête de la page',
+            description: 'Titre et sous-titre affichés tout en haut, sur la photo de la salle.',
           },
         ),
-        venue: fields.object(
+        overview: fields.object(
           {
-            eyebrow: i18n('Eyebrow'),
+            eyebrow: i18n('Sur-titre'),
             title: i18n('Titre'),
           },
           {
-            label: 'Section L\'espace',
-            description: 'Petit titre juste avant les chiffres clés de la salle (capacité / surface) et la liste des équipements.',
+            label: 'Bloc « L\'espace » — titre',
+            description: 'Petit titre juste avant les chiffres clés (capacité, surface) et la liste des équipements.',
+          },
+        ),
+        space: fields.object(
+          {
+            capacityMax: fields.integer({ label: 'Capacité maximale (nombre de personnes)', validation: { isRequired: true } }),
+            surfaceM2: fields.integer({ label: 'Surface (m²)', validation: { isRequired: true } }),
+          },
+          {
+            label: 'Chiffres clés de la salle',
+            layout: [6, 6],
+            description: 'Les deux gros chiffres affichés en entête : capacité max + surface. Utilisés aussi pour la page Séminaire et Événementiel.',
+          },
+        ),
+        equipment: fields.object(
+          {
+            fr: fields.array(
+              fields.text({ label: 'Équipement' }),
+              { label: 'Français', itemLabel: (props) => props.value || 'Équipement' },
+            ),
+            en: fields.array(
+              fields.text({ label: 'Equipment' }),
+              { label: 'English', itemLabel: (props) => props.value || 'Equipment' },
+            ),
+            es: fields.array(
+              fields.text({ label: 'Equipamiento' }),
+              { label: 'Español', itemLabel: (props) => props.value || 'Equipamiento' },
+            ),
+          },
+          {
+            label: 'Équipements disponibles',
+            layout: [4, 4, 4],
+            description: 'Liste des équipements affichés en puces (vidéoprojecteur, Wi-Fi, etc.). Une ligne = un équipement.',
+          },
+        ),
+        layoutSuggestions: fields.object(
+          {
+            fr: fields.array(
+              fields.text({ label: 'Disposition' }),
+              { label: 'Français', itemLabel: (props) => props.value || 'Disposition' },
+            ),
+            en: fields.array(
+              fields.text({ label: 'Layout' }),
+              { label: 'English', itemLabel: (props) => props.value || 'Layout' },
+            ),
+            es: fields.array(
+              fields.text({ label: 'Disposición' }),
+              { label: 'Español', itemLabel: (props) => props.value || 'Disposición' },
+            ),
+          },
+          {
+            label: 'Idées de disposition',
+            layout: [4, 4, 4],
+            description: 'Propositions d\'agencement (théâtre, U, îlots…) affichées en badges.',
           },
         ),
         spaces: fields.object(
           {
-            eyebrow: i18n('Eyebrow'),
+            eyebrow: i18n('Sur-titre'),
             title: i18n('Titre'),
           },
           {
-            label: 'Section 3 espaces',
-            description: 'Titre de la section qui présente les 3 cards détaillées : salle, sanitaires, traiteur.',
+            label: 'Bloc « Les espaces » — titre',
+            description: 'Titre de la section qui présente les 3 cards : salle polyvalente, sanitaires, espace traiteur.',
           },
         ),
         dispatch: fields.object(
@@ -954,27 +772,225 @@ export default config({
             seminairesDesc: i18n('Carte Séminaires — Description', true),
           },
           {
-            label: 'Cartes de dispatch (Événementiel / Séminaires)',
-            description: 'Les 2 grandes cartes image + texte qui dispatchent vers /la-salle/evenementiel et /la-salle/seminaires.',
+            label: 'Les 2 cartes « Événementiel » + « Séminaires »',
+            description: 'Cartes image + texte qui renvoient vers les 2 sous-pages /la-salle/evenementiel et /la-salle/seminaires.',
           },
         ),
         contact: fields.object(
           {
-            eyebrow: i18n('Eyebrow'),
+            eyebrow: i18n('Sur-titre'),
             title: i18n('Titre'),
-            subtitle: i18n('Sous-titre', true),
+            subtitle: i18n('Phrase sous le titre', true),
           },
           {
-            label: 'CTA contact final',
-            description: 'Bloc bleu ardoise pleine largeur en bas de la page avec le bouton « Demander un devis ».',
+            label: 'Bloc « Demander un devis » (bas de page)',
+            description: 'Bandeau bleu ardoise tout en bas de la page avec le bouton de contact.',
           },
         ),
       },
     }),
 
-    aventureHubTexts: singleton({
-      label: 'Textes — Aventure (hub)',
-      path: 'src/content/page-texts/aventure-hub',
+    salleEvenementiel: singleton({
+      label: 'Événementiel',
+      path: 'src/content/pages/salle-evenementiel',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            tagline: i18n('Grand titre'),
+            subtitle: i18n('Phrase d\'accroche', true),
+          },
+          {
+            label: 'En-tête de la page',
+            description: 'Titre et sous-titre affichés tout en haut de /la-salle/evenementiel.',
+          },
+        ),
+        intro: fields.object(
+          {
+            title: i18n('Titre'),
+            desc: i18n('Paragraphe', true),
+          },
+          {
+            label: 'Paragraphe d\'introduction',
+            description: 'Bloc d\'intro juste après le hero — présente rapidement ce qu\'on peut faire dans la salle.',
+          },
+        ),
+        typesTitle: i18n('Titre de la section « Quel événement ? »'),
+        types: fields.array(
+          fields.object({
+            title: i18n('Titre'),
+            desc: i18n('Description', true),
+            icon: fields.select({
+              label: 'Icône',
+              options: [
+                { label: 'Musique (concerts)', value: 'music' },
+                { label: 'Boutique (foires/expo)', value: 'store' },
+                { label: 'Étincelles (soirées)', value: 'sparkles' },
+                { label: 'Sac de courses (marchés)', value: 'shopping-bag' },
+              ],
+              defaultValue: 'music',
+            }),
+            image: fields.image({
+              label: 'Photo',
+              directory: 'public/images/salle',
+              publicPath: '/images/salle/',
+            }),
+          }),
+          {
+            label: 'Types d\'événement',
+            description: 'Cartes présentant les types d\'événements accueillis. Glissez-déposez pour réordonner.',
+            itemLabel: (props) => props.fields.title.fields.fr.value || 'Nouveau type',
+          },
+        ),
+        cta: fields.object(
+          {
+            label: i18n('Libellé du bouton'),
+          },
+          {
+            label: 'Bouton de contact',
+            description: 'Texte du bouton de contact utilisé dans le hero et en bas de page.',
+          },
+        ),
+      },
+    }),
+
+    salleSeminaires: singleton({
+      label: 'Séminaire',
+      path: 'src/content/pages/salle-seminaires',
+      format: { data: 'yaml' },
+      schema: {
+        hero: fields.object(
+          {
+            tagline: i18n('Grand titre'),
+            subtitle: i18n('Phrase d\'accroche', true),
+          },
+          {
+            label: 'En-tête de la page',
+            description: 'Titre et sous-titre affichés tout en haut de /la-salle/seminaires.',
+          },
+        ),
+        config: fields.object(
+          {
+            eyebrow: i18n('Sur-titre'),
+            title: i18n('Titre'),
+            desc: i18n('Phrase sous le titre', true),
+          },
+          {
+            label: 'Titre au-dessus du configurateur',
+            description: 'Introduit le configurateur interactif qui calcule une estimation de devis.',
+          },
+        ),
+        why: fields.object(
+          {
+            eyebrow: i18n('Sur-titre'),
+            title: i18n('Titre'),
+            body: i18n('Paragraphe complet', true),
+          },
+          {
+            label: 'Bloc « Pourquoi Saint-Ferréol » (prose SEO)',
+            description: 'Long paragraphe éditorial en bas de page, optimisé pour le référencement.',
+          },
+        ),
+        faqTitle: i18n('Titre de la section FAQ'),
+        faq: fields.array(
+          fields.object({
+            question: i18n('Question'),
+            answer: i18n('Réponse', true),
+          }),
+          {
+            label: 'FAQ',
+            description: 'Liste de questions fréquentes affichée en bas de page. Utile pour le référencement. Ajoutez/supprimez autant de questions que vous voulez.',
+            itemLabel: (props) => props.fields.question.fields.fr.value || 'Nouvelle question',
+          },
+        ),
+        pricingForfaits: fields.object(
+          {
+            flatJournee: fields.integer({
+              label: 'Journée entière (€ HT)',
+              description: 'Location de salle uniquement, 8h–18h',
+              defaultValue: 600,
+              validation: { isRequired: true },
+            }),
+            flatDemiJournee: fields.integer({
+              label: 'Demi-journée (€ HT)',
+              description: '4h',
+              defaultValue: 350,
+              validation: { isRequired: true },
+            }),
+            flatSoiree: fields.integer({
+              label: 'Soirée (€ HT)',
+              description: 'Sans restauration',
+              defaultValue: 450,
+              validation: { isRequired: true },
+            }),
+          },
+          {
+            label: 'Tarifs — Forfaits salle sèche',
+            layout: [4, 4, 4],
+            description: 'Prix de base du configurateur (location salle uniquement, sans repas).',
+          },
+        ),
+        pricingPrestations: fields.object(
+          {
+            priceMealFull: fields.integer({
+              label: 'Repas complet (€ HT / pers.)',
+              defaultValue: 45,
+              validation: { isRequired: true },
+            }),
+            priceMealApero: fields.integer({
+              label: 'Apéro dînatoire (€ HT / pers.)',
+              defaultValue: 35,
+              validation: { isRequired: true },
+            }),
+            priceTeamBuilding: fields.integer({
+              label: 'Supplément Team Building (€ HT / pers.)',
+              description: 'Demi-journée activités de cohésion',
+              defaultValue: 25,
+              validation: { isRequired: true },
+            }),
+            priceExtraHour: fields.integer({
+              label: 'Heure supp. soirée (€ HT / h)',
+              description: 'Après 23h',
+              defaultValue: 50,
+              validation: { isRequired: true },
+            }),
+          },
+          {
+            label: 'Tarifs — Prestations (par personne)',
+            layout: [3, 3, 3, 3],
+            description: 'Prix unitaires ajoutés par le configurateur selon les options choisies.',
+          },
+        ),
+        pricingThresholds: fields.object(
+          {
+            minRepasComplet: fields.integer({
+              label: 'Minimum — Repas complet',
+              defaultValue: 12,
+              validation: { isRequired: true },
+            }),
+            minApero: fields.integer({
+              label: 'Minimum — Apéro dînatoire',
+              defaultValue: 15,
+              validation: { isRequired: true },
+            }),
+            maxParticipants: fields.integer({
+              label: 'Maximum de participants',
+              defaultValue: 80,
+              validation: { isRequired: true },
+            }),
+          },
+          {
+            label: 'Tarifs — Seuils (nombre de personnes)',
+            layout: [4, 4, 4],
+            description: 'Seuils utilisés par le configurateur : nombre minimum pour la restauration, maximum total.',
+          },
+        ),
+      },
+    }),
+
+    aventureHub: singleton({
+      label: 'Aventure',
+      path: 'src/content/pages/aventure-hub',
       format: { data: 'yaml' },
       schema: {
         hero: fields.object(

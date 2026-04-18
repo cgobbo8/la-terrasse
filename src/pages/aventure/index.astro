@@ -22,7 +22,7 @@ const t = useTranslations(lang);
 // Load activities from Keystatic
 const reader = createReader(process.cwd(), keystaticConfig);
 const allActivities = await reader.collections.activities.all();
-const pageTexts = await reader.singletons.aventureHubTexts.read();
+const pageTexts = await reader.singletons.aventureHub.read();
 const tx = (path: string) => {
   const [section, field] = path.split('.');
   return getLocalizedField(

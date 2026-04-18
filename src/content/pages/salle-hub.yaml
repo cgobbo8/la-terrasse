@@ -7,7 +7,7 @@ hero:
     fr: "Séminaires, concerts, congrès, foires — une salle modulable au cœur du lac de Saint-Ferréol"
     en: "Seminars, concerts, conferences, exhibitions — a versatile venue at the heart of Lake Saint-Ferréol"
     es: "Seminarios, conciertos, congresos, ferias — un espacio versátil en el corazón del lago de Saint-Ferréol"
-venue:
+overview:
   eyebrow:
     fr: "L'espace"
     en: "The venue"
@@ -16,6 +16,59 @@ venue:
     fr: "L'espace"
     en: "The venue"
     es: "El espacio"
+space:
+  capacityMax: 202
+  surfaceM2: 195
+equipment:
+  fr:
+    - Vidéoprojecteur laser
+    - Écran motorisé 3m × 4m
+    - Sono & micros sans fil
+    - Wi-Fi
+    - Bluetooth (sono)
+    - Climatisation & chauffage
+    - Traitement acoustique
+    - Espace divisible
+    - Parking à proximité
+  en:
+    - Laser projector
+    - Motorized screen 3m × 4m
+    - Sound system & wireless mics
+    - Wi-Fi
+    - Bluetooth (sound system)
+    - Air conditioning & heating
+    - Acoustic treatment
+    - Dividable space
+    - Nearby parking
+  es:
+    - Proyector láser
+    - Pantalla motorizada 3m × 4m
+    - Sistema de sonido y micrófonos inalámbricos
+    - Wi-Fi
+    - Bluetooth (sonido)
+    - Climatización y calefacción
+    - Tratamiento acústico
+    - Espacio divisible
+    - Aparcamiento cercano
+layoutSuggestions:
+  fr:
+    - Théâtre
+    - U-shape
+    - Table ronde
+    - Îlots
+    - Cocktail / debout
+  en:
+    - Theatre
+    - U-shape
+    - Round table
+    - Islands
+    - Cocktail / standing
+  es:
+    - Teatro
+    - U-shape
+    - Mesa redonda
+    - Islas
+    - Cóctel / de pie
 spaces:
   eyebrow:
     fr: "Les espaces"

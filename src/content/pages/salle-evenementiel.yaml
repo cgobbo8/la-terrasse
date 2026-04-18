@@ -1,0 +1,68 @@
+hero:
+  tagline:
+    fr: "Votre événement dans un cadre exceptionnel"
+    en: "Your event in an exceptional setting"
+    es: "Su evento en un entorno excepcional"
+  subtitle:
+    fr: "Concerts, foires, expositions, soirées privées — une salle modulable au bord du lac"
+    en: "Concerts, fairs, exhibitions, private parties — a versatile venue by the lake"
+    es: "Conciertos, ferias, exposiciones, fiestas privadas — un espacio versátil junto al lago"
+intro:
+  title:
+    fr: "Un lieu qui s'adapte à vos projets"
+    en: "A venue that adapts to your projects"
+    es: "Un lugar que se adapta a sus proyectos"
+  desc:
+    fr: "Avec ses 150 m² modulables, sa terrasse face au lac et son équipement professionnel, La Salle accueille tous types d'événements. Du concert intimiste à la foire artisanale, chaque projet trouve ici son cadre idéal."
+    en: "With 150 m² of versatile space, a lakeside terrace and professional equipment, La Salle welcomes all types of events. From intimate concerts to artisan fairs, every project finds its ideal setting here."
+    es: "Con 150 m² modulables, terraza frente al lago y equipamiento profesional, La Salle acoge todo tipo de eventos. Del concierto íntimo a la feria artesanal, cada proyecto encuentra aquí su marco ideal."
+typesTitle:
+  fr: "Quel événement organisez-vous ?"
+  en: "What event are you planning?"
+  es: "¿Qué evento organiza?"
+types:
+  - title:
+      fr: "Concerts & spectacles"
+      en: "Concerts & shows"
+      es: "Conciertos y espectáculos"
+    desc:
+      fr: "Scène modulable, sono et éclairage professionnel, capacité jusqu'à 120 personnes debout."
+      en: "Modular stage, professional sound and lighting, capacity up to 120 standing."
+      es: "Escenario modulable, sonido e iluminación profesional, capacidad hasta 120 personas de pie."
+    icon: music
+    image: /images/salle/concert.webp
+  - title:
+      fr: "Foires & expositions"
+      en: "Fairs & exhibitions"
+      es: "Ferias y exposiciones"
+    desc:
+      fr: "Espace ouvert et modulable, accès livraison, parking à proximité."
+      en: "Open, modular space with delivery access and nearby parking."
+      es: "Espacio abierto y modulable, acceso de carga, aparcamiento cercano."
+    icon: store
+    image: /images/salle/exposition.webp
+  - title:
+      fr: "Soirées privées"
+      en: "Private parties"
+      es: "Fiestas privadas"
+    desc:
+      fr: "Anniversaires, mariages, galas — un cadre élégant avec vue sur le lac."
+      en: "Birthdays, weddings, galas — an elegant setting with lake views."
+      es: "Cumpleaños, bodas, galas — un marco elegante con vistas al lago."
+    icon: sparkles
+    image: /images/salle/soirees-privees.webp
+  - title:
+      fr: "Marchés & salons"
+      en: "Markets & trade shows"
+      es: "Mercados y salones"
+    desc:
+      fr: "Accueil d'exposants, espace intérieur et extérieur combinables."
+      en: "Exhibitor space with combined indoor and outdoor areas."
+      es: "Espacio para expositores, interior y exterior combinables."
+    icon: shopping-bag
+    image: /images/salle/foire-expo.webp
+cta:
+  label:
+    fr: "Nous contacter"
+    en: "Contact us"
+    es: "Contáctenos"

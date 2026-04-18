@@ -1,0 +1,241 @@
+hero:
+  tagline:
+    fr: Un lieu, trois expériences
+    en: One place, three experiences
+    es: Un lugar, tres experiencias
+  subtitle:
+    fr: "Dégustez, explorez, célébrez — la base de loisirs du lac de Saint-Ferréol"
+    en: "Taste, explore, celebrate — the leisure base at Lake Saint-Ferréol"
+    es: "Deguste, explore, celebre — la base de ocio del lago de Saint-Ferréol"
+poles:
+  restaurantDesc:
+    fr: "Une cuisine simple, locale et gourmande à 30m du lac."
+    en: "Simple, local, and delicious cuisine just 30m from the lake."
+    es: "Cocina sencilla, local y deliciosa a 30m del lago."
+  aventureDesc:
+    fr: "Activités terrestres et aquatiques pour profiter de la nature."
+    en: "Land and water activities to enjoy nature."
+    es: "Actividades terrestres y acuáticas para disfrutar de la naturaleza."
+  salleDesc:
+    fr: "Séminaires, événements et réceptions dans un cadre naturel et inspirant."
+    en: "Seminars, events and receptions in a natural and inspiring setting."
+    es: "Seminarios, eventos y recepciones en un entorno natural e inspirador."
+dayTrip:
+  - timeLabel: "9h00"
+    title:
+      fr: "Arrivée au lac"
+      en: "Arrival at the lake"
+      es: "Llegada al lago"
+    desc:
+      fr: "Traversez la pinède jusqu'au rivage — le lac apparaît entre les arbres, l'air sent le pin et la terre."
+      en: "Walk through the pine forest to the shore — the lake appears between the trees, the air smells of pine and earth."
+      es: "Cruce el pinar hasta la orilla — el lago aparece entre los árboles, el aire huele a pino y tierra."
+    image: /images/journee/arrivee.webp
+    pole: none
+  - timeLabel: "9h30"
+    title:
+      fr: "Activité nature"
+      en: "Nature activity"
+      es: "Actividad en la naturaleza"
+    desc:
+      fr: "Départ en kayak sur le lac, entre amis ou en famille. L'eau calme du matin est un pur bonheur."
+      en: "Set off by kayak on the lake, with friends or family. The calm morning waters are pure bliss."
+      es: "Salida en kayak por el lago, con amigos o en familia. Las aguas tranquilas de la mañana son un placer."
+    image: /images/journee/kayak.webp
+    pole: aventure
+  - timeLabel: "12h30"
+    title:
+      fr: "Déjeuner au bord du lac"
+      en: "Lunch by the lake"
+      es: "Almuerzo junto al lago"
+    desc:
+      fr: "Cuisine locale et gourmande en terrasse, à 30 mètres de l'eau."
+      en: "Local and gourmet cuisine on the terrace, just 30 meters from the water."
+      es: "Cocina local y gourmet en la terraza, a 30 metros del agua."
+    image: /images/journee/dejeuner.webp
+    pole: restaurant
+  - timeLabel: "14h30"
+    title:
+      fr: "Baignade et paddle"
+      en: "Swimming and paddle"
+      es: "Baño y paddle"
+    desc:
+      fr: "Profitez du lac et de ses activités aquatiques tout l'après-midi."
+      en: "Enjoy the lake and its water activities all afternoon long."
+      es: "Disfruta del lago y sus actividades acuáticas durante toda la tarde."
+    image: /images/journee/paddle.webp
+    pole: aventure
+  - timeLabel: "17h00"
+    title:
+      fr: "Détente et farniente"
+      en: "Relax and unwind"
+      es: "Relax y descanso"
+    desc:
+      fr: "Pause à l'ombre des arbres, vue sur le lac et les collines."
+      en: "Rest in the shade of the trees, overlooking the lake and hills."
+      es: "Descanso a la sombra de los árboles, con vistas al lago y las colinas."
+    image: /images/journee/detente.webp
+    pole: none
+  - timeLabel: "19h30"
+    title:
+      fr: "Apéro en terrasse"
+      en: "Sunset drinks on the terrace"
+      es: "Aperitivo en la terraza"
+    desc:
+      fr: "Cocktails et planches à partager au coucher du soleil."
+      en: "Cocktails and sharing platters at sunset."
+      es: "Cócteles y tablas para compartir al atardecer."
+    image: /images/journee/apero.webp
+    pole: restaurant
+soirees:
+  body:
+    fr: "Concerts en terrasse, soirées karaoké, blind test, tapas & drinks — toute la saison, La Terrasse s'anime pour des moments de convivialité face au lac."
+    en: "Live concerts on the terrace, karaoke nights, blind tests, tapas & drinks — all season long, La Terrasse comes alive with convivial moments overlooking the lake."
+    es: "Conciertos en la terraza, noches de karaoke, blind test, tapas & drinks — toda la temporada, La Terrasse se anima con momentos de convivialidad frente al lago."
+history:
+  eyebrow:
+    fr: "Notre histoire"
+    en: "Our history"
+    es: "Nuestra historia"
+  title:
+    fr: "Un lieu chargé d'histoire"
+    en: "A place steeped in history"
+    es: "Un lugar cargado de historia"
+  intro:
+    fr: "Le lac de Saint-Ferréol n'est pas un lac comme les autres."
+    en: "Lake Saint-Ferréol is no ordinary lake."
+    es: "El lago de Saint-Ferréol no es un lago cualquiera."
+  body:
+    fr: "Construit au XVIIe siècle par Pierre-Paul Riquet pour alimenter le Canal du Midi — chef-d'œuvre classé au patrimoine mondial de l'UNESCO — ce lac artificiel est le plus grand réservoir d'eau du canal. Depuis plus de 350 ans, il fait vivre le territoire, attire les promeneurs et incarne l'ingéniosité humaine au service de la nature."
+    en: "Built in the 17th century by Pierre-Paul Riquet to feed the Canal du Midi — a masterpiece listed as a UNESCO World Heritage Site — this artificial lake is the canal's largest water reservoir. For over 350 years, it has sustained the region, drawn visitors, and embodied human ingenuity in harmony with nature."
+    es: "Construido en el siglo XVII por Pierre-Paul Riquet para alimentar el Canal du Midi — obra maestra declarada Patrimonio de la Humanidad por la UNESCO — este lago artificial es el mayor embalse del canal. Desde hace más de 350 años, ha dado vida a la región, atraído visitantes y encarnado la ingeniosidad humana al servicio de la naturaleza."
+  closing:
+    fr: "Aujourd'hui, La Terrasse s'inscrit dans cette histoire en proposant un lieu de vie au bord de l'eau, où l'on vient se retrouver, partager un repas, bouger et profiter d'un cadre exceptionnel."
+    en: "Today, La Terrasse carries on this legacy by offering a vibrant gathering place by the water, where people come to share a meal, stay active, and enjoy an exceptional setting."
+    es: "Hoy, La Terrasse se inscribe en esta historia ofreciendo un lugar de vida junto al agua, donde la gente viene a compartir una comida, moverse y disfrutar de un entorno excepcional."
+cta:
+  eyebrow:
+    fr: "Rendez-vous au lac"
+    en: "Meet us at the lake"
+    es: "Nos vemos en el lago"
+  title:
+    fr: "Venez vivre l'expérience La Terrasse"
+    en: "Come experience La Terrasse"
+    es: "Ven a vivir la experiencia La Terrasse"
+  subtitle:
+    fr: "Une journée, trois univers — à 45 minutes de Toulouse."
+    en: "One day, three worlds — 45 minutes from Toulouse."
+    es: "Un día, tres mundos — a 45 minutos de Toulouse."
+nearby:
+  - name:
+      fr: "Cité de Sorèze"
+      en: "Cité de Sorèze"
+      es: "Cité de Sorèze"
+    image: /images/nearby/abbaye-soreze.webp
+    url: https://www.cite-de-soreze.com/
+    categories:
+      - culture
+      - patrimoine
+    description:
+      fr: "Deux musées, un village médiéval et l'univers coloré de Dom Robert — à 1h de Toulouse, au pied de la Montagne Noire."
+      en: "Two museums, a medieval village and the colorful world of Dom Robert — 1 hour from Toulouse, at the foot of the Montagne Noire."
+      es: "Dos museos, un pueblo medieval y el universo colorido de Dom Robert — a 1 hora de Toulouse, al pie de la Montagne Noire."
+  - name:
+      fr: "Réservoir & Galerie des Robinets"
+      en: "Reservoir & Galerie des Robinets"
+      es: "Embalse y Galería de los Grifos"
+    image: /images/nearby/reservoir-saint-ferreol.webp
+    url: https://www.auxsourcesducanaldumidi.com/decouvrir-vadrouiller-explorer/visiter/le-reservoir-et-la-galerie-de-st-ferreol/
+    categories:
+      - patrimoine
+      - culture
+    description:
+      fr: "Chef-d'œuvre d'ingénierie classé UNESCO, espace découverte du Canal du Midi au cœur de Saint-Ferréol."
+      en: "A UNESCO-listed engineering masterpiece, discovery center of the Canal du Midi in the heart of Saint-Ferréol."
+      es: "Obra maestra de ingeniería clasificada UNESCO, espacio de descubrimiento del Canal du Midi en el corazón de Saint-Ferréol."
+  - name:
+      fr: "Le Marché de Revel"
+      en: "Revel Market"
+      es: "El Mercado de Revel"
+    image: /images/nearby/marche-revel.webp
+    url: https://www.auxsourcesducanaldumidi.com/decouvrir-vadrouiller-explorer/visiter/le-marche-de-revel/
+    categories:
+      - gastronomie
+      - culture
+    description:
+      fr: "L'un des plus beaux marchés de France, sous la halle médiévale de Revel — producteurs locaux, artisanat et convivialité."
+      en: "One of the most beautiful markets in France, under the medieval hall of Revel — local producers, crafts and conviviality."
+      es: "Uno de los mercados más bonitos de Francia, bajo la lonja medieval de Revel — productores locales, artesanía y convivencia."
+  - name:
+      fr: "La Halle & le Beffroi de Revel"
+      en: "The Hall & Belfry of Revel"
+      es: "La Lonja y el Campanario de Revel"
+    image: /images/nearby/beffroi-revel.webp
+    url: https://www.auxsourcesducanaldumidi.com/decouvrir-vadrouiller-explorer/visiter/le-beffroi-de-revel/
+    categories:
+      - patrimoine
+    description:
+      fr: "Symbole historique au cœur de Revel, la halle du XIVe siècle et son beffroi dominent la place centrale."
+      en: "A historic landmark in the heart of Revel, the 14th-century hall and its belfry tower over the central square."
+      es: "Símbolo histórico en el corazón de Revel, la lonja del siglo XIV y su campanario dominan la plaza central."
+  - name:
+      fr: "Château de Saint-Félix"
+      en: "Château de Saint-Félix"
+      es: "Castillo de Saint-Félix"
+    image: /images/nearby/chateau-saint-felix.webp
+    url: https://www.auxsourcesducanaldumidi.com/decouvrir-vadrouiller-explorer/visiter/chateau-de-saint-felix/
+    categories:
+      - patrimoine
+      - culture
+    description:
+      fr: "Château avec une vue imprenable sur le Lauragais, chargé d'histoire cathare et de légendes occitanes."
+      en: "A castle with breathtaking views over the Lauragais, steeped in Cathar history and Occitan legends."
+      es: "Castillo con vistas impresionantes sobre el Lauragais, cargado de historia cátara y leyendas occitanas."
+  - name:
+      fr: "Musée du Bois et de la Marqueterie"
+      en: "Museum of Wood and Marquetry"
+      es: "Museo de la Madera y la Marquetería"
+    image: /images/nearby/musee-bois-revel.webp
+    url: https://museedubois.com/
+    categories:
+      - culture
+    description:
+      fr: "De la coupe de l'arbre au meuble d'art — expositions, artisans et artistes locaux au cœur de Revel."
+      en: "From tree cutting to art furniture — exhibitions, craftsmen and local artists in the heart of Revel."
+      es: "Del corte del árbol al mueble de arte — exposiciones, artesanos y artistas locales en el corazón de Revel."
+  - name:
+      fr: "La Chênaie du Lac"
+      en: "La Chênaie du Lac"
+      es: "La Chênaie du Lac"
+    image: /images/nearby/chenaie-du-lac.webp
+    url: https://la-chenaie-du-lac.fr/
+    categories:
+      - hebergement
+    description:
+      fr: "Gîtes de charme à 100m du lac de Saint-Ferréol — piscine chauffée, parc de 1,5 hectare et vue sur la Montagne Noire."
+      en: "Charming cottages just 100m from Lake Saint-Ferréol — heated pool, 1.5-hectare park and views over the Montagne Noire."
+      es: "Casas rurales con encanto a 100m del lago de Saint-Ferréol — piscina climatizada, parque de 1,5 hectáreas y vistas a la Montagne Noire."
+  - name:
+      fr: "Le Relais des 4 Vents"
+      en: "Le Relais des 4 Vents"
+      es: "Le Relais des 4 Vents"
+    image: /images/nearby/relais-4-vents.webp
+    url: https://www.relaisdes4vents.fr/
+    categories:
+      - hebergement
+    description:
+      fr: "Centre de vacances face au lac de Saint-Ferréol — 41 chambres, jusqu'à 130 couchages, restaurant et salles de réunion dans un parc arboré et sécurisé. Idéal pour groupes, séminaires et séjours scolaires."
+      en: "Holiday centre facing Lake Saint-Ferréol — 41 rooms, up to 130 beds, restaurant and meeting rooms set in a secure, tree-lined park. Ideal for groups, seminars and school trips."
+      es: "Centro vacacional frente al lago de Saint-Ferréol — 41 habitaciones, hasta 130 plazas, restaurante y salas de reuniones en un parque arbolado y seguro. Ideal para grupos, seminarios y excursiones escolares."
+  - name:
+      fr: "Office de Tourisme — Aux Sources du Canal du Midi"
+      en: "Tourist Office — Aux Sources du Canal du Midi"
+      es: "Oficina de Turismo — Aux Sources du Canal du Midi"
+    image: /images/nearby/office-tourisme-saint-ferreol.webp
+    url: https://www.auxsourcesducanaldumidi.com/
+    categories:
+      - culture
+    description:
+      fr: "L'Office de Tourisme intercommunal du Lauragais Revel Sorézois — point d'information à Saint-Ferréol, idées de sorties, hébergements et découverte du patrimoine UNESCO du Canal du Midi."
+      en: "The intercommunal Tourist Office of Lauragais Revel Sorézois — information point in Saint-Ferréol, activity ideas, accommodations and discovery of the UNESCO-listed Canal du Midi heritage."
+      es: "La Oficina de Turismo intercomunal del Lauragais Revel Sorézois — punto de información en Saint-Ferréol, ideas de actividades, alojamientos y descubrimiento del patrimonio UNESCO del Canal du Midi."

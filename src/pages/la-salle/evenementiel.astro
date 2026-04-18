@@ -9,7 +9,7 @@ import SectionHero from '@/components/common/SectionHero.astro';
 import VenueSpecs from '@/components/salle/VenueSpecs.astro';
 import CrossLinkBlock from '@/components/common/CrossLinkBlock.astro';
 import { Icon } from 'astro-icon/components';
-import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedArray } from '@/i18n/utils';
+import { getLangFromUrl, useTranslations, getLocalizedPath, getLocalizedArray, getLocalizedField } from '@/i18n/utils';
 import { buildEventContactMailto, poleConfigs } from '@/lib/pole-config';
 import { getSiteSettings } from '@/lib/site-settings';
 import { createReader } from '@keystatic/core/reader';
@@ -23,40 +23,32 @@ const t = useTranslations(lang);
 const siteSettings = await getSiteSettings();
 const siteEmail = siteSettings?.email ?? '';
 
-// Load venue data
+// Load venue data (capacity/equipment) + page-specific content
 const reader = createReader(process.cwd(), keystaticConfig);
-const venueData = await reader.singletons.venue.read();
+const venueData = await reader.singletons.salleHub.read();
+const pageTexts = await reader.singletons.salleEvenementiel.read();
 const capacityMax = venueData?.space.capacityMax ?? 0;
 const surfaceM2 = venueData?.space.surfaceM2 ?? 0;
 const equipment = getLocalizedArray(venueData ?? {}, 'equipment', lang);
 const layoutSuggestions = getLocalizedArray(venueData ?? {}, 'layoutSuggestions', lang);
 
-const eventTypes = [
-  {
-    title: t('salle.evenementiel.concerts'),
-    description: t('salle.evenementiel.concerts.desc'),
-    icon: 'lucide:music',
-    image: '/images/salle/concert.webp',
-  },
-  {
-    title: t('salle.evenementiel.foires'),
-    description: t('salle.evenementiel.foires.desc'),
-    icon: 'lucide:store',
-    image: '/images/salle/exposition.webp',
-  },
-  {
-    title: t('salle.evenementiel.soirees'),
-    description: t('salle.evenementiel.soirees.desc'),
-    icon: 'lucide:sparkles',
-    image: '/images/salle/soirees-privees.webp',
-  },
-  {
-    title: t('salle.evenementiel.marches'),
-    description: t('salle.evenementiel.marches.desc'),
-    icon: 'lucide:shopping-bag',
-    image: '/images/salle/foire-expo.webp',
-  },
-];
+const tx = (path: string) => {
+  const [section, field] = path.split('.');
+  return getLocalizedField(
+    ((pageTexts as Record<string, unknown> | null)?.[section] as Record<string, unknown>) ?? {},
+    field,
+    lang,
+  );
+};
+
+const typesSectionTitle = getLocalizedField(pageTexts ?? {}, 'typesTitle', lang);
+
+const eventTypes = (pageTexts?.types ?? []).map((type) => ({
+  title: getLocalizedField(type, 'title', lang),
+  description: getLocalizedField(type, 'desc', lang),
+  icon: `lucide:${type.icon}`,
+  image: type.image || '',
+}));
 
 const seoTitle = 'Location de salle événementielle au lac de Saint-Ferréol, près de Toulouse';
 const seoDescription = 'Salle événementielle au lac de Saint-Ferréol, entre Toulouse et Castres. Concerts, foires, expositions, soirées privées. Espace modulable jusqu\'à 120 personnes.';
@@ -70,14 +62,14 @@ const seoDescription = 'Salle événementielle au lac de Saint-Ferréol, entre T
 >
   <!-- Hero -->
   <SectionHero
-    tagline={t('salle.evenementiel.hero.tagline')}
-    subtitle={t('salle.evenementiel.hero.subtitle')}
+    tagline={tx('hero.tagline')}
+    subtitle={tx('hero.subtitle')}
     pole="salle"
     image="/images/heroes/evenementiel.webp"
     breadcrumb={{ parentLabel: t('nav.salle'), parentHref: getLocalizedPath('/la-salle', lang), currentLabel: t('nav.salle.evenementiel') }}
   >
     <a href={buildEventContactMailto(siteEmail)} class="bg-white text-salle px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all inline-flex items-center gap-2">
-      {t('salle.evenementiel.cta')}
+      {tx('cta.label')}
     </a>
   </SectionHero>
 
@@ -86,10 +78,10 @@ const seoDescription = 'Salle événementielle au lac de Saint-Ferréol, entre T
     <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
       <p class="section-eyebrow mb-3" style={`color: ${salleAccent}80;`}>La Salle</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4 text-gray-900">
-        {t('salle.evenementiel.intro.title')}
+        {tx('intro.title')}
       </h2>
       <p class="text-gray-600 leading-relaxed max-w-2xl mx-auto">
-        {t('salle.evenementiel.intro.desc')}
+        {tx('intro.desc')}
       </p>
     </div>
   </section>
@@ -100,7 +92,7 @@ const seoDescription = 'Salle événementielle au lac de Saint-Ferréol, entre T
       <div class="text-center mb-12" data-reveal>
         <p class="section-eyebrow mb-3" style={`color: ${salleAccent}80;`}>Événementiel</p>
         <h2 class="font-heading text-2xl lg:text-3xl font-bold text-gray-900">
-          {t('salle.evenementiel.types.title')}
+          {typesSectionTitle}
         </h2>
       </div>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8" data-reveal-stagger>
@@ -157,15 +149,15 @@ const seoDescription = 'Salle événementielle au lac de Saint-Ferréol, entre T
     <div class="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center" data-reveal>
       <p class="section-eyebrow text-white/40 mb-3">Contact</p>
       <h2 class="font-heading text-2xl lg:text-3xl font-bold mb-4">
-        {t('salle.evenementiel.intro.title')}
+        {tx('intro.title')}
       </h2>
       <p class="text-white/70 mb-8 max-w-xl mx-auto">
-        {t('salle.evenementiel.intro.desc')}
+        {tx('intro.desc')}
       </p>
       <div class="flex flex-wrap justify-center gap-4">
         <a href={buildEventContactMailto(siteEmail)} class="bg-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:shadow-lg hover:-translate-y-px inline-flex items-center gap-2" style={`color: ${salleAccent};`}>
           <Icon name="lucide:mail" class="w-4 h-4" />
-          {t('salle.evenementiel.cta')}
+          {tx('cta.label')}
         </a>
         <a href={getLocalizedPath('/la-salle', lang)} class="px-7 py-3.5 rounded-full font-heading font-semibold text-sm transition-all hover:bg-white/10 inline-flex items-center gap-2 border border-white/20 text-white">
           {t('salle.venue.title')}
