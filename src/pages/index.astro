@@ -17,6 +17,7 @@ import AgendaFloatingWidget from '@/components/homepage/AgendaFloatingWidget.ast
 import SoireesSection from '@/components/homepage/SoireesSection.astro';
 import OffreJournee from '@/components/common/OffreJournee.astro';
 import NearbySection from '@/components/homepage/NearbySection.astro';
+import MudParkSection from '@/components/homepage/MudParkSection.astro';
 import Icon from '@/components/common/Icon.astro';
 import { createReader } from '@keystatic/core/reader';
 import keystaticConfig from '../../keystatic.config';
@@ -178,6 +179,9 @@ const poleDescriptions = {
 
   <!-- 9. À PROXIMITÉ — Nearby places of interest -->
     <NearbySection lang={lang} />
+
+  <!-- 10. MUD PARK 2026 — Cross-promo événement organisé par l'équipe sur la base -->
+    <MudParkSection lang={lang} />
 
 
   <!-- Riquet sunburst: rotate on hover -->

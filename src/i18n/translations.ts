@@ -32,6 +32,17 @@ export const translations = {
     'home.nearby.eyebrow': 'Que faire ?',
     'home.nearby.title': 'À découvrir à proximité',
     'home.nearby.visit': 'Visiter le site',
+    'home.mudpark.eyebrow': '30 mai 2026',
+    'home.mudpark.title': 'Mud Park arrive bientôt',
+    'home.mudpark.intro': 'Le 30 mai 2026, la base devient le terrain de jeu de Mud Park : 24 obstacles, 4 ou 8 km dans la boue, dans le cadre UNESCO du lac.',
+    'home.mudpark.body': 'Course à obstacles dans la boue, accessible de 7 à 77 ans, en famille, entre amis ou en équipe. Pas de chrono, pas de podium : juste un parcours à traverser ensemble, à son rythme, entre pinède, plage et cascades. On rit fort, on s\'éclabousse, et tout le monde finit la journée sur la terrasse.',
+    'home.mudpark.dateLabel': 'Rendez-vous le',
+    'home.mudpark.date': '30 mai 2026',
+    'home.mudpark.placeLabel': 'Lieu',
+    'home.mudpark.place': 'Base de loisir · Saint-Ferréol',
+    'home.mudpark.cta': 'Découvrir Mud Park',
+    'home.mudpark.ctaSecondary': 'Voir le parcours',
+    'home.mudpark.imageAlt': 'Participants en pleine action sur un obstacle Mud Park',
 
 
     // Restaurant
@@ -285,6 +296,17 @@ export const translations = {
     'home.nearby.eyebrow': 'What to do?',
     'home.nearby.title': 'Discover nearby',
     'home.nearby.visit': 'Visit website',
+    'home.mudpark.eyebrow': 'May 30, 2026',
+    'home.mudpark.title': 'Mud Park is coming soon',
+    'home.mudpark.intro': 'On May 30, 2026, the base becomes the playground of Mud Park: 24 obstacles, 4 or 8 km through the mud, in the UNESCO-listed setting of the lake.',
+    'home.mudpark.body': 'Obstacle course in the mud, open to every age from 7 to 77, families, friends or crews. No clock, no podium: just a course to cross together, at your own pace, between pine forest, beach and waterfalls. Loud laughs, big splashes — and everyone wraps up the day on the terrace.',
+    'home.mudpark.dateLabel': 'Save the date',
+    'home.mudpark.date': '30 May 2026',
+    'home.mudpark.placeLabel': 'Where',
+    'home.mudpark.place': 'Leisure base · Saint-Ferréol',
+    'home.mudpark.cta': 'Discover Mud Park',
+    'home.mudpark.ctaSecondary': 'See the course',
+    'home.mudpark.imageAlt': 'Participants in action on a Mud Park obstacle',
 
 
     'restaurant.producers.title': 'Our local producers',
@@ -532,6 +554,17 @@ export const translations = {
     'home.nearby.eyebrow': '¿Qué hacer?',
     'home.nearby.title': 'Descubrir cerca',
     'home.nearby.visit': 'Visitar el sitio',
+    'home.mudpark.eyebrow': '30 de mayo de 2026',
+    'home.mudpark.title': 'Mud Park llega pronto',
+    'home.mudpark.intro': 'El 30 de mayo de 2026, la base se transforma en el escenario de Mud Park: 24 obstáculos, 4 u 8 km a través del barro, en el entorno UNESCO del lago.',
+    'home.mudpark.body': 'Carrera de obstáculos en el barro, abierta de 7 a 77 años, en familia, entre amigos o por equipos. Sin cronómetro, sin podio: solo un recorrido para cruzar juntos, a tu ritmo, entre pinar, playa y cascadas. Risas, salpicaduras — y todos terminan el día en la terraza.',
+    'home.mudpark.dateLabel': 'Reserva la fecha',
+    'home.mudpark.date': '30 de mayo de 2026',
+    'home.mudpark.placeLabel': 'Dónde',
+    'home.mudpark.place': 'Base de ocio · Saint-Ferréol',
+    'home.mudpark.cta': 'Descubrir Mud Park',
+    'home.mudpark.ctaSecondary': 'Ver el recorrido',
+    'home.mudpark.imageAlt': 'Participantes en plena acción en un obstáculo de Mud Park',
 
 
     'restaurant.producers.title': 'Nuestros productores locales',
