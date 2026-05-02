@@ -15,7 +15,7 @@ interface Props {
 const { lang } = Astro.props;
 const t = useTranslations(lang);
 
-const mudparkUrl = 'https://mud-park.fr';
+const mudparkUrl = 'https://mud-park.fr/?utm_source=baseloisirs-saintferreol&utm_medium=cross-promo&utm_campaign=mudpark-2026';
 ---
 
 <section class="relative py-(--spacing-section-mobile) lg:py-(--spacing-section) bg-offwhite overflow-hidden">
@@ -62,8 +62,8 @@ const mudparkUrl = 'https://mud-park.fr';
           <a
             href={mudparkUrl}
             target="_blank"
-            rel="noopener noreferrer"
-            class="inline-flex items-center gap-2 bg-brun-terre text-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all"
+            rel="noopener"
+            class="plausible-event-name=Cross+Promo+Click plausible-event-target=mudpark plausible-event-source=baseloisir inline-flex items-center gap-2 bg-brun-terre text-white px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all"
           >
             {t('home.mudpark.cta')}
             <Icon name="lucide:arrow-up-right" class="w-4 h-4" />
