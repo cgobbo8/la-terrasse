@@ -1,5 +1,9 @@
 FROM node:22-alpine AS base
-RUN corepack enable && corepack prepare pnpm@latest --activate
+# Pinned, NOT @latest: a floating pnpm broke the build once already. Newer pnpm
+# stopped reading pnpm.onlyBuiltDependencies from package.json, so sharp and
+# esbuild lost their build scripts and `pnpm install` exited 1. Keep this in sync
+# with "packageManager" in package.json.
+RUN corepack enable && corepack prepare pnpm@10.24.0 --activate
 
 # --- Dependencies ---
 FROM base AS deps

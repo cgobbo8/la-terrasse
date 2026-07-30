@@ -2,6 +2,7 @@
   "name": "la-terrasse-saint-ferreol",
   "version": "0.1.0",
   "type": "module",
+  "packageManager": "pnpm@10.24.0",
   "scripts": {
     "dev": "astro dev",
     "optimize-images": "node scripts/optimize-images.mjs",
