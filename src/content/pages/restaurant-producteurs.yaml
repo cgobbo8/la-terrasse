@@ -3,6 +3,8 @@ hero:
     fr: "Les producteurs locaux derrière chaque assiette"
     en: "The local producers behind every dish"
     es: "Los productores locales detrás de cada plato"
+  image: /images/heroes/producteurs/producteurs.webp
+  imagePosition: center
 intro:
   fr: "Nous travaillons main dans la main avec les producteurs locaux. Circuits courts, produits de saison, savoir-faire transmis de génération en génération — chaque assiette raconte une histoire."
   en: "We work hand in hand with local producers. Short supply chains, seasonal products, skills passed down through generations — every plate tells a story."

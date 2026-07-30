@@ -7,6 +7,8 @@ hero:
     fr: "Séminaires, concerts, congrès, foires — une salle modulable au cœur du lac de Saint-Ferréol"
     en: "Seminars, concerts, conferences, exhibitions — a versatile venue at the heart of Lake Saint-Ferréol"
     es: "Seminarios, conciertos, congresos, ferias — un espacio versátil en el corazón del lago de Saint-Ferréol"
+  image: /images/heroes/salle/salle.webp
+  imagePosition: center
 overview:
   eyebrow:
     fr: "L'espace"

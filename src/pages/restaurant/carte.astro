@@ -83,7 +83,8 @@ function label(key: keyof typeof periodLabels) {
     tagline={tx('hero.title')}
     subtitle={tx('hero.subtitle')}
     pole="restaurant"
-    image="/images/heroes/carte.webp"
+    image={pageTexts?.hero?.image ?? '/images/heroes/carte.webp'}
+    imagePosition={pageTexts?.hero?.imagePosition}
     breadcrumb={{ parentLabel: t('nav.restaurant'), parentHref: getLocalizedPath('/restaurant', lang), currentLabel: t('restaurant.menu.breadcrumb') }}
   />
 

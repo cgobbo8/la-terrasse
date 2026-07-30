@@ -7,6 +7,8 @@ hero:
     fr: "Séminaires, réunions et team building au lac de Saint-Ferréol, près de Toulouse"
     en: "Seminars, meetings and team building at Lake Saint-Ferréol, near Toulouse"
     es: "Seminarios, reuniones y team building en el lago de Saint-Ferréol, cerca de Toulouse"
+  image: /images/heroes/seminaires/seminaires.webp
+  imagePosition: center
 config:
   eyebrow:
     fr: "Configurateur"

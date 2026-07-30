@@ -74,7 +74,8 @@ const subPages = [
     tagline={tx('hero.tagline')}
     subtitle={tx('hero.subtitle')}
     pole="restaurant"
-    image="/images/heroes/restaurant.webp"
+    image={pageTexts?.hero?.image ?? '/images/heroes/restaurant.webp'}
+    imagePosition={pageTexts?.hero?.imagePosition}
   >
     <div class="flex flex-wrap gap-4">
       <a

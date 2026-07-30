@@ -7,6 +7,8 @@ hero:
     fr: "Activités terrestres et aquatiques au lac de Saint-Ferréol"
     en: "Land and water activities at Lake Saint-Ferréol"
     es: "Actividades terrestres y acuáticas en el lago de Saint-Ferréol"
+  image: /images/heroes/aventure/aventure.webp
+  imagePosition: center
 intro:
   eyebrow:
     fr: "Le terrain de jeu"

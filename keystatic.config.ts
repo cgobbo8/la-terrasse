@@ -15,6 +15,51 @@ const i18n = (label: string, multiline = false) =>
   );
 
 /**
+ * Helper: hero photo + framing, spread into a page's `hero` object.
+ *
+ * Keystatic ships no crop tooling — fields.image() only stores the file and its
+ * path. Heroes render with object-cover, so `imagePosition` is what lets an
+ * operator rescue an off-centre upload without re-cropping the file.
+ *
+ * `slug` MUST be unique per page. Keystatic names an upload after the field's
+ * path in the schema, not after the uploaded file — every hero here resolves to
+ * `hero/image.<ext>`, so a shared directory would make all 9 pages overwrite one
+ * another. The per-page directory is what keeps them apart.
+ *
+ * It also confines Keystatic's writes to `heroes/<slug>/`, which is what makes
+ * the two copies of each hero photo work:
+ *
+ *   heroes/<slug>/<name>.webp  seeded, CMS-owned. Gives the admin a preview of
+ *                              the live photo; Keystatic deletes it on replace.
+ *   heroes/<name>.webp         built-in, out of Keystatic's reach. Backs the `??`
+ *                              fallback in the page, and for contact /
+ *                              evenementiel / seminaires it is also the hardcoded
+ *                              decorative image used by the homepage background
+ *                              and the La Salle cards — a CMS delete would 404 it.
+ */
+const heroPhoto = (slug: string) => ({
+  image: fields.image({
+    label: 'Photo du hero',
+    directory: `public/images/heroes/${slug}`,
+    publicPath: `/images/heroes/${slug}/`,
+    description:
+      'Image horizontale 16/9, idéalement 1920×1080. WebP compressé de préférence (sinon converti automatiquement). Champ vide = photo actuelle conservée.',
+  }),
+  imagePosition: fields.select({
+    label: 'Cadrage de la photo',
+    description: 'Zone à garder visible si l\'image est rognée.',
+    defaultValue: 'center',
+    options: [
+      { label: 'Centre (par défaut)', value: 'center' },
+      { label: 'Haut', value: 'top' },
+      { label: 'Bas', value: 'bottom' },
+      { label: 'Gauche', value: 'left' },
+      { label: 'Droite', value: 'right' },
+    ],
+  }),
+});
+
+/**
  * Inline-style injector for the Keystatic admin UI. Stylesheet rules lose a
  * cascade fight against Keystar's :where(.kui:reset) + Emotion's late-injected
  * styles on the group elements themselves, so we apply the separators via
@@ -523,6 +568,7 @@ export default config({
           {
             tagline: i18n('Tagline'),
             subtitle: i18n('Sous-titre', true),
+            ...heroPhoto('restaurant'),
           },
           {
             label: 'Hero',
@@ -604,6 +650,7 @@ export default config({
           {
             title: i18n('Titre'),
             subtitle: i18n('Sous-titre'),
+            ...heroPhoto('carte'),
           },
           {
             label: 'En-tête de la page',
@@ -707,6 +754,7 @@ export default config({
         hero: fields.object(
           {
             subtitle: i18n('Sous-titre sous le titre « Nos producteurs locaux »'),
+            ...heroPhoto('producteurs'),
           },
           {
             label: 'En-tête de la page',
@@ -758,6 +806,7 @@ export default config({
           {
             tagline: i18n('Grand titre'),
             subtitle: i18n('Phrase d\'accroche', true),
+            ...heroPhoto('salle'),
           },
           {
             label: 'En-tête de la page',
@@ -922,6 +971,7 @@ export default config({
           {
             tagline: i18n('Grand titre'),
             subtitle: i18n('Phrase d\'accroche', true),
+            ...heroPhoto('evenementiel'),
           },
           {
             label: 'En-tête de la page',
@@ -986,6 +1036,7 @@ export default config({
           {
             tagline: i18n('Grand titre'),
             subtitle: i18n('Phrase d\'accroche', true),
+            ...heroPhoto('seminaires'),
           },
           {
             label: 'En-tête de la page',
@@ -1213,6 +1264,7 @@ export default config({
           {
             tagline: i18n('Tagline'),
             subtitle: i18n('Sous-titre', true),
+            ...heroPhoto('aventure'),
           },
           {
             label: 'Hero',
@@ -1352,6 +1404,7 @@ export default config({
           {
             tagline: i18n('Grand titre'),
             subtitle: i18n('Phrase d\'accroche', true),
+            ...heroPhoto('contact'),
           },
           {
             label: 'En-tête de la page',
@@ -1451,6 +1504,7 @@ export default config({
           {
             tagline: i18n('Grand titre'),
             subtitle: i18n('Phrase d\'accroche', true),
+            ...heroPhoto('agenda'),
           },
           {
             label: 'En-tête de la page',

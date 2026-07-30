@@ -7,6 +7,8 @@ hero:
     fr: "Concerts, foires, expositions, soirées privées — une salle modulable au bord du lac"
     en: "Concerts, fairs, exhibitions, private parties — a versatile venue by the lake"
     es: "Conciertos, ferias, exposiciones, fiestas privadas — un espacio versátil junto al lago"
+  image: /images/heroes/evenementiel/evenementiel.webp
+  imagePosition: center
 intro:
   title:
     fr: "Un lieu qui s'adapte à vos projets"

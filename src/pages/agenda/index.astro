@@ -106,7 +106,8 @@ function getCategoryLabel(category: string): string {
   <SectionHero
     tagline={tx('hero.tagline')}
     subtitle={tx('hero.subtitle')}
-    image="/images/heroes/agenda.webp"
+    image={pageTexts?.hero?.image ?? '/images/heroes/agenda.webp'}
+    imagePosition={pageTexts?.hero?.imagePosition}
   />
 
   <section class="py-(--spacing-section-mobile) lg:py-(--spacing-section)">

@@ -65,7 +65,8 @@ const seoDescription = 'Salle événementielle au lac de Saint-Ferréol, entre T
     tagline={tx('hero.tagline')}
     subtitle={tx('hero.subtitle')}
     pole="salle"
-    image="/images/heroes/evenementiel.webp"
+    image={pageTexts?.hero?.image ?? '/images/heroes/evenementiel.webp'}
+    imagePosition={pageTexts?.hero?.imagePosition}
     breadcrumb={{ parentLabel: t('nav.salle'), parentHref: getLocalizedPath('/la-salle', lang), currentLabel: t('nav.salle.evenementiel') }}
   >
     <a href={buildEventContactMailto(siteEmail)} class="bg-white text-salle px-7 py-3.5 rounded-full font-heading font-semibold text-sm hover:shadow-lg hover:-translate-y-px transition-all inline-flex items-center gap-2">

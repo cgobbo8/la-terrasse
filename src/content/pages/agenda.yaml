@@ -7,6 +7,8 @@ hero:
     fr: "Concerts, soirées, marchés et événements au lac de Saint-Ferréol"
     en: "Concerts, nights out, markets and events at Lake Saint-Ferréol"
     es: "Conciertos, noches, mercados y eventos en el lago de Saint-Ferréol"
+  image: /images/heroes/agenda/agenda.webp
+  imagePosition: center
 emptyMessage:
   fr: "Pas d'événements prévus pour le moment. Revenez bientôt !"
   en: "No events scheduled at the moment. Come back soon!"

@@ -9,14 +9,26 @@ interface Props {
   subtitle?: string;
   pole?: 'restaurant' | 'aventure' | 'salle' | null;
   /** Optional background image path */
-  image?: string;
+  image?: string | null;
+  /** Which part of the image to keep visible when object-cover crops it */
+  imagePosition?: string | null;
   /** Extra CSS classes on the outer section (e.g. min-height) */
   class?: string;
   /** Optional breadcrumb — displayed above the title in the hero */
   breadcrumb?: { parentLabel: string; parentHref: string; currentLabel: string };
 }
 
-const { tagline, subtitle, pole = null, image, class: className, breadcrumb } = Astro.props;
+const {
+  tagline,
+  subtitle,
+  pole = null,
+  image,
+  imagePosition,
+  class: className,
+  breadcrumb,
+} = Astro.props;
+
+const objectPosition = imagePosition ?? 'center';
 
 const accentColors: Record<string, string> = {
   restaurant: 'from-restaurant/80',
@@ -38,6 +50,7 @@ const overlayClass = pole ? accentColors[pole] ?? 'from-brun-terre/80' : 'from-b
       width={1920}
       height={1080}
       class="absolute inset-0 w-full h-full object-cover scale-[1.15]"
+      style={`object-position: ${objectPosition}`}
       loading="eager"
       fetchpriority="high"
       decoding="sync"

@@ -67,7 +67,8 @@ const jsonLd = generateLocalBusinessLD();
   <SectionHero
     tagline={tx('hero.tagline')}
     subtitle={tx('hero.subtitle')}
-    image="/images/heroes/contact.webp"
+    image={pageTexts?.hero?.image ?? '/images/heroes/contact.webp'}
+    imagePosition={pageTexts?.hero?.imagePosition}
   />
 
   <!-- Contact info + Hours + Map -->

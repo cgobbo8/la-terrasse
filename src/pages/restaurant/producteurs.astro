@@ -54,7 +54,8 @@ const seoDescription = 'Découvrez les producteurs locaux qui fournissent le res
     tagline={t('restaurant.producers.title')}
     subtitle={tx('hero.subtitle')}
     pole="restaurant"
-    image="/images/heroes/producteurs.webp"
+    image={pageTexts?.hero?.image ?? '/images/heroes/producteurs.webp'}
+    imagePosition={pageTexts?.hero?.imagePosition}
     breadcrumb={{ parentLabel: t('nav.restaurant'), parentHref: getLocalizedPath('/restaurant', lang), currentLabel: t('restaurant.producers.breadcrumb') }}
   />
 
